@@ -1,39 +1,15 @@
 <script lang="ts" setup>
-// import { ref } from 'vue'
+import NationalForm from '@/components/nationals/NationalForm.vue'
 </script>
 
 <template>
-  <main class="container mx-auto">
-    <FormKit type="form">
-      <div>
-        <span class="divider text-xl font-bold"> Datos Personales </span>
+  <header class="flex flex-col text-center text-2xl font-bold">
+    <span>República de Panamá</span>
+    <span>Transmisión de Mando Presidencial 2024</span>
+    <span>Acreditación Nacional</span>
+  </header>
 
-        <div class="my-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <FormKit
-            type="text"
-            name="name"
-            id="name"
-            label="Nombre"
-            validation="required|not:Admin"
-          />
-
-          <FormKit
-            type="text"
-            name="name"
-            id="name"
-            label="Nombre"
-            validation="required|not:Admin"
-          />
-
-          <FormKit
-            type="text"
-            name="name"
-            id="name"
-            label="Nombre"
-            validation="required|not:Admin"
-          />
-        </div>
-      </div>
-    </FormKit>
+  <main class="mt-10">
+    <NationalForm />
   </main>
 </template>
