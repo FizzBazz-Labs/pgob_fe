@@ -77,9 +77,7 @@ enum MedicalHistory {
 <template>
   <FormKit
     type="form"
-    :submit-attrs="{
-      'suffix-icon': 'submit',
-    }"
+    :submit-attrs="{ 'suffix-icon': 'submit' }"
   >
     <div class="flex gap-4">
       <div class="w-1/2">

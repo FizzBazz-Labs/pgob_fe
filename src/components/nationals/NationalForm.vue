@@ -1,58 +1,65 @@
 <script lang="ts" setup>
-enum BloodType {
-  A_POSITIVE = 'A+',
-  A_NEGATIVE = 'A-',
-  B_POSITIVE = 'B+',
-  B_NEGATIVE = 'B-',
-  O_POSITIVE = 'O+',
-  O_NEGATIVE = 'O-',
-  AB_POSITIVE = 'AB+',
-  AB_NEGATIVE = 'AB-',
-}
+import { computed, ref } from 'vue'
 
-enum Position {
-  PRESIDENT = 'Presidente',
-  VICE_PRESIDENT = 'Vicepresidente',
-}
+import { useFormSelect } from '@/composables/FormSelect'
 
-enum SubPosition {
-  PRESIDENT = 'Presidente',
-}
+const placeholder = 'https://placeholder.co/150x250/f3f3f2/white?text=150x250'
 
-enum MediaChannel {
-  TV = 'Televisión',
-  RADIO = 'Radio',
-  NEWSPAPER = 'Periódico',
-  INTERNET = 'Internet',
-  SOCIAL_MEDIA = 'Redes Sociales',
-  OTHER = 'Otro',
-}
+const values = ref<Record<string, unknown>>({})
 
-enum AccreditationType {
-  NATIONAL = 'Nacional',
-  INTERNATIONAL = 'Internacional',
+const { positions, subPositions, showChannels, channels, bloods, nationalTypes } = useFormSelect({
+  values,
+})
+
+const preview = computed(() => {
+  if (!values.value.image) return placeholder
+
+  const image = values.value.image as Array<{ file: File }>
+
+  if (image.length === 0) return placeholder
+
+  return URL.createObjectURL(image[0].file)
+})
+
+function onSubmit() {
+  const body = new FormData()
+
+  const image = values.value.image as Array<{ file: File }>
+  if (image.length > 0) {
+    body.append('image', image[0].file)
+  }
 }
 </script>
 
 <template>
-  <FormKit type="form">
+  <FormKit
+    type="form"
+    v-model="values"
+    submit-label="Crear"
+    :submit-attrs="{ 'suffix-icon': 'submit' }"
+    @submit="onSubmit"
+  >
     <div class="flex gap-4">
       <div class="w-1/2">
         <h2 class="divider divider-start text-xl font-bold">Datos Personales</h2>
 
-        <FormKit
-          type="text"
-          name="firstName"
-          label="Nombre"
-          validation="required"
-        />
+        <div class="grid grid-cols-2 gap-4">
+          <FormKit
+            type="text"
+            name="firstName"
+            label="Nombre"
+            maxlength="150"
+            validation="required"
+          />
 
-        <FormKit
-          type="text"
-          name="lastName"
-          label="Apellido"
-          validation="required"
-        />
+          <FormKit
+            type="text"
+            name="lastName"
+            label="Apellido"
+            maxlength="150"
+            validation="required"
+          />
+        </div>
 
         <FormKit
           type="text"
@@ -61,55 +68,79 @@ enum AccreditationType {
           validation="required"
         />
 
-        <FormKit
-          type="date"
-          name="birthday"
-          label="Fecha de Nacimiento"
-          validation="required"
-        />
+        <div class="grid grid-cols-4 gap-4">
+          <FormKit
+            type="text"
+            name="birthplace"
+            label="Lugar de Nacimiento"
+            validation="required"
+            outer-class="col-span-3"
+          />
+
+          <FormKit
+            type="date"
+            name="birthday"
+            label="Fecha de Nacimiento"
+            validation="required"
+          />
+        </div>
+
+        <div class="grid grid-cols-4 gap-4">
+          <FormKit
+            type="select"
+            name="bloodType"
+            label="Tipo de Sangre"
+            validation="required"
+            :options="bloods"
+            select-icon="down"
+          />
+        </div>
+
+        <h2 class="divider divider-start text-xl font-bold">Cargo en el Evento</h2>
+
+        <div
+          class="grid gap-4"
+          :class="{
+            'grid-cols-1': subPositions.length === 0,
+            'grid-cols-2': subPositions.length !== 0,
+          }"
+        >
+          <FormKit
+            type="select"
+            name="position"
+            label="Posición"
+            validation="required"
+            :options="positions"
+            select-icon="down"
+          />
+
+          <FormKit
+            v-if="subPositions.length !== 0"
+            type="select"
+            name="subPosition"
+            label="Tipo de Cargo"
+            validation="required"
+            :options="subPositions"
+            select-icon="down"
+          />
+        </div>
 
         <FormKit
-          type="text"
-          name="birthplace"
-          label="Lugar de Nacimiento"
-          validation="required"
-        />
-
-        <FormKit
-          type="select"
-          name="bloodType"
-          label="Tipo de Sangre"
-          validation="required"
-          :options="BloodType"
-        />
-
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Cargo en el Evento</h2>
-
-        <FormKit
-          type="select"
-          name="position"
-          label="Posición"
-          validation="required"
-          :options="Position"
-        />
-
-        <FormKit
-          type="select"
-          name="subPosition"
-          label="Tipo de Cargo"
-          validation="required"
-          :options="SubPosition"
-        />
-
-        <FormKit
+          v-if="showChannels"
           type="select"
           name="mediaChannel"
           label="Medio de Comunicación"
           validation="required"
-          :options="MediaChannel"
+          :options="channels"
+          select-icon="down"
         />
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Contacto</h2>
+        <h2
+          class="divider divider-start text-xl font-bold"
+          :class="{ 'mt-6': showChannels }"
+        >
+          Datos de Contacto
+        </h2>
 
         <FormKit
           type="text"
@@ -153,7 +184,8 @@ enum AccreditationType {
           name="type"
           label="Tipo de acreditación"
           validation="required"
-          :options="AccreditationType"
+          :options="nationalTypes"
+          select-icon="down"
         />
       </div>
 
@@ -161,39 +193,48 @@ enum AccreditationType {
 
       <div class="flex w-1/4 flex-col gap-4">
         <div>
-          <div class="card mb-4">
-            <img
-              :src="'https://via.placeholder.com/150'"
-              alt="Foto"
-              class="h-48 w-full rounded-md object-cover"
-            />
-          </div>
-
           <FormKit
             type="file"
             name="image"
-            label="Foto"
+            label="Foto Personal"
+            validation="required"
             accept=".png,.jpg,.webp"
+            file-item-icon="fileDoc"
+            file-remove-icon="close"
+            no-files-icon="fileDoc"
           />
-        </div>
 
-        <div>
           <div class="card mb-4">
             <img
-              :src="'https://via.placeholder.com/150'"
+              :src="preview"
               alt="Foto"
-              class="h-48 w-full rounded-md object-cover"
+              class="h-[350px] w-full rounded-md bg-base-200 object-contain"
             />
           </div>
+        </div>
 
+        <div v-if="showChannels">
           <FormKit
             type="file"
             name="letter"
             label="Carta de Autorización"
+            validation="required"
             accept=".png,.jpg,.webp"
+            file-item-icon="fileDoc"
+            file-remove-icon="close"
+            no-files-icon="fileDoc"
           />
+
+          <div class="card mb-4">
+            <img
+              :src="'https://placeholder.co/150x150/f3f3f2/red?text=250x150'"
+              alt="Foto"
+              class="h-48 w-full rounded-md object-cover"
+            />
+          </div>
         </div>
       </div>
     </div>
   </FormKit>
 </template>
+@/services/PositionService

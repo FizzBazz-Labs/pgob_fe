@@ -21,15 +21,3 @@ export interface NationalAccreditation {
   createdAt: string
   updatedAt: string
 }
-
-export enum NationalAccreditationType {
-  generalCoordination = 'General Coordination',
-  protocol = 'Protocol',
-  security = 'Security',
-  technicalStaff = 'Technical Staff',
-  officialDelegation = 'Official Delegation',
-  link = 'Link',
-  supplier = 'Supplier',
-  newsletterCommittee = 'Newsletter Committee',
-  commercialNewsletter = 'Commercial Newsletter',
-}

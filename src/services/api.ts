@@ -1,9 +1,9 @@
-import { useGlobalStore } from '@/stores/global'
+import { useAuthStore } from '@/stores/auth'
 
 const BASE_URL = import.meta.env.VITE_API_URL
 
 function getHeaders() {
-  const store = useGlobalStore()
+  const store = useAuthStore()
 
   const headers = new Headers()
   headers.append('Content-Type', 'application/json')
