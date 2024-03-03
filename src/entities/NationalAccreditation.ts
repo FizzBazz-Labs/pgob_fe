@@ -1,5 +1,3 @@
-import { BloodType } from '@/entities/Medical'
-
 export interface NationalAccreditation {
   id: number
   image: string
@@ -17,14 +15,14 @@ export interface NationalAccreditation {
   email: string
   birthday: string
   birthplace: string
-  bloodType: BloodType
-  type: NationalAccreditationType
+  bloodType: string
+  type: string
   createdBy: string
   createdAt: string
   updatedAt: string
 }
 
-enum NationalAccreditationType {
+export enum NationalAccreditationType {
   generalCoordination = 'General Coordination',
   protocol = 'Protocol',
   security = 'Security',
