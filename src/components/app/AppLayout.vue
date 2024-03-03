@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ArrowLeftStartOnRectangleIcon } from '@heroicons/vue/24/outline'
-
 import logo from '@/assets/logos/logo.png'
+
+import { NationalAccreditationCreateView, InternationalAccreditationCreateView } from '@/router'
 </script>
 
 <template>
@@ -33,17 +33,30 @@ import logo from '@/assets/logos/logo.png'
       </div>
 
       <ul class="menu w-80 flex-1 p-4">
-        <li><a>Sidebar Item 1</a></li>
-        <li><a>Sidebar Item 2</a></li>
+        <li>
+          <details open>
+            <summary>Acreditaciones</summary>
+
+            <ul>
+              <li>
+                <RouterLink :to="NationalAccreditationCreateView.path">
+                  Acreditación Nacional
+                </RouterLink>
+              </li>
+
+              <li>
+                <RouterLink :to="InternationalAccreditationCreateView.path">
+                  Acreditación Internacional
+                </RouterLink>
+              </li>
+            </ul>
+          </details>
+        </li>
       </ul>
 
       <ul class="menu w-80 p-4">
         <li>
-          <button class="btn btn-error text-white">
-            Cerrar Sesión
-
-            <ArrowLeftStartOnRectangleIcon class="h-6" />
-          </button>
+          <button class="btn btn-error text-white">Cerrar Sesión</button>
         </li>
       </ul>
     </div>
