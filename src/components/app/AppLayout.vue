@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import logo from '@/assets/logos/logo.png'
 
-import { NationalAccreditationCreateView, InternationalAccreditationCreateView } from '@/router'
+import {
+  NationalAccreditationCreateView,
+  InternationalAccreditationCreateView,
+  VehicleAccessCreateView,
+} from '@/router'
 </script>
 
 <template>
@@ -47,6 +51,20 @@ import { NationalAccreditationCreateView, InternationalAccreditationCreateView }
               <li>
                 <RouterLink :to="InternationalAccreditationCreateView.path">
                   Acreditación Internacional
+                </RouterLink>
+              </li>
+            </ul>
+          </details>
+        </li>
+
+        <li>
+          <details>
+            <summary>Vehículos</summary>
+
+            <ul>
+              <li>
+                <RouterLink :to="VehicleAccessCreateView.path">
+                  Acceso de Vehículos a Aeropuerto
                 </RouterLink>
               </li>
             </ul>

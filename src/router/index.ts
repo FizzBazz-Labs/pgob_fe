@@ -42,6 +42,12 @@ export const InternationalAccreditationDetailView = {
   component: () => import('../views/internationals/InternationalDetailView.vue'),
 }
 
+export const VehicleAccessCreateView = {
+  path: '/accreditations/vehicle-access',
+  name: 'vehicle-access-create',
+  component: () => import('../views/vehicles/VehicleAccessCreateView.vue'),
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -52,6 +58,7 @@ const router = createRouter({
     NationalAccreditationDetailView,
     InternationalAccreditationCreateView,
     InternationalAccreditationDetailView,
+    VehicleAccessCreateView,
   ],
 })
 
