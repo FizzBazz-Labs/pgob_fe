@@ -7,6 +7,7 @@ import {
   VehicleAccessCreateView,
   GeneralVehicleCreateView,
   NonCommercialAircraftCreateView,
+  CommunicationEquipmentCreateView,
 } from '@/router'
 </script>
 
@@ -73,10 +74,32 @@ import {
               <li>
                 <RouterLink :to="GeneralVehicleCreateView.path"> Vehículos Generales </RouterLink>
               </li>
+            </ul>
+          </details>
+        </li>
 
+        <li>
+          <details open>
+            <summary>Aeronaves</summary>
+
+            <ul>
               <li>
                 <RouterLink :to="NonCommercialAircraftCreateView.path">
                   Aeronaves No Comerciales
+                </RouterLink>
+              </li>
+            </ul>
+          </details>
+        </li>
+
+        <li>
+          <details open>
+            <summary>Comunicación</summary>
+
+            <ul>
+              <li>
+                <RouterLink :to="CommunicationEquipmentCreateView.path">
+                  Declaración de Equipo de Intercomunicación
                 </RouterLink>
               </li>
             </ul>

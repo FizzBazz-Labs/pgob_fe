@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import NonCommercialAircraftForm from '@/components/vehicles/NonCommercialAircraftForm.vue'
+import NonCommercialAircraftForm from '@/components/aircrafts/NonCommercialAircraftForm.vue'
 </script>
 
 <template>
