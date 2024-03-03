@@ -6,6 +6,7 @@ import {
   InternationalAccreditationCreateView,
   VehicleAccessCreateView,
   GeneralVehicleCreateView,
+  NonCommercialAircraftCreateView,
 } from '@/router'
 </script>
 
@@ -71,6 +72,12 @@ import {
 
               <li>
                 <RouterLink :to="GeneralVehicleCreateView.path"> Vehículos Generales </RouterLink>
+              </li>
+
+              <li>
+                <RouterLink :to="NonCommercialAircraftCreateView.path">
+                  Aeronaves No Comerciales
+                </RouterLink>
               </li>
             </ul>
           </details>

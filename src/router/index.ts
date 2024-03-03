@@ -54,6 +54,12 @@ export const GeneralVehicleCreateView = {
   component: () => import('../views/vehicles/GeneralVehicleCreateView.vue'),
 }
 
+export const NonCommercialAircraftCreateView = {
+  path: '/accreditations/non-commercial-aircraft',
+  name: 'non-commercial-aircraft-create',
+  component: () => import('../views/vehicles/NonCommercialAircraftCreateView.vue'),
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -66,6 +72,7 @@ const router = createRouter({
     InternationalAccreditationDetailView,
     VehicleAccessCreateView,
     GeneralVehicleCreateView,
+    NonCommercialAircraftCreateView,
   ],
 })
 
