@@ -1,11 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-export const HomeView = {
-  path: '/',
-  name: 'home',
-  component: () => import('../views/HomeView.vue'),
-}
-
 export const LoginView = {
   path: '/login',
   name: 'login',
@@ -64,6 +58,12 @@ export const CommunicationEquipmentCreateView = {
   path: '/accreditations/communication-equipment',
   name: 'communication-equipment-create',
   component: () => import('../views/communications/CommunicationEquipmentCreateView.vue'),
+}
+
+export const HomeView = {
+  path: '/',
+  name: 'home',
+  redirect: AccreditationListView.path,
 }
 
 const router = createRouter({

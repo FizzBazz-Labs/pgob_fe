@@ -2,6 +2,7 @@
 import logo from '@/assets/logos/logo.png'
 
 import {
+  HomeView,
   NationalAccreditationCreateView,
   InternationalAccreditationCreateView,
   VehicleAccessCreateView,
@@ -33,10 +34,12 @@ import {
       ></label>
 
       <div class="flex w-full items-center justify-center py-5">
-        <img
-          :src="logo"
-          class="h-16"
-        />
+        <RouterLink :to="HomeView.path">
+          <img
+            :src="logo"
+            class="h-16"
+          />
+        </RouterLink>
       </div>
 
       <ul class="menu w-80 flex-1 p-4">
