@@ -5,6 +5,7 @@ import {
   NationalAccreditationCreateView,
   InternationalAccreditationCreateView,
   VehicleAccessCreateView,
+  GeneralVehicleCreateView,
 } from '@/router'
 </script>
 
@@ -58,7 +59,7 @@ import {
         </li>
 
         <li>
-          <details>
+          <details open>
             <summary>Vehículos</summary>
 
             <ul>
@@ -66,6 +67,10 @@ import {
                 <RouterLink :to="VehicleAccessCreateView.path">
                   Acceso de Vehículos a Aeropuerto
                 </RouterLink>
+              </li>
+
+              <li>
+                <RouterLink :to="GeneralVehicleCreateView.path"> Vehículos Generales </RouterLink>
               </li>
             </ul>
           </details>

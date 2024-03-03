@@ -53,7 +53,7 @@ function onRemoveVehicle(index: number) {
         <FormKit
           type="select"
           name="county"
-          label="País"
+          label="Misión Diplomática"
           validation="required"
           :options="County"
           select-icon="down"
@@ -61,13 +61,19 @@ function onRemoveVehicle(index: number) {
 
         <FormKit
           type="text"
-          name="responsable"
-          label="Responsable de la Información"
+          name="assignedTo"
+          label="Asignado A"
           validation="required"
         />
 
+        <FormKit
+          type="textarea"
+          name="observations"
+          label="Observaciones"
+        />
+
         <div class="mb-2 flex gap-4">
-          <span class="divider divider-start flex-1 text-xl font-bold">Vehículos</span>
+          <span class="divider divider-start flex-1 text-xl font-bold"> Vehículos </span>
 
           <button
             type="button"
