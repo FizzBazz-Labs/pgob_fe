@@ -1,8 +1,8 @@
 import * as API from '@/services/api'
 
-import type { NationalAccreditation } from '@/entities/NationalAccreditation'
+import type { National } from '@/entities/National'
 
-export async function create(params: Record<string, unknown>): Promise<NationalAccreditation> {
+export async function create(params: Record<string, unknown>): Promise<National> {
   const form = new FormData()
 
   form.append('firstName', params.firstName as string)
@@ -47,7 +47,7 @@ export async function create(params: Record<string, unknown>): Promise<NationalA
   return await response.json()
 }
 
-export async function getById(id: number): Promise<NationalAccreditation> {
+export async function getById(id: number): Promise<National> {
   const response = await API.get(`/national-accreditations/${id}`)
 
   return await response.json()

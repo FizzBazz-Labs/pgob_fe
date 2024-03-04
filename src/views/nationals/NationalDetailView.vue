@@ -10,7 +10,7 @@ import {
   TrashIcon,
 } from '@heroicons/vue/24/outline'
 
-import type { NationalAccreditation } from '@/entities/NationalAccreditation'
+import type { National } from '@/entities/National'
 
 import * as service from '@/services/NationalService'
 
@@ -22,7 +22,7 @@ const route = useRoute()
 
 const { nationalTypes } = useFormSelect({ values: ref({}) })
 
-const item = ref<NationalAccreditation>()
+const item = ref<National>()
 
 onBeforeMount(async () => {
   item.value = await service.getById(Number(route.params.id))
@@ -175,3 +175,4 @@ function getFormattedDate(date: string) {
     </template>
   </AppLoading>
 </template>
+@/entities/National

@@ -1,7 +1,7 @@
 import type { Position, SubPosition } from '@/entities/Position'
 import type { MedicaChannel } from '@/entities/MedicaChannel'
 
-export interface NationalAccreditation {
+export interface National {
   id: number
   image: string
   firstName: string
