@@ -1,83 +1,65 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const hasAllergies = ref(false)
-const hasImmunization = ref(false)
-const hasMedicalHistory = ref(false)
-const hasMedicalStaff = ref(false)
+import { toast } from 'vue3-toastify'
 
-enum Country {
-  GUATEMALA = 'Guatemala',
-}
+import type { FormValues } from '@/entities/Form'
 
-enum BloodType {
-  A_POSITIVE = 'A+',
-  A_NEGATIVE = 'A-',
-  B_POSITIVE = 'B+',
-  B_NEGATIVE = 'B-',
-  O_POSITIVE = 'O+',
-  O_NEGATIVE = 'O-',
-  AB_POSITIVE = 'AB+',
-  AB_NEGATIVE = 'AB-',
-}
+import { useFormSelect } from '@/composables/FormSelect'
 
-enum Position {
-  PRESIDENT = 'Presidente',
-  VICE_PRESIDENT = 'Vicepresidente',
-}
+import * as service from '@/services/InternationalService'
 
-enum SubPosition {
-  PRESIDENT = 'Presidente',
-}
+import { InternationalAccreditationDetailView } from '@/router'
 
-enum MediaChannel {
-  TV = 'Televisión',
-  RADIO = 'Radio',
-  NEWSPAPER = 'Periódico',
-  INTERNET = 'Internet',
-  SOCIAL_MEDIA = 'Redes Sociales',
-  OTHER = 'Otro',
-}
+const router = useRouter()
 
-enum AccreditationType {
-  NATIONAL = 'Nacional',
-  INTERNATIONAL = 'Internacional',
-}
+const values = ref<FormValues>({
+  country: 1,
+  position: 1,
+  images: [],
+  flightFrom: 1,
+  flightTo: 1,
+})
 
-enum Allergy {
-  POLLEN = 'Polen',
-  DUST = 'Polvo',
-  CAT = 'Gato',
-  DOG = 'Perro',
-  PEANUTS = 'Maní',
-  LACTOSE = 'Lactosa',
-  GLUTEN = 'Gluten',
-  SEAFOOD = 'Mariscos',
-  OTHER = 'Otro',
-}
+const {
+  positions,
+  subPositions,
+  showChannels,
+  channels,
+  bloods,
+  allergies,
+  countries,
+  immunizations,
+  medicalHistories,
+  internationalTypes,
+  preview,
+} = useFormSelect({ values })
 
-enum Immunization {
-  COVID_19 = 'COVID-19',
-  INFLUENZA = 'Influenza',
-  TETANUS = 'Tétanos',
-  HEPATITIS_B = 'Hepatitis B',
-  HEPATITIS_A = 'Hepatitis A',
-  OTHER = 'Otro',
-}
+const previewImage = computed(() => preview(values.value.image))
+const previewLetter = computed(() => preview(values.value.letter))
 
-enum MedicalHistory {
-  DIABETES = 'Diabetes',
-  HYPERTENSION = 'Hipertensión',
-  ASTHMA = 'Asma',
-  EPILEPSY = 'Epilepsia',
-  OTHER = 'Otro',
+async function onSubmit() {
+  const response = await service.create(values.value)
+
+  toast('Acreditación internacional creada con éxito.', { type: 'success' })
+
+  router.push({
+    name: InternationalAccreditationDetailView.name,
+    params: { id: response.id },
+  })
 }
 </script>
 
 <template>
+  {{ values }}
+
   <FormKit
     type="form"
+    v-model="values"
+    submit-label="Crear"
     :submit-attrs="{ 'suffix-icon': 'submit' }"
+    @submit="onSubmit"
   >
     <div class="flex gap-4">
       <div class="w-1/2">
@@ -88,23 +70,27 @@ enum MedicalHistory {
           name="country"
           label="País"
           validation="required"
-          :options="Country"
+          :options="countries"
           select-icon="down"
         />
 
-        <FormKit
-          type="text"
-          name="firstName"
-          label="Nombre"
-          validation="required"
-        />
+        <div class="grid grid-cols-2 gap-4">
+          <FormKit
+            type="text"
+            name="firstName"
+            label="Nombre"
+            maxlength="150"
+            validation="required"
+          />
 
-        <FormKit
-          type="text"
-          name="lastName"
-          label="Apellido"
-          validation="required"
-        />
+          <FormKit
+            type="text"
+            name="lastName"
+            label="Apellido"
+            maxlength="150"
+            validation="required"
+          />
+        </div>
 
         <FormKit
           type="text"
@@ -113,50 +99,68 @@ enum MedicalHistory {
           validation="required"
         />
 
-        <FormKit
-          type="date"
-          name="birthday"
-          label="Fecha de Nacimiento"
-          validation="required"
-        />
+        <div class="grid grid-cols-4 gap-4">
+          <FormKit
+            type="text"
+            name="birthplace"
+            label="Lugar de Nacimiento"
+            validation="required"
+            outer-class="col-span-3"
+          />
+
+          <FormKit
+            type="date"
+            name="birthday"
+            label="Fecha de Nacimiento"
+            validation="required"
+          />
+        </div>
+
+        <h2 class="divider divider-start text-xl font-bold">Cargo en el Evento</h2>
+
+        <div
+          class="grid gap-4"
+          :class="{
+            'grid-cols-1': subPositions.length === 0,
+            'grid-cols-2': subPositions.length !== 0,
+          }"
+        >
+          <FormKit
+            type="select"
+            name="position"
+            label="Posición"
+            validation="required"
+            :options="positions"
+            select-icon="down"
+          />
+
+          <FormKit
+            v-if="subPositions.length !== 0"
+            type="select"
+            name="subPosition"
+            label="Tipo de Cargo"
+            validation="required"
+            :options="subPositions"
+            select-icon="down"
+          />
+        </div>
 
         <FormKit
-          type="text"
-          name="birthplace"
-          label="Lugar de Nacimiento"
-          validation="required"
-        />
-
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Cargo en el Evento</h2>
-
-        <FormKit
+          v-if="showChannels"
           type="select"
-          name="position"
-          label="Posición"
-          validation="required"
-          :options="Position"
-          select-icon="down"
-        />
-
-        <FormKit
-          type="select"
-          name="subPosition"
-          label="Tipo de Cargo"
-          validation="required"
-          :options="SubPosition"
-          select-icon="down"
-        />
-
-        <FormKit
-          type="select"
-          name="mediaChannel"
+          name="channel"
           label="Medio de Comunicación"
           validation="required"
-          :options="MediaChannel"
+          :options="channels"
           select-icon="down"
         />
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Contacto</h2>
+        <h2
+          class="divider divider-start text-xl font-bold"
+          :class="{ 'mt-6': showChannels }"
+        >
+          Datos de Contacto
+        </h2>
 
         <FormKit
           type="text"
@@ -172,19 +176,20 @@ enum MedicalHistory {
           validation="required"
         />
 
-        <FormKit
-          type="text"
-          name="phoneNumber1"
-          label="Teléfono"
-          validation="required"
-        />
+        <div class="grid grid-cols-2 gap-4">
+          <FormKit
+            type="text"
+            name="phoneNumber"
+            label="Teléfono"
+            validation="required"
+          />
 
-        <FormKit
-          type="text"
-          name="phoneNumber2"
-          label="Celular"
-          validation="required"
-        />
+          <FormKit
+            type="text"
+            name="phoneNumber2"
+            label="Teléfono Alternativo (Opcional)"
+          />
+        </div>
 
         <FormKit
           type="email"
@@ -198,29 +203,18 @@ enum MedicalHistory {
         <div class="grid grid-cols-3 gap-4">
           <FormKit
             type="select"
-            name="bloodType"
+            name="blood"
             label="Tipo de Sangre"
             validation="required"
-            :options="BloodType"
+            :options="bloods"
             select-icon="down"
           />
 
           <FormKit
-            type="select"
-            name="bloodGroup"
-            label="Grupo Sanguíneo"
-            validation="required"
-            :options="BloodType"
-            select-icon="down"
-          />
-
-          <FormKit
-            type="select"
+            type="text"
             name="bloodRhFactor"
             label="Factor RH"
             validation="required"
-            :options="BloodType"
-            select-icon="down"
           />
         </div>
 
@@ -261,52 +255,52 @@ enum MedicalHistory {
 
         <FormKit
           type="checkbox"
-          v-model="hasAllergies"
+          name="hasAllergies"
           label="¿Alergias?"
           decorator-icon="check"
         />
 
         <FormKit
-          v-if="hasAllergies"
+          v-if="values.hasAllergies"
           type="select"
           name="allergies"
           label="Alergia"
           multiple
-          :options="Allergy"
+          :options="allergies"
           select-icon="down"
         />
 
         <FormKit
           type="checkbox"
-          v-model="hasImmunization"
+          name="hasImmunization"
           label="Inmunizaciones Recientes"
           decorator-icon="check"
         />
 
         <FormKit
-          v-if="hasImmunization"
+          v-if="values.hasImmunization"
           type="select"
           name="immunizations"
           label="Inmunizaciones"
           multiple
-          :options="Immunization"
+          :options="immunizations"
           select-icon="down"
         />
 
         <FormKit
           type="checkbox"
-          v-model="hasMedicalHistory"
+          name="hasMedicalHistory"
           label="¿Tiene antecedentes medicos?"
           decorator-icon="check"
         />
 
         <FormKit
-          v-if="hasMedicalHistory"
+          v-if="values.hasMedicalHistory"
           type="select"
-          name="medicalHistory"
+          name="medicals"
           label="Historial"
           multiple
-          :options="MedicalHistory"
+          :options="medicalHistories"
           select-icon="down"
         />
 
@@ -318,13 +312,13 @@ enum MedicalHistory {
 
         <FormKit
           type="checkbox"
-          v-model="hasMedicalStaff"
+          name="hasMedicalStaff"
           label="¿Acompaña Médico Personal?"
           decorator-icon="check"
         />
 
         <FormKit
-          v-if="hasMedicalStaff"
+          v-if="values.hasMedicalStaff"
           type="text"
           name="doctorName"
           label="Nombre de Médico"
@@ -377,7 +371,7 @@ enum MedicalHistory {
             name="flightFrom"
             label="Procedencia"
             validation="required"
-            :options="Country"
+            :options="countries"
             select-icon="down"
           />
         </div>
@@ -404,7 +398,7 @@ enum MedicalHistory {
             name="flightTo"
             label="Destino"
             validation="required"
-            :options="Country"
+            :options="countries"
             select-icon="down"
           />
         </div>
@@ -416,7 +410,7 @@ enum MedicalHistory {
           name="type"
           label="Tipo de acreditación"
           validation="required"
-          :options="AccreditationType"
+          :options="internationalTypes"
           select-icon="down"
         />
       </div>
@@ -429,6 +423,7 @@ enum MedicalHistory {
             type="file"
             name="image"
             label="Foto Personal"
+            validation="required"
             accept=".png,.jpg,.webp"
             file-item-icon="fileDoc"
             file-remove-icon="close"
@@ -437,18 +432,19 @@ enum MedicalHistory {
 
           <div class="card mb-4">
             <img
-              :src="'https://via.placeholder.com/150'"
+              :src="previewImage"
               alt="Foto"
-              class="h-48 w-full rounded-md object-cover"
+              class="h-[350px] w-full rounded-md bg-base-200 object-contain"
             />
           </div>
         </div>
 
-        <div>
+        <div v-if="showChannels">
           <FormKit
             type="file"
             name="letter"
             label="Carta de Autorización"
+            validation="required"
             accept=".png,.jpg,.webp"
             file-item-icon="fileDoc"
             file-remove-icon="close"
@@ -457,9 +453,9 @@ enum MedicalHistory {
 
           <div class="card mb-4">
             <img
-              :src="'https://via.placeholder.com/150'"
+              :src="previewLetter"
               alt="Foto"
-              class="h-48 w-full rounded-md object-cover"
+              class="h-[350px] w-full rounded-md bg-base-200 object-contain"
             />
           </div>
         </div>

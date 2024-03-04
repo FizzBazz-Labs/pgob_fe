@@ -4,6 +4,8 @@ import { useRouter } from 'vue-router'
 
 import { toast } from 'vue3-toastify'
 
+import type { FormValues } from '@/entities/Form'
+
 import { useFormSelect } from '@/composables/FormSelect'
 
 import * as service from '@/services/NationalService'
@@ -12,7 +14,6 @@ import { NationalAccreditationDetailView } from '@/router'
 
 const router = useRouter()
 
-type FormValues = Record<string, string | number | unknown>
 const values = ref<FormValues>({
   position: 1,
   images: [],

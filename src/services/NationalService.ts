@@ -11,6 +11,7 @@ export async function create(params: Record<string, unknown>): Promise<National>
   form.append('institution', params.institution as string)
   form.append('address', params.address as string)
   form.append('phoneNumber', params.phoneNumber as string)
+  form.append('passportId', params.passport as string)
 
   if (params.phoneNumber2 !== undefined) {
     form.append('phoneNumber2', params.phoneNumber2 as string)

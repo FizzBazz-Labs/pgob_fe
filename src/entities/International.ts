@@ -4,7 +4,7 @@ import type { MedicaChannel } from '@/entities/MedicaChannel'
 import type { Allergy } from '@/entities/Allergy'
 import type { Immunization } from '@/entities/Immunization'
 
-export interface National {
+export interface International {
   id: number
   county: Country
   image: string

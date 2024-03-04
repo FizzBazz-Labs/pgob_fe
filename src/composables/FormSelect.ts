@@ -5,7 +5,9 @@ import { useGeneralStore } from '@/stores/general'
 const placeholder = 'https://placeholder.co/150x250/f3f3f2/white?text=150x250'
 
 type Props = {
-  values: Ref<{ position?: number }>
+  values: Ref<{
+    position?: number
+  }>
 }
 
 export function useFormSelect(props: Props) {
@@ -39,6 +41,34 @@ export function useFormSelect(props: Props) {
   )
 
   const bloods = ref(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'])
+
+  const allergies = computed(() =>
+    store.allergies.map(i => ({
+      value: i.id,
+      label: i.name,
+    }))
+  )
+
+  const countries = computed(() =>
+    store.countries.map(i => ({
+      value: i.id,
+      label: i.name,
+    }))
+  )
+
+  const immunizations = computed(() =>
+    store.immunizations.map(i => ({
+      value: i.id,
+      label: i.name,
+    }))
+  )
+
+  const medicalHistories = computed(() =>
+    store.medicalHistories.map(i => ({
+      value: i.id,
+      label: i.name,
+    }))
+  )
 
   const nationalTypes = ref([
     {
@@ -79,6 +109,41 @@ export function useFormSelect(props: Props) {
     },
   ])
 
+  const internationalTypes = ref([
+    {
+      value: 'OFFICIAL_DELEGATION_HEAD',
+      label: 'Jefe de Delegación Oficial',
+    },
+    {
+      value: 'OFFICIAL_DELEGATION',
+      label: 'Delegación Oficial',
+    },
+    {
+      value: 'PROTOCOL',
+      label: 'Protocolo',
+    },
+    {
+      value: 'SECURITY',
+      label: 'Seguridad',
+    },
+    {
+      value: 'SUPPORT_STAFF',
+      label: 'Personal de Apoyo',
+    },
+    {
+      value: 'OFFICIAL_PRESS',
+      label: 'Prensa Oficial',
+    },
+    {
+      value: 'CREW',
+      label: 'Tripulación',
+    },
+    {
+      value: 'COMMERCIAL_NEWSLETTER',
+      label: 'Prensa Comercial',
+    },
+  ])
+
   function preview(image?: unknown) {
     if (!image) return placeholder
 
@@ -95,7 +160,12 @@ export function useFormSelect(props: Props) {
     showChannels,
     channels,
     bloods,
+    allergies,
+    countries,
+    immunizations,
+    medicalHistories,
     nationalTypes,
+    internationalTypes,
     preview,
   }
 }
