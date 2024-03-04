@@ -2,6 +2,8 @@ import { ref, computed, type Ref } from 'vue'
 
 import { useGeneralStore } from '@/stores/general'
 
+const placeholder = 'https://placeholder.co/150x250/f3f3f2/white?text=150x250'
+
 type Props = {
   values: Ref<{ position?: number }>
 }
@@ -77,6 +79,16 @@ export function useFormSelect(props: Props) {
     },
   ])
 
+  function preview(image?: unknown) {
+    if (!image) return placeholder
+
+    const img = image as Array<{ file: File }>
+
+    if (img.length === 0) return placeholder
+
+    return URL.createObjectURL(img[0].file)
+  }
+
   return {
     positions,
     subPositions,
@@ -84,5 +96,6 @@ export function useFormSelect(props: Props) {
     channels,
     bloods,
     nationalTypes,
+    preview,
   }
 }

@@ -15,4 +15,12 @@ app.use(createPinia())
 app.use(router)
 app.use(plugin, defaultConfig(config))
 
+import Vue3Toasity, { type ToastOptions } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
+app.use(Vue3Toasity, {
+  autoClose: 3000,
+  position: 'bottom-right',
+} as ToastOptions)
+
 app.mount('#app')

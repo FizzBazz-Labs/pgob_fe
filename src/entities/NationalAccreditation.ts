@@ -1,12 +1,15 @@
+import type { Position, SubPosition } from '@/entities/Position'
+import type { MedicaChannel } from '@/entities/MedicaChannel'
+
 export interface NationalAccreditation {
   id: number
   image: string
   firstName: string
   lastName: string
   passportId: string
-  position: string
-  subPosition?: string
-  mediaChannel?: string
+  position: Position
+  subPosition?: SubPosition
+  mediaChannel?: MedicaChannel
   authorizationLetter?: string
   institution: string
   address: string

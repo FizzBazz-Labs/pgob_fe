@@ -2,11 +2,12 @@ import { useAuthStore } from '@/stores/auth'
 
 const BASE_URL = import.meta.env.VITE_API_URL
 
-function getHeaders() {
+function getHeaders(contentType = true) {
   const store = useAuthStore()
 
   const headers = new Headers()
-  headers.append('Content-Type', 'application/json')
+
+  if (contentType) headers.append('Content-Type', 'application/json')
 
   if (store.token) headers.set('Authorization', `Bearer ${store.token}`)
 
@@ -25,5 +26,13 @@ export function post<Body>(url: string, body: Body) {
     method: 'POST',
     headers: getHeaders(),
     body: JSON.stringify(body),
+  })
+}
+
+export function form(url: string, body: FormData) {
+  return fetch(`${BASE_URL}${url}/`, {
+    method: 'POST',
+    headers: getHeaders(false),
+    body: body,
   })
 }

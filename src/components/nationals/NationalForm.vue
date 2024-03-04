@@ -1,33 +1,38 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { toast } from 'vue3-toastify'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
-const placeholder = 'https://placeholder.co/150x250/f3f3f2/white?text=150x250'
+import * as service from '@/services/NationalService'
 
-const values = ref<Record<string, unknown>>({})
+import { NationalAccreditationDetailView } from '@/router'
 
-const { positions, subPositions, showChannels, channels, bloods, nationalTypes } = useFormSelect({
-  values,
+const router = useRouter()
+
+type FormValues = Record<string, string | number | unknown>
+const values = ref<FormValues>({
+  position: 1,
+  images: [],
 })
 
-const preview = computed(() => {
-  if (!values.value.image) return placeholder
+const { positions, subPositions, showChannels, channels, bloods, nationalTypes, preview } =
+  useFormSelect({ values })
 
-  const image = values.value.image as Array<{ file: File }>
+const previewImage = computed(() => preview(values.value.image))
+const previewLetter = computed(() => preview(values.value.letter))
 
-  if (image.length === 0) return placeholder
+async function onSubmit() {
+  const response = await service.create(values.value)
 
-  return URL.createObjectURL(image[0].file)
-})
+  toast('Acreditación nacional creada con éxito.', { type: 'success' })
 
-function onSubmit() {
-  const body = new FormData()
-
-  const image = values.value.image as Array<{ file: File }>
-  if (image.length > 0) {
-    body.append('image', image[0].file)
-  }
+  router.push({
+    name: NationalAccreditationDetailView.name,
+    params: { id: response.id },
+  })
 }
 </script>
 
@@ -88,7 +93,7 @@ function onSubmit() {
         <div class="grid grid-cols-4 gap-4">
           <FormKit
             type="select"
-            name="bloodType"
+            name="blood"
             label="Tipo de Sangre"
             validation="required"
             :options="bloods"
@@ -128,7 +133,7 @@ function onSubmit() {
         <FormKit
           v-if="showChannels"
           type="select"
-          name="mediaChannel"
+          name="channel"
           label="Medio de Comunicación"
           validation="required"
           :options="channels"
@@ -156,19 +161,20 @@ function onSubmit() {
           validation="required"
         />
 
-        <FormKit
-          type="text"
-          name="phoneNumber1"
-          label="Teléfono"
-          validation="required"
-        />
+        <div class="grid grid-cols-2 gap-4">
+          <FormKit
+            type="text"
+            name="phoneNumber"
+            label="Teléfono"
+            validation="required"
+          />
 
-        <FormKit
-          type="text"
-          name="phoneNumber2"
-          label="Celular"
-          validation="required"
-        />
+          <FormKit
+            type="text"
+            name="phoneNumber2"
+            label="Teléfono Alternativo (Opcional)"
+          />
+        </div>
 
         <FormKit
           type="email"
@@ -206,7 +212,7 @@ function onSubmit() {
 
           <div class="card mb-4">
             <img
-              :src="preview"
+              :src="previewImage"
               alt="Foto"
               class="h-[350px] w-full rounded-md bg-base-200 object-contain"
             />
@@ -227,9 +233,9 @@ function onSubmit() {
 
           <div class="card mb-4">
             <img
-              :src="'https://placeholder.co/150x150/f3f3f2/red?text=250x150'"
+              :src="previewLetter"
               alt="Foto"
-              class="h-48 w-full rounded-md object-cover"
+              class="h-[350px] w-full rounded-md bg-base-200 object-contain"
             />
           </div>
         </div>
