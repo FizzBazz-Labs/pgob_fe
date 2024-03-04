@@ -1,15 +1,31 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import * as service from '@/services/AuthService'
+import { useAuthStore } from '@/stores/auth'
 
+import { HomeView } from '@/router'
+
+import logo from '@/assets/logos/logo.png'
+
+const router = useRouter()
+
+const store = useAuthStore()
+
+const errors = ref<Array<string>>([])
 const showPassword = ref(false)
 
-async function onLogin(fields: Record<string, unknown>) {
-  await service.login({
-    username: fields.username as string,
-    password: fields.password as string,
-  })
+async function onLogin(values: Record<string, string>) {
+  try {
+    await store.login({
+      username: values.username,
+      password: values.password,
+    })
+
+    router.replace(HomeView)
+  } catch {
+    errors.value = ['Las credenciales ingresadas no son validas.']
+  }
 }
 </script>
 
@@ -19,10 +35,17 @@ async function onLogin(fields: Record<string, unknown>) {
   >
     <div class="card w-full bg-base-100 shadow-xl md:w-[30vw]">
       <div class="card-body">
-        <h1 class="card-title mb-4">Formulario de Inicio de Sesión</h1>
+        <div class="mb-5">
+          <img :src="logo" />
+        </div>
+
+        <div class="divider"></div>
 
         <FormKit
           type="form"
+          :errors="errors"
+          submit-label="Ingresar"
+          :submit-attrs="{ 'suffix-icon': 'submit' }"
           @submit="onLogin"
         >
           <FormKit

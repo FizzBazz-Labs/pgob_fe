@@ -1,17 +1,25 @@
 import * as API from './api'
 
-type LoginParams = {
+export type LoginParams = {
   username: string
   password: string
 }
 
 type LoginResponse = {
-  token: string
+  status: number
+  data?: {
+    access: string
+    refresh: string
+  }
 }
 
 export async function login(params: LoginParams): Promise<LoginResponse> {
-  const response = await API.post('/auth/login', params)
-  const data = await response.json()
+  const response = await API.post('/auth/token', params)
 
-  return data as LoginResponse
+  if (response.status === 401) return { status: 401 }
+
+  return {
+    status: response.status,
+    data: await response.json(),
+  }
 }

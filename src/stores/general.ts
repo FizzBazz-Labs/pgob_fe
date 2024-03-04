@@ -16,7 +16,7 @@ const initState = (): GeneralState => ({
   channels: [],
 })
 
-export const useGeneralStore = defineStore('auth', {
+export const useGeneralStore = defineStore('general', {
   state: initState,
 
   actions: {

@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import logo from '@/assets/logos/logo.png'
 
+import { useAuthStore } from '@/stores/auth'
+
 import {
   HomeView,
+  LoginView,
   NationalAccreditationCreateView,
   InternationalAccreditationCreateView,
   VehicleAccessCreateView,
@@ -10,6 +13,8 @@ import {
   NonCommercialAircraftCreateView,
   CommunicationEquipmentCreateView,
 } from '@/router'
+
+const store = useAuthStore()
 </script>
 
 <template>
@@ -112,7 +117,13 @@ import {
 
       <ul class="menu w-80 p-4">
         <li>
-          <button class="btn btn-error text-white">Cerrar Sesión</button>
+          <RouterLink
+            :to="LoginView.path"
+            class="btn btn-error text-white"
+            @click="store.logout"
+          >
+            Cerrar Sesión
+          </RouterLink>
         </li>
       </ul>
     </div>

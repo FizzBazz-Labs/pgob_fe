@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { useAuthStore } from '@/stores/auth'
+
 export const LoginView = {
   path: '/login',
   name: 'login',
@@ -81,6 +83,15 @@ const router = createRouter({
     NonCommercialAircraftCreateView,
     CommunicationEquipmentCreateView,
   ],
+})
+
+router.beforeEach(to => {
+  const store = useAuthStore()
+
+  const isLogin = to.name === LoginView.name
+  const isLogged = Boolean(store.token)
+
+  if (!isLogin && !isLogged) return LoginView
 })
 
 export default router
