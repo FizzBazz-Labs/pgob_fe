@@ -17,7 +17,7 @@ import * as service from '@/services/InternationalService'
 import { useFormSelect } from '@/composables/FormSelect'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-import StatusBadge from '@/components/status/StatusBadge.vue'
+import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const route = useRoute()
 
