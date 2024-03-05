@@ -12,13 +12,18 @@ import {
 
 import type { National } from '@/entities/National'
 
+import { useAuthStore } from '@/stores/auth'
+
 import * as service from '@/services/NationalService'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
 import AppLoading from '@/components/app/AppLoading.vue'
+import StatusBadge from '@/components/status/StatusBadge.vue'
 
 const route = useRoute()
+
+const auth = useAuthStore()
 
 const { nationalTypes } = useFormSelect({ values: ref({}) })
 
@@ -38,6 +43,8 @@ function getFormattedDate(date: string) {
 </script>
 
 <template>
+  {{ auth.isAdmin }}
+
   <AppLoading :loading="!item">
     <template v-if="item">
       <header class="flex gap-4">
@@ -85,6 +92,10 @@ function getFormattedDate(date: string) {
       </header>
 
       <main class="mt-10 w-1/2">
+        <div class="mb-2">
+          <StatusBadge v-bind="item" />
+        </div>
+
         <span>
           <strong>Tipo de Acreditación</strong>:
           {{ nationalTypes.find(i => i.value === item?.type)?.label }}

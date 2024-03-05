@@ -1,8 +1,10 @@
 import type { Position, SubPosition } from '@/entities/Position'
 import type { MedicaChannel } from '@/entities/MedicaChannel'
+import type { Status } from './Status'
 
 export interface National {
   id: number
+  status: Status
   image: string
   firstName: string
   lastName: string

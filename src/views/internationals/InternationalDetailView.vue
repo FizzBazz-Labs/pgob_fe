@@ -17,6 +17,7 @@ import * as service from '@/services/InternationalService'
 import { useFormSelect } from '@/composables/FormSelect'
 
 import AppLoading from '@/components/app/AppLoading.vue'
+import StatusBadge from '@/components/status/StatusBadge.vue'
 
 const route = useRoute()
 
@@ -96,6 +97,10 @@ const hasMedications = computed(() =>
       </header>
 
       <main class="mt-10 w-1/2">
+        <div class="mb-2">
+          <StatusBadge v-bind="item" />
+        </div>
+
         <span>
           <strong>Tipo de Acreditación</strong>:
           {{ internationalTypes.find(i => i.value === item?.type)?.label }}
@@ -299,10 +304,6 @@ const hasMedications = computed(() =>
           </div>
         </div>
       </main>
-
-      <div class="bg-base-200 p-5">
-        <pre>{{ item }}</pre>
-      </div>
     </template>
   </AppLoading>
 </template>

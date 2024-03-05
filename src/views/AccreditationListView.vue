@@ -10,7 +10,9 @@ import { NationalAccreditationDetailView, InternationalAccreditationDetailView }
 
 import * as services from '@/services/AccreditationService'
 
-import { AccreditationTypeLabel, StatusLabel } from '@/utils/labels'
+import { AccreditationTypeLabel } from '@/utils/labels'
+
+import StatusBadge from '@/components/status/StatusBadge.vue'
 
 const router = useRouter()
 
@@ -65,7 +67,7 @@ onBeforeMount(async () => {
           <td>{{ item.country }}</td>
           <td>{{ AccreditationTypeLabel[item.type] }}</td>
           <td>{{ item.createdBy.firstName }} {{ item.createdBy.lastName }}</td>
-          <td>{{ StatusLabel[item.status] }}</td>
+          <td><StatusBadge v-bind="item" /></td>
 
           <td>
             <div

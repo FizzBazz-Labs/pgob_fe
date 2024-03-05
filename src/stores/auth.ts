@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 import * as API from '@/services/api'
 
-import type { User } from '@/entities/User'
+import { Group, type User } from '@/entities/User'
 
 import * as service from '@/services/AuthService'
 
@@ -20,7 +20,7 @@ const initState = (): AuthState => ({
     lastName: '',
     email: '',
     phoneNumber: '',
-    group: '',
+    group: Group.USER,
     country: '',
     passportId: '',
   },
@@ -28,6 +28,10 @@ const initState = (): AuthState => ({
 
 export const useAuthStore = defineStore('auth', {
   state: initState,
+
+  getters: {
+    isAdmin: state => state.user.group === Group.ADMIN,
+  },
 
   actions: {
     async login(params: service.LoginParams) {
