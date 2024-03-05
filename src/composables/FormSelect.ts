@@ -1,13 +1,12 @@
 import { ref, computed, type Ref } from 'vue'
 
 import { useGeneralStore } from '@/stores/general'
+import type { MultiStepForm } from '@/entities/Form'
 
 const placeholder = 'https://placeholder.co/150x250/f3f3f2/white?text=150x250'
 
 type Props = {
-  values: Ref<{
-    position?: number
-  }>
+  values: Ref<MultiStepForm>
 }
 
 export function useFormSelect(props: Props) {
@@ -21,7 +20,8 @@ export function useFormSelect(props: Props) {
   )
 
   const subPositions = computed(() => {
-    const position = store.positions.find(i => i.id === props.values.value.position)
+    const selected = props.values.value['multi-step'].accreditation.position
+    const position = store.positions.find(i => i.id === selected)
 
     if (!position) return []
 
@@ -31,7 +31,9 @@ export function useFormSelect(props: Props) {
     }))
   })
 
-  const showChannels = computed(() => [14, 15, 16].includes(props.values.value.position ?? 0))
+  const showChannels = computed(() =>
+    [14, 15, 16].includes(props.values.value['multi-step'].accreditation.position ?? 0)
+  )
 
   const channels = computed(() =>
     store.channels.map(i => ({
