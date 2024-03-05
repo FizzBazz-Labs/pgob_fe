@@ -4,11 +4,11 @@ import type { MedicaChannel } from '@/entities/MedicaChannel'
 import type { Allergy } from '@/entities/Allergy'
 import type { Immunization } from '@/entities/Immunization'
 import type { MedicalHistory } from '@/entities/MedicalHistory'
-import type { Status } from './Status'
+import { AccreditationStatus } from '@/entities/Accreditation'
 
 export interface International {
   id: number
-  status: Status
+  status: AccreditationStatus
   country: Country
   image: string
   firstName: string

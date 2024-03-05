@@ -1,10 +1,10 @@
 import type { Position, SubPosition } from '@/entities/Position'
 import type { MedicaChannel } from '@/entities/MedicaChannel'
-import type { Status } from './Status'
+import { AccreditationStatus } from '@/entities/Accreditation'
 
 export interface National {
   id: number
-  status: Status
+  status: AccreditationStatus
   image: string
   firstName: string
   lastName: string

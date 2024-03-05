@@ -1,4 +1,8 @@
-import type { Status } from './Status'
+export enum AccreditationStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+}
 
 export interface Accreditation {
   id: number
@@ -6,7 +10,7 @@ export interface Accreditation {
   lastName: string
   country: string
   type: 'national' | 'international'
-  status: Status
+  status: AccreditationStatus
   createdAt: string
   createdBy: {
     id: number

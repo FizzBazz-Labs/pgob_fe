@@ -2,15 +2,10 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
-import {
-  EnvelopeIcon,
-  PhoneIcon,
-  ArrowDownTrayIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from '@heroicons/vue/24/outline'
+import { ArrowDownTrayIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
 
 import type { National } from '@/entities/National'
+import { AccreditationStatus } from '@/entities/Accreditation'
 
 import { useAuthStore } from '@/stores/auth'
 
@@ -19,6 +14,7 @@ import * as service from '@/services/NationalService'
 import { useFormSelect } from '@/composables/FormSelect'
 
 import AppLoading from '@/components/app/AppLoading.vue'
+import AccreditationDetailHeader from '@/components/accreditations/AccreditationDetailHeader.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const route = useRoute()
@@ -43,63 +39,19 @@ function getFormattedDate(date: string) {
 </script>
 
 <template>
-  {{ auth.isAdmin }}
-
   <AppLoading :loading="!item">
     <template v-if="item">
-      <header class="flex gap-4">
-        <div class="avatar">
-          <div class="w-32 rounded-xl">
-            <img :src="item.image" />
-          </div>
-        </div>
-
-        <div class="flex flex-col items-start gap-2">
-          <h1 class="text-2xl font-bold">{{ item.firstName }} {{ item.lastName }}</h1>
-
-          <div
-            class="tooltip tooltip-bottom"
-            data-tip="Enviar Correo"
-          >
-            <a
-              :href="`mailto:${item.email}`"
-              class="flex items-center gap-1"
-            >
-              <EnvelopeIcon class="h-5 w-5" />
-
-              {{ item.email }}
-            </a>
-          </div>
-
-          <div
-            class="tooltip tooltip-bottom"
-            data-tip="Llamar"
-          >
-            <a
-              :href="`phone:${item.email}`"
-              class="flex items-center gap-1"
-            >
-              <PhoneIcon class="h-5 w-5" />
-
-              {{ item.phoneNumber }}
-            </a>
-          </div>
-
-          <span>
-            {{ item.position.name }}
-          </span>
-        </div>
-      </header>
+      <AccreditationDetailHeader v-bind="item" />
 
       <main class="mt-10 w-1/2">
-        <div class="mb-2">
+        <div class="flex flex-col gap-4">
           <StatusBadge v-bind="item" />
-        </div>
 
-        <span>
-          <strong>Tipo de Acreditación</strong>:
-          {{ nationalTypes.find(i => i.value === item?.type)?.label }}
-        </span>
+          <span v-if="item.status === AccreditationStatus.APPROVED">
+            <strong>Tipo de Acreditación</strong>:
+            {{ nationalTypes.find(i => i.value === item?.type)?.label }}
+          </span>
+        </div>
 
         <h2 class="divider divider-start mt-5 text-xl font-bold">Datos Personales</h2>
 
@@ -157,10 +109,19 @@ function getFormattedDate(date: string) {
         <h2 class="divider divider-start mt-5 text-xl font-bold">Acciones</h2>
 
         <div class="flex items-start gap-1">
-          <button class="btn">
-            Acreditación
-            <ArrowDownTrayIcon class="h-5 w-5" />
-          </button>
+          <template v-if="auth.isAdmin && item.status === AccreditationStatus.PENDING">
+            <button class="btn btn-primary text-white">Acreditar</button>
+
+            <button class="btn ml-3">Rechazar</button>
+          </template>
+
+          <template v-else-if="auth.isAdmin && item.status === AccreditationStatus.APPROVED">
+            <button class="btn">
+              Acreditación
+
+              <ArrowDownTrayIcon class="h-5 w-5" />
+            </button>
+          </template>
 
           <div class="flex-1"></div>
 
@@ -186,4 +147,3 @@ function getFormattedDate(date: string) {
     </template>
   </AppLoading>
 </template>
-@/entities/National

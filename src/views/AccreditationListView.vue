@@ -4,17 +4,21 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import type { Accreditation } from '@/entities/Accreditation'
-
 import { NationalAccreditationDetailView, InternationalAccreditationDetailView } from '@/router'
+
+import { AccreditationStatus, type Accreditation } from '@/entities/Accreditation'
+
+import { useAuthStore } from '@/stores/auth'
 
 import * as services from '@/services/AccreditationService'
 
 import { AccreditationTypeLabel } from '@/utils/labels'
 
-import StatusBadge from '@/components/status/StatusBadge.vue'
+import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const router = useRouter()
+
+const auth = useAuthStore()
 
 const items = ref<Array<Accreditation>>([])
 
@@ -83,6 +87,7 @@ onBeforeMount(async () => {
             </div>
 
             <div
+              v-if="auth.isAdmin && item.status === AccreditationStatus.APPROVED"
               class="tooltip"
               data-tip="Identificación"
             >

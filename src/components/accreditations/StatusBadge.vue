@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { Status } from '@/entities/Status'
+import { AccreditationStatus } from '@/entities/Accreditation'
 
-const props = defineProps<{ status: Status }>()
+const props = defineProps<{ status: AccreditationStatus }>()
 
 const StatusLabel = {
   PENDING: 'Pendiente',
@@ -10,9 +10,9 @@ const StatusLabel = {
 }
 
 const StatusColor = {
-  PENDING: 'bg-warning',
-  APPROVED: 'bg-success',
-  REJECTED: 'bg-error',
+  PENDING: 'badge-warning',
+  APPROVED: 'badge-success text-white',
+  REJECTED: 'badge-error text-white',
 }
 </script>
 
