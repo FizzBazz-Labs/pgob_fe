@@ -1,58 +1,38 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
+import type { Accreditation } from '@/entities/Accreditation'
+
 import { NationalAccreditationDetailView, InternationalAccreditationDetailView } from '@/router'
 
-type AccreditationItem = {
-  id: number
-  firstName: string
-  lastName: string
-  type: string
-  country: string
-  status: string
-}
+import * as services from '@/services/AccreditationService'
 
-const items = ref<AccreditationItem[]>([
-  {
-    id: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    type: 'national',
-    country: 'Panamá',
-    status: 'pending',
-  },
-  {
-    id: 2,
-    firstName: 'Jane',
-    lastName: 'Doe',
-    type: 'national',
-    country: 'Panamá',
-    status: 'pending',
-  },
-  {
-    id: 3,
-    firstName: 'John',
-    lastName: 'Smith',
-    type: 'internacional',
-    country: 'Costa Rica',
-    status: 'approved',
-  },
-])
+import { AccreditationTypeLabel, StatusLabel } from '@/utils/labels'
 
-const StatusLabel: Record<string, string> = {
-  pending: 'Pendiente',
-  approved: 'Aprobado',
-}
+const router = useRouter()
 
-function getDetailPath(item: AccreditationItem): string {
+const items = ref<Array<Accreditation>>([])
+
+function gotoDetail(item: Accreditation) {
   if (item.type === 'national') {
-    return NationalAccreditationDetailView.path.replace(':id', item.id.toString())
+    router.push({
+      name: NationalAccreditationDetailView.name,
+      params: { id: item.id },
+    })
+  } else {
+    router.push({
+      name: InternationalAccreditationDetailView.name,
+      params: { id: item.id },
+    })
   }
-
-  return InternationalAccreditationDetailView.path.replace(':id', item.id.toString())
 }
+
+onBeforeMount(async () => {
+  items.value = (await services.getAll()).accreditations
+})
 </script>
 
 <template>
@@ -82,7 +62,7 @@ function getDetailPath(item: AccreditationItem): string {
           <td>{{ item.firstName }}</td>
           <td>{{ item.lastName }}</td>
           <td>{{ item.country }}</td>
-          <td>{{ item.type }}</td>
+          <td>{{ AccreditationTypeLabel[item.type] }}</td>
           <td>{{ StatusLabel[item.status] }}</td>
 
           <td>
@@ -90,12 +70,12 @@ function getDetailPath(item: AccreditationItem): string {
               class="tooltip"
               data-tip="Detalle"
             >
-              <RouterLink
-                :to="getDetailPath(item)"
+              <button
                 class="btn btn-ghost btn-sm"
+                @click="gotoDetail(item)"
               >
                 <EyeIcon class="h-5 w-5" />
-              </RouterLink>
+              </button>
             </div>
 
             <div
