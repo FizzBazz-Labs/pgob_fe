@@ -1,5 +1,7 @@
 import * as API from './api'
 
+import type { User } from '@/entities/User'
+
 export type LoginParams = {
   username: string
   password: string
@@ -22,4 +24,10 @@ export async function login(params: LoginParams): Promise<LoginResponse> {
     status: response.status,
     data: await response.json(),
   }
+}
+
+export async function profile(): Promise<User> {
+  const response = await API.get('/profile')
+
+  return response.json()
 }
