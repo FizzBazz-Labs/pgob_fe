@@ -3,10 +3,11 @@ import type { Position, SubPosition } from '@/entities/Position'
 import type { MedicaChannel } from '@/entities/MedicaChannel'
 import type { Allergy } from '@/entities/Allergy'
 import type { Immunization } from '@/entities/Immunization'
+import type { MedicalHistory } from '@/entities/MedicalHistory'
 
 export interface International {
   id: number
-  county: Country
+  country: Country
   image: string
   firstName: string
   lastName: string
@@ -31,16 +32,15 @@ export interface International {
   medication4: string
   allergies: Array<Allergy>
   immunizations: Array<Immunization>
+  medicals: Array<MedicalHistory>
   surgical: string
   doctorName: string
   hotelName: string
   hotelAddress: string
   hotelPhone: string
-  flightArrivalDate: string
-  flightArrivalTime: string
+  flightArrivalDatetime: string
   flightArrivalNumber: string
-  flightDepartureDate: string
-  flightDepartureTime: string
+  flightDepartureDatetime: string
   flightDepartureNumber: string
   flightFrom: Country
   flightTo: Country
