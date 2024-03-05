@@ -1,24 +1,26 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-enum County {
-  Nairobi = 'Nairobi',
-  Mombasa = 'Mombasa',
-  Kisumu = 'Kisumu',
-  Nakuru = 'Nakuru',
-  Eldoret = 'Eldoret',
-  Thika = 'Thika',
-  Malindi = 'Malindi',
-  Kitale = 'Kitale',
-  Garissa = 'Garissa',
-  Kakamega = 'Kakamega',
-  Kisii = 'Kisii',
-  Nyeri = 'Nyeri',
-  Meru = 'Meru',
-  Lamu = 'Lamu',
-  Embu = 'Embu',
-  Isiolo = 'Isiolo',
-}
+import { useRouter } from 'vue-router'
+
+import type { FormValues } from '@/entities/Form'
+
+import { useFormSelect } from '@/composables/FormSelect'
+
+import { toast } from 'vue3-toastify'
+
+import * as service from '@/services/GeneralVehicleService'
+
+import { HomeView } from '@/router'
+
+const router = useRouter()
+
+const values = ref<FormValues>({
+  country: 1,
+  position: 1,
+})
+
+const { countries } = useFormSelect({ values })
 
 const vehicles = ref([initVehicle()])
 
@@ -41,21 +43,36 @@ function onAddVehicle() {
 function onRemoveVehicle(index: number) {
   vehicles.value.splice(index, 1)
 }
+
+async function onSubmit() {
+  values.value.vehicles = vehicles.value
+
+  const response = await service.create(values.value)
+
+  toast('Acreditación general de vehículos creado con éxito.', { type: 'success' })
+
+  router.push({
+    name: HomeView.name,
+  })
+}
 </script>
 
 <template>
   <FormKit
     type="form"
+    v-model="values"
+    submit-label="Crear"
     :submit-attrs="{ 'suffix-icon': 'submit' }"
+    @submit="onSubmit"
   >
     <div class="flex gap-4">
       <div class="w-1/2">
         <FormKit
           type="select"
-          name="county"
+          name="mission"
           label="Misión Diplomática"
           validation="required"
-          :options="County"
+          :options="countries"
           select-icon="down"
         />
 

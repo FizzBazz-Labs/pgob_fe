@@ -1,64 +1,81 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const position = ref('')
+import { useRouter } from 'vue-router'
 
-enum County {
-  Nairobi = 'Nairobi',
-  Mombasa = 'Mombasa',
-  Kisumu = 'Kisumu',
-  Nakuru = 'Nakuru',
-  Eldoret = 'Eldoret',
-  Thika = 'Thika',
-  Malindi = 'Malindi',
-  Kitale = 'Kitale',
-  Garissa = 'Garissa',
-  Kakamega = 'Kakamega',
-  Kisii = 'Kisii',
-  Nyeri = 'Nyeri',
-  Meru = 'Meru',
-  Lamu = 'Lamu',
-  Embu = 'Embu',
-  Isiolo = 'Isiolo',
-}
+import { toast } from 'vue3-toastify'
 
-enum Jurisdiction {
-  CIVIL = 'Civil',
-  MILITARY = 'Military',
+import type { FormValues } from '@/entities/Form'
+
+import { useFormSelect } from '@/composables/FormSelect'
+
+import * as service from '@/services/NonCommercialAircraftService'
+
+import { HomeView } from '@/router'
+
+const router = useRouter()
+
+const values = ref<FormValues>({
+  country: 1,
+  position: 1,
+})
+
+const { countries, jurisdictions, positions, subPositions } = useFormSelect({ values })
+
+async function onSubmit() {
+  const response = await service.create(values.value)
+
+  toast('Solicitud de sobrevuelo creada con éxito.', { type: 'success' })
+
+  router.push({
+    name: HomeView.name,
+  })
 }
 </script>
 
 <template>
   <FormKit
     type="form"
+    v-model="values"
+    submit-label="Crear"
     :submit-attrs="{ 'suffix-icon': 'submit' }"
+    @submit="onSubmit"
   >
     <div class="flex gap-4">
       <div class="w-1/2">
         <FormKit
           type="select"
-          name="county"
+          name="country"
           label="País"
           validation="required"
-          :options="County"
+          :options="countries"
           select-icon="down"
         />
 
         <h2 class="divider divider-start text-xl font-bold">Datos de la Aeronave</h2>
 
-        <FormKit
-          type="text"
-          name="type"
-          label="Tipo"
-          validation="required"
-        />
+        <div class="grid grid-cols-2 gap-4">
+          <FormKit
+            type="text"
+            name="aircraftType"
+            label="Tipo"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="model"
+            label="Modelo"
+            validation="required"
+          />
+        </div>
 
         <FormKit
           type="radio"
           name="jurisdiction"
           label="Jurisdicción"
           validation="required"
-          :options="Jurisdiction"
+          :options="jurisdictions"
           decorator-icon="circle"
         />
 
@@ -104,24 +121,27 @@ enum Jurisdiction {
         <div
           class="grid gap-4"
           :class="{
-            'grid-cols-1': position === '',
-            'grid-cols-2': position !== '',
+            'grid-cols-1': subPositions.length === 0,
+            'grid-cols-2': subPositions.length !== 0,
           }"
         >
           <FormKit
-            type="text"
-            v-model="position"
+            type="select"
             name="position"
-            label="Cargo"
+            label="Posición"
             validation="required"
+            :options="positions"
+            select-icon="down"
           />
 
           <FormKit
-            v-if="position !== ''"
-            type="text"
+            v-if="subPositions.length !== 0"
+            type="select"
             name="subPosition"
-            label="Sub-Cargo"
+            label="Tipo de Cargo"
             validation="required"
+            :options="subPositions"
+            select-icon="down"
           />
         </div>
 
@@ -152,12 +172,10 @@ enum Jurisdiction {
           />
 
           <FormKit
-            type="select"
-            name="county"
+            type="text"
+            name="origin"
             label="Procedencia"
             validation="required"
-            :options="County"
-            select-icon="down"
           />
         </div>
 
@@ -170,12 +188,10 @@ enum Jurisdiction {
           />
 
           <FormKit
-            type="select"
-            name="county"
+            type="text"
+            name="destination"
             label="Destino"
             validation="required"
-            :options="County"
-            select-icon="down"
           />
         </div>
 

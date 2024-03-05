@@ -154,6 +154,17 @@ export function useFormSelect(props: Props) {
     return URL.createObjectURL(img[0].file)
   }
 
+  const jurisdictions = ref([
+    {
+      value: 'CIVIL',
+      label: 'Civil',
+    },
+    {
+      value: 'MILITARY',
+      label: 'Militar',
+    },
+  ])
+
   return {
     positions,
     subPositions,
@@ -167,5 +178,6 @@ export function useFormSelect(props: Props) {
     nationalTypes,
     internationalTypes,
     preview,
+    jurisdictions,
   }
 }
