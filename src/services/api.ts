@@ -36,3 +36,11 @@ export function form(url: string, body: FormData) {
     body: body,
   })
 }
+
+export function patch(url: string, body?: FormData) {
+  return fetch(`${BASE_URL}${url}/`, {
+    method: 'PATCH',
+    headers: getHeaders(false),
+    body: body,
+  })
+}

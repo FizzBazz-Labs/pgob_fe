@@ -53,3 +53,21 @@ export async function getById(id: number): Promise<National> {
 
   return await response.json()
 }
+
+export async function review(id: number): Promise<National> {
+  const response = await API.patch(`/national-accreditations/${id}/review`)
+
+  return await response.json()
+}
+
+export async function approve(id: number): Promise<National> {
+  const response = await API.patch(`/national-accreditations/${id}/approve`)
+
+  return await response.json()
+}
+
+export async function reject(id: number): Promise<National> {
+  const response = await API.patch(`/national-accreditations/${id}/reject`)
+
+  return await response.json()
+}

@@ -31,6 +31,9 @@ export const useAuthStore = defineStore('auth', {
 
   getters: {
     isAdmin: state => state.user.group === Group.ADMIN,
+    isAccreditor: state => state.user.group === Group.Accreditor,
+    isReviewer: state => state.user.group === Group.Reviewer,
+    isUser: state => state.user.group === Group.USER,
   },
 
   actions: {

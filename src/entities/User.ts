@@ -11,6 +11,8 @@ export interface User {
 }
 
 export enum Group {
-  ADMIN = 'admin',
-  USER = 'user',
+  ADMIN = 'Admin',
+  Accreditor = 'Accreditor',
+  Reviewer = 'Reviewer',
+  USER = 'User',
 }

@@ -1,5 +1,6 @@
 export enum AccreditationStatus {
   PENDING = 'PENDING',
+  REVIEWED = 'REVIEWED',
   APPROVED = 'APPROVED',
   REJECTED = 'REJECTED',
 }
