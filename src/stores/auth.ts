@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 
+import * as API from '@/services/api'
+
 import * as service from '@/services/AuthService'
 
 type AuthState = {
@@ -7,8 +9,7 @@ type AuthState = {
 }
 
 const initState = (): AuthState => ({
-  token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwMzc2NzU5LCJpYXQiOjE3MDk1MTI3NTksImp0aSI6IjYxYzdjOTY1MmZkZjQzMDE4MWM4ZGZkYThjNzk4ZGQ4IiwidXNlcl9pZCI6MX0.a3FCuNsmpSWz8S0_XmBIU4FC43U3xW0GDO7kSwRECqs',
+  token: '',
 })
 
 export const useAuthStore = defineStore('auth', {
@@ -21,10 +22,26 @@ export const useAuthStore = defineStore('auth', {
       if (response.status !== 200) throw new Error('Invalid credentials')
 
       this.token = response.data!.access
+      localStorage.setItem('refresh', response.data!.refresh)
     },
 
     logout() {
       this.token = ''
+      localStorage.removeItem('refresh')
+    },
+
+    async init() {
+      const refresh = localStorage.getItem('refresh')
+      if (!refresh) return
+
+      const verifyResponse = await API.post('/auth/token/verify', { token: refresh })
+      if (verifyResponse.status !== 200) return
+
+      const refreshResponse = await API.post('/auth/token/refresh', { refresh })
+      if (refreshResponse.status !== 200) return
+
+      const data = await refreshResponse.json()
+      this.token = data.access
     },
   },
 })
