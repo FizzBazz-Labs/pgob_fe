@@ -45,8 +45,9 @@ onBeforeMount(async () => {
           <th></th>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Acreditación</th>
           <th>País</th>
+          <th>Acreditación</th>
+          <th>Creado Por</th>
           <th>Estado</th>
           <th>Acciones</th>
         </tr>
@@ -63,6 +64,7 @@ onBeforeMount(async () => {
           <td>{{ item.lastName }}</td>
           <td>{{ item.country }}</td>
           <td>{{ AccreditationTypeLabel[item.type] }}</td>
+          <td>{{ item.createdBy.firstName }} {{ item.createdBy.lastName }}</td>
           <td>{{ StatusLabel[item.status] }}</td>
 
           <td>
