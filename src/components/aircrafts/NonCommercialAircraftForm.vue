@@ -39,9 +39,10 @@ async function onSubmit() {
     v-model="values"
     submit-label="Crear"
     :submit-attrs="{ 'suffix-icon': 'submit' }"
+    :actions="false"
     @submit="onSubmit"
   >
-    <div class="flex gap-4">
+    <div class="flex justify-center gap-4">
       <div class="w-1/2">
         <FormKit
           type="select"
@@ -217,6 +218,12 @@ async function onSubmit() {
           type="textarea"
           name="groundFacilities"
           label="Facilidades que la aeronave requiere en tierra"
+        />
+
+        <FormKit
+          type="submit"
+          label="Enviar"
+          suffix-icon="submit"
         />
       </div>
     </div>
