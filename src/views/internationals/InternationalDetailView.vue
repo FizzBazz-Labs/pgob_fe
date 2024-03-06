@@ -101,21 +101,27 @@ const hasMedications = computed(() =>
             <span><strong>Medicamentos en Uso</strong></span>
 
             <ul class="list-inside list-disc">
-              <li v-if="item.medication1">
+              <li v-if="item.medication1 && item.medication1 != 'undefined'">
                 {{ item.medication1 }}
               </li>
 
-              <li v-if="item.medication2">
+              <li v-if="item.medication2 && item.medication2 != 'undefined'">
                 {{ item.medication2 }}
               </li>
 
-              <li v-if="item.medication3">
+              <li v-if="item.medication3 && item.medication3 != 'undefined'">
                 {{ item.medication3 }}
               </li>
 
-              <li v-if="item.medication4">
+              <li v-if="item.medication4 && item.medication4 != 'undefined'">
                 {{ item.medication4 }}
               </li>
+            </ul>
+          </div>
+          <div v-else>
+            <span><strong>Medicamentos en Uso</strong></span>
+            <ul class="list-inside list-disc">
+              <li>No hay medicamentos en uso</li>
             </ul>
           </div>
 
@@ -175,7 +181,7 @@ const hasMedications = computed(() =>
             <strong>Antecedentes Quirúrgicos</strong>: {{ item.surgical }}
           </span>
 
-          <span v-if="item.doctorName">
+          <span v-if="item.doctorName && item.doctorName != 'undefined'">
             <strong>Medico Personal</strong>: {{ item.doctorName }}
           </span>
         </div>

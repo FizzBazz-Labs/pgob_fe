@@ -62,10 +62,11 @@ async function onSubmit() {
     type="form"
     v-model="values"
     submit-label="Crear"
+    :actions="false"
     :submit-attrs="{ 'suffix-icon': 'submit' }"
     @submit="onSubmit"
   >
-    <div class="flex gap-4">
+    <div class="flex justify-center gap-4">
       <div class="w-1/2">
         <FormKit
           type="select"
@@ -86,13 +87,13 @@ async function onSubmit() {
         <div class="mb-2 flex gap-4">
           <span class="divider divider-start flex-1 text-xl font-bold">Vehículos</span>
 
-          <button
+          <!-- <button
             type="button"
-            class="btn btn-ghost"
+            class="btn btn-success text-white"
             @click="onAddVehicle"
           >
             Añadir
-          </button>
+          </button> -->
         </div>
 
         <div
@@ -165,7 +166,7 @@ async function onSubmit() {
             <div class="flex justify-end">
               <button
                 type="button"
-                class="btn btn-ghost"
+                class="btn btn-error text-white"
                 @click="onRemoveVehicle(i)"
               >
                 Eliminar
@@ -173,6 +174,22 @@ async function onSubmit() {
             </div>
           </div>
         </div>
+
+        <div class="flex justify-end">
+          <button
+            type="button"
+            class="btn btn-success text-white"
+            @click="onAddVehicle"
+          >
+            Añadir
+          </button>
+        </div>
+
+        <FormKit
+          type="submit"
+          label="Enviar"
+          suffix-icon="submit"
+        />
       </div>
     </div>
   </FormKit>

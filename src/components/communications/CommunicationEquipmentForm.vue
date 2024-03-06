@@ -36,6 +36,7 @@ function initEquipment() {
 
 function onAddVehicle() {
   equipments.value.push(initEquipment())
+  window.scrollTo(0, document.body.scrollHeight)
 }
 
 function onRemoveVehicle(index: number) {
@@ -62,10 +63,11 @@ async function onSubmit() {
     type="form"
     v-model="values"
     submit-label="Crear"
+    :actions="false"
     :submit-attrs="{ 'suffix-icon': 'submit' }"
     @submit="onSubmit"
   >
-    <div class="flex gap-4">
+    <div class="flex justify-center gap-4">
       <div class="w-1/2">
         <FormKit
           type="select"
@@ -87,14 +89,6 @@ async function onSubmit() {
           <span class="divider divider-start flex-1 text-xl font-bold">
             Equipo de Intercomunicación
           </span>
-
-          <button
-            type="button"
-            class="btn btn-ghost"
-            @click="onAddVehicle"
-          >
-            Añadir
-          </button>
         </div>
 
         <div
@@ -149,7 +143,7 @@ async function onSubmit() {
             <div class="flex justify-end">
               <button
                 type="button"
-                class="btn btn-ghost"
+                class="btn btn-error text-white"
                 @click="onRemoveVehicle(i)"
               >
                 Eliminar
@@ -157,6 +151,22 @@ async function onSubmit() {
             </div>
           </div>
         </div>
+
+        <div class="flex justify-end">
+          <button
+            type="button"
+            class="btn btn-success text-white"
+            @click="onAddVehicle"
+          >
+            Añadir
+          </button>
+        </div>
+
+        <FormKit
+          type="submit"
+          label="Enviar"
+          suffix-icon="submit"
+        />
       </div>
     </div>
   </FormKit>
