@@ -172,7 +172,7 @@ async function onSubmit() {
             <FormKit
               type="text"
               name="passport"
-              label="Cédula"
+              label="Cédula o Pasaporte"
               validation="required"
             />
 
