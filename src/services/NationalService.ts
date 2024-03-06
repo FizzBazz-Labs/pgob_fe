@@ -1,13 +1,15 @@
 import * as API from '@/services/api'
 
 import type { National } from '@/entities/National'
+import type { MultiStepForm } from '@/entities/Form'
 
-export async function create(params: Record<string, unknown>): Promise<National> {
+export async function create(values: MultiStepForm): Promise<National> {
+  const params = values['multi-step'].accreditation
   const form = new FormData()
 
   form.append('firstName', params.firstName as string)
   form.append('lastName', params.lastName as string)
-  form.append('position', params.position as string)
+  form.append('position', params.position.toString())
   form.append('institution', params.institution as string)
   form.append('address', params.address as string)
   form.append('phoneNumber', params.phoneNumber as string)

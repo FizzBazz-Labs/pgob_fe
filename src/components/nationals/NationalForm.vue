@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { getNode } from '@formkit/core'
 
 import { toast } from 'vue3-toastify'
 
-import type { FormValues } from '@/entities/Form'
+import type { MultiStepForm } from '@/entities/Form'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
@@ -16,19 +16,22 @@ import { NationalAccreditationDetailView } from '@/router'
 
 const router = useRouter()
 
-const values = ref<FormValues>({
+const values = ref<MultiStepForm>({
   'multi-step': {
     accreditation: {
       position: 1,
     },
+    security: {},
   },
 })
 
 const { positions, subPositions, showChannels, channels, bloods, nationalTypes, preview } =
   useFormSelect({ values })
 
-const previewImage = computed(() => preview(values.value.image))
-const previewLetter = computed(() => preview(values.value.letter))
+const previewImage = computed(() => preview(values.value['multi-step'].accreditation.image))
+const previewLetter = computed(() => preview(values.value['multi-step'].accreditation.letter))
+
+const isSecurity = computed(() => values.value['multi-step'].accreditation.position === 10)
 
 const next = () => {
   const node = getNode('multi-step')
@@ -43,7 +46,9 @@ const previous = () => {
 async function onSubmit() {
   const response = await service.create(values.value)
 
-  toast('Acreditación nacional creada con éxito.', { type: 'success' })
+  toast('Acreditación nacional creada con éxito.', {
+    type: 'success',
+  })
 
   router.push({
     name: NationalAccreditationDetailView.name,
@@ -67,7 +72,7 @@ async function onSubmit() {
       name="multi-step"
       tab-style="tab"
       outer-class="max-w-none"
-      steps-class="border-none"
+      steps-class="border-none !p-0"
     >
       <template #tabs></template>
 
@@ -274,19 +279,23 @@ async function onSubmit() {
         </div>
 
         <template #stepActions>
-          {{ values['multi-step'].accreditation.position }}
+          <div class="flex gap-4">
+            <FormKit
+              v-if="!isSecurity"
+              type="submit"
+              label="Crear"
+              suffix-icon="submit"
+              outer-class="!max-w-fit"
+            />
 
-          <FormKit
-            type="submit"
-            label="Crear"
-            suffix-icon="submit"
-          />
-
-          <FormKit
-            type="button"
-            label="Siguiente"
-            @click="next"
-          />
+            <FormKit
+              v-else
+              type="button"
+              label="Siguiente"
+              outer-class="!max-w-fit"
+              @click="next"
+            />
+          </div>
         </template>
       </FormKit>
 
@@ -294,14 +303,61 @@ async function onSubmit() {
         type="step"
         name="security"
       >
-        <FormKit type="text" />
+        <div class="w-1/2">
+          <h2 class="divider divider-start text-xl font-bold">Datos de Seguridad</h2>
+
+          <FormKit
+            type="text"
+            name="securityCode"
+            label="Código de Seguridad"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="securityInstitution"
+            label="Institución de Seguridad"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="securityInstitutionAddress"
+            label="Dirección de la Institución"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="securityInstitutionPhoneNumber"
+            label="Teléfono de la Institución"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="securityInstitutionEmail"
+            label="Correo Electrónico de la Institución"
+            validation="required|email"
+          />
+        </div>
 
         <template #stepActions>
-          <FormKit
-            type="submit"
-            label="Crear"
-            suffix-icon="submit"
-          />
+          <div class="flex gap-4">
+            <FormKit
+              type="button"
+              label="Anterior"
+              outer-class="!max-w-fit"
+              @click="previous"
+            />
+
+            <FormKit
+              type="submit"
+              label="Crear"
+              suffix-icon="submit"
+              outer-class="!max-w-fit"
+            />
+          </div>
         </template>
       </FormKit>
     </FormKit>
