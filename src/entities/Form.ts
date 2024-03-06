@@ -8,3 +8,5 @@ export type MultiStepForm = {
   }
   [key: string]: string | number | unknown
 }
+
+export type FormValues = Record<string, string | number | unknown>

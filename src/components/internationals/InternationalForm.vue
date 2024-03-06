@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 
 import { toast } from 'vue3-toastify'
 
-import type { MultiStepForm } from '@/entities/Form'
+import type { FormValues } from '@/entities/Form'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
@@ -14,13 +14,7 @@ import { InternationalAccreditationDetailView } from '@/router'
 
 const router = useRouter()
 
-const values = ref<MultiStepForm>({
-  'multi-step': {
-    accreditation: {
-      position: 1,
-    },
-    security: {},
-  },
+const values = ref<FormValues>({
   country: 1,
   position: 1,
   images: [],
