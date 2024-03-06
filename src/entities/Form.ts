@@ -6,4 +6,5 @@ export type MultiStepForm = {
     }
     security: Record<string, string | number | unknown>
   }
+  [key: string]: string | number | unknown
 }
