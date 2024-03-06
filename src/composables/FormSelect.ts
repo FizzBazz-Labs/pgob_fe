@@ -1,12 +1,12 @@
 import { ref, computed, type Ref } from 'vue'
 
 import { useGeneralStore } from '@/stores/general'
-import type { MultiStepForm } from '@/entities/Form'
+import type { MultiStepForm, FormValues } from '@/entities/Form'
 
 const placeholder = 'https://placeholder.co/150x250/f3f3f2/white?text=150x250'
 
 type Props = {
-  values: Ref<MultiStepForm> | Ref<FormValues>
+  values: Ref<MultiStepForm | FormValues>
 }
 
 export function useFormSelect(props: Props) {
