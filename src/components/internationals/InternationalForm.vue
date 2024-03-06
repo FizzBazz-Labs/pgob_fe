@@ -44,7 +44,6 @@ const {
   countries,
   immunizations,
   medicalHistories,
-  internationalTypes,
   preview,
 } = useFormSelect({ values })
 
