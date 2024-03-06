@@ -1,15 +1,20 @@
 import * as API from '@/services/api'
 
 import type { National } from '@/entities/National'
-import type { FormValues } from '@/entities/Form'
+import type { MultiStepForm } from '@/entities/Form'
 
-export async function create(params: FormValues): Promise<National> {
-  // const params = values['multi-step'].accreditation
+import * as securities from '@/services/SecurityService'
+
+export async function create(values: MultiStepForm): Promise<National> {
+  const securityAccreditation = await securities.create(values['multi-step'].security)
+
+  const params = values['multi-step'].accreditation
   const form = new FormData()
 
+  form.append('securityWeaponAccreditation', securityAccreditation.id.toString())
   form.append('firstName', params.firstName as string)
   form.append('lastName', params.lastName as string)
-  form.append('position', params.position as string)
+  form.append('position', params.position.toString())
   form.append('institution', params.institution as string)
   form.append('address', params.address as string)
   form.append('phoneNumber', params.phoneNumber as string)

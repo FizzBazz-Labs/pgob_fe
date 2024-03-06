@@ -4,4 +4,5 @@ export interface Equipment {
   model: string
   serial: string
   value: string
+  frequency?: string
 }
