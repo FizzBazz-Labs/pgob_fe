@@ -1,14 +1,21 @@
 import * as API from '@/services/api'
 
 import type { International } from '@/entities/International'
+import type { MultiStepForm } from '@/entities/Form'
 
-export async function create(params: Record<string, unknown>): Promise<International> {
+import * as securities from '@/services/SecurityService'
+
+export async function create(values: MultiStepForm): Promise<International> {
+  const securityAccreditation = await securities.create(values['multi-step'].security)
+
+  const params = values['multi-step'].accreditation
   const form = new FormData()
 
+  form.append('securityWeaponAccreditation', securityAccreditation.id.toString())
   form.append('country', params.country as string)
   form.append('firstName', params.firstName as string)
   form.append('lastName', params.lastName as string)
-  form.append('position', params.position as string)
+  form.append('position', params.position.toString())
   form.append('institution', params.institution as string)
   form.append('address', params.address as string)
   form.append('phoneNumber', params.phoneNumber as string)
@@ -22,7 +29,6 @@ export async function create(params: Record<string, unknown>): Promise<Internati
   form.append('birthplace', params.birthplace as string)
   form.append('bloodType', params.blood as string)
   form.append('bloodRhFactor', params.bloodRhFactor as string)
-  form.append('type', params.type as string)
   form.append('diseases', params.diseases as string)
   form.append('surgical', params.surgical as string)
   form.append('doctorName', params.doctorName as string)

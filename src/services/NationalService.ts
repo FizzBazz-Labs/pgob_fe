@@ -28,7 +28,6 @@ export async function create(values: MultiStepForm): Promise<National> {
   form.append('birthday', params.birthday as string)
   form.append('birthplace', params.birthplace as string)
   form.append('bloodType', params.blood as string)
-  form.append('type', params.type as string)
 
   if (params.subPosition !== undefined) {
     form.append('subPosition', params.subPosition as string)

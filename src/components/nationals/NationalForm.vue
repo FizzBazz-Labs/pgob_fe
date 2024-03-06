@@ -30,8 +30,9 @@ const values = ref<MultiStepForm>({
   },
 })
 
-const { positions, subPositions, showChannels, channels, bloods, nationalTypes, preview } =
-  useFormSelect({ values })
+const { positions, subPositions, showChannels, channels, bloods, preview } = useFormSelect({
+  values,
+})
 
 const previewImage = computed(() => preview(values.value['multi-step'].accreditation.image))
 
@@ -106,8 +107,6 @@ async function onSubmit() {
 </script>
 
 <template>
-  {{ values }}
-
   <FormKit
     type="form"
     v-model="values"
@@ -265,17 +264,6 @@ async function onSubmit() {
               name="email"
               label="Correo Electrónico"
               validation="required|email"
-            />
-
-            <h2 class="divider divider-start mt-10 text-xl font-bold">Otros</h2>
-
-            <FormKit
-              type="select"
-              name="type"
-              label="Tipo de acreditación"
-              validation="required"
-              :options="nationalTypes"
-              select-icon="down"
             />
           </div>
 
