@@ -37,7 +37,7 @@ const {
 } = useFormSelect({ values })
 
 const previewImage = computed(() => preview(values.value.image))
-const previewLetter = computed(() => preview(values.value.letter))
+// const previewLetter = computed(() => preview(values.value.letter))
 
 async function onSubmit() {
   const response = await service.create(values.value)
@@ -443,19 +443,19 @@ async function onSubmit() {
             name="letter"
             label="Carta de Autorización"
             validation="required"
-            accept=".png,.jpg,.webp"
+            accept=".pdf"
             file-item-icon="fileDoc"
             file-remove-icon="close"
             no-files-icon="fileDoc"
           />
 
-          <div class="card mb-4">
+          <!-- <div class="card mb-4">
             <img
               :src="previewLetter"
               alt="Foto"
               class="h-[350px] w-full rounded-md bg-base-200 object-contain"
             />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

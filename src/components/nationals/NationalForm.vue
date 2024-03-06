@@ -29,7 +29,7 @@ const { positions, subPositions, showChannels, channels, bloods, nationalTypes, 
   useFormSelect({ values })
 
 const previewImage = computed(() => preview(values.value['multi-step'].accreditation.image))
-const previewLetter = computed(() => preview(values.value['multi-step'].accreditation.letter))
+// const previewLetter = computed(() => preview(values.value['multi-step'].accreditation.letter))
 
 const isSecurity = computed(() => values.value['multi-step'].accreditation.position === 10)
 
@@ -259,19 +259,19 @@ async function onSubmit() {
                 name="letter"
                 label="Carta de Autorización"
                 validation="required"
-                accept=".png,.jpg,.webp"
+                accept=".pdf"
                 file-item-icon="fileDoc"
                 file-remove-icon="close"
                 no-files-icon="fileDoc"
               />
 
-              <div class="card mb-4">
+              <!-- <div class="card mb-4">
                 <img
                   :src="previewLetter"
                   alt="Foto"
                   class="h-[350px] w-full rounded-md bg-base-200 object-contain"
                 />
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
