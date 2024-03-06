@@ -180,7 +180,7 @@ const hasMedications = computed(() =>
           </span>
         </div>
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos Médicos</h2>
+        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Alojamiento</h2>
 
         <div class="flex flex-col gap-2">
           <span><strong>Hotel</strong>: {{ item.hotelName }}</span>
