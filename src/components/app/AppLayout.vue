@@ -12,6 +12,7 @@ import {
   GeneralVehicleCreateView,
   NonCommercialAircraftCreateView,
   CommunicationEquipmentCreateView,
+  SecurityWeaponCreateView,
 } from '@/router'
 
 const store = useAuthStore()
@@ -109,6 +110,18 @@ const store = useAuthStore()
                 <RouterLink :to="CommunicationEquipmentCreateView.path">
                   Declaración de Equipo de Intercomunicación
                 </RouterLink>
+              </li>
+            </ul>
+          </details>
+        </li>
+
+        <li>
+          <details open>
+            <summary>Armas</summary>
+
+            <ul>
+              <li>
+                <RouterLink :to="SecurityWeaponCreateView.path"> Acreditacion de armas </RouterLink>
               </li>
             </ul>
           </details>

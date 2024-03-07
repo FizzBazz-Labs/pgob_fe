@@ -98,7 +98,7 @@ async function onSubmit() {
         >
           <input
             type="radio"
-            name="vehicles"
+            name="equipments"
             checked
           />
 

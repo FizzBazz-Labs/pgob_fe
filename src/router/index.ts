@@ -50,6 +50,12 @@ export const GeneralVehicleCreateView = {
   component: () => import('../views/vehicles/GeneralVehicleCreateView.vue'),
 }
 
+export const GeneralVehicleDetailView = {
+  path: '/accreditations/general-vehicle/:id',
+  name: 'general-vehicles-detail',
+  component: () => import('../views/vehicles/GeneralVehicleDetailView.vue'),
+}
+
 export const NonCommercialAircraftCreateView = {
   path: '/accreditations/non-commercial-aircraft',
   name: 'non-commercial-aircraft-create',
@@ -60,6 +66,12 @@ export const CommunicationEquipmentCreateView = {
   path: '/accreditations/communication-equipment',
   name: 'communication-equipment-create',
   component: () => import('../views/communications/CommunicationEquipmentCreateView.vue'),
+}
+
+export const SecurityWeaponCreateView = {
+  path: '/accreditations/security-weapons',
+  name: 'security-weapon-create',
+  component: () => import('../views/weapons/WeaponCreateView.vue'),
 }
 
 export const HomeView = {
@@ -80,8 +92,10 @@ const router = createRouter({
     InternationalAccreditationDetailView,
     VehicleAccessCreateView,
     GeneralVehicleCreateView,
+    GeneralVehicleDetailView,
     NonCommercialAircraftCreateView,
     CommunicationEquipmentCreateView,
+    SecurityWeaponCreateView,
   ],
 })
 
