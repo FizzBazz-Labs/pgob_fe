@@ -165,7 +165,7 @@ async function onSubmit() {
             <FormKit
               type="number"
               v-model="weapon.chargers"
-              label="Calibre"
+              label="Cargador"
               validation="required"
             />
 
