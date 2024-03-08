@@ -16,13 +16,6 @@ onBeforeMount(async () => {
 
   loading.value = false
 })
-
-function goToGeneralPage() {
-  router.push({
-    name: 'general-vehicles-detail',
-    params: { id: 1 },
-  })
-}
 </script>
 
 <template>
@@ -48,12 +41,12 @@ function goToGeneralPage() {
       Security
     </RouterLink>
 
-    <button
-      class="btn btn-primary"
-      @click.prevent="goToGeneralPage"
+    <RouterLink
+      to="/accreditations/general-vehicle/1"
+      class="btn"
     >
-      test
-    </button>
+      General
+    </RouterLink>
   </div>
 
   <AppLoading :loading="loading">
