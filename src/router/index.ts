@@ -44,6 +44,12 @@ export const VehicleAccessCreateView = {
   component: () => import('../views/vehicles/VehicleAccessCreateView.vue'),
 }
 
+export const VehicleAccessDetailView = {
+  path: '/accreditations/vehicle-access/:id',
+  name: 'vehicle-access-detail',
+  component: () => import('../views/vehicles/VehicleAccessDetailView.vue'),
+}
+
 export const GeneralVehicleCreateView = {
   path: '/accreditations/general-vehicle',
   name: 'general-vehicle-create',
@@ -109,6 +115,7 @@ const router = createRouter({
     InternationalAccreditationCreateView,
     InternationalAccreditationDetailView,
     VehicleAccessCreateView,
+    VehicleAccessDetailView,
     GeneralVehicleCreateView,
     GeneralVehicleDetailView,
     NonCommercialAircraftCreateView,

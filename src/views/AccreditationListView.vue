@@ -47,6 +47,13 @@ onBeforeMount(async () => {
     >
       General
     </RouterLink>
+
+    <RouterLink
+      to="/accreditations/vehicle-access/1"
+      class="btn"
+    >
+      Access
+    </RouterLink>
   </div>
 
   <AppLoading :loading="loading">
