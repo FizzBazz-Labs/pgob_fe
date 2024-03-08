@@ -39,6 +39,13 @@ function gotoDetail(item: Accreditation) {
 onBeforeMount(async () => {
   items.value = (await services.getAll()).accreditations
 })
+
+function goToGeneralPage() {
+  router.push({
+    name: 'general-vehicles-detail',
+    params: { id: 1 },
+  })
+}
 </script>
 
 <template>
@@ -99,5 +106,12 @@ onBeforeMount(async () => {
         </tr>
       </tbody>
     </table>
+
+    <button
+      class="btn btn-primary"
+      @click.prevent="goToGeneralPage"
+    >
+      test
+    </button>
   </main>
 </template>

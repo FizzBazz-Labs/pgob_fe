@@ -95,7 +95,7 @@ async function onSubmit() {
         />
 
         <div class="mb-2 flex gap-4">
-          <span class="divider divider-start flex-1 text-xl font-bold"> Vehículos </span>
+          <span class="divider divider-start flex-1 text-xl font-bold"> Armas </span>
 
           <!-- <button
             type="button"
