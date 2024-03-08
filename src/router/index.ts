@@ -62,6 +62,12 @@ export const NonCommercialAircraftCreateView = {
   component: () => import('../views/aircrafts/NonCommercialAircraftCreateView.vue'),
 }
 
+export const AircraftDetailView = {
+  path: '/accreditations/non-commercial-aircraft/:id',
+  name: 'non-commercial-aircraft-detail',
+  component: () => import('../views/aircrafts/AircraftDetailView.vue'),
+}
+
 export const CommunicationEquipmentCreateView = {
   path: '/accreditations/communication-equipment',
   name: 'communication-equipment-create',
@@ -94,6 +100,7 @@ const router = createRouter({
     GeneralVehicleCreateView,
     GeneralVehicleDetailView,
     NonCommercialAircraftCreateView,
+    AircraftDetailView,
     CommunicationEquipmentCreateView,
     SecurityWeaponCreateView,
   ],

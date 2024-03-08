@@ -19,6 +19,8 @@ onBeforeMount(async () => {
 </script>
 
 <template>
+  <RouterLink to="/accreditations/non-commercial-aircraft/1"> Aircraft Detail </RouterLink>
+
   <AppLoading :loading="loading">
     <main
       v-if="response"

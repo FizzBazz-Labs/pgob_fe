@@ -9,7 +9,7 @@ import type { FormValues } from '@/entities/Form'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
-import * as service from '@/services/NonCommercialAircraftService'
+import * as service from '@/services/AircraftService'
 
 import { HomeView } from '@/router'
 
@@ -229,3 +229,4 @@ async function onSubmit() {
     </div>
   </FormKit>
 </template>
+@/services/AircraftService
