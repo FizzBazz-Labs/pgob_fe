@@ -1,43 +1,20 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRouter } from 'vue-router'
-
-import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
-
-import { NationalAccreditationDetailView, InternationalAccreditationDetailView } from '@/router'
-
-import { AccreditationStatus, type Accreditation } from '@/entities/Accreditation'
-
-import { useAuthStore } from '@/stores/auth'
 
 import * as services from '@/services/AccreditationService'
 
-import { AccreditationTypeLabel } from '@/utils/labels'
+import AppLoading from '@/components/app/AppLoading.vue'
+import AccreditationTable from '@/components/accreditations/AccreditationTable.vue'
+import SecurityTable from '@/components/weapons/SecurityTable.vue'
+import CommunicationTable from '@/components/communications/CommunicationTable.vue'
 
-import StatusBadge from '@/components/accreditations/StatusBadge.vue'
-
-const router = useRouter()
-
-const auth = useAuthStore()
-
-const items = ref<Array<Accreditation>>([])
-
-function gotoDetail(item: Accreditation) {
-  if (item.type === 'national') {
-    router.push({
-      name: NationalAccreditationDetailView.name,
-      params: { id: item.id },
-    })
-  } else {
-    router.push({
-      name: InternationalAccreditationDetailView.name,
-      params: { id: item.id },
-    })
-  }
-}
+const loading = ref(true)
+const response = ref<services.GetAllResponse>()
 
 onBeforeMount(async () => {
-  items.value = (await services.getAll()).accreditations
+  response.value = await services.getAll()
+
+  loading.value = false
 })
 
 function goToGeneralPage() {
@@ -49,63 +26,27 @@ function goToGeneralPage() {
 </script>
 
 <template>
-  <h1 class="divider divider-start text-xl font-bold">Acreditaciones</h1>
+  <div class="flex gap-4">
+    <RouterLink
+      to="/accreditations/non-commercial-aircraft/1"
+      class="btn"
+    >
+      Aircraft
+    </RouterLink>
 
-  <main class="mt-5">
-    <table class="table table-zebra">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>País</th>
-          <th>Acreditación</th>
-          <th>Creado Por</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
+    <RouterLink
+      to="/accreditations/communication-equipment/1"
+      class="btn"
+    >
+      Communication
+    </RouterLink>
 
-      <tbody>
-        <tr
-          v-for="(item, i) in items"
-          :key="item.id"
-          class="hover"
-        >
-          <th>{{ i + 1 }}</th>
-          <td>{{ item.firstName }}</td>
-          <td>{{ item.lastName }}</td>
-          <td>{{ item.country }}</td>
-          <td>{{ AccreditationTypeLabel[item.type] }}</td>
-          <td>{{ item.createdBy.firstName }} {{ item.createdBy.lastName }}</td>
-          <td><StatusBadge v-bind="item" /></td>
-
-          <td>
-            <div
-              class="tooltip"
-              data-tip="Detalle"
-            >
-              <button
-                class="btn btn-ghost btn-sm"
-                @click="gotoDetail(item)"
-              >
-                <EyeIcon class="h-5 w-5" />
-              </button>
-            </div>
-
-            <div
-              v-if="auth.isAdmin && item.status === AccreditationStatus.APPROVED"
-              class="tooltip"
-              data-tip="Identificación"
-            >
-              <a class="btn btn-ghost btn-sm">
-                <IdentificationIcon class="h-5 w-5" />
-              </a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <RouterLink
+      to="/accreditations/security-weapons/1"
+      class="btn"
+    >
+      Security
+    </RouterLink>
 
     <button
       class="btn btn-primary"
@@ -113,5 +54,27 @@ function goToGeneralPage() {
     >
       test
     </button>
-  </main>
+  </div>
+
+  <AppLoading :loading="loading">
+    <main
+      v-if="response"
+      class="flex flex-col gap-10"
+    >
+      <AccreditationTable
+        v-if="response.accreditations.length > 0"
+        :items="response.accreditations"
+      />
+
+      <CommunicationTable
+        v-if="response.accreditations.length > 0"
+        :items="response.accreditations"
+      />
+
+      <SecurityTable
+        v-if="response.accreditations.length > 0"
+        :items="response.accreditations"
+      />
+    </main>
+  </AppLoading>
 </template>

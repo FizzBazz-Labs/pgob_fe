@@ -62,16 +62,34 @@ export const NonCommercialAircraftCreateView = {
   component: () => import('../views/aircrafts/NonCommercialAircraftCreateView.vue'),
 }
 
+export const AircraftDetailView = {
+  path: '/accreditations/non-commercial-aircraft/:id',
+  name: 'non-commercial-aircraft-detail',
+  component: () => import('../views/aircrafts/AircraftDetailView.vue'),
+}
+
 export const CommunicationEquipmentCreateView = {
   path: '/accreditations/communication-equipment',
   name: 'communication-equipment-create',
   component: () => import('../views/communications/CommunicationEquipmentCreateView.vue'),
 }
 
+export const CommunicationEquipmentDetailView = {
+  path: '/accreditations/communication-equipment/:id',
+  name: 'communication-equipment-detail',
+  component: () => import('../views/communications/CommunicationEquipmentDetailView.vue'),
+}
+
 export const SecurityWeaponCreateView = {
   path: '/accreditations/security-weapons',
   name: 'security-weapon-create',
   component: () => import('../views/weapons/WeaponCreateView.vue'),
+}
+
+export const SecurityDetailView = {
+  path: '/accreditations/security-weapons/:id',
+  name: 'security-detail',
+  component: () => import('../views/weapons/SecurityDetailView.vue'),
 }
 
 export const HomeView = {
@@ -94,8 +112,11 @@ const router = createRouter({
     GeneralVehicleCreateView,
     GeneralVehicleDetailView,
     NonCommercialAircraftCreateView,
+    AircraftDetailView,
     CommunicationEquipmentCreateView,
+    CommunicationEquipmentDetailView,
     SecurityWeaponCreateView,
+    SecurityDetailView,
   ],
 })
 

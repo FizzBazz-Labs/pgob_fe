@@ -1,4 +1,6 @@
 import type { Country } from '@/entities/Country'
+import type { Position, SubPosition } from './Position'
+import type { AccreditationStatus } from './Accreditation'
 
 export interface NonCommercialAircraft {
   id: number
@@ -11,11 +13,11 @@ export interface NonCommercialAircraft {
   commanderName: string
   crewMembersCount: number
   pmiName: string
-  position: number
-  subPosition: number
+  position: Position
+  subPosition: SubPosition
   passengersCount: number
-  arrivalDate: number
-  departureDate: Date
+  arrivalDate: string
+  departureDate: string
   overflightInfo: string
   landingInfo: string
   origin: string
@@ -23,4 +25,6 @@ export interface NonCommercialAircraft {
   route: string
   groundFacilities: string
   date: Date
+  status: AccreditationStatus
+  jurisdiction: string
 }
