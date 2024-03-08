@@ -2,7 +2,7 @@ import * as API from './api'
 
 import type { Accreditation } from '@/entities/Accreditation'
 
-type GetAllResponse = {
+export type GetAllResponse = {
   accreditations: Array<Accreditation>
 }
 
