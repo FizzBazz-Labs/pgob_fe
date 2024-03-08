@@ -50,7 +50,7 @@ async function onReject() {
   <AppLoading :loading="loading">
     <main
       v-if="item"
-      class="mt-10 w-1/2"
+      class="w-1/2"
     >
       <h2 class="divider divider-start mt-5 text-xl font-bold">Acreditación de Sobre Vuelo</h2>
 
