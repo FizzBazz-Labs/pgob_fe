@@ -1,9 +1,11 @@
 import type { Equipment } from '@/entities/Equipment'
-
 import type { Country } from '@/entities/Country'
+import { AccreditationStatus } from '@/entities/Accreditation'
 
 export interface CommunicationEquipment {
-  country: Country
+  id: number
   institution: string
-  equipment: Equipment[]
+  status: AccreditationStatus
+  country: Country
+  equipments: Equipment[]
 }

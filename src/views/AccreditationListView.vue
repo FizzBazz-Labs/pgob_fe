@@ -19,7 +19,21 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <RouterLink to="/accreditations/non-commercial-aircraft/1"> Aircraft Detail </RouterLink>
+  <div class="flex gap-4">
+    <RouterLink
+      to="/accreditations/non-commercial-aircraft/1"
+      class="btn"
+    >
+      Aircraft
+    </RouterLink>
+
+    <RouterLink
+      to="/accreditations/communication-equipment/1"
+      class="btn"
+    >
+      Communication
+    </RouterLink>
+  </div>
 
   <AppLoading :loading="loading">
     <main
