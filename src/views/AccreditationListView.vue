@@ -33,6 +33,13 @@ onBeforeMount(async () => {
     >
       Communication
     </RouterLink>
+
+    <RouterLink
+      to="/accreditations/security-weapons/1"
+      class="btn"
+    >
+      Security
+    </RouterLink>
   </div>
 
   <AppLoading :loading="loading">

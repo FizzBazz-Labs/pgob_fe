@@ -2,20 +2,19 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
-import type { CommunicationEquipment } from '@/entities/CommunicationEquipment'
+import type { SecurityAccreditation } from '@/entities/Security'
 
-import * as service from '@/services/CommunicationEquipmentService'
+import * as service from '@/services/SecurityService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
-
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
+import { formatDate } from '@/utils/dates'
 
 const route = useRoute()
 
 const loading = ref(true)
-const item = ref<CommunicationEquipment>()
+const item = ref<SecurityAccreditation>()
 
 onBeforeMount(async () => {
   loading.value = true
@@ -50,18 +49,57 @@ async function onReject() {
       v-if="item"
       class="w-1/2"
     >
-      <h2 class="divider divider-start mt-5 text-xl font-bold">
-        Declaración de Equipo de Intercomunicación
-      </h2>
+      <h2 class="divider divider-start mt-5 text-xl font-bold">Acreditación de Armas</h2>
 
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
 
-        <span><strong>País</strong>: {{ item.country.name }}</span>
-        <span><strong>Institución/Medio</strong>: {{ item.institution }}</span>
+        <span><strong>Fecha de Control</strong>: {{ formatDate(item.controlDatetime) }}</span>
+
+        <p>
+          <strong>Observaciones</strong>:
+          <br />
+          {{ item.observations }}
+        </p>
       </div>
 
-      <h2 class="divider divider-start mt-5 text-xl font-bold">Equipos de Intercomunicación</h2>
+      <h2 class="divider divider-start mt-5 text-xl font-bold">Armas</h2>
+
+      <table class="table table-zebra mt-5">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Arma</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Tipo</th>
+            <th>No. de Serie</th>
+            <th>Calibre</th>
+            <th>Cargadores</th>
+            <th>Municiones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="(weapon, i) in item.weapons"
+            :key="i"
+            class="hover"
+          >
+            <th>{{ i + 1 }}</th>
+            <td>{{ weapon.weapon }}</td>
+            <td>{{ weapon.brand }}</td>
+            <td>{{ weapon.model }}</td>
+            <td>{{ weapon.type }}</td>
+            <td>{{ weapon.serial }}</td>
+            <td>{{ weapon.caliber }}</td>
+            <td>{{ weapon.chargers }}</td>
+            <td>{{ weapon.ammunition }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="divider divider-start mt-5 text-xl font-bold">Equipo de Comunicación</h2>
 
       <table class="table table-zebra mt-5">
         <thead>
@@ -77,7 +115,7 @@ async function onReject() {
 
         <tbody>
           <tr
-            v-for="(equipment, i) in item.equipments"
+            v-for="(equipment, i) in item.communicationItems"
             :key="i"
             class="hover"
           >
