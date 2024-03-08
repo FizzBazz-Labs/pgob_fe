@@ -32,7 +32,7 @@ function initVehicle() {
     plate: '',
     driverName: '',
     driverId: '',
-    driverPhoneNumber: '',
+    phone: '',
   }
 }
 
@@ -157,7 +157,7 @@ async function onSubmit() {
 
               <FormKit
                 type="text"
-                v-model="vehicle.driverPhoneNumber"
+                v-model="vehicle.phone"
                 label="Número de teléfono"
                 validation="required"
               />
