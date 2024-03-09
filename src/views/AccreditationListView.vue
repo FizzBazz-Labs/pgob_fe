@@ -12,6 +12,8 @@ const loading = ref(true)
 const response = ref<services.GetAllResponse>()
 
 onBeforeMount(async () => {
+  loading.value = true
+
   response.value = await services.getAll()
 
   loading.value = false

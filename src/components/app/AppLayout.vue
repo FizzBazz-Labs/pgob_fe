@@ -15,7 +15,7 @@ import {
   SecurityWeaponCreateView,
 } from '@/router'
 
-const store = useAuthStore()
+const auth = useAuthStore()
 </script>
 
 <template>
@@ -49,18 +49,18 @@ const store = useAuthStore()
       </div>
 
       <ul class="menu w-80 flex-1 p-4">
-        <li>
+        <li v-if="auth.hasNational || auth.hasInternational">
           <details open>
             <summary>Acreditaciones</summary>
 
             <ul>
-              <li>
+              <li v-if="auth.hasNational">
                 <RouterLink :to="NationalAccreditationCreateView.path">
                   Acreditación Nacional
                 </RouterLink>
               </li>
 
-              <li>
+              <li v-if="auth.hasInternational">
                 <RouterLink :to="InternationalAccreditationCreateView.path">
                   Acreditación Internacional
                 </RouterLink>
@@ -69,25 +69,25 @@ const store = useAuthStore()
           </details>
         </li>
 
-        <li>
+        <li v-if="auth.hasVehicleAccessAirport || auth.hasGeneralVehicle">
           <details open>
             <summary>Vehículos</summary>
 
             <ul>
-              <li>
+              <li v-if="auth.hasVehicleAccessAirport">
                 <RouterLink :to="VehicleAccessCreateView.path">
                   Acceso de Vehículos a Aeropuerto
                 </RouterLink>
               </li>
 
-              <li>
+              <li v-if="auth.hasGeneralVehicle">
                 <RouterLink :to="GeneralVehicleCreateView.path"> Vehículos Generales </RouterLink>
               </li>
             </ul>
           </details>
         </li>
 
-        <li>
+        <li v-if="auth.hasAircraft">
           <details open>
             <summary>Aeronaves</summary>
 
@@ -101,7 +101,7 @@ const store = useAuthStore()
           </details>
         </li>
 
-        <li>
+        <li v-if="auth.hasCommunicationEquipment">
           <details open>
             <summary>Comunicación</summary>
 
@@ -115,13 +115,13 @@ const store = useAuthStore()
           </details>
         </li>
 
-        <li>
+        <li v-if="auth.hasSecurity">
           <details open>
             <summary>Armas</summary>
 
             <ul>
               <li>
-                <RouterLink :to="SecurityWeaponCreateView.path"> Acreditacion de armas </RouterLink>
+                <RouterLink :to="SecurityWeaponCreateView.path"> Acreditación de armas </RouterLink>
               </li>
             </ul>
           </details>
@@ -133,7 +133,7 @@ const store = useAuthStore()
           <RouterLink
             :to="LoginView.path"
             class="btn btn-error text-white"
-            @click="store.logout"
+            @click="auth.logout"
           >
             Cerrar Sesión
           </RouterLink>

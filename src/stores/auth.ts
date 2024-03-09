@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 import * as API from '@/services/api'
 
-import { Group, type User } from '@/entities/User'
+import { Group, Accreditation, type User } from '@/entities/User'
 
 import * as service from '@/services/AuthService'
 
@@ -23,6 +23,7 @@ const initState = (): AuthState => ({
     group: Group.USER,
     country: '',
     passportId: '',
+    accreditations: [],
   },
 })
 
@@ -34,6 +35,18 @@ export const useAuthStore = defineStore('auth', {
     isAccreditor: state => state.user.group === Group.Accreditor,
     isReviewer: state => state.user.group === Group.Reviewer,
     isUser: state => state.user.group === Group.USER,
+
+    hasNational: state => state.user.accreditations.some(a => a.name === Accreditation.NATIONAL),
+    hasInternational: state =>
+      state.user.accreditations.some(a => a.name === Accreditation.INTERNATIONAL),
+    hasVehicleAccessAirport: state =>
+      state.user.accreditations.some(a => a.name === Accreditation.VEHICLE_ACCESS_AIRPORT),
+    hasGeneralVehicle: state =>
+      state.user.accreditations.some(a => a.name === Accreditation.GENERAL_VEHICLE),
+    hasAircraft: state => state.user.accreditations.some(a => a.name === Accreditation.AIRCRAFT),
+    hasCommunicationEquipment: state =>
+      state.user.accreditations.some(a => a.name === Accreditation.COMMUNICATION_EQUIPMENT),
+    hasSecurity: state => state.user.accreditations.some(a => a.name === Accreditation.SECURITY),
   },
 
   actions: {

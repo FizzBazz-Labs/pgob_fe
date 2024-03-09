@@ -8,6 +8,10 @@ export interface User {
   group: Group
   country: string
   passportId: string
+  accreditations: Array<{
+    id: number
+    name: Accreditation
+  }>
 }
 
 export enum Group {
@@ -15,4 +19,14 @@ export enum Group {
   Accreditor = 'Accreditor',
   Reviewer = 'Reviewer',
   USER = 'User',
+}
+
+export enum Accreditation {
+  NATIONAL = 'National',
+  INTERNATIONAL = 'International',
+  VEHICLE_ACCESS_AIRPORT = 'VehicleAccessAirport',
+  GENERAL_VEHICLE = 'GeneralVehicle',
+  AIRCRAFT = 'Aircraft',
+  COMMUNICATION_EQUIPMENT = 'CommunicationEquipment',
+  SECURITY = 'Security',
 }
