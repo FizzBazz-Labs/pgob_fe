@@ -104,6 +104,18 @@ export const HomeView = {
   redirect: AccreditationListView.path,
 }
 
+export const UserListView = {
+  path: '/users',
+  name: 'user-list',
+  component: () => import('../views/users/UserListView.vue'),
+}
+
+export const UserCreateView = {
+  path: '/users/add',
+  name: 'user-create',
+  component: () => import('../views/users/UserCreateView.vue'),
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -124,6 +136,8 @@ const router = createRouter({
     CommunicationEquipmentDetailView,
     SecurityWeaponCreateView,
     SecurityDetailView,
+    UserListView,
+    UserCreateView,
   ],
 })
 

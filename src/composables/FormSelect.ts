@@ -2,6 +2,7 @@ import { ref, computed, type Ref } from 'vue'
 
 import { useGeneralStore } from '@/stores/general'
 import type { MultiStepForm, FormValues } from '@/entities/Form'
+import { Accreditation, Group } from '@/entities/User'
 
 const placeholder = 'https://placeholder.co/150x250/f3f3f2/white?text=150x250'
 
@@ -170,6 +171,56 @@ export function useFormSelect(props: Props) {
     },
   ])
 
+  const groups = ref([
+    {
+      value: Group.ADMIN,
+      label: 'Administrador',
+    },
+    {
+      value: Group.Accreditor,
+      label: 'Acreditador',
+    },
+    {
+      value: Group.Reviewer,
+      label: 'Revisor',
+    },
+    {
+      value: Group.USER,
+      label: 'Usuario',
+    },
+  ])
+
+  const accreditations = ref([
+    {
+      value: Accreditation.NATIONAL,
+      label: 'Nacional',
+    },
+    {
+      value: Accreditation.INTERNATIONAL,
+      label: 'Internacional',
+    },
+    {
+      value: Accreditation.AIRCRAFT,
+      label: 'Aeronave',
+    },
+    {
+      value: Accreditation.COMMUNICATION_EQUIPMENT,
+      label: 'Equipo de Comunicación',
+    },
+    {
+      value: Accreditation.GENERAL_VEHICLE,
+      label: 'Vehículo General',
+    },
+    {
+      value: Accreditation.VEHICLE_ACCESS_AIRPORT,
+      label: 'Vehículo de Acceso a Aeropuerto',
+    },
+    {
+      value: Accreditation.SECURITY,
+      label: 'Seguridad y Armas',
+    },
+  ])
+
   return {
     positions,
     subPositions,
@@ -184,5 +235,7 @@ export function useFormSelect(props: Props) {
     internationalTypes,
     preview,
     jurisdictions,
+    groups,
+    accreditations,
   }
 }
