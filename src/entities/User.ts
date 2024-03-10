@@ -30,3 +30,11 @@ export enum Accreditation {
   COMMUNICATION_EQUIPMENT = 'CommunicationEquipment',
   SECURITY = 'Security',
 }
+
+export type CreatedBy = {
+  id: number
+  username: string
+  firstName: string
+  lastName: string
+  email: string
+}

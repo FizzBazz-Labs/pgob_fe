@@ -1,3 +1,5 @@
+import type { CreatedBy } from './User'
+
 export enum AccreditationStatus {
   PENDING = 'PENDING',
   REVIEWED = 'REVIEWED',
@@ -13,11 +15,5 @@ export interface Accreditation {
   type: 'national' | 'international'
   status: AccreditationStatus
   createdAt: string
-  createdBy: {
-    id: number
-    username: string
-    firstName: string
-    lastName: string
-    email: string
-  }
+  createdBy: CreatedBy
 }

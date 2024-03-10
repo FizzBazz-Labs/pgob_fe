@@ -3,13 +3,12 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { NationalAccreditationDetailView, InternationalAccreditationDetailView } from '@/router'
+import { AircraftDetailView } from '@/router'
 
-import { AccreditationStatus, type Accreditation } from '@/entities/Accreditation'
+import type { SecurityAccreditation } from '@/entities/Security'
+import { AccreditationStatus } from '@/entities/Accreditation'
 
 import { useAuthStore } from '@/stores/auth'
-
-import { AccreditationTypeLabel } from '@/utils/labels'
 
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
@@ -17,35 +16,27 @@ const router = useRouter()
 
 const auth = useAuthStore()
 
-const props = defineProps<{ items: Array<Accreditation> }>()
+const props = defineProps<{ items: Array<SecurityAccreditation> }>()
 
-function gotoDetail(item: Accreditation) {
-  if (item.type === 'national') {
-    router.push({
-      name: NationalAccreditationDetailView.name,
-      params: { id: item.id },
-    })
-  } else {
-    router.push({
-      name: InternationalAccreditationDetailView.name,
-      params: { id: item.id },
-    })
-  }
+function gotoDetail(item: { id: number }) {
+  router.push({
+    name: AircraftDetailView.name,
+    params: { id: item.id },
+  })
 }
 </script>
 
 <template>
   <main>
-    <h1 class="divider divider-start text-xl font-bold">Seguridad y Armas</h1>
+    <h1 class="divider divider-start text-xl font-bold">Seguridad y Arma</h1>
 
     <table class="table table-zebra mt-5">
       <thead>
         <tr>
           <th></th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>País</th>
-          <th>Acreditación</th>
+          <th>Fecha de Control</th>
+          <th>Armas</th>
+          <th>Equipos</th>
           <th>Creado Por</th>
           <th>Estado</th>
           <th>Acciones</th>
@@ -59,12 +50,11 @@ function gotoDetail(item: Accreditation) {
           class="hover"
         >
           <th>{{ i + 1 }}</th>
-          <td>{{ item.firstName }}</td>
-          <td>{{ item.lastName }}</td>
-          <td>{{ item.country }}</td>
-          <td>{{ AccreditationTypeLabel[item.type] }}</td>
-          <td>{{ item.createdBy.firstName }} {{ item.createdBy.lastName }}</td>
-          <td><StatusBadge v-bind="item" /></td>
+          <td>{{ item.controlDatetime }}</td>
+          <td>{{ item.weapons.length }}</td>
+          <td>{{ item.communicationItems.length }}</td>
+          <td>{{ item.createdBy?.firstName ?? '' }} {{ item.createdBy?.lastName ?? '' }}</td>
+          <td><StatusBadge :status="item.status" /></td>
 
           <td>
             <div

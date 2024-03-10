@@ -1,6 +1,7 @@
 import type { Country } from '@/entities/Country'
 import type { Position, SubPosition } from './Position'
 import type { AccreditationStatus } from './Accreditation'
+import type { CreatedBy } from './User'
 
 export interface NonCommercialAircraft {
   id: number
@@ -27,4 +28,5 @@ export interface NonCommercialAircraft {
   date: Date
   status: AccreditationStatus
   jurisdiction: string
+  createdBy?: CreatedBy
 }

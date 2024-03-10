@@ -5,18 +5,18 @@ import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
 import { CommunicationEquipmentDetailView } from '@/router'
 
+import type { NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 import { AccreditationStatus } from '@/entities/Accreditation'
 
 import { useAuthStore } from '@/stores/auth'
 
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
-import type { CommunicationEquipment } from '@/entities/CommunicationEquipment'
 
 const router = useRouter()
 
 const auth = useAuthStore()
 
-const props = defineProps<{ items: Array<CommunicationEquipment> }>()
+const props = defineProps<{ items: Array<NonCommercialAircraft> }>()
 
 function gotoDetail(item: { id: number }) {
   router.push({
@@ -28,15 +28,18 @@ function gotoDetail(item: { id: number }) {
 
 <template>
   <main>
-    <h1 class="divider divider-start text-xl font-bold">Comunicación</h1>
+    <h1 class="divider divider-start text-xl font-bold">Aeronaves</h1>
 
     <table class="table table-zebra mt-5">
       <thead>
         <tr>
           <th></th>
           <th>País</th>
-          <th>Institución/Medio</th>
-          <th>Equipos</th>
+          <th>Type</th>
+          <th>Model</th>
+          <th>Matrícula</th>
+          <th>Color</th>
+          <th>Jurisdicción</th>
           <th>Creado Por</th>
           <th>Estado</th>
           <th>Acciones</th>
@@ -50,9 +53,12 @@ function gotoDetail(item: { id: number }) {
           class="hover"
         >
           <th>{{ i + 1 }}</th>
-          <td>{{ item.country }}</td>
-          <td>{{ item.institution }}</td>
-          <td>{{ item.equipments.length }}</td>
+          <td>{{ item.country.name }}</td>
+          <td>{{ item.aircraftType }}</td>
+          <td>{{ item.model }}</td>
+          <td>{{ item.registration }}</td>
+          <td>{{ item.color }}</td>
+          <td>{{ item.jurisdiction }}</td>
           <td>{{ item.createdBy?.firstName ?? '' }} {{ item.createdBy?.lastName ?? '' }}</td>
           <td><StatusBadge :status="item.status" /></td>
 

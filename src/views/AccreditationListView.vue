@@ -1,12 +1,19 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
 
+import { useAuthStore } from '@/stores/auth'
+
 import * as services from '@/services/AccreditationService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationTable from '@/components/accreditations/AccreditationTable.vue'
 import SecurityTable from '@/components/weapons/SecurityTable.vue'
 import CommunicationTable from '@/components/communications/CommunicationTable.vue'
+import AircraftTable from '@/components/aircrafts/AircraftTable.vue'
+import GeneralVehicleTable from '@/components/vehicles/GeneralVehicleTable.vue'
+import VehicleAccessTable from '@/components/vehicles/VehicleAccessTable.vue'
+
+const auth = useAuthStore()
 
 const loading = ref(true)
 const response = ref<services.GetAllResponse>()
@@ -21,61 +28,39 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="flex gap-4">
-    <RouterLink
-      to="/accreditations/non-commercial-aircraft/1"
-      class="btn"
-    >
-      Aircraft
-    </RouterLink>
-
-    <RouterLink
-      to="/accreditations/communication-equipment/1"
-      class="btn"
-    >
-      Communication
-    </RouterLink>
-
-    <RouterLink
-      to="/accreditations/security-weapons/1"
-      class="btn"
-    >
-      Security
-    </RouterLink>
-
-    <RouterLink
-      to="/accreditations/general-vehicle/1"
-      class="btn"
-    >
-      General
-    </RouterLink>
-
-    <RouterLink
-      to="/accreditations/vehicle-access/1"
-      class="btn"
-    >
-      Access
-    </RouterLink>
-  </div>
-
   <AppLoading :loading="loading">
     <main
       v-if="response"
       class="flex flex-col gap-10"
     >
       <AccreditationTable
-        v-if="response.accreditations.length > 0"
+        v-if="auth.hasNational || auth.hasInternational"
         :items="response.accreditations"
       />
 
       <CommunicationTable
-        v-if="response.accreditations.length > 0"
-        :items="response.accreditations"
+        v-if="auth.hasCommunicationEquipment"
+        :items="response.equipments"
       />
 
       <SecurityTable
-        v-if="response.accreditations.length > 0"
-        :items="response.accreditations"
+        v-if="auth.hasSecurity"
+        :items="response.securities"
+      />
+
+      <AircraftTable
+        v-if="auth.hasAircraft"
+        :items="response.aircrafts"
+      />
+
+      <GeneralVehicleTable
+        v-if="auth.hasGeneralVehicle"
+        :items="response.generalVehicles"
+      />
+
+      <VehicleAccessTable
+        v-if="auth.hasVehicleAccessAirport"
+        :items="response.accessVehicles"
       />
     </main>
   </AppLoading>
