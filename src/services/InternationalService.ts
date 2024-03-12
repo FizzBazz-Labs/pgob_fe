@@ -109,8 +109,8 @@ export async function review(id: number): Promise<International> {
   return await response.json()
 }
 
-export async function approve(id: number): Promise<International> {
-  const response = await API.patch(`${ENDPOINT}/${id}/approve`)
+export async function approve(id: number, params: { type: string }): Promise<International> {
+  const response = await API.patch(`${ENDPOINT}/${id}/approve`, params)
 
   return await response.json()
 }

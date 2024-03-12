@@ -15,23 +15,21 @@ import AccreditationDetailActions from '@/components/accreditations/Accreditatio
 import PositionInformation from '@/components/accreditations/PositionInformation.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
+import { formatDate } from '@/utils/dates'
+
 const route = useRoute()
 
 const { internationalTypes } = useFormSelect({ values: ref({}) })
 
+const loading = ref(true)
 const item = ref<International>()
+const confirmApproveDialog = ref<HTMLDialogElement>()
 
 onBeforeMount(async () => {
+  loading.value = true
   item.value = await service.getById(Number(route.params.id))
+  loading.value = false
 })
-
-function getFormattedDate(date: string) {
-  return new Date(date).toLocaleDateString('es-PA', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
 
 const hasMedications = computed(() =>
   [
@@ -45,30 +43,59 @@ const hasMedications = computed(() =>
 async function onReview() {
   if (!item.value) return
 
-  item.value = await service.review(item.value.id)
+  const response = await service.review(item.value.id)
+
+  item.value = {
+    ...response,
+    image: item.value.image,
+  }
 }
 
-async function onApprove() {
+async function onApprove(values: { type: string }) {
   if (!item.value) return
 
-  item.value = await service.approve(item.value.id)
+  loading.value = true
+  confirmApproveDialog.value?.close()
+
+  try {
+    const response = await service.approve(item.value.id, values)
+
+    item.value = {
+      ...response,
+      image: item.value.image,
+    }
+  } finally {
+    loading.value = false
+  }
 }
 
 async function onReject() {
   if (!item.value) return
 
-  item.value = await service.reject(item.value.id)
+  const response = await service.review(item.value.id)
+
+  item.value = {
+    ...response,
+    image: item.value.image,
+  }
 }
 </script>
 
 <template>
-  <AppLoading :loading="!item">
+  <AppLoading :loading="loading">
     <template v-if="item">
-      <AccreditationDetailHeader v-bind="item" />
+      <AccreditationDetailHeader
+        :image="item.image"
+        :firstName="item.firstName"
+        :lastName="item.lastName"
+        :email="item.email"
+        :phoneNumber="item.phoneNumber"
+        :position="item.position"
+      />
 
       <main class="mt-10 w-1/2">
         <div class="flex flex-col gap-4">
-          <StatusBadge v-bind="item" />
+          <StatusBadge :status="item.status" />
 
           <span v-if="item.status === AccreditationStatus.APPROVED">
             <strong>Tipo de Acreditación</strong>:
@@ -83,8 +110,7 @@ async function onReject() {
           <span><strong>Nombre Completo</strong>: {{ item.firstName }} {{ item.lastName }}</span>
           <span><strong>Pasaporte</strong>: {{ item.passportId }}</span>
           <span>
-            <strong>Nacimiento</strong>: El {{ getFormattedDate(item.birthday) }} en
-            {{ item.birthplace }}
+            <strong>Nacimiento</strong>: El {{ formatDate(item.birthday) }} en {{ item.birthplace }}
           </span>
         </div>
 
@@ -234,10 +260,51 @@ async function onReject() {
           :status="item.status"
           :type="AccreditationItemType.INTERNATIONAL"
           @review="onReview"
-          @approve="onApprove"
+          @approve="confirmApproveDialog?.showModal()"
           @reject="onReject"
         />
       </main>
     </template>
   </AppLoading>
+
+  <dialog
+    ref="confirmApproveDialog"
+    id="confirm_approve"
+    class="modal"
+  >
+    <div class="modal-box pb-0">
+      <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
+
+      <FormKit
+        type="form"
+        :actions="false"
+        @submit="onApprove"
+      >
+        <FormKit
+          type="select"
+          name="type"
+          label="Tipo de Acreditación"
+          validation="required"
+          :options="internationalTypes"
+          select-icon="down"
+        />
+
+        <div class="flex justify-end gap-4">
+          <FormKit
+            type="submit"
+            label="Aprobar"
+            suffix-icon="submit"
+            outer-class="!max-w-fit"
+          />
+
+          <button
+            class="btn"
+            @click.prevent="confirmApproveDialog?.close()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </FormKit>
+    </div>
+  </dialog>
 </template>

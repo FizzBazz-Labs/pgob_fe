@@ -16,6 +16,8 @@ import AccreditationDetailActions from '@/components/accreditations/Accreditatio
 import PositionInformation from '@/components/accreditations/PositionInformation.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
+import { formatDate } from '@/utils/dates'
+
 const route = useRoute()
 
 const { nationalTypes } = useFormSelect({ values: ref({}) })
@@ -29,14 +31,6 @@ onBeforeMount(async () => {
   item.value = await service.getById(Number(route.params.id))
   loading.value = false
 })
-
-function getFormattedDate(date: string) {
-  return new Date(date).toLocaleDateString('es-PA', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
 
 async function onReview() {
   if (!item.value) return
@@ -107,8 +101,7 @@ async function onReject() {
           <span><strong>Nombre Completo</strong>: {{ item.firstName }} {{ item.lastName }}</span>
           <span><strong>Cédula</strong>: {{ item.passportId }}</span>
           <span>
-            <strong>Nacimiento</strong>: El {{ getFormattedDate(item.birthday) }} en
-            {{ item.birthplace }}
+            <strong>Nacimiento</strong>: El {{ formatDate(item.birthday) }} en {{ item.birthplace }}
           </span>
           <span><strong>Tipo de Sangre</strong>: {{ item.bloodType }}</span>
         </div>
