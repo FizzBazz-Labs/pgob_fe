@@ -32,6 +32,12 @@ const canReject = computed(() => {
 
   return false
 })
+
+const canCertificate = computed(() => {
+  const allowed = auth.isAdmin || auth.isAccreditor
+
+  return allowed && props.status === AccreditationStatus.APPROVED
+})
 </script>
 
 <template>
@@ -62,17 +68,16 @@ const canReject = computed(() => {
       Rechazar
     </button>
 
-    <template v-else-if="auth.isAdmin && props.status === AccreditationStatus.APPROVED">
-      <a
-        :href="getCertificate({ id: props.id, type: props.type })"
-        target="_blank"
-        class="btn"
-      >
-        Acreditación
+    <a
+      v-else-if="canCertificate"
+      :href="getCertificate({ id: props.id, type: props.type })"
+      target="_blank"
+      class="btn"
+    >
+      Acreditación
 
-        <ArrowDownTrayIcon class="h-5 w-5" />
-      </a>
-    </template>
+      <ArrowDownTrayIcon class="h-5 w-5" />
+    </a>
 
     <!-- <div class="flex-1"></div>
 

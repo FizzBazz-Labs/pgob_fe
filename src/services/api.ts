@@ -37,10 +37,10 @@ export function form(url: string, body: FormData) {
   })
 }
 
-export function patch(url: string, body?: FormData) {
+export function patch(url: string, body: Record<string, unknown> = {}) {
   return fetch(`${BASE_URL}${url}/`, {
     method: 'PATCH',
-    headers: getHeaders(false),
-    body: body,
+    headers: getHeaders(),
+    body: JSON.stringify(body),
   })
 }

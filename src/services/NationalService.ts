@@ -66,8 +66,8 @@ export async function review(id: number): Promise<National> {
   return await response.json()
 }
 
-export async function approve(id: number): Promise<National> {
-  const response = await API.patch(`/national-accreditations/${id}/approve`)
+export async function approve(id: number, params: { type: string }): Promise<National> {
+  const response = await API.patch(`/national-accreditations/${id}/approve`, params)
 
   return await response.json()
 }

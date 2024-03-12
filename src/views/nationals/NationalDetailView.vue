@@ -20,10 +20,14 @@ const route = useRoute()
 
 const { nationalTypes } = useFormSelect({ values: ref({}) })
 
+const loading = ref(true)
 const item = ref<National>()
+const confirmApproveDialog = ref<HTMLDialogElement>()
 
 onBeforeMount(async () => {
+  loading.value = true
   item.value = await service.getById(Number(route.params.id))
+  loading.value = false
 })
 
 function getFormattedDate(date: string) {
@@ -37,24 +41,46 @@ function getFormattedDate(date: string) {
 async function onReview() {
   if (!item.value) return
 
-  item.value = await service.review(item.value.id)
+  const response = await service.review(item.value.id)
+
+  item.value = {
+    ...response,
+    image: item.value.image,
+  }
 }
 
-async function onApprove() {
+async function onApprove(values: { type: string }) {
   if (!item.value) return
 
-  item.value = await service.approve(item.value.id)
+  loading.value = true
+  confirmApproveDialog.value?.close()
+
+  try {
+    const response = await service.approve(item.value.id, values)
+
+    item.value = {
+      ...response,
+      image: item.value.image,
+    }
+  } finally {
+    loading.value = false
+  }
 }
 
 async function onReject() {
   if (!item.value) return
 
-  item.value = await service.reject(item.value.id)
+  const response = await service.reject(item.value.id)
+
+  item.value = {
+    ...response,
+    image: item.value.image,
+  }
 }
 </script>
 
 <template>
-  <AppLoading :loading="!item">
+  <AppLoading :loading="loading">
     <template v-if="item">
       <AccreditationDetailHeader
         :image="item.image"
@@ -111,10 +137,51 @@ async function onReject() {
           :status="item.status"
           :type="AccreditationItemType.NATIONAL"
           @review="onReview"
-          @approve="onApprove"
+          @approve="confirmApproveDialog?.showModal()"
           @reject="onReject"
         />
       </main>
     </template>
   </AppLoading>
+
+  <dialog
+    ref="confirmApproveDialog"
+    id="confirm_approve"
+    class="modal"
+  >
+    <div class="modal-box pb-0">
+      <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
+
+      <FormKit
+        type="form"
+        :actions="false"
+        @submit="onApprove"
+      >
+        <FormKit
+          type="select"
+          name="type"
+          label="Tipo de Acreditación"
+          validation="required"
+          :options="nationalTypes"
+          select-icon="down"
+        />
+
+        <div class="flex justify-end gap-4">
+          <FormKit
+            type="submit"
+            label="Aprobar"
+            suffix-icon="submit"
+            outer-class="!max-w-fit"
+          />
+
+          <button
+            class="btn"
+            @click.prevent="confirmApproveDialog?.close()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </FormKit>
+    </div>
+  </dialog>
 </template>
