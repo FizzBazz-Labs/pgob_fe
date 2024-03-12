@@ -3,7 +3,7 @@ import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
 import type { National } from '@/entities/National'
-import { AccreditationStatus } from '@/entities/Accreditation'
+import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
 
 import * as service from '@/services/NationalService'
 
@@ -14,9 +14,7 @@ import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailHeader from '@/components/accreditations/AccreditationDetailHeader.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import PositionInformation from '@/components/accreditations/PositionInformation.vue'
-
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
-import router from '@/router'
 
 const route = useRoute()
 
@@ -58,11 +56,18 @@ async function onReject() {
 <template>
   <AppLoading :loading="!item">
     <template v-if="item">
-      <AccreditationDetailHeader v-bind="item" />
+      <AccreditationDetailHeader
+        :image="item.image"
+        :firstName="item.firstName"
+        :lastName="item.lastName"
+        :email="item.email"
+        :phoneNumber="item.phoneNumber"
+        :position="item.position"
+      />
 
       <main class="mt-10 w-1/2">
         <div class="flex flex-col gap-4">
-          <StatusBadge v-bind="item" />
+          <StatusBadge :status="item.status" />
 
           <span v-if="item.status === AccreditationStatus.APPROVED">
             <strong>Tipo de Acreditación</strong>:
@@ -94,9 +99,17 @@ async function onReject() {
           <span><strong>Dirección</strong>: {{ item.address }}</span>
         </div>
 
-        <PositionInformation v-bind="item" />
+        <PositionInformation
+          :position="item.position"
+          :sub-position="item.subPosition"
+          :authorization-letter="item.authorizationLetter"
+          :media-channel="item.mediaChannel"
+        />
+
         <AccreditationDetailActions
-          v-bind="item"
+          :id="item.id"
+          :status="item.status"
+          :type="AccreditationItemType.NATIONAL"
           @review="onReview"
           @approve="onApprove"
           @reject="onReject"

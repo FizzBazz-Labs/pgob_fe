@@ -7,12 +7,17 @@ export enum AccreditationStatus {
   REJECTED = 'REJECTED',
 }
 
+export enum AccreditationItemType {
+  NATIONAL = 'national',
+  INTERNATIONAL = 'international',
+}
+
 export interface Accreditation {
   id: number
   firstName: string
   lastName: string
   country: string
-  type: 'national' | 'international'
+  type: AccreditationItemType
   status: AccreditationStatus
   createdAt: string
   createdBy: CreatedBy

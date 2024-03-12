@@ -12,6 +12,7 @@ import { useAuthStore } from '@/stores/auth'
 import { AccreditationTypeLabel } from '@/utils/labels'
 
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
+import { getCertificate } from '@/utils/accreditations'
 
 const router = useRouter()
 
@@ -84,7 +85,11 @@ function gotoDetail(item: Accreditation) {
               class="tooltip"
               data-tip="Identificación"
             >
-              <a class="btn btn-ghost btn-sm">
+              <a
+                :href="getCertificate(item)"
+                target="_blank"
+                class="btn btn-ghost btn-sm"
+              >
                 <IdentificationIcon class="h-5 w-5" />
               </a>
             </div>

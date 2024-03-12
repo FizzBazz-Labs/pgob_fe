@@ -5,6 +5,8 @@ import type { MultiStepForm } from '@/entities/Form'
 
 import * as securities from '@/services/SecurityService'
 
+const ENDPOINT = '/international-accreditations'
+
 export async function create(values: MultiStepForm): Promise<International> {
   const securityAccreditation = await securities.create(values['multi-step'].security)
 
@@ -91,12 +93,30 @@ export async function create(values: MultiStepForm): Promise<International> {
     }
   }
 
-  const response = await API.form('/international-accreditations', form)
+  const response = await API.form(ENDPOINT, form)
   return await response.json()
 }
 
 export async function getById(id: number): Promise<International> {
-  const response = await API.get(`/international-accreditations/${id}`)
+  const response = await API.get(`${ENDPOINT}/${id}`)
+
+  return await response.json()
+}
+
+export async function review(id: number): Promise<International> {
+  const response = await API.patch(`${ENDPOINT}/${id}/review`)
+
+  return await response.json()
+}
+
+export async function approve(id: number): Promise<International> {
+  const response = await API.patch(`${ENDPOINT}/${id}/approve`)
+
+  return await response.json()
+}
+
+export async function reject(id: number): Promise<International> {
+  const response = await API.patch(`${ENDPOINT}/${id}/reject`)
 
   return await response.json()
 }

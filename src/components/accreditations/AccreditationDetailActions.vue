@@ -3,11 +3,17 @@ import { computed } from 'vue'
 
 import { ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
 
-import { AccreditationStatus } from '@/entities/Accreditation'
+import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
 
 import { useAuthStore } from '@/stores/auth'
 
-type Props = { status: AccreditationStatus }
+import { getCertificate } from '@/utils/accreditations'
+
+type Props = {
+  id: number
+  type: AccreditationItemType
+  status: AccreditationStatus
+}
 
 type Emits = {
   (e: 'review'): void
@@ -57,11 +63,15 @@ const canReject = computed(() => {
     </button>
 
     <template v-else-if="auth.isAdmin && props.status === AccreditationStatus.APPROVED">
-      <button class="btn">
+      <a
+        :href="getCertificate({ id: props.id, type: props.type })"
+        target="_blank"
+        class="btn"
+      >
         Acreditación
 
         <ArrowDownTrayIcon class="h-5 w-5" />
-      </button>
+      </a>
     </template>
 
     <!-- <div class="flex-1"></div>

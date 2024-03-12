@@ -2,12 +2,8 @@
 import { ref, onBeforeMount, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { ArrowDownTrayIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
-
 import type { International } from '@/entities/International'
-import { AccreditationStatus } from '@/entities/Accreditation'
-
-import { useAuthStore } from '@/stores/auth'
+import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
 
 import * as service from '@/services/InternationalService'
 
@@ -15,11 +11,11 @@ import { useFormSelect } from '@/composables/FormSelect'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailHeader from '@/components/accreditations/AccreditationDetailHeader.vue'
+import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
+import PositionInformation from '@/components/accreditations/PositionInformation.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const route = useRoute()
-
-const auth = useAuthStore()
 
 const { internationalTypes } = useFormSelect({ values: ref({}) })
 
@@ -45,6 +41,24 @@ const hasMedications = computed(() =>
     item.value?.medication4,
   ].some(Boolean)
 )
+
+async function onReview() {
+  if (!item.value) return
+
+  item.value = await service.review(item.value.id)
+}
+
+async function onApprove() {
+  if (!item.value) return
+
+  item.value = await service.approve(item.value.id)
+}
+
+async function onReject() {
+  if (!item.value) return
+
+  item.value = await service.reject(item.value.id)
+}
 </script>
 
 <template>
@@ -208,74 +222,22 @@ const hasMedications = computed(() =>
           </span>
         </div>
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Cargo en el Evento</h2>
+        <PositionInformation
+          :position="item.position"
+          :sub-position="item.subPosition"
+          :authorization-letter="item.authorizationLetter"
+          :media-channel="item.mediaChannel"
+        />
 
-        <div class="flex flex-col items-start gap-2">
-          <span><strong>Posición</strong>: {{ item.position.name }}</span>
-
-          <span v-if="item.subPosition">
-            <strong>Tipo de Cargo</strong>: {{ item.subPosition.name }}
-          </span>
-
-          <span v-if="item.mediaChannel">
-            <strong>Medio de Comunicación</strong>: {{ item.mediaChannel.name }}
-          </span>
-
-          <div
-            class="tooltip tooltip-bottom"
-            data-tip="Descargar"
-          >
-            <a
-              v-if="item.authorizationLetter"
-              :href="item.authorizationLetter"
-              target="_blank"
-              class="btn btn-ghost"
-            >
-              Carta de Autorización
-              <ArrowDownTrayIcon class="h-5 w-5" />
-            </a>
-          </div>
-        </div>
-
-        <h2 class="divider divider-start mt-5 text-xl font-bold">Acciones</h2>
-
-        <div class="flex items-start gap-1">
-          <template v-if="auth.isAdmin && item.status === AccreditationStatus.PENDING">
-            <button class="btn btn-primary text-white">Acreditar</button>
-
-            <button class="btn ml-3">Rechazar</button>
-          </template>
-
-          <template v-else-if="auth.isAdmin && item.status === AccreditationStatus.APPROVED">
-            <button class="btn">
-              Acreditación
-
-              <ArrowDownTrayIcon class="h-5 w-5" />
-            </button>
-          </template>
-
-          <div class="flex-1"></div>
-
-          <div
-            class="tooltip tooltip-bottom"
-            data-tip="Editar"
-          >
-            <button class="btn btn-ghost">
-              <PencilSquareIcon class="h-5 w-5" />
-            </button>
-          </div>
-
-          <div
-            class="tooltip tooltip-bottom"
-            data-tip="Eliminar"
-          >
-            <button class="btn btn-ghost">
-              <TrashIcon class="h-5 w-5" />
-            </button>
-          </div>
-        </div>
+        <AccreditationDetailActions
+          :id="item.id"
+          :status="item.status"
+          :type="AccreditationItemType.INTERNATIONAL"
+          @review="onReview"
+          @approve="onApprove"
+          @reject="onReject"
+        />
       </main>
     </template>
   </AppLoading>
 </template>
-@/entities/National
