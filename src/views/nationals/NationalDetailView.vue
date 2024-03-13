@@ -24,6 +24,8 @@ const { nationalTypes } = useFormSelect({ values: ref({}) })
 
 const loading = ref(true)
 const item = ref<National>()
+const confirmReviewDialog = ref<HTMLDialogElement>()
+const confirmRejectDialog = ref<HTMLDialogElement>()
 const confirmApproveDialog = ref<HTMLDialogElement>()
 
 onBeforeMount(async () => {
@@ -35,11 +37,18 @@ onBeforeMount(async () => {
 async function onReview() {
   if (!item.value) return
 
-  const response = await service.review(item.value.id)
+  loading.value = true
+  confirmReviewDialog.value?.close()
 
-  item.value = {
-    ...response,
-    image: item.value.image,
+  try {
+    const response = await service.review(item.value.id)
+
+    item.value = {
+      ...response,
+      image: item.value.image,
+    }
+  } finally {
+    loading.value = false
   }
 }
 
@@ -64,11 +73,18 @@ async function onApprove(values: { type: string }) {
 async function onReject() {
   if (!item.value) return
 
-  const response = await service.reject(item.value.id)
+  loading.value = true
+  confirmRejectDialog.value?.close()
 
-  item.value = {
-    ...response,
-    image: item.value.image,
+  try {
+    const response = await service.reject(item.value.id)
+
+    item.value = {
+      ...response,
+      image: item.value.image,
+    }
+  } finally {
+    loading.value = false
   }
 }
 </script>
@@ -129,9 +145,9 @@ async function onReject() {
           :id="item.id"
           :status="item.status"
           :type="AccreditationItemType.NATIONAL"
-          @review="onReview"
+          @review="confirmReviewDialog?.showModal()"
           @approve="confirmApproveDialog?.showModal()"
-          @reject="onReject"
+          @reject="confirmRejectDialog?.showModal()"
         />
       </main>
     </template>
@@ -175,6 +191,62 @@ async function onReject() {
           </button>
         </div>
       </FormKit>
+    </div>
+  </dialog>
+
+  <dialog
+    ref="confirmReviewDialog"
+    id="confirm_approve"
+    class="modal"
+  >
+    <div class="modal-box">
+      <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
+
+      <p>Estas seguro de marcar como revisada esta acreditación.</p>
+
+      <div class="modal-action">
+        <button
+          class="btn btn-info text-white"
+          @click.prevent="onReview"
+        >
+          Aceptar
+        </button>
+
+        <button
+          class="btn"
+          @click.prevent="confirmReviewDialog?.close()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog
+    ref="confirmRejectDialog"
+    id="confirm_approve"
+    class="modal"
+  >
+    <div class="modal-box">
+      <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
+
+      <p>Estas seguro de rechazar esta acreditación.</p>
+
+      <div class="modal-action">
+        <button
+          class="btn btn-info text-white"
+          @click.prevent="onReject"
+        >
+          Aceptar
+        </button>
+
+        <button
+          class="btn"
+          @click.prevent="confirmRejectDialog?.close()"
+        >
+          Cancelar
+        </button>
+      </div>
     </div>
   </dialog>
 </template>

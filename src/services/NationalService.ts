@@ -6,12 +6,16 @@ import type { MultiStepForm } from '@/entities/Form'
 import * as securities from '@/services/SecurityService'
 
 export async function create(values: MultiStepForm): Promise<National> {
-  const securityAccreditation = await securities.create(values['multi-step'].security)
-
   const params = values['multi-step'].accreditation
   const form = new FormData()
 
-  form.append('securityWeaponAccreditation', securityAccreditation.id.toString())
+  try {
+    const securityAccreditation = await securities.create(values['multi-step'].security)
+    form.append('securityWeaponAccreditation', securityAccreditation.id.toString())
+  } catch (error) {
+    // Pass
+  }
+
   form.append('firstName', params.firstName as string)
   form.append('lastName', params.lastName as string)
   form.append('position', params.position.toString())

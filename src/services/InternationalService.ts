@@ -8,12 +8,16 @@ import * as securities from '@/services/SecurityService'
 const ENDPOINT = '/international-accreditations'
 
 export async function create(values: MultiStepForm): Promise<International> {
-  const securityAccreditation = await securities.create(values['multi-step'].security)
-
   const params = values['multi-step'].accreditation
   const form = new FormData()
 
-  form.append('securityWeaponAccreditation', securityAccreditation.id.toString())
+  try {
+    const securityAccreditation = await securities.create(values['multi-step'].security)
+    form.append('securityWeaponAccreditation', securityAccreditation.id.toString())
+  } catch (error) {
+    // Pass
+  }
+
   form.append('country', params.country as string)
   form.append('firstName', params.firstName as string)
   form.append('lastName', params.lastName as string)
