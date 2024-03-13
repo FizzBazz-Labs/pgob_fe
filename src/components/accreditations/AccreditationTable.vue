@@ -81,7 +81,9 @@ function gotoDetail(item: Accreditation) {
             </div>
 
             <div
-              v-if="auth.isAdmin && item.status === AccreditationStatus.APPROVED"
+              v-if="
+                (auth.isAdmin || auth.isAccreditor) && item.status === AccreditationStatus.APPROVED
+              "
               class="tooltip"
               data-tip="Identificación"
             >

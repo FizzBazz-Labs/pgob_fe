@@ -33,10 +33,13 @@ async function onLogin(values: Record<string, string>) {
   <main
     class="flex h-screen items-center justify-center bg-gray-200 bg-[url('@/assets/bg/login.webp')] bg-cover bg-center bg-no-repeat p-4 md:p-0"
   >
-    <div class="card w-full bg-base-100 shadow-xl md:w-[30vw]">
+    <div class="card w-full bg-base-100 shadow-xl md:w-[25vw]">
       <div class="card-body">
-        <div class="mb-5">
-          <img :src="logo" />
+        <div class="mb-5 flex justify-center">
+          <img
+            :src="logo"
+            width="350"
+          />
         </div>
 
         <div class="divider"></div>
