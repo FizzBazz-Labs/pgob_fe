@@ -1,8 +1,8 @@
 const BASE_URL = import.meta.env.VITE_API_URL
 
 type GetCertificateParams = {
-  id: number
-  type: 'national' | 'international'
+  id?: number
+  type?: 'national' | 'international'
 }
 
 export function getCertificate(params: GetCertificateParams) {

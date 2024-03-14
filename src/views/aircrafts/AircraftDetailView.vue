@@ -65,7 +65,7 @@ async function onReject() {
       <div class="flex flex-col gap-2">
         <span><strong>Tipo</strong>: {{ item.aircraftType }}</span>
         <span><strong>Modelo</strong>: {{ item.model }}</span>
-        <span> <strong>Jurisdicción</strong>: {{ item.jurisdiction }} </span>
+        <span> <strong>Tipo de vuelo</strong>: {{ item.flightType }} </span>
         <span><strong>Matrícula</strong>: {{ item.registration }}</span>
         <span><strong>Color</strong>: {{ item.color }}</span>
         <span><strong>Indicativo de Llamada</strong>: {{ item.callSign }}</span>

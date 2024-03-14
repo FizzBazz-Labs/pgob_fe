@@ -10,9 +10,9 @@ import { useAuthStore } from '@/stores/auth'
 import { getCertificate } from '@/utils/accreditations'
 
 type Props = {
-  id: number
-  type: AccreditationItemType
-  status: AccreditationStatus
+  id?: number
+  type?: AccreditationItemType
+  status?: AccreditationStatus
 }
 
 type Emits = {

@@ -27,6 +27,6 @@ export interface NonCommercialAircraft {
   groundFacilities: string
   date: Date
   status: AccreditationStatus
-  jurisdiction: string
+  flightType: string
   createdBy?: CreatedBy
 }

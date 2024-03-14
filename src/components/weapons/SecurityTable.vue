@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { AircraftDetailView } from '@/router'
+import { SecurityDetailView } from '@/router'
 
 import type { SecurityAccreditation } from '@/entities/Security'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -20,7 +20,7 @@ const props = defineProps<{ items: Array<SecurityAccreditation> }>()
 
 function gotoDetail(item: { id: number }) {
   router.push({
-    name: AircraftDetailView.name,
+    name: SecurityDetailView.name,
     params: { id: item.id },
   })
 }

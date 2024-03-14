@@ -146,9 +146,7 @@ async function onReject() {
         <h2 class="divider divider-start mt-10 text-xl font-bold">Datos Médicos</h2>
 
         <div class="flex flex-col gap-2">
-          <span>
-            <strong>Tipo de Sangre</strong>: {{ item.bloodType }} {{ item.bloodRhFactor }}
-          </span>
+          <span> <strong>Tipo de Sangre</strong>: {{ item.bloodType }} </span>
 
           <span v-if="item.diseases">
             <strong>Enfermedades en Tratamiento</strong>: {{ item.diseases }}

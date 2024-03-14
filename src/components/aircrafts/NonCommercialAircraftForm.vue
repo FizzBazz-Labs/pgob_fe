@@ -20,7 +20,7 @@ const values = ref<FormValues>({
   position: 1,
 })
 
-const { countries, jurisdictions, positions, subPositions } = useFormSelect({ values })
+const { countries, flightTypes, positions, subPositions } = useFormSelect({ values })
 
 async function onSubmit() {
   const response = await service.create(values.value)
@@ -73,10 +73,10 @@ async function onSubmit() {
 
         <FormKit
           type="radio"
-          name="jurisdiction"
-          label="Jurisdicción"
+          name="flightType"
+          label="Tipo de vuelo"
           validation="required"
-          :options="jurisdictions"
+          :options="flightTypes"
           decorator-icon="circle"
         />
 

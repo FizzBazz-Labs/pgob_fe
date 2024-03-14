@@ -18,11 +18,9 @@ const loading = ref(true)
 const item = ref<CommunicationEquipment>()
 
 onBeforeMount(async () => {
-  loading.value = true
-
   item.value = await service.getById(Number(route.params.id))
-
   loading.value = false
+  console.log(item.value, 'datos')
 })
 
 async function onReview() {
@@ -57,7 +55,7 @@ async function onReject() {
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
 
-        <span><strong>País</strong>: {{ item.country.name }}</span>
+        <span><strong>País</strong>: {{ item.country }}</span>
         <span><strong>Institución/Medio</strong>: {{ item.institution }}</span>
       </div>
 
@@ -92,6 +90,7 @@ async function onReject() {
       </table>
 
       <AccreditationDetailActions
+        :id="item.id"
         :status="item.status"
         @review="onReview"
         @approve="onApprove"

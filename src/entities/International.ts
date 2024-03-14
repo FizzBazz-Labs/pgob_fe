@@ -26,7 +26,6 @@ export interface International {
   birthday: string
   birthplace: string
   bloodType: string
-  bloodRhFactor: string
   diseases: string
   medication1: string
   medication2: string

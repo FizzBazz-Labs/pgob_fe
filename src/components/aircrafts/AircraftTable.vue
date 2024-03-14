@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { CommunicationEquipmentDetailView } from '@/router'
+import { AircraftDetailView } from '@/router'
 
 import type { NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -20,7 +20,7 @@ const props = defineProps<{ items: Array<NonCommercialAircraft> }>()
 
 function gotoDetail(item: { id: number }) {
   router.push({
-    name: CommunicationEquipmentDetailView.name,
+    name: AircraftDetailView.name,
     params: { id: item.id },
   })
 }
@@ -58,7 +58,7 @@ function gotoDetail(item: { id: number }) {
           <td>{{ item.model }}</td>
           <td>{{ item.registration }}</td>
           <td>{{ item.color }}</td>
-          <td>{{ item.jurisdiction }}</td>
+          <td>{{ item.flightType }}</td>
           <td>{{ item.createdBy?.firstName ?? '' }} {{ item.createdBy?.lastName ?? '' }}</td>
           <td><StatusBadge :status="item.status" /></td>
 

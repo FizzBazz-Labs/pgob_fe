@@ -34,7 +34,6 @@ export async function create(values: MultiStepForm): Promise<International> {
   form.append('birthday', params.birthday as string)
   form.append('birthplace', params.birthplace as string)
   form.append('bloodType', params.blood as string)
-  form.append('bloodRhFactor', params.bloodRhFactor as string)
   form.append('diseases', params.diseases as string)
   form.append('surgical', params.surgical as string)
   form.append('doctorName', params.doctorName as string)

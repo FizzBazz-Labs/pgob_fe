@@ -160,7 +160,7 @@ export function useFormSelect(props: Props) {
     return URL.createObjectURL(img[0].file)
   }
 
-  const jurisdictions = ref([
+  const flightTypes = ref([
     {
       value: 'CIVIL',
       label: 'Civil',
@@ -234,7 +234,7 @@ export function useFormSelect(props: Props) {
     nationalTypes,
     internationalTypes,
     preview,
-    jurisdictions,
+    flightTypes,
     groups,
     accreditations,
   }

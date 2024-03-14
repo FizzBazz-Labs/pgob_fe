@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@formkit/addons": "^1.5.9",
+    "@formkit/icons": "^1.6.0",
     "@formkit/vue": "^1.5.9",
     "@heroicons/vue": "^2.1.1",
     "pinia": "^2.1.7",

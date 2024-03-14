@@ -24,6 +24,10 @@ const values = ref<MultiStepForm>({
       images: [],
       flightFrom: 1,
       flightTo: 1,
+      hasAllergies: false,
+      hasImmunization: false,
+      hasMedicalHistory: false,
+      hasMedicalStaff: false,
     },
     security: {
       controlDatetime: '',
@@ -33,6 +37,8 @@ const values = ref<MultiStepForm>({
     },
   },
 })
+
+const hasPrivateInsurance = ref(false)
 
 const {
   positions,
@@ -172,7 +178,7 @@ async function onSubmit() {
             <FormKit
               type="text"
               name="passport"
-              label="Cédula o Pasaporte"
+              label="Pasaporte"
               validation="required"
             />
 
@@ -182,7 +188,7 @@ async function onSubmit() {
                 name="birthplace"
                 label="Lugar de Nacimiento"
                 validation="required"
-                outer-class="col-span-3"
+                outer-class="col-span-2"
               />
 
               <FormKit
@@ -190,8 +196,25 @@ async function onSubmit() {
                 name="birthday"
                 label="Fecha de Nacimiento"
                 validation="required"
+                outer-class="col-span-2"
               />
             </div>
+
+            <FormKit
+              type="checkbox"
+              label="¿Posee seguro privado?"
+              decorator-icon="check"
+              v-model="hasPrivateInsurance"
+            />
+
+            <FormKit
+              v-if="hasPrivateInsurance"
+              type="textarea"
+              placeholder="Ingrese el detalle de su seguro privado..."
+              name="privateInsurance"
+              label="Detalle de seguro"
+              validation="required"
+            />
 
             <h2 class="divider divider-start text-xl font-bold">Cargo en el Evento</h2>
 
@@ -286,13 +309,6 @@ async function onSubmit() {
                 :options="bloods"
                 select-icon="down"
               />
-
-              <FormKit
-                type="text"
-                name="bloodRhFactor"
-                label="Factor RH"
-                validation="required"
-              />
             </div>
 
             <FormKit
@@ -338,7 +354,7 @@ async function onSubmit() {
             />
 
             <FormKit
-              v-if="values.hasAllergies"
+              v-if="values['multi-step'].accreditation.hasAllergies"
               type="select"
               name="allergies"
               label="Alergia"
@@ -355,7 +371,7 @@ async function onSubmit() {
             />
 
             <FormKit
-              v-if="values.hasImmunization"
+              v-if="values['multi-step'].accreditation.hasImmunization"
               type="select"
               name="immunizations"
               label="Inmunizaciones"
@@ -372,7 +388,7 @@ async function onSubmit() {
             />
 
             <FormKit
-              v-if="values.hasMedicalHistory"
+              v-if="values['multi-step'].accreditation.hasMedicalHistory"
               type="select"
               name="medicals"
               label="Historial"
@@ -395,7 +411,7 @@ async function onSubmit() {
             />
 
             <FormKit
-              v-if="values.hasMedicalStaff"
+              v-if="values['multi-step'].accreditation.hasMedicalStaff"
               type="text"
               name="doctorName"
               label="Nombre de Médico"
