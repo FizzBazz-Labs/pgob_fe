@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import WeaponForm from '@/components/weapons/WeaponForm.vue'
+import WeaponDisclaimer from '@/components/weapons/WeaponDisclaimer.vue'
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import WeaponForm from '@/components/weapons/WeaponForm.vue'
   </header>
 
   <main class="mt-10">
+    <WeaponDisclaimer />
     <WeaponForm />
   </main>
 </template>

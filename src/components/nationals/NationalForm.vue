@@ -30,6 +30,8 @@ const values = ref<MultiStepForm>({
   },
 })
 
+const hasPrivateInsurance = ref(false)
+
 const { positions, subPositions, showChannels, channels, bloods, preview } = useFormSelect({
   values,
 })
@@ -183,6 +185,22 @@ async function onSubmit() {
                 select-icon="down"
               />
             </div>
+
+            <FormKit
+              type="checkbox"
+              label="¿Posee seguro privado?"
+              decorator-icon="check"
+              v-model="hasPrivateInsurance"
+            />
+
+            <FormKit
+              v-if="hasPrivateInsurance"
+              type="textarea"
+              placeholder="Ingrese el detalle de su seguro privado..."
+              name="privateInsurance"
+              label="Detalle de seguro"
+              validation="required"
+            />
 
             <h2 class="divider divider-start text-xl font-bold">Cargo en el Evento</h2>
 

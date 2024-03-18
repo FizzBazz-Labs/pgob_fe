@@ -17,7 +17,7 @@ const router = useRouter()
 
 const values = ref<FormValues>({
   country: 1,
-  position: 1,
+  position: '',
 })
 
 const { countries, flightTypes, positions, subPositions } = useFormSelect({ values })
@@ -57,10 +57,21 @@ async function onSubmit() {
 
         <div class="grid grid-cols-2 gap-4">
           <FormKit
-            type="text"
+            type="select"
             name="aircraftType"
             label="Tipo"
+            placeholder="Seleccione un tipo de aeronave"
+            :options="flightTypes"
             validation="required"
+            select-icon="down"
+          />
+
+          <FormKit
+            type="text"
+            name="fboAttendant"
+            label="FBO que los atenderá"
+            validation="required"
+            v-if="values.aircraftType === 'CHARTER'"
           />
 
           <FormKit
@@ -70,7 +81,7 @@ async function onSubmit() {
             validation="required"
           />
         </div>
-
+        <!--
         <FormKit
           type="radio"
           name="flightType"
@@ -78,7 +89,7 @@ async function onSubmit() {
           validation="required"
           :options="flightTypes"
           decorator-icon="circle"
-        />
+        /> -->
 
         <div class="grid grid-cols-2 gap-4">
           <FormKit

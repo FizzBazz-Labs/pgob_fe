@@ -23,6 +23,7 @@ export async function create(values: MultiStepForm): Promise<National> {
   form.append('address', params.address as string)
   form.append('phoneNumber', params.phoneNumber as string)
   form.append('passportId', params.passport as string)
+  form.append('privateInsurance', params.privateInsurance as string)
 
   if (params.phoneNumber2 !== undefined) {
     form.append('phoneNumber2', params.phoneNumber2 as string)

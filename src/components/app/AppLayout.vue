@@ -12,6 +12,7 @@ import {
   GeneralVehicleCreateView,
   NonCommercialAircraftCreateView,
   CommunicationEquipmentCreateView,
+  AccreditationListView,
   SecurityWeaponCreateView,
   UserListView,
 } from '@/router'
@@ -52,6 +53,7 @@ const auth = useAuthStore()
       <ul class="menu w-80 flex-1 p-4">
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
+          <RouterLink :to="AccreditationListView.path">Acreditaciones</RouterLink>
         </li>
 
         <li v-if="auth.hasNational || auth.hasInternational">

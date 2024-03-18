@@ -20,7 +20,7 @@ const values = ref<MultiStepForm>({
   'multi-step': {
     accreditation: {
       country: 1,
-      position: 1,
+      position: 0,
       images: [],
       flightFrom: 1,
       flightTo: 1,
@@ -152,6 +152,7 @@ async function onSubmit() {
               type="select"
               name="country"
               label="País"
+              placeholder="Seleccione un país..."
               validation="required"
               :options="countries"
               select-icon="down"
@@ -229,6 +230,7 @@ async function onSubmit() {
                 type="select"
                 name="position"
                 label="Posición"
+                placeholder="Seleccione un cargo..."
                 validation="required"
                 :options="positions"
                 select-icon="down"
@@ -305,6 +307,7 @@ async function onSubmit() {
                 type="select"
                 name="blood"
                 label="Tipo de Sangre"
+                placeholder="Seleccione un tipo de sangre..."
                 validation="required"
                 :options="bloods"
                 select-icon="down"
@@ -361,6 +364,14 @@ async function onSubmit() {
               multiple
               :options="allergies"
               select-icon="down"
+            />
+
+            <FormKit
+              type="text"
+              name="allergiesDescription"
+              label="Detalle de Alergias"
+              v-if="values['multi-step'].accreditation.hasAllergies"
+              :required="values['multi-step'].accreditation.hasAllergies"
             />
 
             <FormKit

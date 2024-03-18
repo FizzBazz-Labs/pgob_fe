@@ -13,12 +13,23 @@ type Props = {
 export function useFormSelect(props: Props) {
   const store = useGeneralStore()
 
-  const positions = computed(() =>
-    store.positions.map(i => ({
+  const positions = computed(() => {
+    const positionList = store.positions.map(i => ({
       value: i.id,
       label: i.name,
+      attrs: {},
     }))
-  )
+
+    positionList.unshift({
+      value: 0,
+      label: 'Selecciona un cargo',
+      attrs: {
+        disabled: true,
+      },
+    })
+
+    return positionList
+  })
 
   const subPositions = computed(() => {
     const selected =
@@ -162,12 +173,32 @@ export function useFormSelect(props: Props) {
 
   const flightTypes = ref([
     {
-      value: 'CIVIL',
-      label: 'Civil',
+      value: 'EMERGENCY',
+      label: 'Emergencia',
     },
     {
       value: 'MILITARY',
       label: 'Militar',
+    },
+    {
+      value: 'AMBULANCE',
+      label: 'Ambulancia',
+    },
+    {
+      value: 'CHARTER',
+      label: 'Charter',
+    },
+    {
+      value: 'TECHNICAL_SCALE',
+      label: 'Escala Técnica (aterrizaje y despegue)',
+    },
+    {
+      value: 'OVERFLIGHT',
+      label: 'Sobrevuelo',
+    },
+    {
+      value: 'OTHER',
+      label: 'Otro',
     },
   ])
 
