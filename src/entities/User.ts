@@ -19,6 +19,7 @@ export enum Group {
   Accreditor = 'Accreditor',
   Reviewer = 'Reviewer',
   USER = 'User',
+  TRANSPORTATION_MANAGER = 'TransportationManager',
 }
 
 export enum Accreditation {

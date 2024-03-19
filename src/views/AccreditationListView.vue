@@ -33,20 +33,22 @@ onBeforeMount(async () => {
       v-if="response"
       class="flex flex-col gap-10"
     >
-      <AccreditationTable
-        v-if="auth.hasNational || auth.hasInternational"
-        :items="response.accreditations"
-      />
+      <template v-if="!auth.isTransportationManager">
+        <AccreditationTable
+          v-if="auth.hasNational || auth.hasInternational"
+          :items="response.accreditations"
+        />
 
-      <CommunicationTable
-        v-if="auth.hasCommunicationEquipment"
-        :items="response.equipments"
-      />
+        <CommunicationTable
+          v-if="auth.hasCommunicationEquipment"
+          :items="response.equipments"
+        />
 
-      <SecurityTable
-        v-if="auth.hasSecurity"
-        :items="response.securities"
-      />
+        <SecurityTable
+          v-if="auth.hasSecurity"
+          :items="response.securities"
+        />
+      </template>
 
       <AircraftTable
         v-if="auth.hasAircraft"

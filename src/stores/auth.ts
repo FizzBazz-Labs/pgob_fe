@@ -35,6 +35,7 @@ export const useAuthStore = defineStore('auth', {
     isAccreditor: state => state.user.group === Group.Accreditor,
     isReviewer: state => state.user.group === Group.Reviewer,
     isUser: state => state.user.group === Group.USER,
+    isTransportationManager: state => state.user.group === Group.TRANSPORTATION_MANAGER,
 
     hasNational: state => state.user.accreditations.some(a => a.name === Accreditation.NATIONAL),
     hasInternational: state =>

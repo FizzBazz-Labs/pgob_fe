@@ -50,7 +50,10 @@ const auth = useAuthStore()
         </RouterLink>
       </div>
 
-      <ul class="menu w-80 flex-1 p-4">
+      <ul
+        v-if="!auth.isTransportationManager"
+        class="menu w-80 flex-1 p-4"
+      >
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
           <RouterLink :to="AccreditationListView.path">Acreditaciones</RouterLink>
@@ -134,6 +137,11 @@ const auth = useAuthStore()
           </details>
         </li>
       </ul>
+
+      <div
+        v-else
+        class="flex-1"
+      ></div>
 
       <ul class="menu w-80 p-4">
         <li>
