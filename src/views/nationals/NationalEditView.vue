@@ -35,7 +35,7 @@ onBeforeMount(async () => {
     <NationalForm
       v-if="item"
       :values="values"
-      method="PUT"
+      action="edit"
     />
   </AppLoading>
 </template>

@@ -16,30 +16,20 @@ import { NationalAccreditationDetailView } from '@/router'
 
 import { initNational, initWeapon } from '@/utils/defaults'
 
-const router = useRouter()
+type Props = {
+  action?: 'new' | 'edit'
+}
 
-const props = withDefaults(defineProps<{ method?: string }>(), {
-  method: 'POST',
+const props = withDefaults(defineProps<Props>(), {
+  action: 'new',
 })
+
+const router = useRouter()
 
 const values = defineModel('values', {
   type: Object as PropType<MultiStepForm>,
   default: initNational,
 })
-
-// const values = ref<MultiStepForm>({
-//   'multi-step': {
-//     accreditation: {
-//       position: 1,
-//     },
-//     security: {
-//       controlDatetime: '',
-//       observations: '',
-//       weapons: [initWeapon()],
-//       equipments: [initEquipment()],
-//     },
-//   },
-// })
 
 const hasPrivateInsurance = ref(false)
 
@@ -83,7 +73,13 @@ function onRemoveEquipment(index: number) {
 }
 
 async function onSubmit() {
-  const response = await service.create(values.value, props.method)
+  let response = { id: 0 }
+
+  if (props.action === 'new') {
+    response = await service.create(values.value)
+  } else {
+    response = await service.update(values.value)
+  }
 
   toast('Acreditación nacional creada con éxito.', {
     type: 'success',
