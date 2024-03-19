@@ -194,6 +194,7 @@ function onEdit() {
           name="authorizedComment"
           label="Comentarios"
           placeholder="Escribe un comentario..."
+          validation="required"
         />
 
         <div class="flex justify-end gap-4">
