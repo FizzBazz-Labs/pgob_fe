@@ -18,6 +18,7 @@ export type SecurityValues = {
     serial: string
     frequency: string
   }>
+  [index: string]: string | Array<Record<string, string>> | unknown
 }
 
 export type MultiStepForm = {

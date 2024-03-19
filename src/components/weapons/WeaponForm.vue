@@ -12,10 +12,15 @@ import * as service from '@/services/SecurityService'
 import type { SecurityValues } from '@/entities/Form'
 
 import { HomeView } from '@/router'
+import { useFormSelect } from '@/composables/FormSelect'
 
 const router = useRouter()
 
-const values = ref<FormValues>({})
+const values = ref<FormValues>({
+  position: 0,
+})
+
+const { positions, subPositions, countries } = useFormSelect({ values })
 
 const weapons = ref([initWeapon()])
 const communicationItems = ref([initCommunicationItem()])
@@ -65,7 +70,7 @@ async function onSubmit() {
   values.value.weapons = weapons.value
   values.value.equipments = communicationItems.value
 
-  const response = await service.create(values.value)
+  const response = await service.create(values.value as SecurityValues)
 
   toast('Acreditación de armas creada con éxito.', { type: 'success' })
   setTimeout(() => {
@@ -87,6 +92,59 @@ async function onSubmit() {
   >
     <div class="flex justify-center gap-4">
       <div class="w-1/2">
+        <FormKit
+          type="select"
+          name="country"
+          label="País"
+          placeholder="Seleccione un país..."
+          validation="required"
+          :options="countries"
+          select-icon="down"
+        />
+
+        <FormKit
+          type="text"
+          name="name"
+          label="Nombre"
+          maxlength="150"
+          validation="required"
+        />
+
+        <FormKit
+          type="text"
+          name="passportId"
+          label="Pasaporte"
+          validation="required"
+        />
+
+        <div
+          class="grid gap-4"
+          :class="{
+            'grid-cols-1': subPositions.length === 0,
+            'grid-cols-2': subPositions.length !== 0,
+          }"
+        >
+          <FormKit
+            type="select"
+            name="position"
+            label="Posición"
+            placeholder="Seleccione un cargo..."
+            validation="required"
+            :options="positions"
+            select-icon="down"
+          />
+
+          <FormKit
+            v-if="subPositions.length !== 0"
+            type="select"
+            name="subPosition"
+            label="Tipo de Cargo"
+            validation="required"
+            :options="subPositions"
+            select-icon="down"
+          />
+        </div>
+
         <FormKit
           type="datetime-local"
           name="controlDatetime"
@@ -271,6 +329,58 @@ async function onSubmit() {
               </button>
             </div>
           </div>
+        </div>
+
+        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Vuelo</h2>
+
+        <h3 class="my-2 mt-4 text-lg font-semibold">Vuelo de Llegada</h3>
+
+        <div class="grid grid-cols-3 gap-4">
+          <FormKit
+            type="datetime-local"
+            name="flightArrivalDatetime"
+            label="Fecha y Hora"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="flightArrivalNumber"
+            label="No. Vuelo"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="flightArrivalAirport"
+            label="Procedencia"
+            validation="required"
+          />
+        </div>
+
+        <h3 class="my-2 mt-4 text-lg font-semibold">Vuelo de Salida</h3>
+
+        <div class="grid grid-cols-3 gap-4">
+          <FormKit
+            type="datetime-local"
+            name="flightDepartureDatetime"
+            label="Fecha y Hora"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="flightDepartureNumber"
+            label="No. Vuelo"
+            validation="required"
+          />
+
+          <FormKit
+            type="text"
+            name="flightDepartureAirport"
+            label="Destino"
+            validation="required"
+          />
         </div>
 
         <div class="flex justify-end">
