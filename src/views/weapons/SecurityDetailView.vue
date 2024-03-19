@@ -8,7 +8,11 @@ import * as service from '@/services/SecurityService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
+import PositionInformation from '@/components/accreditations/PositionInformation.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
+
+import { useFormSelect } from '@/composables/FormSelect'
+
 import { formatDate } from '@/utils/dates'
 
 const route = useRoute()
@@ -16,11 +20,12 @@ const route = useRoute()
 const loading = ref(true)
 const item = ref<SecurityAccreditation>()
 
+const values = ref({})
+const { countries } = useFormSelect({ values })
+
 onBeforeMount(async () => {
   loading.value = true
-
   item.value = await service.getById(Number(route.params.id))
-
   loading.value = false
 })
 
@@ -54,6 +59,14 @@ async function onReject() {
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
 
+        <span>
+          <strong>País</strong>:
+          {{ countries.filter(i => i.value === item?.country)[0].label }}
+        </span>
+
+        <span><strong>Nombre</strong>: {{ item.name }}</span>
+        <span><strong>Pasaporte</strong>: {{ item.passportId }}</span>
+
         <span><strong>Fecha de Control</strong>: {{ formatDate(item.controlDatetime) }}</span>
 
         <p>
@@ -62,6 +75,25 @@ async function onReject() {
           {{ item.observations }}
         </p>
       </div>
+
+      <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Vuelo</h2>
+
+      <div class="flex flex-col gap-2">
+        <span>
+          <strong>Vuelo de Llegada</strong>: Vuelo No. {{ item.flightArrivalNumber }}, desde
+          {{ item.flightArrivalAirport }}
+        </span>
+
+        <span>
+          <strong>Vuelo de Salida</strong>: Vuelo No. {{ item.flightDepartureNumber }}, hacia
+          {{ item.flightDepartureAirport }}
+        </span>
+      </div>
+
+      <PositionInformation
+        :position="item.position"
+        :sub-position="item.subPosition"
+      />
 
       <h2 class="divider divider-start mt-5 text-xl font-bold">Armas</h2>
 
