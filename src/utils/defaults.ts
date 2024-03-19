@@ -29,7 +29,7 @@ export function initNational(item?: National): MultiStepForm {
     return {
       'multi-step': {
         accreditation: {
-          position: 1,
+          position: 0,
         },
         security: {
           controlDatetime: '',
@@ -44,7 +44,7 @@ export function initNational(item?: National): MultiStepForm {
     'multi-step': {
       accreditation: {
         ...item,
-        position: item.position.id,
+        position: 0,
         subPosition: item.subPosition?.id,
         passport: item.passportId,
         image: [item.image],

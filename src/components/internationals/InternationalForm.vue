@@ -19,7 +19,7 @@ const router = useRouter()
 const values = ref<MultiStepForm>({
   'multi-step': {
     accreditation: {
-      country: 1,
+      country: '',
       position: 0,
       images: [],
       flightFrom: 1,
@@ -302,7 +302,7 @@ async function onSubmit() {
 
             <h2 class="divider divider-start mt-10 text-xl font-bold">Datos Médicos</h2>
 
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid gap-4">
               <FormKit
                 type="select"
                 name="blood"

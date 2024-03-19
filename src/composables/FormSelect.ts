@@ -66,12 +66,25 @@ export function useFormSelect(props: Props) {
     }))
   )
 
-  const countries = computed(() =>
-    store.countries.map(i => ({
+  const countries = computed(() => {
+    const countryList = store.countries.map(i => ({
       value: i.id,
       label: i.name,
+      attrs: {},
     }))
-  )
+
+    countryList.sort((a, b) => a.label.localeCompare(b.label))
+
+    countryList.unshift({
+      value: 0,
+      label: 'Selecciona un país',
+      attrs: {
+        disabled: true,
+      },
+    })
+
+    return countryList
+  })
 
   const immunizations = computed(() =>
     store.immunizations.map(i => ({
@@ -162,7 +175,8 @@ export function useFormSelect(props: Props) {
   ])
 
   function preview(image?: unknown) {
-    if (!image) return placeholder
+    console.log(image)
+    if (!image || image[0] == undefined) return placeholder
 
     const img = image as Array<{ file: File }>
 

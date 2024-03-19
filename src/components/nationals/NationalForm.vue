@@ -142,13 +142,12 @@ async function onSubmit() {
               validation="required"
             />
 
-            <div class="grid grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 gap-4">
               <FormKit
                 type="text"
                 name="birthplace"
                 label="Lugar de Nacimiento"
                 validation="required"
-                outer-class="col-span-3"
               />
 
               <FormKit
@@ -159,10 +158,11 @@ async function onSubmit() {
               />
             </div>
 
-            <div class="grid grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 gap-4">
               <FormKit
                 type="select"
                 name="blood"
+                placeholder="Seleccione tipo de sangre..."
                 label="Tipo de Sangre"
                 validation="required"
                 :options="bloods"
