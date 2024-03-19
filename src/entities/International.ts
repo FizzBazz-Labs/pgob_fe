@@ -49,4 +49,5 @@ export interface International {
   createdBy: string
   createdAt: string
   updatedAt: string
+  downloaded: boolean
 }

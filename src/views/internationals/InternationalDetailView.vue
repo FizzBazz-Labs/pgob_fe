@@ -274,6 +274,7 @@ async function onReject() {
           :id="item.id"
           :status="item.status"
           :type="AccreditationItemType.INTERNATIONAL"
+          :downloaded="item.downloaded"
           @review="confirmReviewDialog?.showModal()"
           @approve="confirmApproveDialog?.showModal()"
           @reject="confirmRejectDialog?.showModal()"

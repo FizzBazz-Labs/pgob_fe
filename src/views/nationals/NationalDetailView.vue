@@ -156,6 +156,7 @@ function onEdit() {
           :id="item.id"
           :status="item.status"
           :type="AccreditationItemType.NATIONAL"
+          :downloaded="item.downloaded"
           @review="confirmReviewDialog?.showModal()"
           @approve="confirmApproveDialog?.showModal()"
           @reject="confirmRejectDialog?.showModal()"

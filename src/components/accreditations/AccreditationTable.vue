@@ -20,6 +20,10 @@ const auth = useAuthStore()
 
 const props = defineProps<{ items: Array<Accreditation> }>()
 
+function canDownload(item: Accreditation) {
+  return auth.isAccreditor && item.status === AccreditationStatus.APPROVED && !item.downloaded
+}
+
 function gotoDetail(item: Accreditation) {
   if (item.type === 'national') {
     router.push({
@@ -81,9 +85,7 @@ function gotoDetail(item: Accreditation) {
             </div>
 
             <div
-              v-if="
-                (auth.isAdmin || auth.isAccreditor) && item.status === AccreditationStatus.APPROVED
-              "
+              v-if="canDownload(item)"
               class="tooltip"
               data-tip="Identificación"
             >

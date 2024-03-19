@@ -25,4 +25,5 @@ export interface National {
   createdBy: string
   createdAt: string
   updatedAt: string
+  downloaded: boolean
 }

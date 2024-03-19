@@ -21,4 +21,5 @@ export interface Accreditation {
   status: AccreditationStatus
   createdAt: string
   createdBy: CreatedBy
+  downloaded: boolean
 }

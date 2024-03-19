@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { ArrowDownTrayIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import { ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
 
 import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
 
@@ -13,6 +13,7 @@ type Props = {
   id?: number
   type?: AccreditationItemType
   status?: AccreditationStatus
+  downloaded?: boolean
 }
 
 type Emits = {
@@ -23,7 +24,10 @@ type Emits = {
   (e: 'remove'): void
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  downloaded: true,
+})
+
 const emits = defineEmits<Emits>()
 
 const auth = useAuthStore()
@@ -36,9 +40,7 @@ const canReject = computed(() => {
 })
 
 const canCertificate = computed(() => {
-  const allowed = auth.isAdmin || auth.isAccreditor
-
-  return allowed && props.status === AccreditationStatus.APPROVED
+  return auth.isAccreditor && props.status === AccreditationStatus.APPROVED && !props.downloaded
 })
 </script>
 
@@ -81,7 +83,7 @@ const canCertificate = computed(() => {
       <ArrowDownTrayIcon class="h-5 w-5" />
     </a>
 
-    <div class="flex-1"></div>
+    <!-- <div class="flex-1"></div>
 
     <div
       class="tooltip tooltip-bottom"
@@ -102,6 +104,6 @@ const canCertificate = computed(() => {
       <button class="btn btn-ghost">
         <TrashIcon class="h-5 w-5" />
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
