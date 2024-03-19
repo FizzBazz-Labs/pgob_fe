@@ -14,6 +14,15 @@ export async function getById(id: number): Promise<NonCommercialAircraft> {
   return await response.json()
 }
 
+export async function update(
+  id: number,
+  body: Record<string, unknown>
+): Promise<NonCommercialAircraft> {
+  const response = await API.patch(`${ENDPOINT}/${id}`, body)
+
+  return await response.json()
+}
+
 export async function review(id: number): Promise<NonCommercialAircraft> {
   const response = await API.patch(`${ENDPOINT}/${id}/review`)
 

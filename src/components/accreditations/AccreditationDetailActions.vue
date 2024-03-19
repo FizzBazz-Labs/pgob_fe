@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
+import { ArrowDownTrayIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
 import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
 
@@ -83,9 +83,10 @@ const canCertificate = computed(() => {
       <ArrowDownTrayIcon class="h-5 w-5" />
     </a>
 
-    <!-- <div class="flex-1"></div>
+    <div class="flex-1"></div>
 
     <div
+      v-if="auth.isTransportationManager"
       class="tooltip tooltip-bottom"
       data-tip="Editar"
     >
@@ -97,7 +98,7 @@ const canCertificate = computed(() => {
       </button>
     </div>
 
-    <div
+    <!-- <div
       class="tooltip tooltip-bottom"
       data-tip="Eliminar"
     >

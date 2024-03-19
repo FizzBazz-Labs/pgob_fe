@@ -1,20 +1,21 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import type { NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 
 import * as service from '@/services/AircraftService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
-
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
+
+import { AircraftEditView } from '@/router'
 
 import { formatDate } from '@/utils/dates'
 
 const route = useRoute()
+const router = useRouter()
 
 const loading = ref(true)
 const item = ref<NonCommercialAircraft>()
@@ -43,6 +44,15 @@ async function onReject() {
   if (!item.value) return
 
   item.value = await service.reject(item.value.id)
+}
+
+function onEdit() {
+  if (!item.value) return
+
+  router.push({
+    name: AircraftEditView.name,
+    params: { id: item.value.id },
+  })
 }
 </script>
 
@@ -120,6 +130,7 @@ async function onReject() {
         @review="onReview"
         @approve="onApprove"
         @reject="onReject"
+        @edit="onEdit"
       />
     </main>
   </AppLoading>
