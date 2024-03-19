@@ -1,7 +1,7 @@
 import * as API from '@/services/api'
 
 import type { National } from '@/entities/National'
-import type { MultiStepForm } from '@/entities/Form'
+import type { FormValues, MultiStepForm } from '@/entities/Form'
 
 import * as securities from '@/services/SecurityService'
 
@@ -127,7 +127,7 @@ export async function review(id: number): Promise<National> {
   return await response.json()
 }
 
-export async function approve(id: number, params: { type: string }): Promise<National> {
+export async function approve(id: number, params: FormValues): Promise<National> {
   const response = await API.patch(`/national-accreditations/${id}/approve`, params)
 
   return await response.json()

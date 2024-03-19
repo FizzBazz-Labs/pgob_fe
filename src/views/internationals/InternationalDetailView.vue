@@ -16,6 +16,7 @@ import PositionInformation from '@/components/accreditations/PositionInformation
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 import { formatDate } from '@/utils/dates'
+import type { FormValues } from '@/entities/Form'
 
 const route = useRoute()
 
@@ -61,7 +62,7 @@ async function onReview() {
   }
 }
 
-async function onApprove(values: { type: string }) {
+async function onApprove(values: FormValues) {
   if (!item.value) return
 
   loading.value = true
@@ -303,6 +304,13 @@ async function onReject() {
           validation="required"
           :options="internationalTypes"
           select-icon="down"
+        />
+
+        <FormKit
+          type="textarea"
+          name="authorizedComment"
+          label="Comentarios"
+          placeholder="Escribe un comentario..."
         />
 
         <div class="flex justify-end gap-4">
