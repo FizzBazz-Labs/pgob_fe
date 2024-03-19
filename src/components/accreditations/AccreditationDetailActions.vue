@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
+import { ArrowDownTrayIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
 
 import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
 
@@ -19,6 +19,8 @@ type Emits = {
   (e: 'review'): void
   (e: 'approve'): void
   (e: 'reject'): void
+  (e: 'edit'): void
+  (e: 'remove'): void
 }
 
 const props = defineProps<Props>()
@@ -79,13 +81,16 @@ const canCertificate = computed(() => {
       <ArrowDownTrayIcon class="h-5 w-5" />
     </a>
 
-    <!-- <div class="flex-1"></div>
+    <div class="flex-1"></div>
 
     <div
       class="tooltip tooltip-bottom"
       data-tip="Editar"
     >
-      <button class="btn btn-ghost">
+      <button
+        class="btn btn-ghost"
+        @click="emits('edit')"
+      >
         <PencilSquareIcon class="h-5 w-5" />
       </button>
     </div>
@@ -97,6 +102,6 @@ const canCertificate = computed(() => {
       <button class="btn btn-ghost">
         <TrashIcon class="h-5 w-5" />
       </button>
-    </div> -->
+    </div>
   </div>
 </template>

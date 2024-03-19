@@ -5,7 +5,7 @@ import type { MultiStepForm } from '@/entities/Form'
 
 import * as securities from '@/services/SecurityService'
 
-export async function create(values: MultiStepForm): Promise<National> {
+export async function create(values: MultiStepForm, method = 'POST'): Promise<National> {
   const params = values['multi-step'].accreditation
   const form = new FormData()
 
@@ -42,9 +42,12 @@ export async function create(values: MultiStepForm): Promise<National> {
     form.append('mediaChannel', params.channel as string)
   }
 
-  const image = params.image as Array<{ file: File }>
-  if (image.length > 0) {
-    form.append('image', image[0].file)
+  if (method === 'POST') {
+    const image = params.image as Array<{ file: File }>
+
+    if (image.length > 0) {
+      form.append('image', image[0].file)
+    }
   }
 
   if (params.letter !== undefined) {
@@ -55,7 +58,8 @@ export async function create(values: MultiStepForm): Promise<National> {
     }
   }
 
-  const response = await API.form('/national-accreditations', form)
+  const withId = 'id' in params && method !== 'POST' ? `/${params.id}` : ''
+  const response = await API.form(`/national-accreditations${withId}`, form, method)
   return await response.json()
 }
 

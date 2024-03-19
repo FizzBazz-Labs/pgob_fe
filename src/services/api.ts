@@ -29,9 +29,9 @@ export function post<Body>(url: string, body: Body) {
   })
 }
 
-export function form(url: string, body: FormData) {
+export function form(url: string, body: FormData, method = 'POST') {
   return fetch(`${BASE_URL}${url}/`, {
-    method: 'POST',
+    method: method,
     headers: getHeaders(false),
     body: body,
   })

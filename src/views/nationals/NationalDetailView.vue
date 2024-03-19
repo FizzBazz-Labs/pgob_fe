@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import type { National } from '@/entities/National'
 import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
+
+import { NationalAccreditationEditView } from '@/router'
 
 import * as service from '@/services/NationalService'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-
 import AccreditationDetailHeader from '@/components/accreditations/AccreditationDetailHeader.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import PositionInformation from '@/components/accreditations/PositionInformation.vue'
@@ -19,6 +20,7 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import { formatDate } from '@/utils/dates'
 
 const route = useRoute()
+const router = useRouter()
 
 const { nationalTypes } = useFormSelect({ values: ref({}) })
 
@@ -87,6 +89,15 @@ async function onReject() {
     loading.value = false
   }
 }
+
+function onEdit() {
+  if (!item.value) return
+
+  router.push({
+    name: NationalAccreditationEditView.name,
+    params: { id: item.value.id },
+  })
+}
 </script>
 
 <template>
@@ -148,6 +159,7 @@ async function onReject() {
           @review="confirmReviewDialog?.showModal()"
           @approve="confirmApproveDialog?.showModal()"
           @reject="confirmRejectDialog?.showModal()"
+          @edit="onEdit"
         />
       </main>
     </template>

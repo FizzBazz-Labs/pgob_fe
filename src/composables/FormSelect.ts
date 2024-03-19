@@ -168,6 +168,8 @@ export function useFormSelect(props: Props) {
 
     if (img.length === 0) return placeholder
 
+    if (typeof img[0] === 'string') return img[0]
+
     return URL.createObjectURL(img[0].file)
   }
 

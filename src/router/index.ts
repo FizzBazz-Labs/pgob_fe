@@ -26,6 +26,12 @@ export const NationalAccreditationDetailView = {
   component: () => import('../views/nationals/NationalDetailView.vue'),
 }
 
+export const NationalAccreditationEditView = {
+  path: '/accreditations/nationals/:id/edit',
+  name: 'national-accreditation-edit',
+  component: () => import('../views/nationals/NationalEditView.vue'),
+}
+
 export const InternationalAccreditationCreateView = {
   path: '/accreditations/internationals',
   name: 'international-accreditation-create',
@@ -124,6 +130,7 @@ const router = createRouter({
     AccreditationListView,
     NationalAccreditationCreateView,
     NationalAccreditationDetailView,
+    NationalAccreditationEditView,
     InternationalAccreditationCreateView,
     InternationalAccreditationDetailView,
     VehicleAccessCreateView,

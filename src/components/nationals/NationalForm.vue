@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, type PropType } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { getNode } from '@formkit/core'
@@ -14,21 +14,32 @@ import * as service from '@/services/NationalService'
 
 import { NationalAccreditationDetailView } from '@/router'
 
+import { initNational, initWeapon } from '@/utils/defaults'
+
 const router = useRouter()
 
-const values = ref<MultiStepForm>({
-  'multi-step': {
-    accreditation: {
-      position: 1,
-    },
-    security: {
-      controlDatetime: '',
-      observations: '',
-      weapons: [initWeapon()],
-      equipments: [initEquipment()],
-    },
-  },
+const props = withDefaults(defineProps<{ method?: string }>(), {
+  method: 'POST',
 })
+
+const values = defineModel('values', {
+  type: Object as PropType<MultiStepForm>,
+  default: initNational,
+})
+
+// const values = ref<MultiStepForm>({
+//   'multi-step': {
+//     accreditation: {
+//       position: 1,
+//     },
+//     security: {
+//       controlDatetime: '',
+//       observations: '',
+//       weapons: [initWeapon()],
+//       equipments: [initEquipment()],
+//     },
+//   },
+// })
 
 const hasPrivateInsurance = ref(false)
 
@@ -42,29 +53,6 @@ const isSecurity = computed(() => values.value['multi-step'].accreditation.posit
 
 const next = () => getNode('multi-step')?.next()
 const previous = () => getNode('multi-step')?.previous()
-
-function initWeapon() {
-  return {
-    weapon: '',
-    brand: '',
-    model: '',
-    type: '',
-    serial: '',
-    caliber: '',
-    chargers: '0',
-    ammunition: '0',
-  }
-}
-
-function initEquipment() {
-  return {
-    brand: '',
-    model: '',
-    type: '',
-    serial: '',
-    frequency: '',
-  }
-}
 
 function onAddWeapon() {
   const weapons = values.value['multi-step'].security.weapons
@@ -95,7 +83,7 @@ function onRemoveEquipment(index: number) {
 }
 
 async function onSubmit() {
-  const response = await service.create(values.value)
+  const response = await service.create(values.value, props.method)
 
   toast('Acreditación nacional creada con éxito.', {
     type: 'success',
