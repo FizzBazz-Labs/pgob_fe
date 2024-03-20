@@ -15,10 +15,7 @@ import { HomeView } from '@/router'
 
 const router = useRouter()
 
-const values = ref<FormValues>({
-  country: 1,
-  position: 1,
-})
+const values = ref<FormValues>({})
 
 const { countries } = useFormSelect({ values })
 
@@ -58,6 +55,8 @@ async function onSubmit() {
 </script>
 
 <template>
+  {{ values }}
+
   <FormKit
     type="form"
     v-model="values"
@@ -72,7 +71,7 @@ async function onSubmit() {
           type="select"
           name="country"
           label="País"
-          validation="required"
+          validation="required|not:0"
           :options="countries"
           select-icon="down"
         />

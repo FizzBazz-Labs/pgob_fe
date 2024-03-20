@@ -10,6 +10,12 @@ type Props = {
   values: Ref<MultiStepForm | FormValues>
 }
 
+type SelectOption = {
+  value: number | null | undefined
+  label: string
+  attrs?: Record<string, unknown>
+}
+
 export function useFormSelect(props: Props) {
   const store = useGeneralStore()
 
@@ -67,23 +73,21 @@ export function useFormSelect(props: Props) {
   )
 
   const countries = computed(() => {
-    const countryList = store.countries.map(i => ({
+    const items = store.countries.map<SelectOption>(i => ({
       value: i.id,
       label: i.name,
       attrs: {},
     }))
 
-    countryList.sort((a, b) => a.label.localeCompare(b.label))
+    items.sort((a, b) => a.label.localeCompare(b.label))
 
-    countryList.unshift({
-      value: 0,
+    items.unshift({
+      value: undefined,
       label: 'Selecciona un país',
-      attrs: {
-        disabled: true,
-      },
+      attrs: { disabled: true },
     })
 
-    return countryList
+    return items
   })
 
   const immunizations = computed(() =>
