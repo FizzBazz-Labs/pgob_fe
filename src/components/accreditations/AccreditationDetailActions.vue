@@ -45,60 +45,61 @@ const canCertificate = computed(() => {
 </script>
 
 <template>
-  <h2 class="divider divider-start mt-5 text-xl font-bold">Acciones</h2>
+  <template v-if="!auth.isAnonymous">
+    <h2 class="divider divider-start mt-5 text-xl font-bold">Acciones</h2>
 
-  <div class="flex items-start gap-1">
-    <button
-      v-if="auth.isReviewer && props.status === AccreditationStatus.PENDING"
-      class="btn btn-info text-white"
-      @click="emits('review')"
-    >
-      Revisar
-    </button>
-
-    <button
-      v-if="auth.isAccreditor && props.status === AccreditationStatus.REVIEWED"
-      class="btn btn-success text-white"
-      @click="emits('approve')"
-    >
-      Aprobar
-    </button>
-
-    <button
-      v-if="canReject"
-      class="btn ml-3"
-      @click="emits('reject')"
-    >
-      Rechazar
-    </button>
-
-    <a
-      v-else-if="canCertificate"
-      :href="getCertificate({ id: props.id, type: props.type })"
-      target="_blank"
-      class="btn"
-    >
-      Acreditación
-
-      <ArrowDownTrayIcon class="h-5 w-5" />
-    </a>
-
-    <div class="flex-1"></div>
-
-    <div
-      v-if="auth.isTransportationManager"
-      class="tooltip tooltip-bottom"
-      data-tip="Editar"
-    >
+    <div class="flex items-start gap-1">
       <button
-        class="btn btn-ghost"
-        @click="emits('edit')"
+        v-if="auth.isReviewer && props.status === AccreditationStatus.PENDING"
+        class="btn btn-info text-white"
+        @click="emits('review')"
       >
-        <PencilSquareIcon class="h-5 w-5" />
+        Revisar
       </button>
-    </div>
 
-    <!-- <div
+      <button
+        v-if="auth.isAccreditor && props.status === AccreditationStatus.REVIEWED"
+        class="btn btn-success text-white"
+        @click="emits('approve')"
+      >
+        Aprobar
+      </button>
+
+      <button
+        v-if="canReject"
+        class="btn ml-3"
+        @click="emits('reject')"
+      >
+        Rechazar
+      </button>
+
+      <a
+        v-else-if="canCertificate"
+        :href="getCertificate({ id: props.id, type: props.type })"
+        target="_blank"
+        class="btn"
+      >
+        Acreditación
+
+        <ArrowDownTrayIcon class="h-5 w-5" />
+      </a>
+
+      <div class="flex-1"></div>
+
+      <div
+        v-if="auth.isTransportationManager"
+        class="tooltip tooltip-bottom"
+        data-tip="Editar"
+      >
+        <button
+          class="btn btn-ghost"
+          @click="emits('edit')"
+        >
+          <PencilSquareIcon class="h-5 w-5" />
+        </button>
+      </div>
+
+      <!-- <div
       class="tooltip tooltip-bottom"
       data-tip="Eliminar"
     >
@@ -106,5 +107,8 @@ const canCertificate = computed(() => {
         <TrashIcon class="h-5 w-5" />
       </button>
     </div> -->
-  </div>
+    </div>
+  </template>
+
+  <div v-else></div>
 </template>

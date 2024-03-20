@@ -23,6 +23,7 @@ export const NationalAccreditationCreateView = {
 export const NationalAccreditationDetailView = {
   path: '/accreditations/nationals/:id',
   name: 'national-accreditation-detail',
+  meta: { requiresAuth: false },
   component: () => import('../views/nationals/NationalDetailView.vue'),
 }
 
@@ -41,6 +42,7 @@ export const InternationalAccreditationCreateView = {
 export const InternationalAccreditationDetailView = {
   path: '/accreditations/internationals/:id',
   name: 'international-accreditation-detail',
+  meta: { requiresAuth: false },
   component: () => import('../views/internationals/InternationalDetailView.vue'),
 }
 
@@ -155,13 +157,21 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach(to => {
-  const store = useAuthStore()
+router.beforeEach(async (to, before, next) => {
+  const auth = useAuthStore()
+
+  if (!auth.token) await auth.init()
+
+  if ('requiresAuth' in to.meta && to.meta.requiresAuth === false) {
+    return next()
+  }
 
   const isLogin = to.name === LoginView.name
-  const isLogged = Boolean(store.token)
+  const isLogged = Boolean(auth.token)
 
-  if (!isLogin && !isLogged) return LoginView
+  if (!isLogin && !isLogged) return next(LoginView)
+
+  return next()
 })
 
 export default router

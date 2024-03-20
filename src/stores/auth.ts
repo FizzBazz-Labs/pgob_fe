@@ -31,6 +31,7 @@ export const useAuthStore = defineStore('auth', {
   state: initState,
 
   getters: {
+    isAnonymous: state => !state.token,
     isAdmin: state => state.user.group === Group.ADMIN,
     isAccreditor: state => state.user.group === Group.Accreditor,
     isReviewer: state => state.user.group === Group.Reviewer,
@@ -64,6 +65,7 @@ export const useAuthStore = defineStore('auth', {
 
     logout() {
       this.token = ''
+
       localStorage.removeItem('refresh')
     },
 
