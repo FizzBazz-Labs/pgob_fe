@@ -147,11 +147,11 @@ export function useFormSelect(props: Props) {
     },
     {
       value: 'NEWSLETTER_COMMITTEE',
-      label: 'Comité de Boletines',
+      label: 'Comité de Prensa',
     },
     {
       value: 'COMMERCIAL_NEWSLETTER',
-      label: 'Boletín Comercial',
+      label: 'Prensa Comercial',
     },
   ])
 
