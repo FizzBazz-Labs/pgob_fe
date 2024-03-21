@@ -37,17 +37,29 @@ export function useFormSelect(props: Props) {
     return positionList
   })
 
-  const subPositions = computed(() => {
+  const subPositions = computed<SelectOption[]>(() => {
     const selected =
-      props.values.value.position ?? props.values.value['multi-step'].accreditation.position
+      props.values.value.position ??
+      props.values.value['multi-step']?.accreditation.position ??
+      undefined
+
     const position = store.positions.find(i => i.id === selected)
 
     if (!position) return []
+    if (position.subPositions.length === 0) return []
 
-    return position.subPositions.map(i => ({
-      value: i.id,
-      label: i.name,
-    }))
+    return [
+      {
+        value: undefined,
+        label: 'Selecciona un sub cargo',
+        attrs: { disabled: true },
+      },
+
+      ...position.subPositions.map(i => ({
+        value: i.id,
+        label: i.name,
+      })),
+    ]
   })
 
   const showChannels = computed(() =>

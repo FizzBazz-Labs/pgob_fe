@@ -7,7 +7,6 @@ export type SecurityValues = {
     model: string
     type: string
     serial: string
-    caliber: string
     chargers: string
     ammunition: string
   }>

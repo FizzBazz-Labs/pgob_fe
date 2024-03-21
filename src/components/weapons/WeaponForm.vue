@@ -3,50 +3,27 @@ import { ref } from 'vue'
 
 import { useRouter } from 'vue-router'
 
-import type { FormValues } from '@/entities/Form'
-
 import { toast } from 'vue3-toastify'
+
+import { HomeView } from '@/router'
 
 import * as service from '@/services/SecurityService'
 
+import type { FormValues } from '@/entities/Form'
 import type { SecurityValues } from '@/entities/Form'
 
-import { HomeView } from '@/router'
 import { useFormSelect } from '@/composables/FormSelect'
+
+import { initWeapon, initCommunication } from '@/utils/defaults'
 
 const router = useRouter()
 
-const values = ref<FormValues>({
-  position: 0,
-})
+const values = ref<FormValues>({})
 
 const { positions, subPositions, countries } = useFormSelect({ values })
 
 const weapons = ref([initWeapon()])
-const communicationItems = ref([initCommunicationItem()])
-
-function initWeapon() {
-  return {
-    weapon: '',
-    brand: '',
-    model: '',
-    type: '',
-    serial: '',
-    caliber: '',
-    chargers: '0',
-    ammunition: '0',
-  }
-}
-
-function initCommunicationItem() {
-  return {
-    type: '',
-    brand: '',
-    model: '',
-    serial: '',
-    value: '',
-  }
-}
+const communicationItems = ref([initCommunication()])
 
 function onAddWeapon() {
   weapons.value.push(initWeapon())
@@ -58,7 +35,7 @@ function onRemoveWeapon(index: number) {
 }
 
 function onAddCommunicationItem() {
-  communicationItems.value.push(initCommunicationItem())
+  communicationItems.value.push(initCommunication())
   window.scrollTo(0, document.body.scrollHeight)
 }
 
@@ -117,6 +94,13 @@ async function onSubmit() {
           validation="required"
         />
 
+        <FormKit
+          type="text"
+          name="permitNumber"
+          label="Número de Permiso"
+          validation="required"
+        />
+
         <div
           class="grid gap-4"
           :class="{
@@ -152,17 +136,7 @@ async function onSubmit() {
           validation="required"
         />
 
-        <div class="mb-2 flex gap-4">
-          <span class="divider divider-start flex-1 text-xl font-bold"> Armas </span>
-
-          <!-- <button
-            type="button"
-            class="btn btn-success text-white"
-            @click="onAddWeapon"
-          >
-            Añadir
-          </button> -->
-        </div>
+        <span class="divider divider-start flex-1 text-xl font-bold"> Armas </span>
 
         <div
           v-for="(weapon, i) in weapons"
@@ -214,23 +188,16 @@ async function onSubmit() {
             />
 
             <FormKit
-              type="text"
-              v-model="weapon.caliber"
-              label="Calibre"
-              validation="required"
-            />
-
-            <FormKit
               type="number"
               v-model="weapon.chargers"
-              label="Cargador"
+              label="Cantidad de Cargadores"
               validation="required"
             />
 
             <FormKit
               type="number"
               v-model="weapon.ammunition"
-              label="Calibre"
+              label="Municiones"
               validation="required"
             />
 
@@ -331,6 +298,16 @@ async function onSubmit() {
           </div>
         </div>
 
+        <div class="flex justify-end">
+          <button
+            type="button"
+            class="btn btn-success text-white"
+            @click="onAddCommunicationItem"
+          >
+            Añadir equipo
+          </button>
+        </div>
+
         <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Vuelo</h2>
 
         <h3 class="my-2 mt-4 text-lg font-semibold">Vuelo de Llegada</h3>
@@ -381,16 +358,6 @@ async function onSubmit() {
             label="Destino"
             validation="required"
           />
-        </div>
-
-        <div class="flex justify-end">
-          <button
-            type="button"
-            class="btn btn-success text-white"
-            @click="onAddCommunicationItem"
-          >
-            Añadir equipo
-          </button>
         </div>
 
         <FormKit

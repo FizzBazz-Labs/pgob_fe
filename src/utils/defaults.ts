@@ -8,7 +8,6 @@ export function initWeapon() {
     model: '',
     type: '',
     serial: '',
-    caliber: '',
     chargers: '0',
     ammunition: '0',
   }
@@ -21,6 +20,16 @@ export function initEquipment() {
     type: '',
     serial: '',
     frequency: '',
+  }
+}
+
+export function initCommunication() {
+  return {
+    type: '',
+    brand: '',
+    model: '',
+    serial: '',
+    value: '',
   }
 }
 
