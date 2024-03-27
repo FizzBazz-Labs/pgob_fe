@@ -106,6 +106,12 @@ export const CommunicationEquipmentDetailView = {
   component: () => import('../views/communications/CommunicationEquipmentDetailView.vue'),
 }
 
+export const CommunicationEquipmentEditView = {
+  path: '/accreditations/communication-equipment/:id/edit',
+  name: 'communication-equipment-edit',
+  component: () => import('../views/communications/CommunicationEquipmentEditView.vue'),
+}
+
 export const SecurityWeaponCreateView = {
   path: '/accreditations/security-weapons',
   name: 'security-weapon-create',
@@ -163,6 +169,7 @@ const router = createRouter({
     AircraftEditView,
     CommunicationEquipmentCreateView,
     CommunicationEquipmentDetailView,
+    CommunicationEquipmentEditView,
     SecurityWeaponCreateView,
     SecurityDetailView,
     SecurityEditView,
