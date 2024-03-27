@@ -87,7 +87,6 @@ const canCertificate = computed(() => {
       <div class="flex-1"></div>
 
       <div
-        v-if="auth.isTransportationManager"
         class="tooltip tooltip-bottom"
         data-tip="Editar"
       >

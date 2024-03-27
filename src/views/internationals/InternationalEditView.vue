@@ -2,19 +2,19 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 
-import type { National } from '@/entities/National'
+import type { International } from '@/entities/International'
 
-import * as service from '@/services/NationalService'
+import * as service from '@/services/InternationalService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-import NationalForm from '@/components/nationals/NationalForm.vue'
+import InternationalForm from '@/components/internationals/InternationalForm.vue'
 
 import { initNational } from '@/utils/defaults'
 
 const route = useRoute()
 
 const loading = ref(true)
-const item = ref<National>()
+const item = ref<International>()
 
 const values = ref(initNational())
 
@@ -30,7 +30,7 @@ onBeforeMount(async () => {
 
 <template>
   <AppLoading :loading="loading">
-    <NationalForm
+    <InternationalForm
       v-if="item"
       :values="values"
       action="edit"
