@@ -168,6 +168,7 @@ async function onReject() {
         @review="onReview"
         @approve="onApprove"
         @reject="onReject"
+        @edit="() => $router.push(`/accreditations/security-weapons/${item?.id}/edit`)"
       />
     </main>
   </AppLoading>

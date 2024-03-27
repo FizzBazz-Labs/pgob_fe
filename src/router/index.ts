@@ -118,6 +118,12 @@ export const SecurityDetailView = {
   component: () => import('../views/weapons/SecurityDetailView.vue'),
 }
 
+export const SecurityEditView = {
+  path: '/accreditations/security-weapons/:id/edit',
+  name: 'security-edit',
+  component: () => import('../views/weapons/SecurityEditView.vue'),
+}
+
 export const HomeView = {
   path: '/',
   name: 'home',
@@ -159,6 +165,7 @@ const router = createRouter({
     CommunicationEquipmentDetailView,
     SecurityWeaponCreateView,
     SecurityDetailView,
+    SecurityEditView,
     UserListView,
     UserCreateView,
   ],
