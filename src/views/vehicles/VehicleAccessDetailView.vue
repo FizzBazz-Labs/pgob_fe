@@ -21,7 +21,6 @@ onBeforeMount(async () => {
   item.value = await service.getById(Number(route.params.id))
 
   loading.value = false
-  console.log(item.value)
 })
 
 async function onReview() {
@@ -47,52 +46,164 @@ async function onReject() {
   <AppLoading :loading="loading">
     <main
       v-if="item"
-      class="w-2/3"
+      class="mx-auto w-2/3"
     >
-      <h1 class="divider divider-start mt-5 text-xl font-bold">
-        Acreditación de Acceso de Vehículo
+      <h1 class="divider mt-5 text-xl font-bold">
+        Acreditación de Acceso de Vehículo al Aeropuerto
       </h1>
 
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
-
-        <span><strong>País</strong>: {{ item.country }}</span>
-        <span><strong>Responsable</strong>: {{ item.informationResponsible }}</span>
       </div>
 
-      <h2 class="divider divider-start mt-5 text-xl font-bold">Vehículos</h2>
+      <div class="my-5 flex flex-row items-center gap-2">
+        <div class="w-[33%]">
+          <span> <strong> Nombre del pais: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.country"
+          />
+        </div>
+      </div>
 
-      <table class="table table-zebra mt-5">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Tipo</th>
-            <th>Marca</th>
-            <th>Color</th>
-            <th>Placa</th>
-            <th>Nombre de conductor</th>
-            <th>ID del conductor</th>
-            <th>Tel. del conductor</th>
-          </tr>
-        </thead>
+      <h2 class="divider mt-5 text-xl font-bold">Vehículo de apoyo</h2>
 
-        <tbody>
-          <tr
-            v-for="(vehicle, i) in item.vehicles"
-            :key="i"
-            class="hover"
+      <div
+        v-for="(vehicle, index) in item.vehicles"
+        :key="index"
+      >
+        <div class="grid gap-2 md:grid-cols-2">
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Tipo: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.type"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Marca/Modelo: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.brand"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-2 md:grid-cols-2">
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Color: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.color"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Placa: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.plate"
+              />
+            </div>
+          </div>
+        </div>
+
+        <h2 class="divider divider-start my-8 text-xl font-bold">Datos del Conductor</h2>
+
+        <div class="grid gap-2 md:grid-cols-3">
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Nombre: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.driverName"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Cedula: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.driverId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Telefono: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.phone"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <div class="">
+          <span> <strong> Responsable de la Información: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.informationResponsible"
+          />
+        </div>
+      </div>
+
+      <!-- <th>{{ i + 1 }}</th>
+        <td>{{ vehicle.type }}</td>
+        <td>{{ vehicle.brand }}</td>
+        <td>{{ vehicle.color }}</td>
+        <td>{{ vehicle.plate }}</td>
+        <td>{{ vehicle.driverName }}</td>
+        <td>{{ vehicle.driverId }}</td>
+        <td>{{ vehicle.phone }}</td>
+        <td>
+          <a
+            :href="vehicle.driverLicense"
+            class="btn btn-info btn-sm text-white"
           >
-            <th>{{ i + 1 }}</th>
-            <td>{{ vehicle.type }}</td>
-            <td>{{ vehicle.brand }}</td>
-            <td>{{ vehicle.color }}</td>
-            <td>{{ vehicle.plate }}</td>
-            <td>{{ vehicle.driverName }}</td>
-            <td>{{ vehicle.driverId }}</td>
-            <td>{{ vehicle.phone }}</td>
-          </tr>
-        </tbody>
-      </table>
+            Ver
+          </a>
+        </td> -->
 
       <AccreditationDetailActions
         :status="item.status"

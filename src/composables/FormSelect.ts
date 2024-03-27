@@ -191,7 +191,6 @@ export function useFormSelect(props: Props) {
   ])
 
   function preview(image?: unknown) {
-    console.log(image)
     if (!image || image[0] == undefined) return placeholder
 
     const img = image as Array<{ file: File }>

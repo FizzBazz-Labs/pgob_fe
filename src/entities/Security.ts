@@ -25,4 +25,5 @@ export interface SecurityAccreditation {
   flightDepartureDatetime: string
   flightDepartureNumber: string
   flightDepartureAirport: string
+  downloaded: boolean
 }

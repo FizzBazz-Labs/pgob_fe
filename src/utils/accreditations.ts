@@ -10,6 +10,8 @@ export function getCertificate(params: GetCertificateParams) {
     return `${BASE_URL}/national-accreditations/${params.id}/certificate/`
   } else if (params.type === 'international') {
     return `${BASE_URL}/international-accreditations/${params.id}/certificate/`
+  } else if (params.type === 'weapon') {
+    return `${BASE_URL}/security-weapon-accreditation/${params.id}/certificate/`
   }
 
   return ''

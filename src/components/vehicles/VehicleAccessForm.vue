@@ -19,30 +19,10 @@ const values = ref<FormValues>({})
 
 const { countries } = useFormSelect({ values })
 
-const vehicles = ref([initVehicle()])
-
-function initVehicle() {
-  return {
-    type: '',
-    brand: '',
-    color: '',
-    plate: '',
-    driverName: '',
-    driverId: '',
-    phone: '',
-  }
-}
-
-function onAddVehicle() {
-  vehicles.value.push(initVehicle())
-}
-
-function onRemoveVehicle(index: number) {
-  vehicles.value.splice(index, 1)
-}
+// const vehicles = ref()
 
 async function onSubmit() {
-  values.value.vehicles = vehicles.value
+  // values.value.vehicles = vehicles.value
 
   const response = await service.create(values.value)
 
@@ -83,104 +63,71 @@ async function onSubmit() {
 
         <div class="mb-2 flex gap-4">
           <span class="divider divider-start flex-1 text-xl font-bold">Vehículos</span>
-
-          <!-- <button
-            type="button"
-            class="btn btn-success text-white"
-            @click="onAddVehicle"
-          >
-            Añadir
-          </button> -->
         </div>
 
-        <div
-          v-for="(vehicle, i) in vehicles"
-          :key="i"
-          class="collapse collapse-arrow mb-4 bg-base-200"
-        >
-          <input
-            type="radio"
-            name="vehicles"
-            checked
+        <FormKit
+          type="text"
+          label="Tipo"
+          validation="required"
+          name="type"
+        />
+
+        <FormKit
+          type="text"
+          label="Marca/Modelo"
+          validation="required"
+          name="brand"
+        />
+
+        <FormKit
+          type="text"
+          label="Color"
+          validation="required"
+          name="color"
+        />
+
+        <FormKit
+          type="text"
+          label="Placa"
+          validation="required"
+          name="plate"
+        />
+
+        <h3 class="my-2 mt-4 text-lg font-semibold">Conductor</h3>
+
+        <div class="grid grid-cols-3 gap-4">
+          <FormKit
+            type="text"
+            label="Nombre"
+            validation="required"
+            name="driverName"
           />
 
-          <div class="collapse-title text-xl font-medium">Vehículo {{ i + 1 }}</div>
+          <FormKit
+            type="text"
+            label="Cédula"
+            validation="required"
+            name="driverId"
+          />
 
-          <div class="collapse-content">
-            <FormKit
-              type="text"
-              v-model="vehicle.type"
-              label="Tipo"
-              validation="required"
-            />
-
-            <FormKit
-              type="text"
-              v-model="vehicle.brand"
-              label="Marca/Modelo"
-              validation="required"
-            />
-
-            <FormKit
-              type="text"
-              v-model="vehicle.color"
-              label="Color"
-              validation="required"
-            />
-
-            <FormKit
-              type="text"
-              v-model="vehicle.plate"
-              label="Placa"
-              validation="required"
-            />
-
-            <h3 class="my-2 mt-4 text-lg font-semibold">Conductor</h3>
-
-            <div class="grid grid-cols-3 gap-4">
-              <FormKit
-                type="text"
-                v-model="vehicle.driverName"
-                label="Nombre"
-                validation="required"
-              />
-
-              <FormKit
-                type="text"
-                v-model="vehicle.driverId"
-                label="Cédula"
-                validation="required"
-              />
-
-              <FormKit
-                type="text"
-                v-model="vehicle.phone"
-                label="Número de teléfono"
-                validation="required"
-              />
-            </div>
-
-            <div class="flex justify-end">
-              <button
-                type="button"
-                class="btn btn-error text-white"
-                @click="onRemoveVehicle(i)"
-              >
-                Eliminar
-              </button>
-            </div>
-          </div>
+          <FormKit
+            type="text"
+            label="Número de teléfono"
+            validation="required"
+            name="phone"
+          />
         </div>
 
-        <div class="flex justify-end">
-          <button
-            type="button"
-            class="btn btn-success text-white"
-            @click="onAddVehicle"
-          >
-            Añadir
-          </button>
-        </div>
+        <FormKit
+          type="file"
+          name="driverLicense"
+          label="Imagen de licencia"
+          validation="required"
+          accept=".png,.jpg,.webp"
+          file-item-icon="fileDoc"
+          file-remove-icon="close"
+          no-files-icon="fileDoc"
+        />
 
         <FormKit
           type="submit"

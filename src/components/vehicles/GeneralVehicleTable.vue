@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 
-import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
+import { EyeIcon, IdentificationIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
 import { GeneralVehicleDetailView } from '@/router'
 
@@ -19,6 +19,15 @@ const auth = useAuthStore()
 const props = defineProps<{ items: Array<GeneralVehicles> }>()
 
 function gotoDetail(item: { id: number }) {
+  router.push({
+    name: GeneralVehicleDetailView.name,
+    params: { id: item.id },
+  })
+}
+
+function onEdit(item) {
+  if (!item) return
+
   router.push({
     name: GeneralVehicleDetailView.name,
     params: { id: item.id },
@@ -78,6 +87,19 @@ function gotoDetail(item: { id: number }) {
                 <IdentificationIcon class="h-5 w-5" />
               </a>
             </div>
+            <!--
+            <div
+              v-if="auth.isTransportationManager"
+              class="tooltip tooltip-bottom"
+              data-tip="Editar"
+            >
+              <button
+                class="btn btn-ghost"
+                @click="onEdit(item)"
+              >
+                <PencilSquareIcon class="h-5 w-5" />
+              </button>
+            </div> -->
           </td>
         </tr>
       </tbody>

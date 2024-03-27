@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 
-import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
+import { EyeIcon, IdentificationIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { AircraftDetailView } from '@/router'
+import { AircraftDetailView, AircraftEditView } from '@/router'
 
 import type { NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -21,6 +21,15 @@ const props = defineProps<{ items: Array<NonCommercialAircraft> }>()
 function gotoDetail(item: { id: number }) {
   router.push({
     name: AircraftDetailView.name,
+    params: { id: item.id },
+  })
+}
+
+function onEdit(item) {
+  if (!item) return
+
+  router.push({
+    name: AircraftEditView.name,
     params: { id: item.id },
   })
 }
@@ -83,6 +92,19 @@ function gotoDetail(item: { id: number }) {
               <a class="btn btn-ghost btn-sm">
                 <IdentificationIcon class="h-5 w-5" />
               </a>
+            </div>
+
+            <div
+              v-if="auth.isTransportationManager"
+              class="tooltip tooltip-bottom"
+              data-tip="Editar"
+            >
+              <button
+                class="btn btn-ghost"
+                @click="onEdit(item)"
+              >
+                <PencilSquareIcon class="h-5 w-5" />
+              </button>
             </div>
           </td>
         </tr>

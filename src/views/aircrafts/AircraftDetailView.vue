@@ -60,69 +60,284 @@ function onEdit() {
   <AppLoading :loading="loading">
     <main
       v-if="item"
-      class="w-1/2"
+      class="mx-auto md:w-8/12"
     >
-      <h2 class="divider divider-start mt-5 text-xl font-bold">Acreditación de Sobre Vuelo</h2>
+      <h2 class="divider mt-5 text-xl font-bold">Detalle de Acreditación de Sobre Vuelo</h2>
 
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
-
-        <span><strong>País</strong>: {{ item.country.name }}</span>
       </div>
 
-      <h2 class="divider divider-start mt-5 text-xl font-bold">Datos de la Aeronave</h2>
-
-      <div class="flex flex-col gap-2">
-        <span><strong>Tipo</strong>: {{ item.aircraftType }}</span>
-        <span><strong>Modelo</strong>: {{ item.model }}</span>
-        <span> <strong>Tipo de vuelo</strong>: {{ item.flightType }} </span>
-        <span><strong>Matrícula</strong>: {{ item.registration }}</span>
-        <span><strong>Color</strong>: {{ item.color }}</span>
-        <span><strong>Indicativo de Llamada</strong>: {{ item.callSign }}</span>
-        <span><strong>Nombre de Comandante</strong>: {{ item.commanderName }}</span>
-        <span><strong>Nombre del PMI</strong>: {{ item.pmiName }}</span>
-
-        <span><strong>Posición</strong>: {{ item.position.name }}</span>
-
-        <span v-if="item.subPosition">
-          <strong>Tipo de Cargo</strong>: {{ item.subPosition.name }}
-        </span>
-
-        <span><strong>No. de Tripulantes</strong>: {{ item.crewMembersCount }}</span>
-        <span><strong>No. de Pasajeros</strong>: {{ item.passengersCount }}</span>
+      <div class="my-5 flex flex-row items-center gap-2">
+        <div class="w-[33%]">
+          <span> <strong> Pais de procedencia: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.country.name"
+          />
+        </div>
       </div>
 
-      <h2 class="divider divider-start mt-10 text-xl font-bold">Información de Vuelo</h2>
+      <h2 class="divider divider-start my-10 text-xl font-bold">Datos de la Aeronave</h2>
 
-      <div class="flex flex-col gap-2">
-        <span><strong>Fecha de Entrada</strong>: {{ formatDate(item.arrivalDate) }}</span>
-        <span><strong>Procedencia</strong>: {{ item.origin }}</span>
-        <span><strong>Salida</strong>: {{ formatDate(item.departureDate) }}</span>
-        <span><strong>Destino</strong>: {{ item.destination }}</span>
+      <div class="grid gap-2 md:grid-cols-3">
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Tipo de aeronave: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.aircraftType"
+            />
+          </div>
+        </div>
 
-        <p>
-          <strong>Fecha(s), Lugar (es) y objeto de Sobrevuelo</strong>:
-          <br />
-          {{ item.overflightInfo }}
-        </p>
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Modelo: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.model"
+            />
+          </div>
+        </div>
 
-        <p>
-          <strong>Fechas (s) Lugar (es) y objetivo del aterrizaje</strong>:
-          <br />
-          {{ item.landingInfo }}
-        </p>
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Tipo de vuelo: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.flightType"
+            />
+          </div>
+        </div>
+      </div>
 
-        <p>
-          <strong>Ruta</strong>:
-          <br />
-          {{ item.route }}
-        </p>
+      <div class="grid gap-2 md:grid-cols-3">
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Matricula: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.registration"
+            />
+          </div>
+        </div>
 
-        <p>
-          <strong>Facilidades que la aeronave requiere en tierra</strong>:
-          <br />
-          {{ item.groundFacilities }}
-        </p>
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Color: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.color"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Indicativo de llamada: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.callSign"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-2 md:grid-cols-2">
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Nombre del comandante: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.commanderName"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> No. de Tripulantes: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.crewMembersCount"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <div class="">
+          <span> <strong> Nombre del PMI: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.pmiName"
+          />
+        </div>
+      </div>
+
+      <div class="gap-2 md:flex md:flex-row">
+        <div class="mb-5 md:w-[70%]">
+          <div class="">
+            <span> <strong> Cargo: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.position.name"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 md:w-[30%]">
+          <div class="">
+            <span> <strong> No. de Pasajeros: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.passengersCount"
+            />
+          </div>
+        </div>
+      </div>
+
+      <h2 class="divider divider-start my-10 text-xl font-bold">Información de Vuelo</h2>
+
+      <div class="mb-5 flex flex-row items-center gap-2">
+        <div class="w-[45%]">
+          <span> <strong> Fecha de Entrada a Territorio Nacional </strong> </span>
+        </div>
+        <div class="w-[55%]">
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            :value="item.arrivalDate"
+          />
+        </div>
+      </div>
+
+      <div class="mb-5 flex flex-row items-center gap-2">
+        <div class="w-[45%]">
+          <span> <strong> Fecha de Salida a Territorio Nacional </strong> </span>
+        </div>
+        <div class="w-[55%]">
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            :value="item.departureDate"
+          />
+        </div>
+      </div>
+
+      <div class="mb-5 flex flex-row items-center gap-2">
+        <div class="w-[30%]">
+          <span> <strong> Fecha(s), Lugar (es) y objeto de Sobrevuelo </strong> </span>
+        </div>
+        <div class="w-[70%]">
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            :value="item.overflightInfo"
+          />
+        </div>
+      </div>
+
+      <div class="mb-5 flex flex-row items-center gap-2">
+        <div class="w-[30%]">
+          <span> <strong> Fechas (s) Lugar (es) y objetivo del aterrizaje </strong> </span>
+        </div>
+        <div class="w-[70%]">
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            :value="item.landingInfo"
+          />
+        </div>
+      </div>
+
+      <div class="mb-5 flex flex-row items-center gap-2">
+        <div class="">
+          <span> <strong> Procedencia </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            :value="item.origin"
+          />
+        </div>
+      </div>
+
+      <div class="mb-5 flex flex-row items-center gap-2">
+        <div class="">
+          <span> <strong> Destino </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            :value="item.destination"
+          />
+        </div>
+      </div>
+
+      <div class="mb-5 flex flex-row items-center gap-2">
+        <div class="">
+          <span> <strong> Ruta </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            :value="item.route"
+          />
+        </div>
+      </div>
+
+      <div class="mb-5 flex flex-row items-center gap-2">
+        <div class="">
+          <span> <strong> Facilidades que la aeronave requiere en tierra </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            :value="item.groundFacilities"
+          />
+        </div>
       </div>
 
       <AccreditationDetailActions

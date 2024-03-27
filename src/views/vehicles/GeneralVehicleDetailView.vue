@@ -19,7 +19,6 @@ onBeforeMount(async () => {
   loading.value = true
 
   item.value = await service.getById(Number(route.params.id))
-
   loading.value = false
 })
 
@@ -46,7 +45,7 @@ async function onReject() {
   <AppLoading :loading="loading">
     <main
       v-if="item"
-      class="w-2/3"
+      class="mx-auto w-2/3"
     >
       <h1 class="divider divider-start mt-5 text-xl font-bold">
         Acreditación de Vehículos Generales
@@ -54,50 +53,135 @@ async function onReject() {
 
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
-
-        <span><strong>Misión Diplomática </strong>: {{ item.mission }}</span>
-        <span><strong>Asignado A </strong>: {{ item.assignedTo }}</span>
-
-        <p>
-          <strong>Observaciones </strong>:
-          <br />
-          {{ item.observations }}
-        </p>
       </div>
 
-      <h2 class="divider divider-start mt-5 text-xl font-bold">Vehiculos</h2>
+      <div class="my-5 gap-2">
+        <div class="">
+          <span> <strong> Misión Diplomática: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.mission"
+          />
+        </div>
+      </div>
 
-      <table class="table table-zebra mt-5">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Tipo</th>
-            <th>Marca</th>
-            <th>Color</th>
-            <th>Placa</th>
-            <th>Nombre de conductor</th>
-            <th>ID del conductor</th>
-            <th>Tel. del conductor</th>
-          </tr>
-        </thead>
+      <div
+        v-for="(vehicle, index) in item.vehicles"
+        :key="index"
+      >
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Marca del vehiculo: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="vehicle.brand"
+            />
+          </div>
+        </div>
 
-        <tbody>
-          <tr
-            v-for="(vehicle, i) in item.vehicles"
-            :key="i"
-            class="hover"
-          >
-            <th>{{ i + 1 }}</th>
-            <td>{{ vehicle.type }}</td>
-            <td>{{ vehicle.brand }}</td>
-            <td>{{ vehicle.color }}</td>
-            <td>{{ vehicle.plate }}</td>
-            <td>{{ vehicle.driverName }}</td>
-            <td>{{ vehicle.driverId }}</td>
-            <td>{{ vehicle.phone }}</td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="grid gap-2 md:grid-cols-2">
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Placa: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.plate"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="">
+              <span> <strong> Color: </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full text-black"
+                :value="vehicle.color"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> Nombre del Conductor: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="vehicle.driverName"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <div class="">
+            <span> <strong> DIP No.: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="vehicle.driverId"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-10">
+        <div class="">
+          <span> <strong> Asignado a: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.assignedTo"
+          />
+        </div>
+      </div>
+
+      <h1 class="divider mt-5 text-xl font-bold">
+        ESPACIO RESERVADO PARA MINISTERIO DE RELACIONES EXTERIORES
+      </h1>
+
+      <div class="mb-5">
+        <div class="">
+          <span> <strong> Distintivo No.: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.distinctive"
+          />
+        </div>
+      </div>
+
+      <div class="mb-10">
+        <div class="">
+          <span> <strong> Observaciones: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.observations"
+          />
+        </div>
+      </div>
 
       <AccreditationDetailActions
         :status="item.status"

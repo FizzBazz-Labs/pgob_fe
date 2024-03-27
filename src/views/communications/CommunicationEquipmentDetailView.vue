@@ -20,7 +20,6 @@ const item = ref<CommunicationEquipment>()
 onBeforeMount(async () => {
   item.value = await service.getById(Number(route.params.id))
   loading.value = false
-  console.log(item.value, 'datos')
 })
 
 async function onReview() {
@@ -46,30 +45,54 @@ async function onReject() {
   <AppLoading :loading="loading">
     <main
       v-if="item"
-      class="w-1/2"
+      class="mx-auto w-2/3"
     >
-      <h2 class="divider divider-start mt-5 text-xl font-bold">
-        Declaración de Equipo de Intercomunicación
-      </h2>
+      <h2 class="divider mt-5 text-xl font-bold">Declaración de Equipo de Intercomunicación</h2>
 
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
-
+        <!--
         <span><strong>País</strong>: {{ item.country }}</span>
-        <span><strong>Institución/Medio</strong>: {{ item.institution }}</span>
+        <span><strong>Institución/Medio</strong>: {{ item.institution }}</span> -->
       </div>
 
-      <h2 class="divider divider-start mt-5 text-xl font-bold">Equipos de Intercomunicación</h2>
+      <div class="my-5 flex flex-row items-center gap-2">
+        <div class="">
+          <span> <strong> PAIS: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.country"
+          />
+        </div>
+      </div>
+
+      <div class="my-5 flex flex-row items-center gap-2">
+        <div class="">
+          <span> <strong> Institución/Medio: </strong> </span>
+        </div>
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.institution"
+          />
+        </div>
+      </div>
+
+      <h2 class="divider divider-start my-8 text-xl font-bold">Equipos de Intercomunicación</h2>
 
       <table class="table table-zebra mt-5">
         <thead>
           <tr>
             <th></th>
-            <th>Tipo</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Serie</th>
-            <th>Valor Aproximado</th>
+            <th>TIPO DE OBJETO</th>
+            <th>MARCA</th>
+            <th>MODELO</th>
+            <th>SERIE</th>
+            <th>VALOR APROXIMADO</th>
           </tr>
         </thead>
 

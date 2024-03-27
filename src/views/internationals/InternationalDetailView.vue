@@ -111,7 +111,7 @@ async function onReject() {
         :position="item.position"
       />
 
-      <main class="mt-10 w-1/2">
+      <main class="mx-auto mt-10 w-8/12">
         <div class="flex flex-col gap-4">
           <StatusBadge :status="item.status" />
 
@@ -121,155 +121,534 @@ async function onReject() {
           </span>
         </div>
 
+        <div class="my-5 flex flex-row items-center gap-2">
+          <div class="w-[33%]">
+            <span> <strong> Pais de procedencia: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.country.name"
+            />
+          </div>
+        </div>
+
         <h2 class="divider divider-start mt-5 text-xl font-bold">Datos Personales</h2>
 
-        <div class="flex flex-col gap-2">
-          <span><strong>País</strong>: {{ item.country.name }}</span>
-          <span><strong>Nombre Completo</strong>: {{ item.firstName }} {{ item.lastName }}</span>
-          <span><strong>Pasaporte</strong>: {{ item.passportId }}</span>
-          <span>
-            <strong>Nacimiento</strong>: El {{ formatDate(item.birthday) }} en {{ item.birthplace }}
-          </span>
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Nombre: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.firstName"
+            />
+          </div>
         </div>
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Contacto</h2>
-
-        <div class="flex flex-col gap-2">
-          <span><strong>Correo Electrónico</strong>: {{ item.email }}</span>
-          <span><strong>Teléfono</strong>: {{ item.phoneNumber }}</span>
-          <span v-if="item.phoneNumber2">
-            <strong>Teléfono Alternativo</strong>: {{ item.phoneNumber2 }}
-          </span>
-          <span><strong>Institución/Empresa</strong>: {{ item.institution }}</span>
-          <span><strong>Dirección</strong>: {{ item.address }}</span>
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Apellido: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.lastName"
+            />
+          </div>
         </div>
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos Médicos</h2>
-
-        <div class="flex flex-col gap-2">
-          <span> <strong>Tipo de Sangre</strong>: {{ item.bloodType }} </span>
-
-          <span v-if="item.diseases">
-            <strong>Enfermedades en Tratamiento</strong>: {{ item.diseases }}
-          </span>
-
-          <div v-if="hasMedications">
-            <span><strong>Medicamentos en Uso</strong></span>
-
-            <ul class="list-inside list-disc">
-              <li v-if="item.medication1 && item.medication1 != 'undefined'">
-                {{ item.medication1 }}
-              </li>
-
-              <li v-if="item.medication2 && item.medication2 != 'undefined'">
-                {{ item.medication2 }}
-              </li>
-
-              <li v-if="item.medication3 && item.medication3 != 'undefined'">
-                {{ item.medication3 }}
-              </li>
-
-              <li v-if="item.medication4 && item.medication4 != 'undefined'">
-                {{ item.medication4 }}
-              </li>
-            </ul>
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Pasaporte: </strong> </span>
           </div>
-          <div v-else>
-            <span><strong>Medicamentos en Uso</strong></span>
-            <ul class="list-inside list-disc">
-              <li>No hay medicamentos en uso</li>
-            </ul>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.passportId"
+            />
           </div>
-
-          <div v-if="item.allergies">
-            <span><strong>Alergias</strong></span>
-
-            <ul class="list-inside list-disc">
-              <li
-                v-for="(allergy, i) in item.allergies"
-                :key="i"
-              >
-                {{ allergy.name }}
-              </li>
-            </ul>
-          </div>
-
-          <div v-if="item.immunizations">
-            <span><strong>Inmunizaciones Recientes</strong></span>
-
-            <ul class="list-inside list-disc">
-              <li
-                v-for="(immunization, i) in item.immunizations"
-                :key="i"
-              >
-                {{ immunization.name }}
-              </li>
-            </ul>
-          </div>
-
-          <div v-if="item.immunizations">
-            <span><strong>Inmunizaciones Recientes</strong></span>
-
-            <ul class="list-inside list-disc">
-              <li
-                v-for="(immunization, i) in item.immunizations"
-                :key="i"
-              >
-                {{ immunization.name }}
-              </li>
-            </ul>
-          </div>
-
-          <div v-if="item.medicals">
-            <span><strong>Historial Medico</strong></span>
-
-            <ul class="list-inside list-disc">
-              <li
-                v-for="(medical, i) in item.medicals"
-                :key="i"
-              >
-                {{ medical.name }}
-              </li>
-            </ul>
-          </div>
-
-          <span v-if="item.surgical">
-            <strong>Antecedentes Quirúrgicos</strong>: {{ item.surgical }}
-          </span>
-
-          <span v-if="item.doctorName && item.doctorName != 'undefined'">
-            <strong>Medico Personal</strong>: {{ item.doctorName }}
-          </span>
         </div>
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Alojamiento</h2>
-
-        <div class="flex flex-col gap-2">
-          <span><strong>Hotel</strong>: {{ item.hotelName }}</span>
-          <span><strong>Dirección</strong>: {{ item.hotelAddress }}</span>
-          <span><strong>Número de Teléfono</strong>: {{ item.hotelPhone }}</span>
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Cargo en el evento: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.position.name"
+            />
+          </div>
         </div>
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Vuelo</h2>
-
-        <div class="flex flex-col gap-2">
-          <span>
-            <strong>Vuelo de Llegada</strong>: Vuelo No. {{ item.flightArrivalNumber }}, de
-            {{ item.flightFrom.name }}
-          </span>
-
-          <span>
-            <strong>Vuelo de Salida</strong>: Vuelo No. {{ item.flightDepartureNumber }}, hacia
-            {{ item.flightTo.name }}
-          </span>
+        <div
+          class="mb-5 flex flex-row items-center gap-2"
+          v-if="item.subPosition != null"
+        >
+          <div class="">
+            <span> <strong> Tipo de cargo: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.subPosition.name"
+            />
+          </div>
         </div>
 
-        <PositionInformation
+        <div
+          class="mb-5 flex flex-row items-center gap-2"
+          v-if="item.mediaChannel != null"
+        >
+          <div class="">
+            <span> <strong> Medio de Comunicación: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.mediaChannel.name"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span>
+              <strong>
+                Institución/Empresa/ <br />
+                Medio de Comunicación:
+              </strong>
+            </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered mb-5 w-full"
+              :value="item.institution"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Dirección </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.address"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 grid grid-cols-2 gap-3">
+          <div class="flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Teléfono </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.phoneNumber"
+              />
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Celular </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.phoneNumber2"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Email </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.email"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Fecha de nacimiento </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="formatDate(item.birthday)"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Lugar de nacimiento </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.birthplace"
+            />
+          </div>
+        </div>
+
+        <h2 class="divider divider-start mt-5 text-xl font-bold">Datos Medicos</h2>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Tipo de sangre </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.bloodType"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Enfermedades </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.diseases"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 gap-2">
+          <div class="mb-4">
+            <span> <strong> Medicamentos en uso </strong> </span>
+          </div>
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="w-4/12">
+              <span> <strong> Medicamento 1 </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.medication1"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="w-4/12">
+              <span> <strong> Medicamento 2 </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.medication2"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="w-4/12">
+              <span> <strong> Medicamento 3 </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.medication3"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="w-4/12">
+              <span> <strong> Medicamento 4 </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.medication4"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="w-4/12">
+            <span> <strong> Tipos de alergia </strong> </span>
+          </div>
+          <div class="w-full">
+            <div class="">
+              <ul>
+                <li
+                  v-for="(allergy, i) in item.allergies"
+                  :key="i"
+                  class="list-inside list-disc"
+                >
+                  {{ allergy.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mb-5 flex flex-row items-center gap-2"
+          v-if="item.allergiesDescription"
+        >
+          <div class="w-4/12">
+            <span> <strong> Detalle de alergias </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.allergiesDescription"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="w-4/12">
+            <span> <strong> Inmunizaciones recientes </strong> </span>
+          </div>
+          <div class="w-full">
+            <div class="">
+              <ul>
+                <li
+                  v-for="(inmunization, i) in item.immunizations"
+                  :key="i"
+                  class="list-inside list-disc"
+                >
+                  {{ inmunization.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="w-4/12">
+            <span> <strong> Antecedentes Medicos </strong> </span>
+          </div>
+          <div class="w-full">
+            <div class="">
+              <ul>
+                <li
+                  v-for="(record, i) in item.medicals"
+                  :key="i"
+                  class="list-inside list-disc"
+                >
+                  {{ record.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Antecedentes Quirúrgicos </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.surgical"
+            />
+          </div>
+        </div>
+
+        <div
+          class="mb-5 flex flex-row items-center gap-2"
+          v-if="item.doctorName"
+        >
+          <div class="">
+            <span> <strong> Nombre del medico personal </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.doctorName"
+            />
+          </div>
+        </div>
+
+        <h2 class="divider divider-start my-10 text-xl font-bold">Lugar de alojamiento</h2>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Hotel </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.hotelName"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Dirección </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.hotelAddress"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Teléfono </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.hotelPhone"
+            />
+          </div>
+        </div>
+
+        <h2 class="divider divider-start my-10 text-xl font-bold">Informacion de vuelos</h2>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Fecha de llegada </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="formatDate(item.flightArrivalDatetime)"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Procedencia </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.flightFrom.name"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Vuelo </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.flightArrivalNumber"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Fecha de salida </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="formatDate(item.flightDepartureDatetime)"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Destino </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.flightTo.name"
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Vuelo </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.flightDepartureNumber"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="w-[33%]">
+            <span> <strong> Tipo de acreditación </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.type"
+            />
+          </div>
+        </div>
+
+        <!-- <PositionInformation
           :position="item.position"
           :sub-position="item.subPosition"
           :authorization-letter="item.authorizationLetter"
           :media-channel="item.mediaChannel"
-        />
+        /> -->
 
         <AccreditationDetailActions
           :id="item.id"

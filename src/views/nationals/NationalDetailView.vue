@@ -113,7 +113,7 @@ function onEdit() {
         :position="item.position"
       />
 
-      <main class="mt-10 w-1/2">
+      <main class="mx-auto mt-10 w-8/12">
         <div class="flex flex-col gap-4">
           <StatusBadge :status="item.status" />
 
@@ -125,25 +125,186 @@ function onEdit() {
 
         <h2 class="divider divider-start mt-5 text-xl font-bold">Datos Personales</h2>
 
-        <div class="flex flex-col gap-2">
-          <span><strong>Nombre Completo</strong>: {{ item.firstName }} {{ item.lastName }}</span>
-          <span><strong>Cédula</strong>: {{ item.passportId }}</span>
-          <span>
-            <strong>Nacimiento</strong>: El {{ formatDate(item.birthday) }} en {{ item.birthplace }}
-          </span>
-          <span><strong>Tipo de Sangre</strong>: {{ item.bloodType }}</span>
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Cédula/Pasaporte: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.passportId"
+            />
+          </div>
         </div>
 
-        <h2 class="divider divider-start mt-10 text-xl font-bold">Datos de Contacto</h2>
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Cédula/Pasaporte: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.passportId"
+            />
+          </div>
+        </div>
 
-        <div class="flex flex-col gap-2">
-          <span><strong>Correo Electrónico</strong>: {{ item.email }}</span>
-          <span><strong>Teléfono</strong>: {{ item.phoneNumber }}</span>
-          <span v-if="item.phoneNumber2">
-            <strong>Teléfono Alternativo</strong>: {{ item.phoneNumber2 }}
-          </span>
-          <span><strong>Institución/Empresa</strong>: {{ item.institution }}</span>
-          <span><strong>Dirección</strong>: {{ item.address }}</span>
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Cargo en el evento: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.position.name"
+            />
+          </div>
+        </div>
+
+        <div
+          class="mb-5 flex flex-row items-center gap-2"
+          v-if="item.subPosition != null"
+        >
+          <div class="">
+            <span> <strong> Tipo de cargo: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.subPosition.name"
+            />
+          </div>
+        </div>
+
+        <div
+          class="mb-5 flex flex-row items-center gap-2"
+          v-if="item.mediaChannel != null"
+        >
+          <div class="">
+            <span> <strong> Medio de Comunicación: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.mediaChannel.name"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span>
+              <strong>
+                Institución/Empresa/ <br />
+                Medio de Comunicación:
+              </strong>
+            </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered mb-5 w-full"
+              :value="item.institution"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Dirección </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.address"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 grid grid-cols-2 gap-3">
+          <div class="flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Teléfono </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.phoneNumber"
+              />
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center gap-2">
+            <div class="">
+              <span> <strong> Celular </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.phoneNumber2"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Email </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.email"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Fecha de nacimiento </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="formatDate(item.birthday)"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Lugar de nacimiento </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.birthplace"
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Tipo de sangre </strong> </span>
+          </div>
+          <div class="w-1/2">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.bloodType"
+            />
+          </div>
         </div>
 
         <PositionInformation

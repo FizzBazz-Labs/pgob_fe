@@ -6,5 +6,6 @@ export interface Vehicle {
   plate: string
   driverName: string
   driverId: string
+  driverLicense: string
   phone: string
 }

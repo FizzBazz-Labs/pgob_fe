@@ -10,6 +10,7 @@ export enum AccreditationStatus {
 export enum AccreditationItemType {
   NATIONAL = 'national',
   INTERNATIONAL = 'international',
+  WEAPON = 'weapon',
 }
 
 export interface Accreditation {

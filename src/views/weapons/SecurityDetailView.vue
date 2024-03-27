@@ -14,6 +14,7 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import { useFormSelect } from '@/composables/FormSelect'
 
 import { formatDate } from '@/utils/dates'
+import { AccreditationItemType } from '@/entities/Accreditation'
 
 const route = useRoute()
 
@@ -27,6 +28,7 @@ onBeforeMount(async () => {
   loading.value = true
   item.value = await service.getById(Number(route.params.id))
   loading.value = false
+  console.log(item.value)
 })
 
 async function onReview() {
@@ -59,10 +61,7 @@ async function onReject() {
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
 
-        <span>
-          <strong>País</strong>:
-          {{ countries.filter(i => i.value === item?.country)[0].label }}
-        </span>
+        <span> <strong>País</strong>: {{ item.country }} </span>
 
         <span><strong>Nombre</strong>: {{ item.name }}</span>
         <span><strong>Pasaporte</strong>: {{ item.passportId }}</span>
@@ -162,7 +161,10 @@ async function onReject() {
       </table>
 
       <AccreditationDetailActions
+        :id="item.id"
+        :type="AccreditationItemType.WEAPON"
         :status="item.status"
+        :downloaded="item.downloaded"
         @review="onReview"
         @approve="onApprove"
         @reject="onReject"
