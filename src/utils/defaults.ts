@@ -53,10 +53,11 @@ export function initNational(item?: National): MultiStepForm {
     'multi-step': {
       accreditation: {
         ...item,
-        position: 0,
+        position: item.position.id,
         subPosition: item.subPosition?.id,
         passport: item.passportId,
         image: [item.image],
+        blood: item.bloodType,
       },
       security: {
         controlDatetime: '',

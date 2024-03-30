@@ -277,7 +277,7 @@ async function onSubmit() {
                 type="file"
                 name="image"
                 label="Foto Personal"
-                validation="required"
+                :validation="props.action === 'new' ? 'required' : ''"
                 accept=".png,.jpg,.webp"
                 file-item-icon="fileDoc"
                 file-remove-icon="close"
@@ -313,7 +313,7 @@ async function onSubmit() {
             <FormKit
               v-if="!isSecurity"
               type="submit"
-              label="Crear"
+              :label="props.action === 'new' ? 'Crear' : 'Actualizar'"
               suffix-icon="submit"
               outer-class="!max-w-fit"
             />
@@ -403,13 +403,6 @@ async function onSubmit() {
                   type="text"
                   v-model="weapon.serial"
                   label="No. de Serie"
-                  validation="required"
-                />
-
-                <FormKit
-                  type="text"
-                  v-model="weapon.caliber"
-                  label="Calibre"
                   validation="required"
                 />
 
@@ -533,7 +526,7 @@ async function onSubmit() {
 
             <FormKit
               type="submit"
-              label="Crear"
+              :label="props.action === 'new' ? 'Crear' : 'Actualizar'"
               suffix-icon="submit"
               outer-class="!max-w-fit"
             />
