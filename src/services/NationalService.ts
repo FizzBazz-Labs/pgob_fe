@@ -103,13 +103,13 @@ export async function update(values: MultiStepForm): Promise<National> {
   //   form.append('image', image[0].file)
   // }
 
-  if (params.letter !== undefined) {
-    const letter = params.letter as Array<{ file: File }>
+  // if (params.letter !== undefined) {
+  //   const letter = params.letter as Array<{ file: File }>
 
-    if (letter.length > 0) {
-      form.append('authorizationLetter', letter[0].file)
-    }
-  }
+  //   if (letter.length > 0) {
+  //     form.append('authorizationLetter', letter[0].file)
+  //   }
+  // }
 
   const response = await API.form(`/national-accreditations/${params.id}`, form, 'PATCH')
   return await response.json()

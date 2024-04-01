@@ -5,7 +5,6 @@ import type { Allergy } from '@/entities/Allergy'
 import type { Immunization } from '@/entities/Immunization'
 import type { MedicalHistory } from '@/entities/MedicalHistory'
 import { AccreditationStatus } from '@/entities/Accreditation'
-
 export interface International {
   id: number
   status: AccreditationStatus
@@ -51,4 +50,5 @@ export interface International {
   createdAt: string
   updatedAt: string
   downloaded: boolean
+  privateInsurance: string
 }

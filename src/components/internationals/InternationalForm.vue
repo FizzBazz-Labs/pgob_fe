@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, type PropType } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { getNode } from '@formkit/core'
@@ -13,32 +13,22 @@ import { useFormSelect } from '@/composables/FormSelect'
 import * as service from '@/services/InternationalService'
 
 import { InternationalAccreditationDetailView } from '@/router'
+import { initInternational } from '@/utils/defaults'
+
+type Props = {
+  action?: 'new' | 'edit'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  action: 'new',
+})
 
 const router = useRouter()
 
-const values = ref<MultiStepForm>({
-  'multi-step': {
-    accreditation: {
-      country: '',
-      position: 0,
-      images: [],
-      flightFrom: 1,
-      flightTo: 1,
-      hasAllergies: false,
-      hasImmunization: false,
-      hasMedicalHistory: false,
-      hasMedicalStaff: false,
-    },
-    security: {
-      controlDatetime: '',
-      observations: '',
-      weapons: [initWeapon()],
-      equipments: [initEquipment()],
-    },
-  },
+const values = defineModel('values', {
+  type: Object as PropType<MultiStepForm>,
+  default: initInternational,
 })
-
-const hasPrivateInsurance = ref(false)
 
 const {
   positions,
@@ -73,16 +63,6 @@ function initWeapon() {
   }
 }
 
-function initEquipment() {
-  return {
-    brand: '',
-    model: '',
-    type: '',
-    serial: '',
-    frequency: '',
-  }
-}
-
 function onAddWeapon() {
   const weapons = values.value['multi-step'].security.weapons
 
@@ -112,9 +92,17 @@ function onRemoveEquipment(index: number) {
 }
 
 async function onSubmit() {
-  const response = await service.create(values.value)
+  let response = { id: 0 }
 
-  toast('Acreditación internacional creada con éxito.', { type: 'success' })
+  if (props.action === 'new') {
+    response = await service.create(values.value)
+  } else {
+    response = await service.update(values.value)
+  }
+
+  toast('Acreditación internacional creada con éxito.', {
+    type: 'success',
+  })
 
   router.push({
     name: InternationalAccreditationDetailView.name,
@@ -203,13 +191,13 @@ async function onSubmit() {
 
             <FormKit
               type="checkbox"
+              name="hasPrivateInsurance"
               label="¿Posee seguro privado?"
               decorator-icon="check"
-              v-model="hasPrivateInsurance"
             />
 
             <FormKit
-              v-if="hasPrivateInsurance"
+              v-if="values['multi-step'].accreditation.hasPrivateInsurance"
               type="textarea"
               placeholder="Ingrese el detalle de su seguro privado..."
               name="privateInsurance"
