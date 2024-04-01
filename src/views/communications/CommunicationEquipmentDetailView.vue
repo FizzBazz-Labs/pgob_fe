@@ -64,7 +64,7 @@ async function onReject() {
           <input
             type="text"
             class="input input-bordered w-full text-black"
-            :value="item.country"
+            :value="item.country.name"
           />
         </div>
       </div>

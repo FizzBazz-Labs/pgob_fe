@@ -50,7 +50,7 @@ function gotoDetail(item: { id: number }) {
           class="hover"
         >
           <th>{{ i + 1 }}</th>
-          <td>{{ item.country }}</td>
+          <td>{{ item.country.name }}</td>
           <td>{{ item.institution }}</td>
           <td>{{ item.equipments.length }}</td>
           <td>{{ item.createdBy?.firstName ?? '' }} {{ item.createdBy?.lastName ?? '' }}</td>

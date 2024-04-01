@@ -11,8 +11,6 @@ import AccreditationDetailActions from '@/components/accreditations/Accreditatio
 import PositionInformation from '@/components/accreditations/PositionInformation.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
-import { useFormSelect } from '@/composables/FormSelect'
-
 import { formatDate } from '@/utils/dates'
 import { AccreditationItemType } from '@/entities/Accreditation'
 
@@ -21,14 +19,10 @@ const route = useRoute()
 const loading = ref(true)
 const item = ref<SecurityAccreditation>()
 
-const values = ref({})
-const { countries } = useFormSelect({ values })
-
 onBeforeMount(async () => {
   loading.value = true
   item.value = await service.getById(Number(route.params.id))
   loading.value = false
-  console.log(item.value)
 })
 
 async function onReview() {
