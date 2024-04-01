@@ -34,11 +34,16 @@ export function initCommunication() {
 }
 
 export function initNational(item?: National): MultiStepForm {
-  if (!item)
+  if (item && 'id' in item)
     return {
       'multi-step': {
         accreditation: {
-          position: 0,
+          ...item,
+          position: item.position.id,
+          subPosition: item.subPosition?.id,
+          passport: item.passportId,
+          image: [item.image],
+          blood: item.bloodType,
         },
         security: {
           controlDatetime: '',
@@ -52,12 +57,7 @@ export function initNational(item?: National): MultiStepForm {
   return {
     'multi-step': {
       accreditation: {
-        ...item,
-        position: item.position.id,
-        subPosition: item.subPosition?.id,
-        passport: item.passportId,
-        image: [item.image],
-        blood: item.bloodType,
+        position: 0,
       },
       security: {
         controlDatetime: '',
