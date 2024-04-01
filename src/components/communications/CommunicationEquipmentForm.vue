@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount, type PropType } from 'vue'
 
 import { useRouter } from 'vue-router'
 
@@ -11,13 +11,22 @@ import * as service from '@/services/CommunicationEquipmentService'
 
 import { toast } from 'vue3-toastify'
 
-import { HomeView } from '@/router'
+import { CommunicationEquipmentDetailView } from '@/router'
+import type { Equipment } from '@/entities/Equipment'
+
+type Props = {
+  action?: 'new' | 'edit'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  action: 'new',
+})
 
 const router = useRouter()
 
-const values = ref<FormValues>({
-  country: 1,
-  position: 1,
+const values = defineModel('values', {
+  type: Object as PropType<FormValues>,
+  default: (): FormValues => ({}),
 })
 
 const { countries } = useFormSelect({ values })
@@ -46,25 +55,35 @@ function onRemoveVehicle(index: number) {
 async function onSubmit() {
   values.value.equipments = equipments.value
 
-  const response = await service.create(values.value)
+  let response = { id: 0 }
 
-  toast('Declaración de equipo de intercomunicación creada con éxito.', { type: 'success' })
+  if (props.action === 'new') {
+    response = await service.create(values.value)
+  } else {
+    response = await service.update(values.value)
+  }
 
-  setTimeout(() => {
-    router.push({
-      name: HomeView.name,
-    })
-  }, 2000)
+  toast('Declaración de equipo de intercomunicación creada con éxito.', {
+    type: 'success',
+  })
+
+  router.push({
+    name: CommunicationEquipmentDetailView.name,
+    params: { id: response.id },
+  })
 }
+onBeforeMount(() => {
+  if (values.value.equipments) {
+    equipments.value = values.value.equipments as Equipment[]
+  }
+})
 </script>
 
 <template>
   <FormKit
     type="form"
     v-model="values"
-    submit-label="Crear"
     :actions="false"
-    :submit-attrs="{ 'suffix-icon': 'submit' }"
     @submit="onSubmit"
   >
     <div class="flex justify-center gap-4">
@@ -162,11 +181,22 @@ async function onSubmit() {
           </button>
         </div>
 
-        <FormKit
-          type="submit"
-          label="Enviar"
-          suffix-icon="submit"
-        />
+        <div class="flex gap-4">
+          <FormKit
+            type="submit"
+            :label="props.action === 'new' ? 'Crear' : 'Actualizar'"
+            suffix-icon="submit"
+            outer-class="!max-w-fit"
+          />
+
+          <button
+            v-if="props.action === 'edit'"
+            @click.prevent="$router.go(-1)"
+            class="btn btn-error text-white"
+          >
+            Cancelar
+          </button>
+        </div>
       </div>
     </div>
   </FormKit>

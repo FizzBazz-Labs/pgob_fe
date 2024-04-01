@@ -325,6 +325,14 @@ async function onSubmit() {
               outer-class="!max-w-fit"
               @click="next"
             />
+
+            <button
+              v-if="props.action === 'edit'"
+              @click.prevent="$router.go(-1)"
+              class="btn btn-error text-white"
+            >
+              Cancelar
+            </button>
           </div>
         </template>
       </FormKit>
@@ -530,6 +538,14 @@ async function onSubmit() {
               suffix-icon="submit"
               outer-class="!max-w-fit"
             />
+
+            <button
+              v-if="props.action === 'edit'"
+              @click.prevent="$router.go(-1)"
+              class="btn btn-error text-white"
+            >
+              Cancelar
+            </button>
           </div>
         </template>
       </FormKit>

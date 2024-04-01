@@ -9,6 +9,11 @@ export async function create(body: Record<string, unknown>): Promise<Communicati
   return await response.json()
 }
 
+export async function update(body: Record<string, unknown>): Promise<CommunicationEquipment> {
+  const response = await API.patch(`${ENDPOINT}/${body.id}`, body)
+  return await response.json()
+}
+
 export async function getById(id: number): Promise<CommunicationEquipment> {
   const response = await API.get(`${ENDPOINT}/${id}`)
   return await response.json()

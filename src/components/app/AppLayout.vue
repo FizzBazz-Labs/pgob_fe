@@ -12,7 +12,6 @@ import {
   GeneralVehicleCreateView,
   NonCommercialAircraftCreateView,
   CommunicationEquipmentCreateView,
-  AccreditationListView,
   SecurityWeaponCreateView,
   UserListView,
   DashboardView,
@@ -58,7 +57,6 @@ const auth = useAuthStore()
         <li v-if="auth.isAdmin">
           <RouterLink :to="DashboardView.path">Tableo de Información</RouterLink>
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
-          <RouterLink :to="AccreditationListView.path">Acreditaciones</RouterLink>
         </li>
 
         <li v-if="auth.hasNational || auth.hasInternational">
