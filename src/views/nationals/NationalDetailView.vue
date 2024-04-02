@@ -134,19 +134,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.passportId"
-            />
-          </div>
-        </div>
-
-        <div class="mb-5 flex flex-row items-center gap-2">
-          <div class="">
-            <span> <strong> Cédula/Pasaporte: </strong> </span>
-          </div>
-          <div class="w-full">
-            <input
-              type="text"
-              class="input input-bordered w-full text-black"
-              :value="item.passportId"
+              disabled
             />
           </div>
         </div>
@@ -160,6 +148,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.position.name"
+              disabled
             />
           </div>
         </div>
@@ -176,6 +165,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.subPosition.name"
+              disabled
             />
           </div>
         </div>
@@ -192,6 +182,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.mediaChannel.name"
+              disabled
             />
           </div>
         </div>
@@ -210,6 +201,7 @@ function onEdit() {
               type="text"
               class="input input-bordered mb-5 w-full"
               :value="item.institution"
+              disabled
             />
           </div>
         </div>
@@ -223,6 +215,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.address"
+              disabled
             />
           </div>
         </div>
@@ -237,6 +230,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="item.phoneNumber"
+                disabled
               />
             </div>
           </div>
@@ -250,6 +244,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="item.phoneNumber2"
+                disabled
               />
             </div>
           </div>
@@ -264,6 +259,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.email"
+              disabled
             />
           </div>
         </div>
@@ -277,6 +273,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="formatDate(item.birthday)"
+              disabled
             />
           </div>
         </div>
@@ -290,6 +287,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.birthplace"
+              disabled
             />
           </div>
         </div>
@@ -303,6 +301,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.bloodType"
+              disabled
             />
           </div>
         </div>

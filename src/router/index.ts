@@ -148,6 +148,12 @@ export const UserCreateView = {
   component: () => import('../views/users/UserCreateView.vue'),
 }
 
+export const UserDetailView = {
+  path: '/users/:id',
+  name: 'user-detail',
+  component: () => import('../views/users/UserDetailView.vue'),
+}
+
 export const DashboardView = {
   path: '/dashboard',
   name: 'dashboard',
@@ -181,6 +187,7 @@ const router = createRouter({
     SecurityEditView,
     UserListView,
     UserCreateView,
+    UserDetailView,
     DashboardView,
   ],
 })

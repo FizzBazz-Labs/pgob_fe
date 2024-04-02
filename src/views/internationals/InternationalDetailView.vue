@@ -141,6 +141,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.country.name"
+              disabled
             />
           </div>
         </div>
@@ -156,6 +157,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.firstName"
+              disabled
             />
           </div>
         </div>
@@ -169,6 +171,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.lastName"
+              disabled
             />
           </div>
         </div>
@@ -182,6 +185,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.passportId"
+              disabled
             />
           </div>
         </div>
@@ -195,6 +199,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.position.name"
+              disabled
             />
           </div>
         </div>
@@ -211,6 +216,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.subPosition.name"
+              disabled
             />
           </div>
         </div>
@@ -227,6 +233,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.mediaChannel.name"
+              disabled
             />
           </div>
         </div>
@@ -245,6 +252,7 @@ function onEdit() {
               type="text"
               class="input input-bordered mb-5 w-full"
               :value="item.institution"
+              disabled
             />
           </div>
         </div>
@@ -258,6 +266,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.address"
+              disabled
             />
           </div>
         </div>
@@ -272,6 +281,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="item.phoneNumber"
+                disabled
               />
             </div>
           </div>
@@ -285,6 +295,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="item.phoneNumber2"
+                disabled
               />
             </div>
           </div>
@@ -299,6 +310,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.email"
+              disabled
             />
           </div>
         </div>
@@ -325,6 +337,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.birthplace"
+              disabled
             />
           </div>
         </div>
@@ -340,6 +353,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.bloodType"
+              disabled
             />
           </div>
         </div>
@@ -353,6 +367,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.diseases"
+              disabled
             />
           </div>
         </div>
@@ -369,7 +384,8 @@ function onEdit() {
               <input
                 type="text"
                 class="input input-bordered w-full"
-                :value="item.medication1"
+                :value="item.medication1 == 'undefined' ? '' : item.medication1"
+                disabled
               />
             </div>
           </div>
@@ -382,7 +398,8 @@ function onEdit() {
               <input
                 type="text"
                 class="input input-bordered w-full"
-                :value="item.medication2"
+                :value="item.medication2 == 'undefined' ? '' : item.medication2"
+                disabled
               />
             </div>
           </div>
@@ -395,7 +412,8 @@ function onEdit() {
               <input
                 type="text"
                 class="input input-bordered w-full"
-                :value="item.medication3"
+                :value="item.medication3 == 'undefined' ? '' : item.medication3"
+                disabled
               />
             </div>
           </div>
@@ -408,7 +426,8 @@ function onEdit() {
               <input
                 type="text"
                 class="input input-bordered w-full"
-                :value="item.medication4"
+                :value="item.medication4 == 'undefined' ? '' : item.medication4"
+                disabled
               />
             </div>
           </div>
@@ -445,6 +464,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.allergiesDescription"
+              disabled
             />
           </div>
         </div>
@@ -496,6 +516,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.surgical"
+              disabled
             />
           </div>
         </div>
@@ -512,6 +533,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.doctorName"
+              disabled
             />
           </div>
         </div>
@@ -527,6 +549,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.hotelName"
+              disabled
             />
           </div>
         </div>
@@ -540,6 +563,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.hotelAddress"
+              disabled
             />
           </div>
         </div>
@@ -553,6 +577,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.hotelPhone"
+              disabled
             />
           </div>
         </div>
@@ -569,6 +594,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="formatDate(item.flightArrivalDatetime)"
+                disabled
               />
             </div>
           </div>
@@ -582,6 +608,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="item.flightFrom.name"
+                disabled
               />
             </div>
           </div>
@@ -595,6 +622,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="item.flightArrivalNumber"
+                disabled
               />
             </div>
           </div>
@@ -610,6 +638,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="formatDate(item.flightDepartureDatetime)"
+                disabled
               />
             </div>
           </div>
@@ -623,6 +652,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="item.flightTo.name"
+                disabled
               />
             </div>
           </div>
@@ -636,6 +666,7 @@ function onEdit() {
                 type="text"
                 class="input input-bordered w-full"
                 :value="item.flightDepartureNumber"
+                disabled
               />
             </div>
           </div>
@@ -650,6 +681,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="item.type"
+              disabled
             />
           </div>
         </div>

@@ -64,6 +64,7 @@ async function onReject() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.mission"
+            disabled
           />
         </div>
       </div>
@@ -81,6 +82,7 @@ async function onReject() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="vehicle.brand"
+              disabled
             />
           </div>
         </div>
@@ -95,6 +97,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.plate"
+                disabled
               />
             </div>
           </div>
@@ -108,6 +111,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.color"
+                disabled
               />
             </div>
           </div>
@@ -122,6 +126,7 @@ async function onReject() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="vehicle.driverName"
+              disabled
             />
           </div>
         </div>
@@ -135,6 +140,7 @@ async function onReject() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="vehicle.driverId"
+              disabled
             />
           </div>
         </div>
@@ -149,6 +155,7 @@ async function onReject() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.assignedTo"
+            disabled
           />
         </div>
       </div>
@@ -166,6 +173,7 @@ async function onReject() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.distinctive"
+            disabled
           />
         </div>
       </div>
@@ -179,6 +187,7 @@ async function onReject() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.observations"
+            disabled
           />
         </div>
       </div>

@@ -77,6 +77,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.country.name"
+            disabled
           />
         </div>
       </div>
@@ -93,6 +94,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.aircraftType"
+              disabled
             />
           </div>
         </div>
@@ -106,6 +108,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.model"
+              disabled
             />
           </div>
         </div>
@@ -119,6 +122,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.flightType"
+              disabled
             />
           </div>
         </div>
@@ -134,6 +138,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.registration"
+              disabled
             />
           </div>
         </div>
@@ -147,6 +152,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.color"
+              disabled
             />
           </div>
         </div>
@@ -160,6 +166,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.callSign"
+              disabled
             />
           </div>
         </div>
@@ -175,6 +182,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.commanderName"
+              disabled
             />
           </div>
         </div>
@@ -188,6 +196,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.crewMembersCount"
+              disabled
             />
           </div>
         </div>
@@ -202,6 +211,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.pmiName"
+            disabled
           />
         </div>
       </div>
@@ -216,6 +226,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.position.name"
+              disabled
             />
           </div>
         </div>
@@ -229,6 +240,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.passengersCount"
+              disabled
             />
           </div>
         </div>
@@ -245,6 +257,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full"
             :value="item.arrivalDate"
+            disabled
           />
         </div>
       </div>
@@ -258,6 +271,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full"
             :value="item.departureDate"
+            disabled
           />
         </div>
       </div>
@@ -271,6 +285,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full"
             :value="item.overflightInfo"
+            disabled
           />
         </div>
       </div>
@@ -284,6 +299,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full"
             :value="item.landingInfo"
+            disabled
           />
         </div>
       </div>
@@ -297,6 +313,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full"
             :value="item.origin"
+            disabled
           />
         </div>
       </div>
@@ -310,6 +327,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full"
             :value="item.destination"
+            disabled
           />
         </div>
       </div>
@@ -323,6 +341,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full"
             :value="item.route"
+            disabled
           />
         </div>
       </div>
@@ -336,6 +355,7 @@ function onEdit() {
             type="text"
             class="input input-bordered w-full"
             :value="item.groundFacilities"
+            disabled
           />
         </div>
       </div>

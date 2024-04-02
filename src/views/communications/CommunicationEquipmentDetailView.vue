@@ -64,7 +64,8 @@ async function onReject() {
           <input
             type="text"
             class="input input-bordered w-full text-black"
-            :value="item.country.name"
+            :value="item.country"
+            disabled
           />
         </div>
       </div>
@@ -78,6 +79,7 @@ async function onReject() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.institution"
+            disabled
           />
         </div>
       </div>

@@ -7,3 +7,15 @@ export async function create(params: Record<string, unknown>): Promise<User> {
 
   return await response.json()
 }
+
+export async function list(): Promise<User[]> {
+  const response = await API.get('/users')
+
+  return await response.json()
+}
+
+export async function retrieve(id: number): Promise<User> {
+  const response = await API.get(`/users/${id}`)
+
+  return await response.json()
+}

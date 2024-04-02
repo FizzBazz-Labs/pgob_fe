@@ -65,6 +65,7 @@ async function onReject() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.country"
+            disabled
           />
         </div>
       </div>
@@ -85,6 +86,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.type"
+                disabled
               />
             </div>
           </div>
@@ -98,6 +100,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.brand"
+                disabled
               />
             </div>
           </div>
@@ -113,6 +116,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.color"
+                disabled
               />
             </div>
           </div>
@@ -126,6 +130,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.plate"
+                disabled
               />
             </div>
           </div>
@@ -143,6 +148,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.driverName"
+                disabled
               />
             </div>
           </div>
@@ -156,6 +162,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.driverId"
+                disabled
               />
             </div>
           </div>
@@ -169,6 +176,7 @@ async function onReject() {
                 type="text"
                 class="input input-bordered w-full text-black"
                 :value="vehicle.phone"
+                disabled
               />
             </div>
           </div>
@@ -184,6 +192,7 @@ async function onReject() {
             type="text"
             class="input input-bordered w-full text-black"
             :value="item.informationResponsible"
+            disabled
           />
         </div>
       </div>
