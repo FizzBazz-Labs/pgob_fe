@@ -104,17 +104,17 @@ function onEdit() {
 <template>
   <AppLoading :loading="loading">
     <template v-if="item">
-      <AccreditationDetailHeader
-        :image="item.image"
-        :firstName="item.firstName"
-        :lastName="item.lastName"
-        :email="item.email"
-        :phoneNumber="item.phoneNumber"
-        :position="item.position"
-      />
+      <main class="mx-auto w-8/12">
+        <AccreditationDetailHeader
+          :image="item.image"
+          :firstName="item.firstName"
+          :lastName="item.lastName"
+          :email="item.email"
+          :phoneNumber="item.phoneNumber"
+          :position="item.position"
+        />
 
-      <main class="mx-auto mt-10 w-8/12">
-        <div class="flex flex-col gap-4">
+        <div class="mt-8 flex flex-col gap-4">
           <StatusBadge :status="item.status" />
 
           <span v-if="item.status === AccreditationStatus.APPROVED">

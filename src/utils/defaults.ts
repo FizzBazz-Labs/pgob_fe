@@ -124,8 +124,6 @@ export function initInternational(item?: International): MultiStepForm {
         country: 0,
         position: 0,
         images: [],
-        flightFrom: 1,
-        flightTo: 1,
         hasAllergies: false,
         hasImmunization: false,
         hasMedicalHistory: false,

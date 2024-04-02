@@ -95,8 +95,6 @@ async function onSubmit() {
 </script>
 
 <template>
-  {{ values }}
-
   <FormKit
     type="form"
     v-model="values"
