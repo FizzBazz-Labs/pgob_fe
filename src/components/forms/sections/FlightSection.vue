@@ -3,6 +3,14 @@ import { ref } from 'vue'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
+type Props = {
+  airport?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  airport: false,
+})
+
 const { countries } = useFormSelect({ values: ref({}) })
 
 const labels = {
@@ -37,6 +45,15 @@ const labels = {
     />
 
     <FormKit
+      v-if="props.airport"
+      type="text"
+      name="flightArrivalAirport"
+      label="Procedencia"
+      validation="required"
+    />
+
+    <FormKit
+      v-else
       type="select"
       name="flightFrom"
       label="Procedencia"
@@ -66,6 +83,15 @@ const labels = {
     />
 
     <FormKit
+      v-if="props.airport"
+      type="text"
+      name="flightDepartureAirport"
+      label="Destino"
+      validation="required"
+    />
+
+    <FormKit
+      v-else
       type="select"
       name="flightTo"
       label="Destino"

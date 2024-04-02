@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import * as service from '@/services/CommunicationEquipmentService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-import EquipmentForm from '@/components/forms/EquipmentForm.vue'
+import CommunicationForm from '@/components/forms/CommunicationForm.vue'
 
 import { CommunicationEquipmentDetailView } from '@/router'
 
@@ -65,7 +65,7 @@ onBeforeMount(async () => {
     </header>
 
     <main class="mt-10">
-      <EquipmentForm
+      <CommunicationForm
         :values="values"
         :errors="errors"
         @submit="onSubmit"
