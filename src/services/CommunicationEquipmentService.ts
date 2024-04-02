@@ -9,8 +9,9 @@ export async function create(body: Record<string, unknown>): Promise<Communicati
   return await response.json()
 }
 
-export async function update(body: Record<string, unknown>): Promise<CommunicationEquipment> {
-  const response = await API.patch(`${ENDPOINT}/${body.id}`, body)
+export async function update(values: any): Promise<CommunicationEquipment> {
+  const response = await API.patch(`${ENDPOINT}/${values.id}`, values)
+
   return await response.json()
 }
 

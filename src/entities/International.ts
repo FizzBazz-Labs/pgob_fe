@@ -51,4 +51,5 @@ export interface International {
   updatedAt: string
   downloaded: boolean
   privateInsurance: string
+  securityWeaponAccreditation: number
 }

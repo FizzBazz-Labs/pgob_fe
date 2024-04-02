@@ -9,6 +9,7 @@ import AppLoading from '@/components/app/AppLoading.vue'
 import NationalForm from '@/components/forms/NationalForm.vue'
 
 import { NationalAccreditationDetailView } from '@/router'
+
 import { valuesFromNational } from '@/utils/forms'
 
 const route = useRoute()
@@ -23,8 +24,8 @@ async function onSubmit() {
   errors.value = []
 
   try {
-    await service.update(values.value.steps.accreditation)
     await securities.update(values.value.steps.security)
+    await service.update(values.value.steps.accreditation)
 
     router.push({
       name: NationalAccreditationDetailView.name,

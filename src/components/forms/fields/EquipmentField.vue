@@ -12,7 +12,7 @@ function init() {
     brand: '',
     model: '',
     serial: '',
-    value: '',
+    value: 0,
   }
 }
 </script>

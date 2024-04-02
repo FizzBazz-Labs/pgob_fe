@@ -58,13 +58,13 @@ async function onReject() {
 
       <div class="my-5 flex flex-row items-center gap-2">
         <div class="">
-          <span> <strong> PAIS: </strong> </span>
+          <span> <strong> País: </strong> </span>
         </div>
         <div class="w-full">
           <input
             type="text"
             class="input input-bordered w-full text-black"
-            :value="item.country"
+            :value="item.country.name"
             disabled
           />
         </div>

@@ -1,29 +1,55 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
-
-import type { CommunicationEquipment } from '@/entities/CommunicationEquipment'
+import { useRoute, useRouter } from 'vue-router'
 
 import * as service from '@/services/CommunicationEquipmentService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-import CommunicationEquipmentForm from '@/components/communications/CommunicationEquipmentForm.vue'
+import EquipmentForm from '@/components/forms/EquipmentForm.vue'
+
+import { CommunicationEquipmentDetailView } from '@/router'
 
 const route = useRoute()
+const router = useRouter()
 
 const loading = ref(true)
-const item = ref<CommunicationEquipment>()
+const values = ref<any>({})
+const errors = ref<string[]>([])
 
-const values = ref({})
+async function onSubmit() {
+  loading.value = true
+  errors.value = []
+
+  try {
+    await service.update({
+      ...values.value,
+      equipments: values.value.communicationItems,
+    })
+
+    router.push({
+      name: CommunicationEquipmentDetailView.name,
+      params: {
+        id: route.params.id,
+      },
+    })
+  } catch (_) {
+    errors.value = [
+      'Ocurrió un error al intentar guardar los datos. Por favor, intenta nuevamente.',
+    ]
+  } finally {
+    loading.value = false
+  }
+}
 
 onBeforeMount(async () => {
   loading.value = true
 
-  item.value = await service.getById(Number(route.params.id))
+  const item = await service.getById(Number(route.params.id))
 
   values.value = {
-    ...item.value,
-    country: item.value.country.id,
+    ...item,
+    country: item.country.id,
+    communicationItems: item.equipments,
   }
 
   loading.value = false
@@ -39,10 +65,10 @@ onBeforeMount(async () => {
     </header>
 
     <main class="mt-10">
-      <CommunicationEquipmentForm
-        v-if="item"
+      <EquipmentForm
         :values="values"
-        action="edit"
+        :errors="errors"
+        @submit="onSubmit"
       />
     </main>
   </AppLoading>

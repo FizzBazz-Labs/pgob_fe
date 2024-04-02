@@ -80,8 +80,8 @@ export async function update(values: any): Promise<National> {
     'bloodType',
     'position',
     'subPosition',
-    'securityWeaponAccreditation',
     'mediaChannel',
+    'securityWeaponAccreditation',
   ]
 
   fields.forEach(field => {

@@ -1,28 +1,50 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
-
-import type { International } from '@/entities/International'
+import { useRoute, useRouter } from 'vue-router'
 
 import * as service from '@/services/InternationalService'
+import * as securities from '@/services/SecurityService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-import InternationalForm from '@/components/internationals/InternationalForm.vue'
+import InternationalForm from '@/components/forms/InternationalForm.vue'
 
-import { initInternational } from '@/utils/defaults'
+import { InternationalAccreditationDetailView } from '@/router'
+
+import { valuesFromInternational } from '@/utils/forms'
 
 const route = useRoute()
+const router = useRouter()
 
 const loading = ref(true)
-const item = ref<International>()
+const values = ref<any>({})
+const errors = ref<string[]>([])
 
-const values = ref(initInternational())
+async function onSubmit() {
+  loading.value = true
+
+  try {
+    await securities.update(values.value.steps.security)
+    await service.update(values.value.steps.accreditation)
+
+    router.push({
+      name: InternationalAccreditationDetailView.name,
+      params: {
+        id: route.params.id,
+      },
+    })
+  } catch (_) {
+    errors.value = [
+      'Ocurrió un error al intentar guardar los datos. Por favor, intenta nuevamente.',
+    ]
+  } finally {
+    loading.value = false
+  }
+}
 
 onBeforeMount(async () => {
   loading.value = true
 
-  item.value = await service.getById(Number(route.params.id))
-  values.value = initInternational(item.value)
+  values.value = await valuesFromInternational(Number(route.params.id))
 
   loading.value = false
 })
@@ -38,9 +60,9 @@ onBeforeMount(async () => {
 
     <main class="mt-10">
       <InternationalForm
-        v-if="item"
-        :values="values"
-        action="edit"
+        v-model:values="values"
+        :errors="errors"
+        @submit="onSubmit"
       />
     </main>
   </AppLoading>
