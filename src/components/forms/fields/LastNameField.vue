@@ -1,0 +1,9 @@
+<template>
+  <FormKit
+    type="text"
+    name="lastName"
+    label="Apellido"
+    maxlength="150"
+    validation="required"
+  />
+</template>

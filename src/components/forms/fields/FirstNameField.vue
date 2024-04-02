@@ -1,0 +1,9 @@
+<template>
+  <FormKit
+    type="text"
+    name="firstName"
+    label="Nombre"
+    maxlength="150"
+    validation="required"
+  />
+</template>

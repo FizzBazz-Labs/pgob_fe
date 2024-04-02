@@ -1,16 +1,17 @@
 import type { MultiStepForm } from '@/entities/Form'
 import type { International } from '@/entities/International'
 import type { National } from '@/entities/National'
+import type { WeaponValue } from '@/entities/Weapon'
 
-export function initWeapon() {
+export function initWeapon(): WeaponValue {
   return {
     weapon: '',
     brand: '',
     model: '',
     type: '',
     serial: '',
-    chargers: '0',
-    ammunition: '0',
+    chargers: 0,
+    ammunition: 0,
   }
 }
 
@@ -49,7 +50,7 @@ export function initNational(item?: National): MultiStepForm {
         security: {
           controlDatetime: '',
           observations: '',
-          weapons: [initWeapon()],
+          weapons: [initWeapon() as any],
           equipments: [initEquipment()],
         },
       },
@@ -63,7 +64,7 @@ export function initNational(item?: National): MultiStepForm {
       security: {
         controlDatetime: '',
         observations: '',
-        weapons: [initWeapon()],
+        weapons: [initWeapon() as any],
         equipments: [initEquipment()],
       },
     },
@@ -111,7 +112,7 @@ export function initInternational(item?: International): MultiStepForm {
         security: {
           controlDatetime: '',
           observations: '',
-          weapons: [initWeapon()],
+          weapons: [initWeapon() as any],
           equipments: [initEquipment()],
         },
       },
@@ -134,7 +135,7 @@ export function initInternational(item?: International): MultiStepForm {
       security: {
         controlDatetime: '',
         observations: '',
-        weapons: [initWeapon()],
+        weapons: [initWeapon() as any],
         equipments: [initEquipment()],
       },
     },

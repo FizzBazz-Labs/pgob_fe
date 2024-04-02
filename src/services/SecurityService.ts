@@ -14,6 +14,12 @@ export async function create(params: SecurityValues): Promise<SecurityAccreditat
   return response.json()
 }
 
+export async function update(values: any): Promise<SecurityAccreditation> {
+  const response = await API.patch(`${ENDPOINT}/${values.id}`, values)
+
+  return response.json()
+}
+
 export async function getById(id: number): Promise<SecurityAccreditation> {
   const response = await API.get(`${ENDPOINT}/${id}`)
   return await response.json()

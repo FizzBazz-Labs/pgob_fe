@@ -1,13 +1,12 @@
 import { ref, computed, type Ref } from 'vue'
 
 import { useGeneralStore } from '@/stores/general'
-import type { MultiStepForm, FormValues } from '@/entities/Form'
 import { Accreditation, Group } from '@/entities/User'
 
 const placeholder = 'https://placeholder.co/150x250/f3f3f2/white?text=150x250'
 
 type Props = {
-  values: Ref<MultiStepForm | FormValues>
+  values: Ref<any>
 }
 
 type SelectOption = {
@@ -41,6 +40,7 @@ export function useFormSelect(props: Props) {
     const selected =
       props.values.value.position ??
       props.values.value['multi-step']?.accreditation.position ??
+      props.values.value.steps?.accreditation.position ??
       undefined
 
     const position = store.positions.find(i => i.id === selected)
@@ -64,7 +64,10 @@ export function useFormSelect(props: Props) {
 
   const showChannels = computed(() =>
     [14, 15, 16].includes(
-      props.values.value.position ?? props.values.value['multi-step'].accreditation.position ?? 0
+      props.values.value.position ??
+        props.values.value['multi-step']?.accreditation.position ??
+        props.values.value.steps?.accreditation?.position ??
+        0
     )
   )
 
@@ -190,7 +193,7 @@ export function useFormSelect(props: Props) {
     },
   ])
 
-  function preview(image?: unknown) {
+  function preview(image?: any) {
     if (!image || image[0] == undefined) return placeholder
 
     const img = image as Array<{ file: File }>

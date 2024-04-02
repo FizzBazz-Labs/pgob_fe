@@ -227,14 +227,6 @@ async function onSubmit() {
           <span class="divider divider-start flex-1 text-xl font-bold">
             Datos de Equipo de Comunicación
           </span>
-
-          <!-- <button
-            type="button"
-            class="btn btn-success text-white"
-            @click="onAddWeapon"
-          >
-            Añadir
-          </button> -->
         </div>
 
         <div

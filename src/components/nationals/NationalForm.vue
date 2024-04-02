@@ -14,7 +14,9 @@ import * as service from '@/services/NationalService'
 
 import { NationalAccreditationDetailView } from '@/router'
 
-import { initNational, initWeapon } from '@/utils/defaults'
+import { initEquipment, initNational, initWeapon } from '@/utils/defaults'
+
+import WeaponDisclaimer from '@/components/weapons/WeaponDisclaimer.vue'
 
 type Props = {
   action?: 'new' | 'edit'
@@ -51,7 +53,7 @@ function onAddWeapon() {
     values.value['multi-step'].security.weapons = []
   }
 
-  values.value['multi-step'].security.weapons.push(initWeapon())
+  values.value['multi-step'].security.weapons.push(initWeapon() as any)
 }
 
 function onRemoveVehicle(index: number) {
@@ -65,7 +67,7 @@ function onAddEquipment() {
     values.value['multi-step'].security.weapons = []
   }
 
-  values.value['multi-step'].security.weapons.push(initWeapon())
+  values.value['multi-step'].security.weapons.push(initEquipment() as any)
 }
 
 function onRemoveEquipment(index: number) {
@@ -93,6 +95,8 @@ async function onSubmit() {
 </script>
 
 <template>
+  {{ values }}
+
   <FormKit
     type="form"
     v-model="values"
@@ -342,6 +346,8 @@ async function onSubmit() {
         type="step"
         name="security"
       >
+        <WeaponDisclaimer />
+
         <div class="flex gap-4">
           <div class="w-1/2">
             <h2 class="divider divider-start text-xl font-bold">Datos de Seguridad</h2>
@@ -417,14 +423,14 @@ async function onSubmit() {
                 <FormKit
                   type="number"
                   v-model="weapon.chargers"
-                  label="Calibre"
+                  label="Cantidad de Cargadores"
                   validation="required"
                 />
 
                 <FormKit
                   type="number"
                   v-model="weapon.ammunition"
-                  label="Calibre"
+                  label="Municiones"
                   validation="required"
                 />
 

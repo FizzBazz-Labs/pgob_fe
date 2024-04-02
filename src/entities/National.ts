@@ -26,4 +26,6 @@ export interface National {
   createdAt: string
   updatedAt: string
   downloaded: boolean
+  privateInsurance: string
+  securityWeaponAccreditation?: number
 }

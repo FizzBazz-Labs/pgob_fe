@@ -5,9 +5,10 @@ export interface Weapon {
   model: string
   type: string
   serial: string
-  caliber: string
   chargers: number
   ammunition: number
   createdAt: string
   updatedAt: string
 }
+
+export type WeaponValue = Omit<Weapon, 'id' | 'createdAt' | 'updatedAt'>

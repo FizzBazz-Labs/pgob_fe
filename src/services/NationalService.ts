@@ -5,6 +5,8 @@ import type { FormValues, MultiStepForm } from '@/entities/Form'
 
 import * as securities from '@/services/SecurityService'
 
+const ENDPOINT = '/national-accreditations'
+
 export async function create(values: MultiStepForm): Promise<National> {
   const params = values['multi-step'].accreditation
   const form = new FormData()
@@ -60,58 +62,36 @@ export async function create(values: MultiStepForm): Promise<National> {
   return await response.json()
 }
 
-export async function update(values: MultiStepForm): Promise<National> {
-  const params = values['multi-step'].accreditation
+export async function update(values: any): Promise<National> {
   const form = new FormData()
 
-  try {
-    const securityAccreditation = await securities.create(values['multi-step'].security)
-    form.append('securityWeaponAccreditation', securityAccreditation.id.toString())
-  } catch (error) {
-    // Pass
-  }
+  const fields = [
+    'firstName',
+    'lastName',
+    'institution',
+    'address',
+    'passportId',
+    'privateInsurance',
+    'phoneNumber',
+    'phoneNumber2',
+    'email',
+    'birthday',
+    'birthplace',
+    'bloodType',
+    'position',
+    'subPosition',
+    'securityWeaponAccreditation',
+    'mediaChannel',
+  ]
 
-  form.append('firstName', params.firstName as string)
-  form.append('lastName', params.lastName as string)
-  form.append('position', params.position.toString())
-  form.append('institution', params.institution as string)
-  form.append('address', params.address as string)
-  form.append('phoneNumber', params.phoneNumber as string)
-  form.append('passportId', params.passport as string)
-  form.append('privateInsurance', params.privateInsurance as string)
+  fields.forEach(field => {
+    if (values[field] !== undefined) {
+      form.append(field, values[field])
+    }
+  })
 
-  if (params.phoneNumber2 !== undefined) {
-    form.append('phoneNumber2', params.phoneNumber2 as string)
-  }
+  const response = await API.form(`${ENDPOINT}/${values.id}`, form, 'PATCH')
 
-  form.append('email', params.email as string)
-  form.append('birthday', params.birthday as string)
-  form.append('birthplace', params.birthplace as string)
-  form.append('bloodType', params.blood as string)
-
-  if (params.subPosition !== undefined) {
-    form.append('subPosition', params.subPosition as string)
-  }
-
-  if (params.channel !== undefined) {
-    form.append('mediaChannel', params.channel as string)
-  }
-
-  // const image = params.image as Array<{ file: File }>
-
-  // if (image.length > 0) {
-  //   form.append('image', image[0].file)
-  // }
-
-  // if (params.letter !== undefined) {
-  //   const letter = params.letter as Array<{ file: File }>
-
-  //   if (letter.length > 0) {
-  //     form.append('authorizationLetter', letter[0].file)
-  //   }
-  // }
-
-  const response = await API.form(`/national-accreditations/${params.id}`, form, 'PATCH')
   return await response.json()
 }
 
