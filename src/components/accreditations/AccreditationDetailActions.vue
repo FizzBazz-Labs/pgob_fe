@@ -87,6 +87,7 @@ const canCertificate = computed(() => {
       <div class="flex-1"></div>
 
       <div
+        v-if="!auth.isReviewer && props.status !== AccreditationStatus.REJECTED"
         class="tooltip tooltip-bottom"
         data-tip="Editar"
       >

@@ -13,11 +13,14 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 import { formatDate } from '@/utils/dates'
 import { AccreditationItemType } from '@/entities/Accreditation'
+import { useGeneralStore } from '@/stores/general'
 
 const route = useRoute()
 
 const loading = ref(true)
 const item = ref<SecurityAccreditation>()
+
+const general = useGeneralStore()
 
 onBeforeMount(async () => {
   loading.value = true
@@ -55,7 +58,9 @@ async function onReject() {
       <div class="flex flex-col gap-4">
         <StatusBadge :status="item.status" />
 
-        <span> <strong>País</strong>: {{ item.country }} </span>
+        <span>
+          <strong>País</strong>: {{ general.countries.find(i => i.id === item?.country)?.name }}
+        </span>
 
         <span><strong>Nombre</strong>: {{ item.name }}</span>
         <span><strong>Pasaporte</strong>: {{ item.passportId }}</span>

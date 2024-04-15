@@ -8,7 +8,7 @@ import HiddenIdField from './fields/HiddenIdField.vue'
 import CancelBtn from './actions/CancelBtn.vue'
 import FirstNameField from './fields/FirstNameField.vue'
 import LastNameField from './fields/LastNameField.vue'
-import CountryField from './fields/CountryField.vue'
+import StaticCountryField from './fields/StaticCountryField.vue'
 import PassportIdField from './fields/PassportIdField.vue'
 import BirthplaceField from './fields/BirthplaceField.vue'
 import BirthdayField from './fields/BirthdayField.vue'
@@ -75,7 +75,8 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
             </h2>
 
             <HiddenIdField />
-            <CountryField />
+
+            <StaticCountryField :value="values.steps.accreditation.country" />
 
             <div class="grid grid-cols-2 gap-4">
               <FirstNameField />

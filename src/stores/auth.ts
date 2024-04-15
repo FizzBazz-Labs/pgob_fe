@@ -21,7 +21,7 @@ const initState = (): AuthState => ({
     email: '',
     phoneNumber: '',
     group: Group.USER,
-    country: '',
+    country: 0,
     passportId: '',
     accreditations: [],
   },

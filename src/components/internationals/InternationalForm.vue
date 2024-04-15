@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, type PropType } from 'vue'
+import { computed, type PropType } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { getNode } from '@formkit/core'
@@ -15,6 +15,10 @@ import * as service from '@/services/InternationalService'
 import { InternationalAccreditationDetailView } from '@/router'
 import { initInternational } from '@/utils/defaults'
 
+import { useAuthStore } from '@/stores/auth'
+
+import StaticCountryField from '../forms/fields/StaticCountryField.vue'
+
 type Props = {
   action?: 'new' | 'edit'
 }
@@ -24,6 +28,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const router = useRouter()
+
+const auth = useAuthStore()
 
 const values = defineModel('values', {
   type: Object as PropType<MultiStepForm>,
@@ -95,7 +101,10 @@ async function onSubmit() {
   let response = { id: 0 }
 
   if (props.action === 'new') {
-    response = await service.create(values.value)
+    response = await service.create({
+      ...values.value,
+      country: auth.user.country,
+    })
   } else {
     response = await service.update(values.value)
   }
@@ -136,15 +145,7 @@ async function onSubmit() {
           <div class="w-1/2">
             <h2 class="divider divider-start text-xl font-bold">Datos Personales</h2>
 
-            <FormKit
-              type="select"
-              name="country"
-              label="País"
-              placeholder="Seleccione un país..."
-              validation="required"
-              :options="countries"
-              select-icon="down"
-            />
+            <StaticCountryField />
 
             <div class="grid grid-cols-2 gap-4">
               <FormKit
@@ -630,13 +631,6 @@ async function onSubmit() {
                   type="text"
                   v-model="weapon.serial"
                   label="No. de Serie"
-                  validation="required"
-                />
-
-                <FormKit
-                  type="text"
-                  v-model="weapon.caliber"
-                  label="Calibre"
                   validation="required"
                 />
 

@@ -391,7 +391,7 @@ function onEdit() {
           class="btn btn-info text-white"
           @click.prevent="onReview"
         >
-          Aceptar
+          Aprobar
         </button>
 
         <button

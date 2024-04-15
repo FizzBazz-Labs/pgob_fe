@@ -145,22 +145,36 @@ const auth = useAuthStore()
 
       <ul class="menu w-80 p-4">
         <li>
-          <RouterLink
-            v-if="auth.isAnonymous"
-            :to="LoginView.path"
-            class="btn btn-primary text-white"
-          >
-            Iniciar Sesión
-          </RouterLink>
+          <details open>
+            <summary>Usuario</summary>
 
-          <RouterLink
-            v-else
-            :to="LoginView.path"
-            class="btn btn-error text-white"
-            @click="auth.logout"
-          >
-            Cerrar Sesión
-          </RouterLink>
+            <ul>
+              <li>
+                <a>
+                  {{ auth.user?.email }}
+                </a>
+              </li>
+
+              <li>
+                <RouterLink
+                  v-if="auth.isAnonymous"
+                  :to="LoginView.path"
+                  class="btn btn-primary text-white"
+                >
+                  Iniciar Sesión
+                </RouterLink>
+
+                <RouterLink
+                  v-else
+                  :to="LoginView.path"
+                  class="btn btn-error text-white"
+                  @click="auth.logout"
+                >
+                  Cerrar Sesión
+                </RouterLink>
+              </li>
+            </ul>
+          </details>
         </li>
       </ul>
     </div>

@@ -59,8 +59,6 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <pre>{{ values }}</pre>
-
   <AppLoading :loading="loading">
     <header class="flex flex-col text-center text-2xl font-bold">
       <span>República de Panamá</span>

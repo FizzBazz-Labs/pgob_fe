@@ -6,7 +6,7 @@ export interface User {
   email: string
   phoneNumber: string
   group: Group
-  country: string
+  country: number
   passportId: string
   accreditations: Array<{
     id: number
