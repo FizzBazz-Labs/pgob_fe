@@ -62,6 +62,7 @@ const auth = useAuthStore()
         <li v-if="auth.isAdmin">
           <RouterLink :to="DashboardView.path">Tableo de Información</RouterLink>
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
+          <RouterLink :to="HomeView.path"> Acreditaciones </RouterLink>
         </li>
 
         <li v-if="auth.hasNational || auth.hasInternational">

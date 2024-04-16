@@ -15,7 +15,7 @@ function getHeaders(contentType = true) {
 }
 
 export function get(url: string) {
-  return fetch(`${BASE_URL}${url}/`, {
+  return fetch(`${BASE_URL}${url}`, {
     method: 'GET',
     headers: getHeaders(),
   })
