@@ -49,7 +49,7 @@ const auth = useAuthStore()
       <div class="flex w-full items-center justify-center py-5">
         <RouterLink :to="HomeView.path">
           <img
-            :src="logo"
+            :src="config.logo"
             class="h-16"
           />
         </RouterLink>

@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
 import { HomeView } from '@/router'
@@ -10,6 +11,7 @@ import logo from '@/assets/logos/logo.png'
 
 const router = useRouter()
 
+const config = useConfigStore()
 const store = useAuthStore()
 
 const errors = ref<Array<string>>([])
@@ -31,13 +33,16 @@ async function onLogin(values: Record<string, string>) {
 
 <template>
   <main
-    class="flex h-screen items-center justify-center bg-gray-200 bg-[url('@/assets/bg/login.webp')] bg-cover bg-center bg-no-repeat p-4 md:p-0"
+    class="flex h-screen items-center justify-center bg-gray-200 bg-cover bg-center bg-no-repeat p-4 md:p-0"
+    :style="{
+      backgroundImage: `url(${config.unavailableBackground})`,
+    }"
   >
     <div class="card w-full bg-base-100 shadow-xl md:w-[25vw]">
       <div class="card-body">
         <div class="mb-5 flex justify-center">
           <img
-            :src="logo"
+            :src="config.logo"
             width="350"
           />
         </div>

@@ -23,7 +23,6 @@ const isUnavailable = computed(() => route.name === UnavailableSiteView.name)
 onBeforeMount(async () => {
   loading.value = true
 
-  // await auth.init()
   await general.init()
 
   if (isLogin.value && auth.token) {

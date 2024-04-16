@@ -205,6 +205,14 @@ router.beforeEach(async (to, before, next) => {
   const config = useConfigStore()
   if (!config.name) await config.fetchConfig()
 
+  document.title = config.name
+
+  const favicon = document.querySelector('link[rel="icon"]') || document.createElement('link')
+  favicon.setAttribute('rel', 'icon')
+  favicon.setAttribute('href', config.favicon)
+
+  document.getElementsByTagName('head')[0].appendChild(favicon)
+
   if (!config.available && to.name !== UnavailableSiteView.name) {
     return next(UnavailableSiteView)
   }
