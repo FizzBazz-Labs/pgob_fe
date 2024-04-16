@@ -298,15 +298,197 @@ function onEdit() {
           </div>
         </div>
 
+        <h2 class="divider divider-start mt-5 text-xl font-bold">Datos Medicos</h2>
+
         <div class="mb-5 flex flex-row items-center gap-2">
           <div class="">
             <span> <strong> Tipo de sangre </strong> </span>
           </div>
-          <div class="w-1/2">
+          <div class="w-full">
             <input
               type="text"
               class="input input-bordered w-full"
               :value="item.bloodType"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Enfermedades </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.diseases"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 gap-2">
+          <div class="mb-4">
+            <span> <strong> Medicamentos en uso </strong> </span>
+          </div>
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="w-4/12">
+              <span> <strong> Medicamento 1 </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.medication1 == 'undefined' ? '' : item.medication1"
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="w-4/12">
+              <span> <strong> Medicamento 2 </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.medication2 == 'undefined' ? '' : item.medication2"
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="w-4/12">
+              <span> <strong> Medicamento 3 </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.medication3 == 'undefined' ? '' : item.medication3"
+                disabled
+              />
+            </div>
+          </div>
+
+          <div class="mb-5 flex flex-row items-center gap-2">
+            <div class="w-4/12">
+              <span> <strong> Medicamento 4 </strong> </span>
+            </div>
+            <div class="w-full">
+              <input
+                type="text"
+                class="input input-bordered w-full"
+                :value="item.medication4 == 'undefined' ? '' : item.medication4"
+                disabled
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="w-4/12">
+            <span> <strong> Tipos de alergia </strong> </span>
+          </div>
+          <div class="w-full">
+            <div class="">
+              <ul>
+                <li
+                  v-for="(allergy, i) in item.allergies"
+                  :key="i"
+                  class="list-inside list-disc"
+                >
+                  {{ allergy.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mb-5 flex flex-row items-center gap-2"
+          v-if="item.allergiesDescription"
+        >
+          <div class="w-4/12">
+            <span> <strong> Detalle de alergias </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.allergiesDescription"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="w-4/12">
+            <span> <strong> Inmunizaciones recientes </strong> </span>
+          </div>
+          <div class="w-full">
+            <div class="">
+              <ul>
+                <li
+                  v-for="(immunization, i) in item.immunizations"
+                  :key="i"
+                  class="list-inside list-disc"
+                >
+                  {{ immunization.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="w-4/12">
+            <span> <strong> Antecedentes Medicos </strong> </span>
+          </div>
+          <div class="w-full">
+            <div class="">
+              <ul>
+                <li
+                  v-for="(record, i) in item.medicals"
+                  :key="i"
+                  class="list-inside list-disc"
+                >
+                  {{ record.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> Antecedentes Quirúrgicos </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.surgical"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div
+          class="mb-5 flex flex-row items-center gap-2"
+          v-if="item.doctorName"
+        >
+          <div class="">
+            <span> <strong> Nombre del medico personal </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full"
+              :value="item.doctorName"
               disabled
             />
           </div>

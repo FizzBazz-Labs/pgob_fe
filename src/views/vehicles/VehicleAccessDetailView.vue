@@ -186,6 +186,16 @@ async function onReject() {
               />
             </div>
           </div>
+
+          <div class="mb-5">
+            <a
+              :href="vehicle.driverLicense"
+              target="_blank"
+              class="btn"
+            >
+              Licencia de Conductor
+            </a>
+          </div>
         </div>
       </div>
 

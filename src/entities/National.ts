@@ -1,6 +1,9 @@
 import type { Position, SubPosition } from '@/entities/Position'
 import type { MedicaChannel } from '@/entities/MedicaChannel'
 import { AccreditationStatus } from '@/entities/Accreditation'
+import type { Allergy } from './Allergy'
+import type { Immunization } from './Immunization'
+import type { MedicalHistory } from './MedicalHistory'
 
 export interface National {
   id: number
@@ -20,7 +23,6 @@ export interface National {
   email: string
   birthday: string
   birthplace: string
-  bloodType: string
   type: string
   createdBy: string
   createdAt: string
@@ -29,4 +31,16 @@ export interface National {
   privateInsurance: string
   securityWeaponAccreditation?: number
   reviewedComment?: string
+  bloodType: string
+  diseases: string
+  medication1: string
+  medication2: string
+  medication3: string
+  medication4: string
+  allergies: Array<Allergy>
+  allergiesDescription: string
+  immunizations: Array<Immunization>
+  medicals: Array<MedicalHistory>
+  surgical: string
+  doctorName: string
 }

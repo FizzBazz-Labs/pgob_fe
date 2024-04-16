@@ -168,6 +168,12 @@ export const UnavailableSiteView = {
   component: () => import('../views/UnavailableSiteView.vue'),
 }
 
+export const SiteConfigurationEditView = {
+  path: '/config',
+  name: 'site-configuration-edit',
+  component: () => import('../views/site/SiteConfigurationEditView.vue'),
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -198,12 +204,13 @@ const router = createRouter({
     UserDetailView,
     DashboardView,
     UnavailableSiteView,
+    SiteConfigurationEditView,
   ],
 })
 
 router.beforeEach(async (to, before, next) => {
   const config = useConfigStore()
-  if (!config.name) await config.fetchConfig()
+  await config.fetchConfig()
 
   document.title = config.name
 
