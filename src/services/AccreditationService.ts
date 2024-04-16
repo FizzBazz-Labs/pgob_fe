@@ -18,6 +18,5 @@ export type GetAllResponse = {
 
 export async function getAll(page: number): Promise<GetAllResponse> {
   const response = await API.get(`/accreditations?page=${page}`)
-
   return await response.json()
 }

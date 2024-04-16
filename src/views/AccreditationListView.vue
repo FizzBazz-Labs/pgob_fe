@@ -15,6 +15,7 @@ import GeneralVehicleTable from '@/components/vehicles/GeneralVehicleTable.vue'
 import VehicleAccessTable from '@/components/vehicles/VehicleAccessTable.vue'
 
 import PaginationComponent from '@/components/ui/PaginationComponent.vue'
+import FiltersComponent from '@/components/ui/FiltersComponent.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -35,10 +36,10 @@ onBeforeMount(async () => {
 
   count.value = response.value.accreditations?.count || 1
   loading.value = false
+  console.log(page.value)
 })
 
 watch(page, value => {
-  console.log('page', value)
   router.push({ query: { page: value } })
   getAccreditations(value)
 })
@@ -50,6 +51,8 @@ async function getAccreditations(page) {
 
 <template>
   <AppLoading :loading="loading">
+    <FiltersComponent />
+
     <main
       v-if="response"
       class="flex flex-col gap-10"
