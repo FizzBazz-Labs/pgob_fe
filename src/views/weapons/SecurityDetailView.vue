@@ -28,10 +28,14 @@ onBeforeMount(async () => {
   loading.value = false
 })
 
-async function onReview() {
+async function onReview(values: any) {
   if (!item.value) return
 
-  item.value = await service.review(item.value.id)
+  try {
+    item.value = await service.review(item.value.id, values)
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 async function onApprove() {
@@ -122,7 +126,6 @@ async function onReject() {
             <td>{{ weapon.model }}</td>
             <td>{{ weapon.type }}</td>
             <td>{{ weapon.serial }}</td>
-            <td>{{ weapon.caliber }}</td>
             <td>{{ weapon.chargers }}</td>
             <td>{{ weapon.ammunition }}</td>
           </tr>

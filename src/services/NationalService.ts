@@ -101,8 +101,8 @@ export async function getById(id: number): Promise<National> {
   return await response.json()
 }
 
-export async function review(id: number): Promise<National> {
-  const response = await API.patch(`/national-accreditations/${id}/review`)
+export async function review(id: number, params: FormValues): Promise<National> {
+  const response = await API.patch(`/national-accreditations/${id}/review`, params)
 
   return await response.json()
 }

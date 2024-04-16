@@ -39,8 +39,8 @@ export async function getById(id: number): Promise<VehicleAccessAirport> {
   return await response.json()
 }
 
-export async function review(id: number): Promise<VehicleAccessAirport> {
-  const response = await API.patch(`${ENDPOINT}/${id}/review`)
+export async function review(id: number, values: any): Promise<VehicleAccessAirport> {
+  const response = await API.patch(`${ENDPOINT}/${id}/review`, values)
   return await response.json()
 }
 

@@ -161,9 +161,8 @@ export async function getById(id: number): Promise<International> {
   return await response.json()
 }
 
-export async function review(id: number): Promise<International> {
-  const response = await API.patch(`${ENDPOINT}/${id}/review`)
-
+export async function review(id: number, values: any): Promise<International> {
+  const response = await API.patch(`${ENDPOINT}/${id}/review`, values)
   return await response.json()
 }
 

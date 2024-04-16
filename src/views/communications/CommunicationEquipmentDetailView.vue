@@ -22,10 +22,16 @@ onBeforeMount(async () => {
   loading.value = false
 })
 
-async function onReview() {
+async function onReview(values: any) {
   if (!item.value) return
 
-  item.value = await service.review(item.value.id)
+  loading.value = true
+
+  try {
+    item.value = await service.review(item.value.id, values)
+  } finally {
+    loading.value = false
+  }
 }
 
 async function onApprove() {

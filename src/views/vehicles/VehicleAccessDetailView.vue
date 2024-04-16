@@ -23,10 +23,16 @@ onBeforeMount(async () => {
   loading.value = false
 })
 
-async function onReview() {
+async function onReview(values: any) {
   if (!item.value) return
 
-  item.value = await service.review(item.value.id)
+  loading.value = true
+
+  try {
+    item.value = await service.review(item.value.id, values)
+  } finally {
+    loading.value = false
+  }
 }
 
 async function onApprove() {
@@ -58,7 +64,7 @@ async function onReject() {
 
       <div class="my-5 flex flex-row items-center gap-2">
         <div class="w-[33%]">
-          <span> <strong> Nombre del pais: </strong> </span>
+          <span> <strong> Nombre del país: </strong> </span>
         </div>
         <div class="w-full">
           <input
@@ -155,7 +161,7 @@ async function onReject() {
 
           <div class="mb-5">
             <div class="">
-              <span> <strong> Cedula: </strong> </span>
+              <span> <strong> Cédula: </strong> </span>
             </div>
             <div class="w-full">
               <input
@@ -169,7 +175,7 @@ async function onReject() {
 
           <div class="mb-5">
             <div class="">
-              <span> <strong> Telefono: </strong> </span>
+              <span> <strong> Teléfono: </strong> </span>
             </div>
             <div class="w-full">
               <input

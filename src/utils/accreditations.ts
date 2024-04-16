@@ -1,8 +1,10 @@
+import type { AccreditationItemType } from '@/entities/Accreditation'
+
 const BASE_URL = import.meta.env.VITE_API_URL
 
 type GetCertificateParams = {
   id?: number
-  type?: 'national' | 'international'
+  type?: AccreditationItemType
 }
 
 export function getCertificate(params: GetCertificateParams) {

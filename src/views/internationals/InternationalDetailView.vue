@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onBeforeMount, computed } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import type { International } from '@/entities/International'
@@ -27,7 +27,6 @@ const { internationalTypes } = useFormSelect({ values: ref({}) })
 const loading = ref(true)
 const item = ref<International>()
 
-const confirmReviewDialog = ref<HTMLDialogElement>()
 const confirmRejectDialog = ref<HTMLDialogElement>()
 const confirmApproveDialog = ref<HTMLDialogElement>()
 
@@ -37,23 +36,13 @@ onBeforeMount(async () => {
   loading.value = false
 })
 
-const hasMedications = computed(() =>
-  [
-    item.value?.medication1,
-    item.value?.medication2,
-    item.value?.medication3,
-    item.value?.medication4,
-  ].some(Boolean)
-)
-
-async function onReview() {
+async function onReview(values: any) {
   if (!item.value) return
 
   loading.value = true
-  confirmReviewDialog.value?.close()
 
   try {
-    const response = await service.review(item.value.id)
+    const response = await service.review(item.value.id, values)
 
     item.value = {
       ...response,
@@ -686,19 +675,12 @@ function onEdit() {
           </div>
         </div>
 
-        <!-- <PositionInformation
-          :position="item.position"
-          :sub-position="item.subPosition"
-          :authorization-letter="item.authorizationLetter"
-          :media-channel="item.mediaChannel"
-        /> -->
-
         <AccreditationDetailActions
           :id="item.id"
           :status="item.status"
           :type="AccreditationItemType.INTERNATIONAL"
           :downloaded="item.downloaded"
-          @review="confirmReviewDialog?.showModal()"
+          @review="onReview"
           @approve="confirmApproveDialog?.showModal()"
           @reject="confirmRejectDialog?.showModal()"
           @edit="onEdit"
@@ -753,34 +735,6 @@ function onEdit() {
           </button>
         </div>
       </FormKit>
-    </div>
-  </dialog>
-
-  <dialog
-    ref="confirmReviewDialog"
-    id="confirm_approve"
-    class="modal"
-  >
-    <div class="modal-box">
-      <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
-
-      <p>Estas seguro de marcar como revisada esta acreditación.</p>
-
-      <div class="modal-action">
-        <button
-          class="btn btn-info text-white"
-          @click.prevent="onReview"
-        >
-          Aprobar
-        </button>
-
-        <button
-          class="btn"
-          @click.prevent="confirmReviewDialog?.close()"
-        >
-          Cancelar
-        </button>
-      </div>
     </div>
   </dialog>
 

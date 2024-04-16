@@ -27,7 +27,7 @@ const { nationalTypes } = useFormSelect({ values: ref({}) })
 
 const loading = ref(true)
 const item = ref<National>()
-const confirmReviewDialog = ref<HTMLDialogElement>()
+// const confirmReviewDialog = ref<HTMLDialogElement>()
 const confirmRejectDialog = ref<HTMLDialogElement>()
 const confirmApproveDialog = ref<HTMLDialogElement>()
 
@@ -37,14 +37,13 @@ onBeforeMount(async () => {
   loading.value = false
 })
 
-async function onReview() {
+async function onReview(values: any) {
   if (!item.value) return
 
   loading.value = true
-  confirmReviewDialog.value?.close()
 
   try {
-    const response = await service.review(item.value.id)
+    const response = await service.review(item.value.id, values)
 
     item.value = {
       ...response,
@@ -318,7 +317,7 @@ function onEdit() {
           :status="item.status"
           :type="AccreditationItemType.NATIONAL"
           :downloaded="item.downloaded"
-          @review="confirmReviewDialog?.showModal()"
+          @review="onReview"
           @approve="confirmApproveDialog?.showModal()"
           @reject="confirmRejectDialog?.showModal()"
           @edit="onEdit"
@@ -329,7 +328,6 @@ function onEdit() {
 
   <dialog
     ref="confirmApproveDialog"
-    id="confirm_approve"
     class="modal"
   >
     <div class="modal-box pb-0">
@@ -373,34 +371,6 @@ function onEdit() {
           </button>
         </div>
       </FormKit>
-    </div>
-  </dialog>
-
-  <dialog
-    ref="confirmReviewDialog"
-    id="confirm_approve"
-    class="modal"
-  >
-    <div class="modal-box">
-      <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
-
-      <p>Estas seguro de marcar como revisada esta acreditación.</p>
-
-      <div class="modal-action">
-        <button
-          class="btn btn-info text-white"
-          @click.prevent="onReview"
-        >
-          Aprobar
-        </button>
-
-        <button
-          class="btn"
-          @click.prevent="confirmReviewDialog?.close()"
-        >
-          Cancelar
-        </button>
-      </div>
     </div>
   </dialog>
 

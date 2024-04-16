@@ -23,8 +23,8 @@ export async function update(
   return await response.json()
 }
 
-export async function review(id: number): Promise<NonCommercialAircraft> {
-  const response = await API.patch(`${ENDPOINT}/${id}/review`)
+export async function review(id: number, values: any): Promise<NonCommercialAircraft> {
+  const response = await API.patch(`${ENDPOINT}/${id}/review`, values)
 
   return await response.json()
 }

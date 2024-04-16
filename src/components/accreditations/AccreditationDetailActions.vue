@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 import { ArrowDownTrayIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
@@ -17,7 +17,7 @@ type Props = {
 }
 
 type Emits = {
-  (e: 'review'): void
+  (e: 'review', values: any): void
   (e: 'approve'): void
   (e: 'reject'): void
   (e: 'edit'): void
@@ -32,6 +32,8 @@ const emits = defineEmits<Emits>()
 
 const auth = useAuthStore()
 
+const confirmReviewDialog = ref<HTMLDialogElement>()
+
 const canReject = computed(() => {
   if (auth.isReviewer && props.status === AccreditationStatus.PENDING) return true
   if (auth.isAccreditor && props.status === AccreditationStatus.REVIEWED) return true
@@ -39,9 +41,15 @@ const canReject = computed(() => {
   return false
 })
 
-const canCertificate = computed(() => {
-  return auth.isAccreditor && props.status === AccreditationStatus.APPROVED && !props.downloaded
-})
+const canCertificate = computed(
+  () => auth.isAccreditor && props.status === AccreditationStatus.APPROVED && !props.downloaded
+)
+
+function onReview(values: any) {
+  confirmReviewDialog.value?.close()
+
+  emits('review', values)
+}
 </script>
 
 <template>
@@ -52,7 +60,7 @@ const canCertificate = computed(() => {
       <button
         v-if="auth.isReviewer && props.status === AccreditationStatus.PENDING"
         class="btn btn-info text-white"
-        @click="emits('review')"
+        @click="confirmReviewDialog?.showModal()"
       >
         Revisar
       </button>
@@ -108,6 +116,47 @@ const canCertificate = computed(() => {
       </button>
     </div> -->
     </div>
+
+    <dialog
+      ref="confirmReviewDialog"
+      class="modal"
+    >
+      <div class="modal-box pb-0">
+        <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
+
+        <FormKit
+          type="form"
+          :actions="false"
+          @submit="onReview"
+        >
+          <p class="mb-3">Estas seguro de marcar como revisada esta acreditación.</p>
+
+          <FormKit
+            type="textarea"
+            name="reviewedComment"
+            label="Comentarios"
+            placeholder="Escribe un comentario..."
+            validation="required"
+          />
+
+          <div class="flex justify-end gap-4">
+            <FormKit
+              type="submit"
+              label="Aprobar"
+              suffix-icon="submit"
+              outer-class="!max-w-fit"
+            />
+
+            <button
+              class="btn"
+              @click.prevent="confirmReviewDialog?.close()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </FormKit>
+      </div>
+    </dialog>
   </template>
 
   <div v-else></div>
