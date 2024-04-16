@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
 export const LoginView = {
@@ -160,6 +161,13 @@ export const DashboardView = {
   component: () => import('../views/DashboardView.vue'),
 }
 
+export const UnavailableSiteView = {
+  path: '/unavailable',
+  name: 'unavailable',
+  meta: { requiresAuth: false },
+  component: () => import('../views/UnavailableSiteView.vue'),
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -189,12 +197,23 @@ const router = createRouter({
     UserCreateView,
     UserDetailView,
     DashboardView,
+    UnavailableSiteView,
   ],
 })
 
 router.beforeEach(async (to, before, next) => {
-  const auth = useAuthStore()
+  const config = useConfigStore()
+  if (!config.name) await config.fetchConfig()
 
+  if (!config.available && to.name !== UnavailableSiteView.name) {
+    return next(UnavailableSiteView)
+  }
+
+  if (config.available && to.name === UnavailableSiteView.name) {
+    return next(HomeView)
+  }
+
+  const auth = useAuthStore()
   if (!auth.token) await auth.init()
 
   if ('requiresAuth' in to.meta && to.meta.requiresAuth === false) {

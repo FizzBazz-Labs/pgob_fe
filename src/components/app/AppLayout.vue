@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import logo from '@/assets/logos/logo.png'
 
+import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
 import {
@@ -17,6 +18,7 @@ import {
   DashboardView,
 } from '@/router'
 
+const config = useConfigStore()
 const auth = useAuthStore()
 </script>
 
@@ -34,7 +36,10 @@ const auth = useAuthStore()
       </div>
     </div>
 
-    <div class="drawer-side !flex flex-col shadow-xl">
+    <div
+      v-if="config.available"
+      class="drawer-side !flex flex-col shadow-xl"
+    >
       <label
         for="my-drawer-3"
         aria-label="close sidebar"
