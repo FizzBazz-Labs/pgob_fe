@@ -9,7 +9,7 @@ import MedicationField from '../fields/MedicationField.vue'
 import SurgicalField from '../fields/SurgicalField.vue'
 
 const labels = {
-  contact: 'Datos de Contacto',
+  contact: 'Información Médica',
 }
 </script>
 

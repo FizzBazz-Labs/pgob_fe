@@ -1,68 +1,23 @@
 import * as API from '@/services/api'
 
 import type { National } from '@/entities/National'
-import type { FormValues, MultiStepForm } from '@/entities/Form'
-
-import * as securities from '@/services/SecurityService'
+import type { FormValues } from '@/entities/Form'
 
 const ENDPOINT = '/national-accreditations'
 
-export async function create(values: MultiStepForm): Promise<National> {
-  const params = values['multi-step'].accreditation
-  const form = new FormData()
+const SerializerFields = [
+  'bloodType',
+  'diseases',
+  'medication1',
+  'medication2',
+  'medication3',
+  'medication4',
+  'allergiesDescription',
+  'surgical',
+  'doctorName',
+]
 
-  try {
-    const securityAccreditation = await securities.create(values['multi-step'].security)
-    form.append('securityWeaponAccreditation', securityAccreditation.id.toString())
-  } catch (error) {
-    // Pass
-  }
-
-  form.append('firstName', params.firstName as string)
-  form.append('lastName', params.lastName as string)
-  form.append('position', params.position.toString())
-  form.append('institution', params.institution as string)
-  form.append('address', params.address as string)
-  form.append('phoneNumber', params.phoneNumber as string)
-  form.append('passportId', params.passport as string)
-  form.append('privateInsurance', params.privateInsurance as string)
-
-  if (params.phoneNumber2 !== undefined) {
-    form.append('phoneNumber2', params.phoneNumber2 as string)
-  }
-
-  form.append('email', params.email as string)
-  form.append('birthday', params.birthday as string)
-  form.append('birthplace', params.birthplace as string)
-  form.append('bloodType', params.blood as string)
-
-  if (params.subPosition !== undefined) {
-    form.append('subPosition', params.subPosition as string)
-  }
-
-  if (params.channel !== undefined) {
-    form.append('mediaChannel', params.channel as string)
-  }
-
-  const image = params.image as Array<{ file: File }>
-
-  if (image.length > 0) {
-    form.append('image', image[0].file)
-  }
-
-  if (params.letter !== undefined) {
-    const letter = params.letter as Array<{ file: File }>
-
-    if (letter.length > 0) {
-      form.append('authorizationLetter', letter[0].file)
-    }
-  }
-
-  const response = await API.form(`/national-accreditations`, form)
-  return await response.json()
-}
-
-export async function update(values: any): Promise<National> {
+export async function create(values: any): Promise<National> {
   const form = new FormData()
 
   const fields = [
@@ -77,11 +32,12 @@ export async function update(values: any): Promise<National> {
     'email',
     'birthday',
     'birthplace',
-    'bloodType',
     'position',
     'subPosition',
     'mediaChannel',
     'securityWeaponAccreditation',
+
+    ...SerializerFields,
   ]
 
   fields.forEach(field => {
@@ -90,8 +46,73 @@ export async function update(values: any): Promise<National> {
     }
   })
 
-  const response = await API.form(`${ENDPOINT}/${values.id}`, form, 'PATCH')
+  const appendArrayFields = (field: string, items: any) => {
+    if (Array.isArray(items)) {
+      items.forEach(item => form.append(field, item))
+    }
+  }
 
+  appendArrayFields('allergies', values.allergies)
+  appendArrayFields('immunizations', values.immunizations)
+  appendArrayFields('medicals', values.medicals)
+
+  const image = values.image as Array<{ file: File }>
+  if (image.length > 0) form.append('image', image[0].file)
+
+  if (values.authorizationLetter !== undefined) {
+    const letter = values.authorizationLetter as Array<{ file: File }>
+
+    if (letter.length > 0) {
+      form.append('authorizationLetter', letter[0].file)
+    }
+  }
+
+  const response = await API.form(`/national-accreditations`, form)
+  return await response.json()
+}
+
+export async function update(values: any): Promise<National> {
+  console.log({ values })
+
+  const form = new FormData()
+
+  const fields = [
+    'firstName',
+    'lastName',
+    'institution',
+    'address',
+    'passportId',
+    'privateInsurance',
+    'phoneNumber',
+    'phoneNumber2',
+    'email',
+    'birthday',
+    'birthplace',
+    'position',
+    'subPosition',
+    'mediaChannel',
+    'securityWeaponAccreditation',
+
+    ...SerializerFields,
+  ]
+
+  fields.forEach(field => {
+    if (values[field] !== undefined && values[field] !== null) {
+      form.append(field, values[field])
+    }
+  })
+
+  const appendArrayFields = (field: string, items: any) => {
+    if (Array.isArray(items)) {
+      items.forEach(item => form.append(field, item))
+    }
+  }
+
+  appendArrayFields('allergies', values.allergies)
+  appendArrayFields('immunizations', values.immunizations)
+  appendArrayFields('medicals', values.medicals)
+
+  const response = await API.form(`${ENDPOINT}/${values.id}`, form, 'PATCH')
   return await response.json()
 }
 

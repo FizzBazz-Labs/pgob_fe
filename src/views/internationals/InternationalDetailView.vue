@@ -578,7 +578,7 @@ function onEdit() {
           </div>
         </div>
 
-        <h2 class="divider divider-start my-10 text-xl font-bold">Informacion de vuelos</h2>
+        <h2 class="divider divider-start my-10 text-xl font-bold">Información de vuelos</h2>
 
         <div class="grid grid-cols-2 gap-3">
           <div class="mb-5 flex flex-row items-center gap-2">

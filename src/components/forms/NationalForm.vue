@@ -8,7 +8,6 @@ import LastNameField from '@/components/forms/fields/LastNameField.vue'
 import PassportIdField from '@/components/forms/fields/PassportIdField.vue'
 import BirthplaceField from './fields/BirthplaceField.vue'
 import BirthdayField from './fields/BirthdayField.vue'
-import BloodField from './fields/BloodField.vue'
 import PrivateInsuranceField from './fields/PrivateInsuranceField.vue'
 import ImageField from './fields/ImageField.vue'
 import AuthorizationLetterField from './fields/AuthorizationLetterField.vue'
@@ -17,6 +16,7 @@ import HiddenIdField from './fields/HiddenIdField.vue'
 import SecurityStep from './steps/SecurityStep.vue'
 import MediaChannelField from './fields/MediaChannelField.vue'
 import ContactSection from './sections/ContactSection.vue'
+import MedicalSection from './sections/MedicalSection.vue'
 
 type Props = {
   errors: string[]
@@ -85,10 +85,6 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
               <BirthdayField />
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
-              <BloodField />
-            </div>
-
             <PrivateInsuranceField />
 
             <h2 class="divider divider-start text-xl font-bold">
@@ -125,6 +121,8 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
             <MediaChannelField v-if="showChannels" />
 
             <ContactSection :class="{ 'mt-6': showChannels }" />
+
+            <MedicalSection />
           </div>
 
           <div class="flex-1"></div>

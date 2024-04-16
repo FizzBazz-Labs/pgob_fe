@@ -6,6 +6,8 @@ import type { GeneralVehicles } from '@/entities/GeneralVehicles'
 
 import * as service from '@/services/GeneralVehicleService'
 
+import { useGeneralStore } from '@/stores/general'
+
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
@@ -14,6 +16,8 @@ const route = useRoute()
 
 const loading = ref(true)
 const item = ref<GeneralVehicles>()
+
+const general = useGeneralStore()
 
 onBeforeMount(async () => {
   loading.value = true
@@ -65,11 +69,12 @@ async function onReject() {
         <div class="">
           <span> <strong> Misión Diplomática: </strong> </span>
         </div>
+
         <div class="w-full">
           <input
             type="text"
             class="input input-bordered w-full text-black"
-            :value="item.mission"
+            :value="general.countries.find(i => String(i.id) === item?.mission)?.name"
             disabled
           />
         </div>
@@ -149,6 +154,16 @@ async function onReject() {
               disabled
             />
           </div>
+        </div>
+
+        <div class="mb-5">
+          <a
+            :href="vehicle.driverLicense"
+            target="_blank"
+            class="btn"
+          >
+            Licencia de Conductor
+          </a>
         </div>
       </div>
 

@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import logo from '@/assets/logos/logo.png'
-
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
@@ -16,6 +14,7 @@ import {
   SecurityWeaponCreateView,
   UserListView,
   DashboardView,
+  SiteConfigurationEditView,
 } from '@/router'
 
 const config = useConfigStore()
@@ -159,6 +158,12 @@ const auth = useAuthStore()
                 <a>
                   {{ auth.user?.email }}
                 </a>
+              </li>
+
+              <li v-if="auth.isAdmin">
+                <RouterLink :to="SiteConfigurationEditView.path">
+                  Configuración de Sitio
+                </RouterLink>
               </li>
 
               <li>
