@@ -52,4 +52,5 @@ export interface International {
   downloaded: boolean
   privateInsurance: string
   securityWeaponAccreditation: number
+  reviewedComment?: string
 }

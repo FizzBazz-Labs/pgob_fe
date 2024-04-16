@@ -28,4 +28,5 @@ export interface National {
   downloaded: boolean
   privateInsurance: string
   securityWeaponAccreditation?: number
+  reviewedComment?: string
 }

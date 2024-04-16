@@ -20,6 +20,8 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import { formatDate } from '@/utils/dates'
 import type { FormValues } from '@/entities/Form'
 
+import AccreditationDetailComment from '@/components/accreditations/AccreditationDetailComment.vue'
+
 const route = useRoute()
 const router = useRouter()
 
@@ -27,7 +29,7 @@ const { nationalTypes } = useFormSelect({ values: ref({}) })
 
 const loading = ref(true)
 const item = ref<National>()
-// const confirmReviewDialog = ref<HTMLDialogElement>()
+
 const confirmRejectDialog = ref<HTMLDialogElement>()
 const confirmApproveDialog = ref<HTMLDialogElement>()
 
@@ -120,6 +122,11 @@ function onEdit() {
             <strong>Tipo de Acreditación</strong>:
             {{ nationalTypes.find(i => i.value === item?.type)?.label }}
           </span>
+
+          <AccreditationDetailComment
+            :reviewedComment="item.reviewedComment"
+            :status="item.status"
+          />
         </div>
 
         <h2 class="divider divider-start mt-5 text-xl font-bold">Datos Personales</h2>

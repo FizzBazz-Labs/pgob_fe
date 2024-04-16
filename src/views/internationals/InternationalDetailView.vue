@@ -19,6 +19,8 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import { formatDate } from '@/utils/dates'
 import type { FormValues } from '@/entities/Form'
 
+import AccreditationDetailComment from '@/components/accreditations/AccreditationDetailComment.vue'
+
 const route = useRoute()
 const router = useRouter()
 
@@ -119,6 +121,11 @@ function onEdit() {
             <strong>Tipo de Acreditación</strong>:
             {{ internationalTypes.find(i => i.value === item?.type)?.label }}
           </span>
+
+          <AccreditationDetailComment
+            :reviewedComment="item.reviewedComment"
+            :status="item.status"
+          />
         </div>
 
         <div class="my-5 flex flex-row items-center gap-2">
