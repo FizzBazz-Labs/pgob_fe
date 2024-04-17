@@ -12,6 +12,7 @@ import { toast } from 'vue3-toastify'
 import * as service from '@/services/VehicleAccessAirportService'
 
 import { HomeView } from '@/router'
+import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
 
 const router = useRouter()
 
@@ -65,12 +66,7 @@ async function onSubmit() {
           <span class="divider divider-start flex-1 text-xl font-bold">Vehículos</span>
         </div>
 
-        <FormKit
-          type="text"
-          label="Tipo"
-          validation="required"
-          name="type"
-        />
+        <VehicleTypeField />
 
         <FormKit
           type="text"
