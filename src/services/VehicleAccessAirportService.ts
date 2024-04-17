@@ -19,7 +19,9 @@ export async function create(body: Record<string, unknown>): Promise<VehicleAcce
 
 export async function createVehicle(body: Record<string, unknown>) {
   const form = new FormData()
+
   const image = body.driverLicense as Array<{ file: File }>
+  const tpv = body.tpv as Array<{ file: File }>
 
   form.append('type', body.type as string)
   form.append('brand', body.brand as string)
@@ -29,6 +31,7 @@ export async function createVehicle(body: Record<string, unknown>) {
   form.append('driverId', body.driverId as string)
   form.append('phone', body.phone as string)
   form.append('driverLicense', image[0].file)
+  form.append('tpv', tpv[0].file)
 
   const response = await API.form(VEHICLE_ENDPOINT, form)
   return await response.json()

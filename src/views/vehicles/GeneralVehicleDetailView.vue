@@ -200,6 +200,16 @@ const AccreditationTypeLabel: any = {
             Licencia de Conductor
           </a>
         </div>
+
+        <div class="mb-5">
+          <a
+            :href="vehicle.tpv"
+            target="_blank"
+            class="btn"
+          >
+            Tarjeta de Propiedad Vehicular
+          </a>
+        </div>
       </div>
 
       <div class="mb-10">
