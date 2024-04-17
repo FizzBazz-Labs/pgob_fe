@@ -59,7 +59,6 @@ const auth = useAuthStore()
         class="menu w-80 flex-1 p-4"
       >
         <li v-if="auth.isAdmin">
-          <RouterLink :to="DashboardView.path">Tableo de Información</RouterLink>
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
           <RouterLink :to="HomeView.path"> Acreditaciones </RouterLink>
         </li>
