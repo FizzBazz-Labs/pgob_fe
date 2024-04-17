@@ -13,8 +13,6 @@ import {
   CommunicationEquipmentCreateView,
   SecurityWeaponCreateView,
   UserListView,
-  DashboardView,
-  SiteConfigurationEditView,
 } from '@/router'
 
 const config = useConfigStore()
@@ -22,7 +20,10 @@ const auth = useAuthStore()
 </script>
 
 <template>
-  <div class="drawer md:drawer-open">
+  <div
+    v-if="config.available"
+    class="drawer md:drawer-open"
+  >
     <input
       id="my-drawer-3"
       type="checkbox"
@@ -30,15 +31,50 @@ const auth = useAuthStore()
     />
 
     <div class="drawer-content">
+      <div class="navbar sticky top-0 z-10 w-full bg-white shadow-md">
+        <div class="flex-none">
+          <ul class="menu menu-horizontal">
+            <li>
+              <details>
+                <summary>Usuario</summary>
+
+                <ul>
+                  <li>
+                    <a class="min-w-[150px]">
+                      {{ `${auth.user.firstName} ${auth.user.lastName}` }}
+                    </a>
+                  </li>
+
+                  <li>
+                    <RouterLink
+                      v-if="auth.isAnonymous"
+                      :to="LoginView.path"
+                    >
+                      Iniciar Sesión
+                    </RouterLink>
+
+                    <RouterLink
+                      v-else
+                      :to="LoginView.path"
+                      class="text-error"
+                      @click="auth.logout"
+                    >
+                      Cerrar Sesión
+                    </RouterLink>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <div class="container p-5 md:mx-auto">
         <slot />
       </div>
     </div>
 
-    <div
-      v-if="config.available"
-      class="drawer-side !flex flex-col shadow-xl"
-    >
+    <div class="drawer-side !flex flex-col shadow-xl">
       <label
         for="my-drawer-3"
         aria-label="close sidebar"
@@ -60,7 +96,6 @@ const auth = useAuthStore()
       >
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
-          <RouterLink :to="HomeView.path"> Acreditaciones </RouterLink>
         </li>
 
         <li v-if="auth.hasNational || auth.hasInternational">
@@ -136,52 +171,6 @@ const auth = useAuthStore()
             <ul>
               <li>
                 <RouterLink :to="SecurityWeaponCreateView.path"> Acreditación de armas </RouterLink>
-              </li>
-            </ul>
-          </details>
-        </li>
-      </ul>
-
-      <div
-        v-else
-        class="flex-1"
-      ></div>
-
-      <ul class="menu w-80 p-4">
-        <li>
-          <details open>
-            <summary>Usuario</summary>
-
-            <ul>
-              <li>
-                <a>
-                  {{ auth.user?.email }}
-                </a>
-              </li>
-
-              <li v-if="auth.isAdmin">
-                <RouterLink :to="SiteConfigurationEditView.path">
-                  Configuración de Sitio
-                </RouterLink>
-              </li>
-
-              <li>
-                <RouterLink
-                  v-if="auth.isAnonymous"
-                  :to="LoginView.path"
-                  class="btn btn-primary text-white"
-                >
-                  Iniciar Sesión
-                </RouterLink>
-
-                <RouterLink
-                  v-else
-                  :to="LoginView.path"
-                  class="btn btn-error text-white"
-                  @click="auth.logout"
-                >
-                  Cerrar Sesión
-                </RouterLink>
               </li>
             </ul>
           </details>
