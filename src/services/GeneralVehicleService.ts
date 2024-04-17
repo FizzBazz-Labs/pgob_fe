@@ -36,6 +36,10 @@ export async function createVehicle(body: Record<string, unknown>) {
   form.append('driverLicense', image[0].file)
   form.append('tpv', tpv[0].file)
 
+  if ('typeOther' in body) {
+    form.append('typeOther', body.typeOther as string)
+  }
+
   const response = await API.form(VEHICLE_ENDPOINT, form)
   return await response.json()
 }
