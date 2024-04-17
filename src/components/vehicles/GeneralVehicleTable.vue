@@ -47,7 +47,7 @@ function onEdit(item) {
           <th>Asignado A</th>
           <th>Vehículos</th>
           <th>Creado Por</th>
-          <th>Estado</th>
+          <th v-if="!auth.isUser">Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -59,11 +59,11 @@ function onEdit(item) {
           class="hover"
         >
           <th>{{ i + 1 }}</th>
-          <td>{{ item.mission }}</td>
+          <td>{{ item.country }}</td>
           <td>{{ item.assignedTo }}</td>
           <td>{{ item.vehicles.length }}</td>
           <td>{{ item.createdBy?.firstName ?? '' }} {{ item.createdBy?.lastName ?? '' }}</td>
-          <td><StatusBadge :status="item.status" /></td>
+          <td v-if="!auth.isUser"><StatusBadge :status="item.status" /></td>
 
           <td>
             <div

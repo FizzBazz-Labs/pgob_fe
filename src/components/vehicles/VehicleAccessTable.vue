@@ -38,7 +38,7 @@ function gotoDetail(item: { id: number }) {
           <th>Responsable</th>
           <th>Vehículos</th>
           <th>Creado Por</th>
-          <th>Estado</th>
+          <th v-if="!auth.isUser">Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -54,7 +54,7 @@ function gotoDetail(item: { id: number }) {
           <td>{{ item.informationResponsible }}</td>
           <td>{{ item.vehicles.length }}</td>
           <td>{{ item.createdBy?.firstName ?? '' }} {{ item.createdBy?.lastName ?? '' }}</td>
-          <td><StatusBadge :status="item.status" /></td>
+          <td v-if="!auth.isUser"><StatusBadge :status="item.status" /></td>
 
           <td>
             <div

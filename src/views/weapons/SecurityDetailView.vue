@@ -13,14 +13,16 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 import { formatDate } from '@/utils/dates'
 import { AccreditationItemType } from '@/entities/Accreditation'
+import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 
 const route = useRoute()
 
+const auth = useAuthStore()
+const general = useGeneralStore()
+
 const loading = ref(true)
 const item = ref<SecurityAccreditation>()
-
-const general = useGeneralStore()
 
 onBeforeMount(async () => {
   loading.value = true
@@ -60,7 +62,10 @@ async function onReject() {
       <h2 class="divider divider-start mt-5 text-xl font-bold">Acreditación de Armas</h2>
 
       <div class="flex flex-col gap-4">
-        <StatusBadge :status="item.status" />
+        <StatusBadge
+          v-if="!auth.isUser"
+          :status="item.status"
+        />
 
         <span>
           <strong>País</strong>: {{ general.countries.find(i => i.id === item?.country)?.name }}

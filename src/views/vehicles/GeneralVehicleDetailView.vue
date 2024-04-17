@@ -6,13 +6,15 @@ import type { GeneralVehicles } from '@/entities/GeneralVehicles'
 
 import * as service from '@/services/GeneralVehicleService'
 
-import { useGeneralStore } from '@/stores/general'
+import { useAuthStore } from '@/stores/auth'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const route = useRoute()
+
+const auth = useAuthStore()
 
 const loading = ref(true)
 const item = ref<GeneralVehicles>()
@@ -66,7 +68,10 @@ const AccreditationTypeLabel: any = {
         Acreditación de Vehículos Generales
       </h1>
 
-      <div class="flex flex-col gap-4">
+      <div
+        v-if="!auth.isUser"
+        class="flex flex-col gap-4"
+      >
         <StatusBadge :status="item.status" />
       </div>
 

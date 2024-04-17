@@ -10,7 +10,11 @@ import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
+import { useAuthStore } from '@/stores/auth'
+
 const route = useRoute()
+
+const auth = useAuthStore()
 
 const loading = ref(true)
 const item = ref<VehicleAccessAirport>()
@@ -58,7 +62,10 @@ async function onReject() {
         Acreditación de Acceso de Vehículo al Aeropuerto
       </h1>
 
-      <div class="flex flex-col gap-4">
+      <div
+        v-if="!auth.isUser"
+        class="flex flex-col gap-4"
+      >
         <StatusBadge :status="item.status" />
       </div>
 

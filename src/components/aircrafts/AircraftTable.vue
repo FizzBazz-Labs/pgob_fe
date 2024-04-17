@@ -50,7 +50,7 @@ function onEdit(item) {
           <th>Color</th>
           <th>Jurisdicción</th>
           <th>Creado Por</th>
-          <th>Estado</th>
+          <th v-if="!auth.isUser">Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -69,7 +69,7 @@ function onEdit(item) {
           <td>{{ item.color }}</td>
           <td>{{ item.flightType }}</td>
           <td>{{ item.createdBy?.firstName ?? '' }} {{ item.createdBy?.lastName ?? '' }}</td>
-          <td><StatusBadge :status="item.status" /></td>
+          <td v-if="!auth.isUser"><StatusBadge :status="item.status" /></td>
 
           <td>
             <div

@@ -12,8 +12,12 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 import { AircraftEditView } from '@/router'
 
+import { useAuthStore } from '@/stores/auth'
+
 const route = useRoute()
 const router = useRouter()
+
+const auth = useAuthStore()
 
 const loading = ref(true)
 const item = ref<NonCommercialAircraft>()
@@ -68,7 +72,10 @@ function onEdit() {
     >
       <h2 class="divider mt-5 text-xl font-bold">Detalle de Acreditación de Sobre Vuelo</h2>
 
-      <div class="flex flex-col gap-4">
+      <div
+        v-if="!auth.isUser"
+        class="flex flex-col gap-4"
+      >
         <StatusBadge :status="item.status" />
       </div>
 

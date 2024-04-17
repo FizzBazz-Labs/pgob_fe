@@ -22,10 +22,14 @@ import type { FormValues } from '@/entities/Form'
 
 import AccreditationDetailComment from '@/components/accreditations/AccreditationDetailComment.vue'
 
+import { useAuthStore } from '@/stores/auth'
+
 const route = useRoute()
 const router = useRouter()
 
 const { nationalTypes } = useFormSelect({ values: ref({}) })
+
+const auth = useAuthStore()
 
 const loading = ref(true)
 const item = ref<National>()
@@ -116,7 +120,10 @@ function onEdit() {
         />
 
         <div class="mt-8 flex flex-col gap-4">
-          <StatusBadge :status="item.status" />
+          <StatusBadge
+            v-if="!auth.isUser"
+            :status="item.status"
+          />
 
           <span v-if="item.status === AccreditationStatus.APPROVED">
             <strong>Tipo de Acreditación</strong>:
