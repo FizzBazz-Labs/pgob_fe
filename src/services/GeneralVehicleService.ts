@@ -10,10 +10,12 @@ export async function create(body: Record<string, unknown>) {
 
   const data = {
     assignedTo: body.assignedTo,
-    mission: body.mission,
+    accreditationType: body.accreditationType,
+    country: body.country,
     observations: body.observations,
     vehicles: [vehicleId.vehicleId],
   }
+
   const response = await API.post(ENDPOINT, data)
   return await response.json()
 }

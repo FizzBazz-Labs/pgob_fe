@@ -17,8 +17,6 @@ const route = useRoute()
 const loading = ref(true)
 const item = ref<GeneralVehicles>()
 
-const general = useGeneralStore()
-
 onBeforeMount(async () => {
   loading.value = true
 
@@ -49,6 +47,13 @@ async function onReject() {
 
   item.value = await service.reject(item.value.id)
 }
+
+const AccreditationTypeLabel: any = {
+  OFFICIAL_NEWSLETTER: 'Prensa Oficial',
+  COMMERCIAL_NEWSLETTER: 'Prensa Nacional',
+  INTERNATIONAL_NEWSLETTER: 'Prensa Internacional',
+  DIPLOMATIC_MISSION: 'Misión Diplomática',
+}
 </script>
 
 <template>
@@ -65,16 +70,41 @@ async function onReject() {
         <StatusBadge :status="item.status" />
       </div>
 
-      <div class="my-5 gap-2">
+      <div
+        v-if="item.country"
+        class="my-5 gap-2"
+      >
         <div class="">
-          <span> <strong> Misión Diplomática: </strong> </span>
+          <span>
+            <strong> Acreditación para: </strong>
+          </span>
         </div>
 
         <div class="w-full">
           <input
             type="text"
             class="input input-bordered w-full text-black"
-            :value="general.countries.find(i => String(i.id) === item?.mission)?.name"
+            :value="AccreditationTypeLabel[item.accreditationType] ?? 'N/A'"
+            disabled
+          />
+        </div>
+      </div>
+
+      <div
+        v-if="item.country"
+        class="my-5 gap-2"
+      >
+        <div class="">
+          <span>
+            <strong> País: </strong>
+          </span>
+        </div>
+
+        <div class="w-full">
+          <input
+            type="text"
+            class="input input-bordered w-full text-black"
+            :value="item.country"
             disabled
           />
         </div>
