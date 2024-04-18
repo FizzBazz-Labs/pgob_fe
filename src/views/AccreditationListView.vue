@@ -22,7 +22,8 @@ const router = useRouter()
 
 const auth = useAuthStore()
 
-const test = ref<string>('')
+const status = ref<string>('')
+const type = ref<string>('')
 
 const loading = ref(true)
 const response = ref<services.GetAllResponse>()
@@ -36,7 +37,7 @@ onBeforeMount(async () => {
   loading.value = true
   page.value = Number(route.query.page) || 1
 
-  response.value = await services.getAll(page.value)
+  response.value = await services.getAll(page.value, '', '')
 
   count.value = response.value.accreditations?.count || 1
   loading.value = false
@@ -47,18 +48,29 @@ watch(page, value => {
   getAccreditations(value)
 })
 
-async function getAccreditations(page) {
-  response.value = await services.getAll(page)
+async function getAccreditations(page, status = '', type = '') {
+  response.value = await services.getAll(page, status, type)
 }
 
-watch(test, value => {
+watch(status, value => {
+  // response.value = await services.getAll(page.value)
   console.log(value)
+  getAccreditations(page.value, value, type.value)
+})
+
+watch(type, value => {
+  // response.value = await services.getAll(page.value)
+  console.log(value)
+  getAccreditations(page.value, status.value, value)
 })
 </script>
 
 <template>
   <AppLoading :loading="loading">
-    <FiltersComponent v-model:test="test" />
+    <FiltersComponent
+      v-model:status="status"
+      v-model:type="type"
+    />
 
     <main
       v-if="response"

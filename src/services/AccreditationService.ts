@@ -16,7 +16,11 @@ export type GetAllResponse = {
   securities: Array<SecurityAccreditation>
 }
 
-export async function getAll(page: number): Promise<GetAllResponse> {
-  const response = await API.get(`/accreditations?page=${page}`)
+export async function getAll(
+  page: number,
+  status?: string,
+  type?: string
+): Promise<GetAllResponse> {
+  const response = await API.get(`/accreditations?page=${page}&status=${status}&type=${type}`)
   return await response.json()
 }

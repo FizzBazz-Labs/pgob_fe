@@ -6,27 +6,37 @@ import { useGeneralStore } from '@/stores/general'
 import { AccreditationStatus } from '@/entities/Accreditation'
 
 type Props = {
-  test: string
+  status: string
+  type: string
 }
 
 type Emits = {
-  (e: 'update:test', value: string): void
+  (e: 'update:status', value: string): void
+  (e: 'update:type', value: string): void
 }
 
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
-const test = computed({
+const status = computed({
   get() {
-    return props.test
+    return props.status
   },
 
   set(value) {
-    emits('update:test', value)
+    emits('update:status', value)
   },
 })
 
-console.log(test.value)
+const type = computed({
+  get() {
+    return props.type
+  },
+
+  set(value) {
+    emits('update:type', value)
+  },
+})
 
 const store = useGeneralStore()
 
@@ -115,9 +125,12 @@ const accreditationTypes = [
           <div class="label-text">
             <span>Tipo de acreditación</span>
           </div>
-          <select class="select select-bordered w-full max-w-xs">
+          <select
+            class="select select-bordered w-full max-w-xs"
+            v-model="type"
+          >
             <option
-              disabled
+              value=""
               selected
             >
               Elegir tipo de acreditación
@@ -140,10 +153,10 @@ const accreditationTypes = [
           </div>
           <select
             class="select select-bordered w-full max-w-xs"
-            v-model="test"
+            v-model="status"
           >
             <option
-              disabled
+              value=""
               selected
             >
               Seleccione una opción
@@ -158,14 +171,14 @@ const accreditationTypes = [
           </select>
         </label>
       </div>
-      <div>
+      <!-- <div>
         <label class="form-control w-full max-w-xs">
           <div class="label-text">
             <span class="label-text"> Pais </span>
           </div>
           <select class="select select-bordered w-full max-w-xs">
             <option
-              disabled
+              value=""
               selected
             >
               Seleccione una opción
@@ -179,11 +192,11 @@ const accreditationTypes = [
             </option>
           </select>
         </label>
-      </div>
+      </div> -->
     </div>
-
+    <!--
     <div class="mt-3">
-      <button class="btn btn-primary btn-sm">Filtrar</button>
-    </div>
+      <button class="btn btn-primary btn-sm">Remover filtros</button>
+    </div> -->
   </div>
 </template>
