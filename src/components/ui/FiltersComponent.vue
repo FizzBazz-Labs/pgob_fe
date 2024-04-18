@@ -1,7 +1,58 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
+
+import { useGeneralStore } from '@/stores/general'
 
 import { AccreditationStatus } from '@/entities/Accreditation'
+
+type Props = {
+  test: string
+}
+
+type Emits = {
+  (e: 'update:test', value: string): void
+}
+
+const props = defineProps<Props>()
+const emits = defineEmits<Emits>()
+
+const test = computed({
+  get() {
+    return props.test
+  },
+
+  set(value) {
+    emits('update:test', value)
+  },
+})
+
+console.log(test.value)
+
+const store = useGeneralStore()
+
+type SelectOption = {
+  value: number | null | undefined
+  label: string
+  attrs?: Record<string, unknown>
+}
+
+const countries = computed(() => {
+  const items = store.countries.map<SelectOption>(i => ({
+    value: i.id,
+    label: i.name,
+    attrs: {},
+  }))
+
+  items.sort((a, b) => a.label.localeCompare(b.label))
+
+  items.unshift({
+    value: undefined,
+    label: 'Selecciona un país',
+    attrs: { disabled: true },
+  })
+
+  return items
+})
 
 const statusOptions = [
   {
@@ -87,7 +138,10 @@ const accreditationTypes = [
           <div class="label-text">
             <span class="label-text"> Status </span>
           </div>
-          <select class="select select-bordered w-full max-w-xs">
+          <select
+            class="select select-bordered w-full max-w-xs"
+            v-model="test"
+          >
             <option
               disabled
               selected
@@ -114,10 +168,15 @@ const accreditationTypes = [
               disabled
               selected
             >
-              Who shot first?
+              Seleccione una opción
             </option>
-            <option>Han Solo</option>
-            <option>Greedo</option>
+            <option
+              v-for="(item, index) in countries"
+              :key="index"
+              :value="item.value"
+            >
+              {{ item.label }}
+            </option>
           </select>
         </label>
       </div>

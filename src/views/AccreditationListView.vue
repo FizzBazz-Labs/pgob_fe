@@ -22,11 +22,15 @@ const router = useRouter()
 
 const auth = useAuthStore()
 
+const test = ref<string>('')
+
 const loading = ref(true)
 const response = ref<services.GetAllResponse>()
 const count = ref(1)
 
 const page = ref(1)
+
+// const test = ref('')
 
 onBeforeMount(async () => {
   loading.value = true
@@ -46,11 +50,15 @@ watch(page, value => {
 async function getAccreditations(page) {
   response.value = await services.getAll(page)
 }
+
+watch(test, value => {
+  console.log(value)
+})
 </script>
 
 <template>
   <AppLoading :loading="loading">
-    <FiltersComponent />
+    <FiltersComponent v-model:test="test" />
 
     <main
       v-if="response"

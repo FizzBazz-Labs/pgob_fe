@@ -94,9 +94,11 @@ const auth = useAuthStore()
         v-if="!auth.isTransportationManager"
         class="menu w-80 flex-1 p-4"
       >
+        <li>
+          <RouterLink :to="HomeView.path"> Lista de acreditaciones </RouterLink>
+        </li>
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
-          <RouterLink :to="HomeView.path"> Lista de acreditaciones </RouterLink>
         </li>
 
         <li v-if="auth.hasNational || auth.hasInternational">
