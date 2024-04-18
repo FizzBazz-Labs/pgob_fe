@@ -11,10 +11,14 @@ const { immunizations } = useFormSelect({ values: ref({}) })
 <template>
   <FormKit
     v-model="hasImmunization"
-    type="checkbox"
+    type="radio"
     name="hasImmunization"
     label="Inmunizaciones Recientes"
     decorator-icon="check"
+    :options="[
+      { label: 'Sí', value: true },
+      { label: 'No', value: false },
+    ]"
   />
 
   <FormKit

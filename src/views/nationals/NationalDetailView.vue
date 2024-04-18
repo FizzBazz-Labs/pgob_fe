@@ -21,6 +21,7 @@ import { formatDate } from '@/utils/dates'
 import type { FormValues } from '@/entities/Form'
 
 import AccreditationDetailComment from '@/components/accreditations/AccreditationDetailComment.vue'
+import AccreditationApprovedComment from '@/components/accreditations/AccreditationApprovedComment.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -127,6 +128,11 @@ function onEdit() {
             :reviewedComment="item.reviewedComment"
             :status="item.status"
           />
+
+          <AccreditationApprovedComment
+            :approvedComment="item.authorizedComment"
+            :status="item.status"
+          />
         </div>
 
         <h2 class="divider divider-start mt-5 text-xl font-bold">Datos Personales</h2>
@@ -140,6 +146,20 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full text-black"
               :value="item.passportId"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-row items-center gap-2">
+          <div class="">
+            <span> <strong> País: </strong> </span>
+          </div>
+          <div class="w-full">
+            <input
+              type="text"
+              class="input input-bordered w-full text-black"
+              :value="item.country"
               disabled
             />
           </div>

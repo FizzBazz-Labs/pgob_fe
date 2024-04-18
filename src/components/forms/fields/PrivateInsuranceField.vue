@@ -7,9 +7,13 @@ const hasPrivateInsurance = ref(false)
 <template>
   <FormKit
     v-model="hasPrivateInsurance"
-    type="checkbox"
+    type="radio"
     name="hasPrivateInsurance"
     label="¿Posee seguro privado?"
+    :options="[
+      { label: 'Sí', value: true },
+      { label: 'No', value: false },
+    ]"
     decorator-icon="check"
   />
 

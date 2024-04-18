@@ -17,6 +17,7 @@ import SecurityStep from './steps/SecurityStep.vue'
 import MediaChannelField from './fields/MediaChannelField.vue'
 import ContactSection from './sections/ContactSection.vue'
 import MedicalSection from './sections/MedicalSection.vue'
+import CountryField from './fields/CountryField.vue'
 
 type Props = {
   errors: string[]
@@ -78,7 +79,10 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
               <LastNameField />
             </div>
 
-            <PassportIdField />
+            <div class="grid grid-cols-2 gap-4">
+              <CountryField />
+              <PassportIdField />
+            </div>
 
             <div class="grid grid-cols-2 gap-4">
               <BirthplaceField />

@@ -44,6 +44,7 @@ async function onSubmit() {
       params: { id: response.id },
     })
   } catch (_) {
+    console.error({ _ })
     errors.value = [
       'Ocurrió un error al intentar guardar los datos. Por favor, intenta nuevamente.',
     ]

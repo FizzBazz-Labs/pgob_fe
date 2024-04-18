@@ -36,7 +36,6 @@ onBeforeMount(async () => {
 
   count.value = response.value.accreditations?.count || 1
   loading.value = false
-  console.log(page.value)
 })
 
 watch(page, value => {

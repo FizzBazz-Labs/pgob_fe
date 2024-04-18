@@ -7,10 +7,14 @@ const hasMedicalStaff = ref(false)
 <template>
   <FormKit
     v-model="hasMedicalStaff"
-    type="checkbox"
+    type="radio"
     name="hasMedicalStaff"
     label="¿Acompaña Médico Personal?"
     decorator-icon="check"
+    :options="[
+      { label: 'Sí', value: true },
+      { label: 'No', value: false },
+    ]"
   />
 
   <FormKit

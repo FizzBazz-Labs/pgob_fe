@@ -191,9 +191,13 @@ async function onSubmit() {
             </div>
 
             <FormKit
-              type="checkbox"
+              type="radio"
               name="hasPrivateInsurance"
               label="¿Posee seguro privado?"
+              :options="[
+                { label: 'Sí', value: true },
+                { label: 'No', value: false },
+              ]"
               decorator-icon="check"
             />
 
@@ -339,10 +343,14 @@ async function onSubmit() {
             </div>
 
             <FormKit
-              type="checkbox"
+              type="radio"
               name="hasAllergies"
               label="¿Alergias?"
               decorator-icon="check"
+              :options="[
+                { label: 'No', value: false },
+                { label: 'Sí', value: true },
+              ]"
             />
 
             <FormKit
@@ -364,10 +372,14 @@ async function onSubmit() {
             />
 
             <FormKit
-              type="checkbox"
+              type="radio"
               name="hasImmunization"
               label="Inmunizaciones Recientes"
               decorator-icon="check"
+              :options="[
+                { label: 'Sí', value: true },
+                { label: 'No', value: false },
+              ]"
             />
 
             <FormKit
@@ -381,10 +393,14 @@ async function onSubmit() {
             />
 
             <FormKit
-              type="checkbox"
+              type="radio"
               name="hasMedicalHistory"
               label="¿Tiene antecedentes medicos?"
               decorator-icon="check"
+              :options="[
+                { label: 'Sí', value: true },
+                { label: 'No', value: false },
+              ]"
             />
 
             <FormKit
@@ -404,10 +420,14 @@ async function onSubmit() {
             />
 
             <FormKit
-              type="checkbox"
+              type="radio"
               name="hasMedicalStaff"
               label="¿Acompaña Médico Personal?"
               decorator-icon="check"
+              :options="[
+                { label: 'Sí', value: true },
+                { label: 'No', value: false },
+              ]"
             />
 
             <FormKit

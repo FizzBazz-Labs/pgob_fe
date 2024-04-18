@@ -25,23 +25,23 @@ const statusOptions = [
 const accreditationTypes = [
   {
     label: 'Seguridad',
-    value: 'security',
+    value: 'securities',
   },
   {
-    label: 'Comunicación',
-    value: 'communication',
+    label: 'Equipos de Comunicación',
+    value: 'equipments',
   },
   {
     label: 'Aeronaves no comerciales',
-    value: 'aircraft',
+    value: 'aircrafts',
   },
   {
     label: 'Vehículos generales',
-    value: 'general-vehicle',
+    value: 'generalVehicles',
   },
   {
     label: 'Acceso de vehículo a aeropuerto',
-    value: 'vehicle-access',
+    value: 'accessVehicles',
   },
   {
     label: 'Nacional',

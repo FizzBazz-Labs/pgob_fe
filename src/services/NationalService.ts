@@ -23,6 +23,7 @@ export async function create(values: any): Promise<National> {
   const fields = [
     'firstName',
     'lastName',
+    'country',
     'institution',
     'address',
     'passportId',
@@ -80,6 +81,7 @@ export async function update(values: any): Promise<National> {
     'firstName',
     'lastName',
     'institution',
+    'country',
     'address',
     'passportId',
     'privateInsurance',
