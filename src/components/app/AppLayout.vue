@@ -32,6 +32,7 @@ const auth = useAuthStore()
 
     <div class="drawer-content">
       <div class="navbar sticky top-0 z-10 w-full bg-white shadow-md">
+        <div class="flex-1"></div>
         <div class="flex-none">
           <ul class="menu menu-horizontal">
             <li>
