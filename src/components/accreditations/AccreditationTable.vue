@@ -52,7 +52,7 @@ function gotoDetail(item: Accreditation) {
           <th>País</th>
           <th>Acreditación</th>
           <th>Creado Por</th>
-          <th>Estado</th>
+          <th v-if="!auth.isUser">Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -69,7 +69,7 @@ function gotoDetail(item: Accreditation) {
           <td>{{ item.country }}</td>
           <td>{{ AccreditationTypeLabel[item.type] }}</td>
           <td>{{ item.createdBy.firstName }} {{ item.createdBy.lastName }}</td>
-          <td><StatusBadge v-bind="item" /></td>
+          <td v-if="!auth.isUser"><StatusBadge v-bind="item" /></td>
 
           <td>
             <div

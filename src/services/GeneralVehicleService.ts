@@ -10,17 +10,21 @@ export async function create(body: Record<string, unknown>) {
 
   const data = {
     assignedTo: body.assignedTo,
-    mission: body.mission,
+    accreditationType: body.accreditationType,
+    country: body.country,
     observations: body.observations,
     vehicles: [vehicleId.vehicleId],
   }
+
   const response = await API.post(ENDPOINT, data)
   return await response.json()
 }
 
 export async function createVehicle(body: Record<string, unknown>) {
   const form = new FormData()
+
   const image = body.driverLicense as Array<{ file: File }>
+  const tpv = body.tpv as Array<{ file: File }>
 
   form.append('type', body.type as string)
   form.append('brand', body.brand as string)
@@ -30,6 +34,11 @@ export async function createVehicle(body: Record<string, unknown>) {
   form.append('driverId', body.driverId as string)
   form.append('phone', body.phone as string)
   form.append('driverLicense', image[0].file)
+  form.append('tpv', tpv[0].file)
+
+  if ('typeOther' in body) {
+    form.append('typeOther', body.typeOther as string)
+  }
 
   const response = await API.form(VEHICLE_ENDPOINT, form)
   return await response.json()

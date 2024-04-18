@@ -5,7 +5,8 @@ import { AccreditationStatus } from '@/entities/Accreditation'
 
 export interface GeneralVehicles {
   id: number
-  mission: string
+  accreditationType: string
+  country?: string
   assignedTo: string
   vehicles: Vehicle[]
   distinctive?: string

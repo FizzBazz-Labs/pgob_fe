@@ -8,4 +8,5 @@ export interface Vehicle {
   driverId: string
   driverLicense: string
   phone: string
+  tpv: string
 }

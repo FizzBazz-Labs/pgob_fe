@@ -12,7 +12,11 @@ import AccreditationDetailActions from '@/components/accreditations/Accreditatio
 
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
+import { useAuthStore } from '@/stores/auth'
+
 const route = useRoute()
+
+const auth = useAuthStore()
 
 const loading = ref(true)
 const item = ref<CommunicationEquipment>()
@@ -55,11 +59,11 @@ async function onReject() {
     >
       <h2 class="divider mt-5 text-xl font-bold">Declaración de Equipo de Intercomunicación</h2>
 
-      <div class="flex flex-col gap-4">
+      <div
+        v-if="!auth.isUser"
+        class="flex flex-col gap-4"
+      >
         <StatusBadge :status="item.status" />
-        <!--
-        <span><strong>País</strong>: {{ item.country }}</span>
-        <span><strong>Institución/Medio</strong>: {{ item.institution }}</span> -->
       </div>
 
       <div class="my-5 flex flex-row items-center gap-2">

@@ -12,15 +12,34 @@ import { toast } from 'vue3-toastify'
 import * as service from '@/services/GeneralVehicleService'
 
 import { HomeView } from '@/router'
+import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
 
 const router = useRouter()
 
 const values = ref<FormValues>({
-  country: 1,
   position: 1,
 })
 
 const { countries } = useFormSelect({ values })
+
+const accreditationTypeChoices = [
+  {
+    value: 'OFFICIAL_NEWSLETTER',
+    label: 'Prensa Oficial',
+  },
+  {
+    value: 'COMMERCIAL_NEWSLETTER',
+    label: 'Prensa Nacional',
+  },
+  {
+    value: 'INTERNATIONAL_NEWSLETTER',
+    label: 'Prensa Internacional',
+  },
+  {
+    value: 'DIPLOMATIC_MISSION',
+    label: 'Misión Diplomática',
+  },
+]
 
 async function onSubmit() {
   const response = await service.create(values.value)
@@ -46,8 +65,21 @@ async function onSubmit() {
       <div class="md:w-1/2">
         <FormKit
           type="select"
-          name="mission"
-          label="Misión Diplomática"
+          name="accreditationType"
+          label="Acreditación Para"
+          validation="required"
+          :options="accreditationTypeChoices"
+          select-icon="down"
+        />
+
+        <FormKit
+          v-if="
+            values.accreditationType === 'DIPLOMATIC_MISSION' ||
+            values.accreditationType === 'INTERNATIONAL_NEWSLETTER'
+          "
+          type="select"
+          name="country"
+          label="País"
           validation="required"
           :options="countries"
           select-icon="down"
@@ -68,22 +100,9 @@ async function onSubmit() {
 
         <div class="mb-2 flex gap-4">
           <span class="divider divider-start flex-1 text-xl font-bold"> Vehículo </span>
-
-          <!-- <button
-            type="button"
-            class="btn btn-success text-white"
-            @click="onAddVehicle"
-          >
-            Añadir
-          </button> -->
         </div>
 
-        <FormKit
-          type="text"
-          label="Tipo"
-          validation="required"
-          name="type"
-        />
+        <VehicleTypeField />
 
         <FormKit
           type="text"
@@ -142,25 +161,16 @@ async function onSubmit() {
           no-files-icon="fileDoc"
         />
 
-        <!-- <div class="flex justify-end">
-          <button
-            type="button"
-            class="btn btn-error text-white"
-            @click="onRemoveVehicle(i)"
-          >
-            Eliminar
-          </button>
-        </div> -->
-
-        <!-- <div class="flex justify-end">
-          <button
-            type="button"
-            class="btn btn-success text-white"
-            @click="onAddVehicle"
-          >
-            Añadir
-          </button>
-        </div> -->
+        <FormKit
+          type="file"
+          name="tpv"
+          label="Tarjeta de Propiedad Vehicular"
+          validation="required"
+          accept=".png,.jpg,.webp"
+          file-item-icon="fileDoc"
+          file-remove-icon="close"
+          no-files-icon="fileDoc"
+        />
 
         <FormKit
           type="submit"
