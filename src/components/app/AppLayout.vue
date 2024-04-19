@@ -13,6 +13,7 @@ import {
   CommunicationEquipmentCreateView,
   SecurityWeaponCreateView,
   UserListView,
+  ProfileView,
 } from '@/router'
 
 const config = useConfigStore()
@@ -41,9 +42,12 @@ const auth = useAuthStore()
 
                 <ul>
                   <li>
-                    <a class="min-w-[150px]">
+                    <RouterLink
+                      :to="ProfileView.path"
+                      class="min-w-[150px]"
+                    >
                       {{ `${auth.user.firstName} ${auth.user.lastName}` }}
-                    </a>
+                    </RouterLink>
                   </li>
 
                   <li>
@@ -98,6 +102,7 @@ const auth = useAuthStore()
         <li>
           <RouterLink :to="HomeView.path"> Lista de acreditaciones </RouterLink>
         </li>
+
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
         </li>

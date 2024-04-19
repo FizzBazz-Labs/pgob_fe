@@ -31,3 +31,8 @@ export async function profile(): Promise<User> {
 
   return response.json()
 }
+
+export async function changePassword(values: any): Promise<void> {
+  const response = await API.post('/password/change', values)
+  return response.json()
+}
