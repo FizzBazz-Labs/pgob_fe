@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { CommunicationEquipmentDetailView } from '@/router'
+import { CommunicationEquipmentDetailView, CommunicationEquipmentCreateView } from '@/router'
 
 import { AccreditationStatus } from '@/entities/Accreditation'
 
@@ -28,6 +28,13 @@ function gotoDetail(item: { id: number }) {
 
 <template>
   <main>
+    <button
+      v-if="auth.hasCommunicationEquipment"
+      class="btn btn-neutral"
+    >
+      <RouterLink :to="CommunicationEquipmentCreateView.path"> Crear acreditacion </RouterLink>
+    </button>
+
     <h1 class="divider divider-start text-xl font-bold">Comunicación</h1>
 
     <table class="table table-zebra mt-5">

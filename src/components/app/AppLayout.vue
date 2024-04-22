@@ -23,6 +23,18 @@ import type { patch } from '@/services/api'
 
 const config = useConfigStore()
 const auth = useAuthStore()
+
+function hasAdminProfile() {
+  if (!auth.isTransportationManager && !auth.isUser) {
+    return true
+  }
+}
+
+function hasTransportationProfile() {
+  if (auth.isTransportationManager) {
+    return true
+  }
+}
 </script>
 
 <template>
@@ -115,8 +127,8 @@ const auth = useAuthStore()
           <details open>
             <summary>Acreditaciones</summary>
 
-            <ul v-if="!auth.isTransportationManager && !auth.isUser">
-              <li>
+            <ul>
+              <li v-if="hasAdminProfile() || auth.hasNational">
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.NATIONAL } }"
                 >
@@ -124,7 +136,7 @@ const auth = useAuthStore()
                 </RouterLink>
               </li>
 
-              <li>
+              <li v-if="hasAdminProfile() || hasTransportationProfile() || auth.hasInternational">
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.INTERNATIONAL } }"
                 >
@@ -132,7 +144,7 @@ const auth = useAuthStore()
                 </RouterLink>
               </li>
 
-              <li>
+              <li v-if="hasAdminProfile() || auth.hasCommunicationEquipment">
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.EQUIPMENTS } }"
                 >
@@ -140,7 +152,7 @@ const auth = useAuthStore()
                 </RouterLink>
               </li>
 
-              <li>
+              <li v-if="hasAdminProfile() || auth.hasSecurity">
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.SECURITIES } }"
                 >
@@ -149,12 +161,12 @@ const auth = useAuthStore()
               </li>
             </ul>
 
-            <ul
-              v-if="
-                auth.isTransportationManager || auth.isAccreditor || auth.isAdmin || auth.isReviewer
-              "
-            >
-              <li>
+            <ul>
+              <li
+                v-if="
+                  hasAdminProfile() || hasTransportationProfile() || auth.hasVehicleAccessAirport
+                "
+              >
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.ACCESSVEHICLES } }"
                 >
@@ -162,7 +174,7 @@ const auth = useAuthStore()
                 </RouterLink>
               </li>
 
-              <li>
+              <li v-if="hasAdminProfile() || hasTransportationProfile() || auth.hasGeneralVehicle">
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.GENERALVEHICLES } }"
                 >
@@ -170,7 +182,7 @@ const auth = useAuthStore()
                 </RouterLink>
               </li>
 
-              <li>
+              <li v-if="hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft">
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.AIRFCRAFTS } }"
                 >

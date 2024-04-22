@@ -1,17 +1,22 @@
 <script lang="ts" setup>
-import { ref, onBeforeMount, defineProps } from 'vue'
+import { defineProps } from 'vue'
 
 import { useRouter, useRoute } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import AppLoading from '@/components/app/AppLoading.vue'
+import {
+  NationalAccreditationCreateView,
+  NationalAccreditationDetailView,
+  InternationalAccreditationCreateView,
+  InternationalAccreditationDetailView,
+} from '@/router'
 
-import * as services from '@/services/AccreditationService'
-
-import { NationalAccreditationDetailView, InternationalAccreditationDetailView } from '@/router'
-
-import { AccreditationStatus, type Accreditation } from '@/entities/Accreditation'
+import {
+  AccreditationStatus,
+  type Accreditation,
+  AccreditationType,
+} from '@/entities/Accreditation'
 
 import { useAuthStore } from '@/stores/auth'
 
@@ -20,11 +25,8 @@ import { AccreditationTypeLabel } from '@/utils/labels'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import { getCertificate } from '@/utils/accreditations'
 
-import PaginationComponent from '@/components/ui/PaginationComponent.vue'
-import FiltersComponent from '@/components/ui/FiltersComponent.vue'
-
-const route = useRoute()
 const router = useRouter()
+const route = useRoute()
 
 const auth = useAuthStore()
 
@@ -48,10 +50,30 @@ function gotoDetail(item: Accreditation) {
     })
   }
 }
+
+function gotoAccreditationForm() {
+  const type = route.query.type
+
+  if (type === AccreditationType.NATIONAL) {
+    router.push({ name: NationalAccreditationCreateView.name })
+  } else {
+    router.push({ name: InternationalAccreditationCreateView.name })
+  }
+}
 </script>
 
 <template>
   <main>
+    <div>
+      <button
+        v-if="auth.hasNational || auth.hasInternational"
+        class="btn btn-neutral"
+        @click="gotoAccreditationForm"
+      >
+        Crear acreditacion
+      </button>
+    </div>
+
     <h1 class="divider divider-start text-xl font-bold">Acreditaciones</h1>
 
     <table class="table table-zebra mt-5">

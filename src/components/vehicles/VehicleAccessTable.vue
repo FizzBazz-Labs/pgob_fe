@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { VehicleAccessDetailView } from '@/router'
+import { VehicleAccessDetailView, VehicleAccessCreateView } from '@/router'
 
 import type { VehicleAccessAirport } from '@/entities/VehicleAccessAirport'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -28,6 +28,13 @@ function gotoDetail(item: { id: number }) {
 
 <template>
   <main>
+    <button
+      v-if="auth.hasVehicleAccessAirport"
+      class="btn btn-neutral"
+    >
+      <RouterLink :to="VehicleAccessCreateView.path"> Crear acreditacion </RouterLink>
+    </button>
+
     <h1 class="divider divider-start text-xl font-bold">Vehículos Acceso a Aeropuerto</h1>
 
     <table class="table table-zebra mt-5">

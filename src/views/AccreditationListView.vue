@@ -130,12 +130,13 @@ function getPages(items) {
           v-if="accreditationType === AccreditationType.NATIONAL"
           :items="response.accreditations.results"
         />
+      </template>
 
-        <AccreditationTable
-          v-if="accreditationType === AccreditationType.INTERNATIONAL"
-          :items="response.accreditations.results"
-        />
-
+      <AccreditationTable
+        v-if="accreditationType === AccreditationType.INTERNATIONAL"
+        :items="response.accreditations.results"
+      />
+      <template v-if="!auth.isTransportationManager">
         <CommunicationTable
           v-if="accreditationType === AccreditationType.EQUIPMENTS"
           :items="response.equipments?.results"

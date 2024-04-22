@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { SecurityDetailView } from '@/router'
+import { SecurityDetailView, SecurityWeaponCreateView } from '@/router'
 
 import type { SecurityAccreditation } from '@/entities/Security'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -28,6 +28,13 @@ function gotoDetail(item: { id: number }) {
 
 <template>
   <main>
+    <button
+      v-if="auth.hasSecurity"
+      class="btn btn-neutral"
+    >
+      <RouterLink :to="SecurityWeaponCreateView.path"> Crear acreditacion </RouterLink>
+    </button>
+
     <h1 class="divider divider-start text-xl font-bold">Seguridad y Arma</h1>
 
     <table class="table table-zebra mt-5">

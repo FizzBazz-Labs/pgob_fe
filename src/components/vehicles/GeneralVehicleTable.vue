@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { GeneralVehicleDetailView } from '@/router'
+import { GeneralVehicleDetailView, GeneralVehicleCreateView } from '@/router'
 
 import type { GeneralVehicles } from '@/entities/GeneralVehicles'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -36,6 +36,13 @@ function onEdit(item) {
 </script>
 
 <template>
+  <button
+    v-if="auth.hasGeneralVehicle"
+    class="btn btn-neutral"
+  >
+    <RouterLink :to="GeneralVehicleCreateView.path"> Crear acreditacion </RouterLink>
+  </button>
+
   <main>
     <h1 class="divider divider-start text-xl font-bold">Vehículos Generales</h1>
 

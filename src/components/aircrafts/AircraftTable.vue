@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { AircraftDetailView, AircraftEditView } from '@/router'
+import { AircraftDetailView, AircraftEditView, NonCommercialAircraftCreateView } from '@/router'
 
 import type { NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -37,6 +37,13 @@ function onEdit(item) {
 
 <template>
   <main>
+    <button
+      v-if="auth.hasAircraft"
+      class="btn btn-neutral"
+    >
+      <RouterLink :to="NonCommercialAircraftCreateView.path"> Crear acreditacion </RouterLink>
+    </button>
+
     <h1 class="divider divider-start text-xl font-bold">Aeronaves</h1>
 
     <table class="table table-zebra mt-5">
