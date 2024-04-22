@@ -1,6 +1,6 @@
 <template>
   <FormKit
-    type="input"
+    type="text"
     name="houseNumber"
     label="Número de casa"
     validation="required"

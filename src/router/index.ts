@@ -186,6 +186,12 @@ export const ProfileView = {
   component: () => import('../views/ProfileView.vue'),
 }
 
+export const HousingCreateView = {
+  path: '/accreditations/housing',
+  name: 'housing-create',
+  component: () => import('../views/housing/HousingCreateView.vue'),
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -219,6 +225,7 @@ const router = createRouter({
     UnavailableSiteView,
     SiteConfigurationEditView,
     ProfileView,
+    HousingCreateView,
   ],
 })
 
