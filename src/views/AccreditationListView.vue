@@ -6,6 +6,8 @@ import { useAuthStore } from '@/stores/auth'
 
 import * as services from '@/services/AccreditationService'
 
+import { AccreditationType } from '@/entities/Accreditation'
+
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationTable from '@/components/accreditations/AccreditationTable.vue'
 import SecurityTable from '@/components/weapons/SecurityTable.vue'
@@ -24,45 +26,92 @@ const auth = useAuthStore()
 
 const status = ref<string>('')
 const type = ref<string>('')
+const accreditationType = ref<string>('national')
 
 const loading = ref(true)
 const response = ref<services.GetAllResponse>()
 const count = ref(1)
 
 const page = ref(1)
+const itemsPerPage = ref(10)
 
 // const test = ref('')
 
 onBeforeMount(async () => {
   loading.value = true
   page.value = Number(route.query.page) || 1
+  accreditationType.value = (route.query.type as string) || 'national'
+  itemsPerPage.value = Number(route.query.perPage) || 10
 
-  response.value = await services.getAll(page.value, '', '')
-
+  response.value = await services.getAll(
+    page.value,
+    '',
+    accreditationType.value,
+    itemsPerPage.value
+  )
   count.value = response.value.accreditations?.count || 1
+  getPages(response.value)
   loading.value = false
 })
 
 watch(page, value => {
-  router.push({ query: { page: value } })
+  router.push({ query: route.query })
   getAccreditations(value)
 })
 
-async function getAccreditations(page, status = '', type = '') {
-  response.value = await services.getAll(page, status, type)
+watch(status, value => {
+  getAccreditations(page.value, value, accreditationType.value)
+})
+
+watch(
+  () => route.query.type,
+  value => {
+    accreditationType.value = value as string
+    getAccreditations(page.value, status.value)
+    getPages(response.value)
+  }
+)
+
+watch(itemsPerPage, value => {
+  getAccreditations(page.value, status.value, accreditationType.value, value)
+})
+
+// methods
+async function getAccreditations(
+  page,
+  status = '',
+  type = accreditationType.value,
+  perPage = itemsPerPage.value
+) {
+  response.value = await services.getAll(page, status, type, perPage)
 }
 
-watch(status, value => {
-  // response.value = await services.getAll(page.value)
-  console.log(value)
-  getAccreditations(page.value, value, type.value)
-})
+function getPages(items) {
+  if (
+    [AccreditationType.NATIONAL, AccreditationType.INTERNATIONAL].includes(
+      accreditationType.value as AccreditationType
+    )
+  ) {
+    count.value = items.accreditations?.count || 1
+  }
+  if (accreditationType.value === AccreditationType.EQUIPMENTS) {
+    count.value = items.equipments?.count || 1
+  }
+  if (accreditationType.value === AccreditationType.SECURITIES) {
+    count.value = items.securities?.count || 1
+  }
+  if (accreditationType.value === AccreditationType.AIRFCRAFTS) {
+    count.value = items.aircrafts?.count || 1
+  }
+  if (accreditationType.value === AccreditationType.GENERALVEHICLES) {
+    count.value = items.generalVehicles?.count || 1
+  }
+  if (accreditationType.value === AccreditationType.ACCESSVEHICLES) {
+    count.value = items.accessVehicles?.count || 1
+  }
 
-watch(type, value => {
-  // response.value = await services.getAll(page.value)
-  console.log(value)
-  getAccreditations(page.value, status.value, value)
-})
+  itemsPerPage.value = Number(route.query.perPage) || 10
+}
 </script>
 
 <template>
@@ -78,43 +127,60 @@ watch(type, value => {
     >
       <template v-if="!auth.isTransportationManager">
         <AccreditationTable
-          v-if="auth.hasNational || auth.hasInternational"
-          :items="response.accreditations?.results"
+          v-if="accreditationType === AccreditationType.NATIONAL"
+          :items="response.accreditations.results"
+        />
+
+        <AccreditationTable
+          v-if="accreditationType === AccreditationType.INTERNATIONAL"
+          :items="response.accreditations.results"
         />
 
         <CommunicationTable
-          v-if="auth.hasCommunicationEquipment"
+          v-if="accreditationType === AccreditationType.EQUIPMENTS"
           :items="response.equipments?.results"
         />
 
         <SecurityTable
-          v-if="auth.hasSecurity"
+          v-if="accreditationType === AccreditationType.SECURITIES"
           :items="response.securities?.results"
         />
       </template>
 
       <AircraftTable
-        v-if="auth.hasAircraft"
+        v-if="accreditationType === AccreditationType.AIRFCRAFTS"
         :items="response.aircrafts?.results"
       />
 
       <GeneralVehicleTable
-        v-if="auth.hasGeneralVehicle"
+        v-if="accreditationType === AccreditationType.GENERALVEHICLES"
         :items="response.generalVehicles?.results"
       />
 
       <VehicleAccessTable
-        v-if="auth.hasVehicleAccessAirport"
+        v-if="accreditationType === AccreditationType.ACCESSVEHICLES"
         :items="response.accessVehicles?.results"
       />
 
-      <PaginationComponent
-        v-if="response.accreditations"
-        :currentPage="page"
-        :totalItems="count"
-        :itemsPerPage="10"
-        @update:currentPage="pageValue => (page = pageValue)"
-      />
+      <div class="flex flex-row items-center justify-between gap-4">
+        <PaginationComponent
+          v-if="response.accreditations"
+          :currentPage="page"
+          :totalItems="count"
+          :itemsPerPage="Number(itemsPerPage)"
+          @update:currentPage="pageValue => (page = pageValue)"
+        />
+
+        <select
+          v-model="itemsPerPage"
+          class="select select-bordered w-20"
+        >
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
     </main>
   </AppLoading>
 </template>

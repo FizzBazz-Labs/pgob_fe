@@ -11,7 +11,7 @@ const props = defineProps<Props>()
 
 <template>
   <span v-if="props.status === AccreditationStatus.APPROVED">
-    <strong>Observaciones</strong>:
+    <strong>Observaciones</strong>: k
 
     {{ props.approvedComment }}
   </span>

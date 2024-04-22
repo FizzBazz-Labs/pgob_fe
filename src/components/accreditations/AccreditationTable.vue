@@ -1,7 +1,13 @@
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
+import { ref, onBeforeMount, defineProps } from 'vue'
+
+import { useRouter, useRoute } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
+
+import AppLoading from '@/components/app/AppLoading.vue'
+
+import * as services from '@/services/AccreditationService'
 
 import { NationalAccreditationDetailView, InternationalAccreditationDetailView } from '@/router'
 
@@ -14,12 +20,17 @@ import { AccreditationTypeLabel } from '@/utils/labels'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import { getCertificate } from '@/utils/accreditations'
 
+import PaginationComponent from '@/components/ui/PaginationComponent.vue'
+import FiltersComponent from '@/components/ui/FiltersComponent.vue'
+
+const route = useRoute()
 const router = useRouter()
 
 const auth = useAuthStore()
 
 const props = defineProps<{ items: Array<Accreditation> }>()
 
+// methods
 function canDownload(item: Accreditation) {
   return auth.isAccreditor && item.status === AccreditationStatus.APPROVED && !item.downloaded
 }

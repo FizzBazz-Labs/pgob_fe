@@ -36,6 +36,7 @@ async function onSubmit() {
         accreditation = { ...accreditation, securityWeaponAccreditation: security.id }
       } catch (_) {
         // TODO: add error information to failure security
+        console.error({ _ })
       }
     }
 

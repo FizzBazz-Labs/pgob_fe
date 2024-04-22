@@ -3,6 +3,7 @@ import { AccreditationStatus } from '@/entities/Accreditation'
 
 type Props = {
   reviewedComment?: string
+  authorizedComment?: string
   status: AccreditationStatus
 }
 
@@ -14,5 +15,9 @@ const props = defineProps<Props>()
     <strong>Observaciones</strong>:
 
     {{ props.reviewedComment }}
+  </span>
+  <span v-else-if="props.status == AccreditationStatus.APPROVED">
+    <strong>Observaciones</strong>:
+    {{ props.authorizedComment }}
   </span>
 </template>

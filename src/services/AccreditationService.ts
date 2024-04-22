@@ -19,8 +19,11 @@ export type GetAllResponse = {
 export async function getAll(
   page: number,
   status?: string,
-  type?: string
+  type?: string,
+  perPage?: number
 ): Promise<GetAllResponse> {
-  const response = await API.get(`/accreditations?page=${page}&status=${status}&type=${type}`)
+  const response = await API.get(
+    `/accreditations?page=${page}&status=${status}&type=${type}&page_size=${perPage}`
+  )
   return await response.json()
 }

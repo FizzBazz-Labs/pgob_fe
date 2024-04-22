@@ -42,6 +42,7 @@ onBeforeMount(async () => {
   loading.value = true
   item.value = await service.getById(Number(route.params.id))
   loading.value = false
+  console.log(item.value)
 })
 
 async function onReview(values: any) {
@@ -133,11 +134,7 @@ function onEdit() {
 
           <AccreditationDetailComment
             :reviewedComment="item.reviewedComment"
-            :status="item.status"
-          />
-
-          <AccreditationApprovedComment
-            :approvedComment="item.authorizedComment"
+            :authorizedComment="item.authorizedComment"
             :status="item.status"
           />
         </div>

@@ -131,6 +131,7 @@ function onEdit() {
 
           <AccreditationDetailComment
             :reviewedComment="item.reviewedComment"
+            :authorizedComment="item.authorizedComment"
             :status="item.status"
           />
         </div>

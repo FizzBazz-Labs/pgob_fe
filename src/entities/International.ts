@@ -53,4 +53,5 @@ export interface International {
   privateInsurance: string
   securityWeaponAccreditation: number
   reviewedComment?: string
+  authorizedComment?: string
 }

@@ -120,7 +120,7 @@ const accreditationTypes = [
     <h1 class="mb-3 text-2xl font-bold">Filtros</h1>
 
     <div class="grid grid-cols-3 gap-3">
-      <div>
+      <!-- <div>
         <label class="form-control w-full max-w-xs">
           <div class="label-text">
             <span>Tipo de acreditación</span>
@@ -144,7 +144,7 @@ const accreditationTypes = [
             </option>
           </select>
         </label>
-      </div>
+      </div> -->
 
       <div>
         <label class="form-control w-full max-w-xs">
@@ -171,7 +171,7 @@ const accreditationTypes = [
           </select>
         </label>
       </div>
-      <!-- <div>
+      <div>
         <label class="form-control w-full max-w-xs">
           <div class="label-text">
             <span class="label-text"> Pais </span>
@@ -192,7 +192,7 @@ const accreditationTypes = [
             </option>
           </select>
         </label>
-      </div> -->
+      </div>
     </div>
     <!--
     <div class="mt-3">

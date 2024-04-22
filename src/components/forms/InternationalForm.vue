@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+// import { useConfigStore } from '@/stores/config'
+import { useAuthStore } from '@/stores/auth'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
@@ -37,6 +39,8 @@ const values = defineModel('values', {
   required: true,
 })
 
+const auth = useAuthStore()
+
 const { positions, subPositions, showChannels } = useFormSelect({ values })
 
 const labels = {
@@ -70,64 +74,66 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
       >
         <div class="flex gap-4">
           <div class="w-1/2">
-            <h2 class="divider divider-start text-xl font-bold">
-              {{ labels.personal }}
-            </h2>
+            <div v-if="!auth.isTransportationManager">
+              <h2 class="divider divider-start text-xl font-bold">
+                {{ labels.personal }}
+              </h2>
 
-            <HiddenIdField />
+              <HiddenIdField />
 
-            <StaticCountryField :value="values.steps.accreditation.country" />
+              <StaticCountryField :value="values.steps.accreditation.country" />
 
-            <div class="grid grid-cols-2 gap-4">
-              <FirstNameField />
-              <LastNameField />
+              <div class="grid grid-cols-2 gap-4">
+                <FirstNameField />
+                <LastNameField />
+              </div>
+
+              <PassportIdField label="Pasaporte" />
+
+              <div class="grid grid-cols-2 gap-4">
+                <BirthplaceField />
+                <BirthdayField />
+              </div>
+
+              <PrivateInsuranceField />
+
+              <h2 class="divider divider-start text-xl font-bold">
+                {{ labels.position }}
+              </h2>
+
+              <div
+                class="grid gap-4"
+                :class="{
+                  'grid-cols-1': subPositions.length === 0,
+                  'grid-cols-2': subPositions.length !== 0,
+                }"
+              >
+                <FormKit
+                  type="select"
+                  name="position"
+                  label="Posición"
+                  validation="required"
+                  :options="positions"
+                  select-icon="down"
+                />
+
+                <FormKit
+                  v-if="subPositions.length !== 0"
+                  type="select"
+                  name="subPosition"
+                  label="Tipo de Cargo"
+                  validation="required"
+                  :options="subPositions"
+                  select-icon="down"
+                />
+              </div>
+
+              <MediaChannelField v-if="showChannels" />
+
+              <ContactSection :class="{ 'mt-6': showChannels }" />
+              <MedicalSection />
+              <HotelSection />
             </div>
-
-            <PassportIdField label="Pasaporte" />
-
-            <div class="grid grid-cols-2 gap-4">
-              <BirthplaceField />
-              <BirthdayField />
-            </div>
-
-            <PrivateInsuranceField />
-
-            <h2 class="divider divider-start text-xl font-bold">
-              {{ labels.position }}
-            </h2>
-
-            <div
-              class="grid gap-4"
-              :class="{
-                'grid-cols-1': subPositions.length === 0,
-                'grid-cols-2': subPositions.length !== 0,
-              }"
-            >
-              <FormKit
-                type="select"
-                name="position"
-                label="Posición"
-                validation="required"
-                :options="positions"
-                select-icon="down"
-              />
-
-              <FormKit
-                v-if="subPositions.length !== 0"
-                type="select"
-                name="subPosition"
-                label="Tipo de Cargo"
-                validation="required"
-                :options="subPositions"
-                select-icon="down"
-              />
-            </div>
-
-            <MediaChannelField v-if="showChannels" />
-
-            <ContactSection :class="{ 'mt-6': showChannels }" />
-            <MedicalSection />
-            <HotelSection />
             <FlightSection />
           </div>
 

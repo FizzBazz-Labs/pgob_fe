@@ -15,7 +15,6 @@ const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
 const currentPage = ref(props.currentPage)
-
 const totalPages = computed(() => Math.ceil(Number(props.totalItems) / Number(props.itemsPerPage)))
 
 const pageNumbers = computed(() => {
@@ -41,7 +40,7 @@ function changePage(page: number) {
 </script>
 
 <template>
-  <div class="btn-group mx-auto mt-5">
+  <div class="btn-group">
     <button
       class="btn"
       :class="{ 'btn-disabled': currentPage <= 1 }"

@@ -24,3 +24,13 @@ export interface Accreditation {
   createdBy: CreatedBy
   downloaded: boolean
 }
+
+export enum AccreditationType {
+  NATIONAL = 'national',
+  INTERNATIONAL = 'international',
+  SECURITIES = 'securities',
+  EQUIPMENTS = 'equipments',
+  AIRFCRAFTS = 'aircrafts',
+  GENERALVEHICLES = 'generalVehicles',
+  ACCESSVEHICLES = 'accessVehicles',
+}
