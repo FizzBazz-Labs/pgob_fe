@@ -134,12 +134,16 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
               <MedicalSection />
               <HotelSection />
             </div>
+
             <FlightSection />
           </div>
 
           <div class="flex-1"></div>
 
-          <div class="flex w-1/4 flex-col gap-4">
+          <div
+            v-if="!auth.isTransportationManager"
+            class="flex w-1/4 flex-col gap-4"
+          >
             <ImageField :image="values.steps.accreditation.image" />
             <AuthorizationLetterField v-if="showChannels" />
           </div>
@@ -148,7 +152,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
         <template #stepActions="{ handlers }">
           <div class="flex gap-4">
             <FormKit
-              v-if="!isSecurity"
+              v-if="!isSecurity || auth.isTransportationManager"
               type="submit"
               :label="'Actualizar'"
               suffix-icon="submit"
@@ -168,7 +172,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
         </template>
       </FormKit>
 
-      <SecurityStep v-if="isSecurity" />
+      <SecurityStep v-if="isSecurity && auth.isTransportationManager" />
     </FormKit>
   </FormKit>
 </template>
