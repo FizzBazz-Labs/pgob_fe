@@ -1,6 +1,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+type Props = {
+  name?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  name: 'vehicleType',
+})
+
 const vehicleType = ref('Sedan')
 </script>
 
@@ -8,7 +16,7 @@ const vehicleType = ref('Sedan')
   <FormKit
     v-model="vehicleType"
     type="select"
-    name="type"
+    :name="name"
     label="Tipo de Vehículo"
     validation="required"
     :options="['Sedan', 'SUV', 'Van', 'Pickup', 'Camión', 'Unidad Móvil', 'Otro']"

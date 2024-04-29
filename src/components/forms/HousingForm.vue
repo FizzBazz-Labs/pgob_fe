@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { FormKitMessages } from '@formkit/vue'
 import AddressField from './fields/AddressField.vue'
 import BirthdayField from './fields/BirthdayField.vue'
 import BuildingType from './fields/BuildingType.vue'
@@ -64,8 +65,7 @@ const values = defineModel('values', {
         />
 
         <template v-if="values.hasVehicle">
-          <!-- Rename to vehicleType -->
-          <VehicleTypeField />
+          <VehicleTypeField name="vehicleType" />
 
           <FormKit
             type="text"
@@ -95,6 +95,17 @@ const values = defineModel('values', {
             validation="required"
           />
         </template>
+
+        <FormKitMessages />
+
+        <div class="flex gap-4">
+          <FormKit
+            type="submit"
+            :label="'Crear'"
+            suffix-icon="submit"
+            outer-class="!max-w-fit"
+          />
+        </div>
       </div>
     </div>
   </FormKit>

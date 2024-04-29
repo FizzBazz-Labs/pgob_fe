@@ -7,26 +7,28 @@ import ApartmentTowerAdministratorField from './ApartmentTowerAdministratorField
 import ApartmentNumberField from './ApartmentNumberField.vue'
 import ApartmentFloorField from './ApartmentFloorField.vue'
 
-const buildingType = ref('house')
+const buildingType = ref<string>()
 </script>
 
 <template>
   <FormKit
     type="select"
+    v-model="buildingType"
     name="buildingType"
     label="Tipo de inmueble"
+    placeholder="Seleccione una opción"
     validation="required"
-    :choices="[
-      { value: 'house', label: 'Casa' },
-      { value: 'apartment', label: 'Departamento' },
+    :options="[
+      { value: 'HOUSE', label: 'Casa' },
+      { value: 'APARTMENT', label: 'Departamento' },
     ]"
   />
 
-  <template v-if="buildingType === 'house'">
+  <template v-if="buildingType === 'HOUSE'">
     <HouseNumberField />
   </template>
 
-  <template v-if="buildingType === 'apartment'">
+  <template v-if="buildingType === 'APARTMENT'">
     <ApartmentTowerField />
     <ApartmentTowerAdministratorField />
     <ApartmentNumberField />
