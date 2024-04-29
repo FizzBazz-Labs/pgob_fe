@@ -64,6 +64,7 @@ const values = defineModel('values', {
         />
 
         <template v-if="values.hasVehicle">
+          <!-- Rename to vehicleType -->
           <VehicleTypeField />
 
           <FormKit
