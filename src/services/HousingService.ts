@@ -4,8 +4,19 @@ import type { Housing } from '@/entities/Housing'
 
 const ENDPOINT = '/housings'
 
-export async function all(): Promise<API.PaginatedResponse<Housing>> {
-  const response = await API.get(ENDPOINT)
+type AllParams = {
+  pagination: {
+    page: number
+    limit: number
+  }
+}
+
+export async function all({
+  pagination: { page, limit },
+}: AllParams): Promise<API.PaginatedResponse<Housing>> {
+  const url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
+
+  const response = await API.get(url)
   return await response.json()
 }
 
