@@ -9,12 +9,19 @@ type AllParams = {
     page: number
     limit: number
   }
+  query: {
+    status?: string
+    country?: string
+  }
 }
 
 export async function all({
   pagination: { page, limit },
+  query: { status, country },
 }: AllParams): Promise<API.PaginatedResponse<Housing>> {
-  const url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
+  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
+  url += status ? `&status=${status}` : ''
+  url += country ? `&country=${country}` : ''
 
   const response = await API.get(url)
   return await response.json()

@@ -4,16 +4,20 @@ import { ref, watch, onBeforeMount } from 'vue'
 import { EyeIcon } from '@heroicons/vue/24/outline'
 
 import { useAuthStore } from '@/stores/auth'
+import { useGeneralStore } from '@/stores/general'
 
 import { type Housing } from '@/entities/Housing'
 
 import * as service from '@/services/HousingService'
 
-import AppLoading from '@/components/app/AppLoading.vue'
 import UITable from '@/components/ui/table/UITable.vue'
+import AppLoading from '@/components/app/AppLoading.vue'
+import AccreditationFilter from '@/components/accreditations/AccreditationFilter.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
+import HousingHeader from '@/components/housings/HousingHeader.vue'
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const loading = ref(true)
 
@@ -22,7 +26,8 @@ const columns = ref([
   { key: 'lastName', label: 'Apellido' },
   { key: 'phoneNumber', label: 'Teléfono' },
   { key: 'email', label: 'Correo' },
-  { key: 'status', label: 'Estado', show: !auth.isUser },
+  { key: 'status', label: 'Estado', show: () => !auth.isUser },
+  { key: 'country', label: 'País', transform: general.country },
   { key: 'actions', label: 'Acciones' },
 ])
 
@@ -30,18 +35,20 @@ const items = ref<Housing[]>([])
 
 const pagination = ref({
   page: 0,
-  limit: 1,
+  limit: 10,
   count: 0,
 })
 
+const filters = ref({})
+
 watch(pagination, onFetch, { deep: true })
+watch(filters, onFetch, { deep: true })
 onBeforeMount(onFetch)
 
 async function onFetch() {
-  loading.value = true
-
   const response = await service.all({
     pagination: pagination.value,
+    query: filters.value,
   })
 
   items.value = response.results
@@ -53,24 +60,19 @@ async function onFetch() {
 
 <template>
   <AppLoading :loading="loading">
+    <HousingHeader />
+
     <UITable
+      title="Acreditaciones"
       :columns="columns"
       :rows="items"
       v-model:pagination="pagination"
+      :meta="{
+        create: { name: 'housing-create' },
+      }"
     >
-      <template #header>
-        <div class="flex gap-4">
-          <h1 class="divider divider-start flex-1 text-xl font-bold">
-            {{ 'Acreditaciones' }}
-          </h1>
-
-          <RouterLink
-            :to="{ name: 'housing-create' }"
-            class="btn btn-success text-white"
-          >
-            {{ 'Añadir' }}
-          </RouterLink>
-        </div>
+      <template #subheader>
+        <AccreditationFilter v-model="filters" />
       </template>
 
       <template #status="{ item }">

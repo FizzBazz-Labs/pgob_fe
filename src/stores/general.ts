@@ -45,4 +45,8 @@ export const useGeneralStore = defineStore('general', {
       this.medicalHistories = await medicalHistories.getAll()
     },
   },
+
+  getters: {
+    country: state => (id: number) => state.countries.find(c => c.id === id)?.name,
+  },
 })
