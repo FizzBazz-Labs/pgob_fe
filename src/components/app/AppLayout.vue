@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
+
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
@@ -7,19 +9,11 @@ import { AccreditationType } from '@/entities/Accreditation'
 import {
   HomeView,
   LoginView,
-  NationalAccreditationCreateView,
-  InternationalAccreditationCreateView,
-  VehicleAccessCreateView,
-  GeneralVehicleCreateView,
-  NonCommercialAircraftCreateView,
-  CommunicationEquipmentCreateView,
-  SecurityWeaponCreateView,
   UserListView,
   ProfileView,
   NationalAccreditationTableView,
+  HousingListView,
 } from '@/router'
-import AccreditationListView from '@/views/AccreditationListView.vue'
-import type { patch } from '@/services/api'
 
 const config = useConfigStore()
 const auth = useAuthStore()
@@ -35,6 +29,14 @@ function hasTransportationProfile() {
     return true
   }
 }
+
+const accreditations = computed(() => [
+  {
+    label: 'Declaración de Vivienda',
+    to: HousingListView,
+    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
+  },
+])
 </script>
 
 <template>
@@ -187,6 +189,15 @@ function hasTransportationProfile() {
                   :to="{ path: HomeView.path, query: { type: AccreditationType.AIRFCRAFTS } }"
                 >
                   Aeronaves No Comerciales
+                </RouterLink>
+              </li>
+
+              <li
+                v-for="(item, i) in accreditations.filter(item => item.canView)"
+                :key="`accreditation-link-${i}`"
+              >
+                <RouterLink :to="item.to">
+                  {{ item.label }}
                 </RouterLink>
               </li>
             </ul>

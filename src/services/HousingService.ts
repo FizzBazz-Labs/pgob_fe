@@ -4,18 +4,23 @@ import type { Housing } from '@/entities/Housing'
 
 const ENDPOINT = '/housings'
 
+export async function all(): Promise<API.PaginatedResponse<Housing>> {
+  const response = await API.get(ENDPOINT)
+  return await response.json()
+}
+
 export async function create(params: any): Promise<Housing> {
   const response = await API.post(ENDPOINT, params)
   return await response.json()
 }
 
-export async function update(values: any): Promise<Housing> {
-  const response = await API.patch(`${ENDPOINT}/${values.id}`, values)
+export async function getById(id: number): Promise<Housing> {
+  const response = await API.get(`${ENDPOINT}/${id}`)
   return await response.json()
 }
 
-export async function getById(id: number): Promise<Housing> {
-  const response = await API.get(`${ENDPOINT}/${id}`)
+export async function update(values: any): Promise<Housing> {
+  const response = await API.patch(`${ENDPOINT}/${values.id}`, values)
   return await response.json()
 }
 

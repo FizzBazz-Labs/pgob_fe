@@ -186,8 +186,14 @@ export const ProfileView = {
   component: () => import('../views/ProfileView.vue'),
 }
 
-export const HousingCreateView = {
+export const HousingListView = {
   path: '/accreditations/housings',
+  name: 'housing-list',
+  component: () => import('../views/housing/HousingListView.vue'),
+}
+
+export const HousingCreateView = {
+  path: '/accreditations/housings/add',
   name: 'housing-create',
   component: () => import('../views/housing/HousingCreateView.vue'),
 }
@@ -233,6 +239,7 @@ const router = createRouter({
     ProfileView,
     HousingCreateView,
     HousingDetailView,
+    HousingListView,
   ],
 })
 

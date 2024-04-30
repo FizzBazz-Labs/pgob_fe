@@ -44,3 +44,10 @@ export function patch(url: string, body: Record<string, unknown> = {}) {
     body: JSON.stringify(body),
   })
 }
+
+export interface PaginatedResponse<T> {
+  count: number
+  next: string | null
+  previous: string | null
+  results: Array<T>
+}
