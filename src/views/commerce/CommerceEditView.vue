@@ -2,11 +2,11 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 
-import * as service from '@/services/HousingService'
+import * as service from '@/services/CommerceService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-import HousingHeader from '@/components/housings/HousingHeader.vue'
-import HousingForm from '@/components/forms/HousingForm.vue'
+import CommerceHeader from '@/components/commerce/CommerceHeader.vue'
+import CommerceForm from '@/components/commerce/CommerceForm.vue'
 
 const router = useRouter()
 
@@ -47,10 +47,10 @@ async function onSubmit() {
 
 <template>
   <AppLoading :loading="loading">
-    <HousingHeader />
+    <CommerceHeader />
 
     <main class="mt-10">
-      <HousingForm
+      <CommerceForm
         v-model:values="values"
         :action="'edit'"
         :errors="errors"
