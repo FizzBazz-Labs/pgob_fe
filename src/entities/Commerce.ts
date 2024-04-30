@@ -1,9 +1,11 @@
+import type { AccreditationStatus } from './Accreditation'
+
 export interface Commerce {
   id: number
   firstName: string
   lastName: string
   passportId: string
-  country: string
+  country: number
   birthday: string
   phoneNumber: string
   email: string
@@ -11,7 +13,7 @@ export interface Commerce {
   adminName: string
   adminPhoneNumber: string
   commerceType: string
-  commerceTypeOther: string
+  commerceTypeOther?: string
   hasVehicle: boolean
   vehicleType: string
   vehicleTypeOther: string
@@ -26,7 +28,7 @@ export interface Commerce {
   authorizedBy: string
   rejectedBy: string
   createdBy: string
-  status: string
+  status: AccreditationStatus
   createdAt: string
   updatedAt: string
   uuid: string

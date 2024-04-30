@@ -2,17 +2,17 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import type { Housing } from '@/entities/Housing'
+import type { Commerce as Entity } from '@/entities/Commerce'
 
 import { useAuthStore } from '@/stores/auth'
 
-import * as service from '@/services/HousingService'
+import * as service from '@/services/CommerceService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-import AppHeader from '@/components/app/AppHeader.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
-import HousingDetail from '@/components/housings/HousingDetail.vue'
+import CommerceHeader from '@/components/commerce/CommerceHeader.vue'
+import CommerceDetail from '@/components/commerce/CommerceDetail.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -20,7 +20,7 @@ const router = useRouter()
 const auth = useAuthStore()
 
 const loading = ref(true)
-const item = ref<Housing>()
+const item = ref<Entity>()
 
 onBeforeMount(async () => {
   loading.value = true
@@ -30,7 +30,7 @@ onBeforeMount(async () => {
 
 function gotoEdit() {
   router.push({
-    name: 'housing-edit',
+    name: 'commerce-edit',
     params: { id: route.params.id },
   })
 }
@@ -42,7 +42,7 @@ function gotoEdit() {
       v-if="item"
       class="mx-auto w-2/3"
     >
-      <AppHeader>Declaración de Vivienda</AppHeader>
+      <CommerceHeader />
 
       <div
         v-if="!auth.isUser"
@@ -51,7 +51,7 @@ function gotoEdit() {
         <StatusBadge :status="item.status" />
       </div>
 
-      <HousingDetail :item="item" />
+      <CommerceDetail :item="item" />
 
       <AccreditationDetailActions
         :status="item.status"

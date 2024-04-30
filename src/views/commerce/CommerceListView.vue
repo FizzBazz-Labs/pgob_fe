@@ -85,7 +85,7 @@ async function onFetch() {
           data-tip="Detalle"
         >
           <RouterLink
-            :to="{ name: 'housing-detail', params: { id: item.id } }"
+            :to="{ name: 'commerce-detail', params: { id: item.id } }"
             class="btn btn-ghost btn-sm"
           >
             <EyeIcon class="h-5 w-5" />

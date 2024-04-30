@@ -4,8 +4,6 @@ import { useRouter } from 'vue-router'
 
 import * as service from '@/services/HousingService'
 
-import { HousingDetailView as DetailView } from '@/router'
-
 import AppLoading from '@/components/app/AppLoading.vue'
 import HousingHeader from '@/components/housings/HousingHeader.vue'
 import HousingForm from '@/components/forms/HousingForm.vue'
@@ -34,7 +32,7 @@ async function onSubmit() {
     const response = await service.update(values.value)
 
     router.push({
-      name: DetailView.name,
+      name: 'housing-detail',
       params: { id: response.id },
     })
   } catch (_) {
