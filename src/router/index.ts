@@ -204,6 +204,12 @@ export const HousingDetailView = {
   component: () => import('../views/housing/HousingDetailView.vue'),
 }
 
+export const HousingEditView = {
+  path: '/accreditations/housings/:id/edit',
+  name: 'housing-edit',
+  component: () => import('../views/housing/HousingEditView.vue'),
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -237,9 +243,10 @@ const router = createRouter({
     UnavailableSiteView,
     SiteConfigurationEditView,
     ProfileView,
+    HousingListView,
     HousingCreateView,
     HousingDetailView,
-    HousingListView,
+    HousingEditView,
   ],
 })
 

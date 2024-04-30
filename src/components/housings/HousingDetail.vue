@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import type { Housing } from '@/entities/Housing'
 
+import { useGeneralStore } from '@/stores/general'
+
 import DetailField from '@/components/DetailField.vue'
 
-defineProps<{
-  item: Housing
-}>()
+defineProps<{ item: Housing }>()
+
+const general = useGeneralStore()
 </script>
 
 <template>
@@ -26,7 +28,7 @@ defineProps<{
 
   <DetailField
     label="País"
-    :value="item.country"
+    :value="general.country(item.country)"
   />
 
   <DetailField

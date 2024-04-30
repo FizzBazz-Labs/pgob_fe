@@ -27,6 +27,13 @@ onBeforeMount(async () => {
   item.value = await service.getById(Number(route.params.id))
   loading.value = false
 })
+
+function gotoEdit() {
+  router.push({
+    name: 'housing-edit',
+    params: { id: route.params.id },
+  })
+}
 </script>
 
 <template>
@@ -39,14 +46,17 @@ onBeforeMount(async () => {
 
       <div
         v-if="!auth.isUser"
-        class="flex flex-col gap-4"
+        class="mb-4"
       >
         <StatusBadge :status="item.status" />
       </div>
 
       <HousingDetail :item="item" />
 
-      <AccreditationDetailActions :status="item.status" />
+      <AccreditationDetailActions
+        :status="item.status"
+        @edit="gotoEdit"
+      />
     </main>
   </AppLoading>
 </template>

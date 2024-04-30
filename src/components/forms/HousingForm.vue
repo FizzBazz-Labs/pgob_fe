@@ -11,8 +11,10 @@ import LastNameField from './fields/LastNameField.vue'
 import PassportIdField from './fields/PassportIdField.vue'
 import PhoneNumber1Field from './fields/PhoneNumber1Field.vue'
 import VehicleTypeField from './fields/VehicleTypeField.vue'
+import CancelBtn from './actions/CancelBtn.vue'
 
 type Props = {
+  action?: 'add' | 'edit'
   errors: string[]
 }
 
@@ -20,7 +22,10 @@ type Emits = {
   (e: 'submit', values: any): void
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  action: 'add',
+})
+
 const emits = defineEmits<Emits>()
 
 const values = defineModel('values', {
@@ -101,10 +106,12 @@ const values = defineModel('values', {
         <div class="flex gap-4">
           <FormKit
             type="submit"
-            :label="'Crear'"
+            :label="props.action === 'add' ? 'Crear' : 'Actualizar'"
             suffix-icon="submit"
             outer-class="!max-w-fit"
           />
+
+          <CancelBtn v-if="props.action === 'edit'" />
         </div>
       </div>
     </div>
