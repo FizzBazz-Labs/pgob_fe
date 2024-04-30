@@ -1,13 +1,7 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
-
-import {
-  type UITableColumn,
-  type UITableRow,
-  type UITablePagination,
-} from '@/components/ui/table/uiTable'
+import type { UITableColumn, UITableRow, UITablePagination } from '@/components/ui/table/uiTable'
+import UITableLimit from '@/components/ui/table/UITableLimit.vue'
+import UITablePage from '@/components/ui/table/UITablePage.vue'
 
 type Props = {
   title: string
@@ -19,33 +13,7 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-
 const pagination = defineModel<UITablePagination>('pagination')
-
-const totalPages = computed(() => {
-  if (!pagination.value) return 0
-
-  return Math.ceil(pagination.value.count / pagination.value.limit)
-})
-
-const toShowPages = computed(() => {
-  if (!pagination.value) return []
-
-  let pages = totalPages.value
-  let current = pagination.value.page
-
-  if (pages > 5) {
-    if (current <= 2) {
-      return [0, 1, 2, -1, pages - 1]
-    } else if (current > 2 && current <= pages - 4) {
-      return [current - 2, current - 1, current, -1, pages - 1]
-    } else if (current <= pages) {
-      return [pages - 5, pages - 4, pages - 3, pages - 2, pages - 1]
-    }
-  }
-
-  return [...Array(pages).keys()]
-})
 </script>
 
 <template>
@@ -109,47 +77,14 @@ const toShowPages = computed(() => {
         <div class="flex items-center justify-between">
           <div class="flex-1"></div>
 
-          <div class="flex gap-2">
-            <button
-              class="btn btn-ghost"
-              :class="{ 'btn-disabled': pagination.page <= 0 }"
-              @click="pagination.page -= 1"
-            >
-              <ChevronLeftIcon class="h-5" />
-            </button>
-
-            <button
-              v-for="i in toShowPages"
-              :key="`paginator-page-${i}`"
-              class="btn"
-              :class="{ 'bg-info': i === pagination.page }"
-              @click="pagination.page = i"
-            >
-              <span :class="{ 'text-white': i === pagination.page }">
-                {{ i !== -1 ? i + 1 : '...' }}
-              </span>
-            </button>
-
-            <button
-              class="btn btn-ghost"
-              :class="{ 'btn-disabled': pagination.page >= totalPages - 1 }"
-              @click="pagination.page += 1"
-            >
-              <ChevronRightIcon class="h-5" />
-            </button>
-          </div>
+          <UITablePage
+            v-model="pagination.page"
+            :pages="Math.ceil(pagination.count / pagination.limit)"
+          />
 
           <div class="flex-1"></div>
 
-          <select
-            v-model="pagination.limit"
-            class="select select-bordered w-20"
-          >
-            <option :value="10">10</option>
-            <option :value="25">25</option>
-            <option :value="50">50</option>
-            <option :value="100">100</option>
-          </select>
+          <UITableLimit v-model="pagination.limit" />
         </div>
       </template>
     </template>

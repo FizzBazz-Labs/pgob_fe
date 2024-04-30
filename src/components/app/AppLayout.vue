@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { UserCircleIcon } from '@heroicons/vue/24/outline'
+
 import { computed } from 'vue'
 
 import { useConfigStore } from '@/stores/config'
@@ -53,43 +55,50 @@ const accreditations = computed(() => [
     <div class="drawer-content">
       <div class="navbar sticky top-0 z-10 w-full bg-white shadow-md">
         <div class="flex-1"></div>
+
         <div class="flex-none">
-          <ul class="menu menu-horizontal">
-            <li>
-              <details>
-                <summary>Usuario</summary>
+          <div class="dropdown dropdown-end">
+            <div
+              tabindex="0"
+              role="button"
+              class="avatar btn btn-circle"
+            >
+              <div class="w-7 rounded-full">
+                <UserCircleIcon />
+              </div>
+            </div>
 
-                <ul>
-                  <li>
-                    <RouterLink
-                      :to="ProfileView.path"
-                      class="min-w-[150px]"
-                    >
-                      {{ `${auth.user.firstName} ${auth.user.lastName}` }}
-                    </RouterLink>
-                  </li>
+            <ul
+              class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            >
+              <li>
+                <RouterLink
+                  :to="ProfileView.path"
+                  class="min-w-[150px]"
+                >
+                  {{ `${auth.user.firstName} ${auth.user.lastName}` }}
+                </RouterLink>
+              </li>
 
-                  <li>
-                    <RouterLink
-                      v-if="auth.isAnonymous"
-                      :to="LoginView.path"
-                    >
-                      Iniciar Sesión
-                    </RouterLink>
+              <li>
+                <RouterLink
+                  v-if="auth.isAnonymous"
+                  :to="LoginView.path"
+                >
+                  Iniciar Sesión
+                </RouterLink>
 
-                    <RouterLink
-                      v-else
-                      :to="LoginView.path"
-                      class="text-error"
-                      @click="auth.logout"
-                    >
-                      Cerrar Sesión
-                    </RouterLink>
-                  </li>
-                </ul>
-              </details>
-            </li>
-          </ul>
+                <RouterLink
+                  v-else
+                  :to="LoginView.path"
+                  class="text-error"
+                  @click="auth.logout"
+                >
+                  Cerrar Sesión
+                </RouterLink>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
