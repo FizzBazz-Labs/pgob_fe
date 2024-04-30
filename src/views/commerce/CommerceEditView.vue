@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 
 import * as service from '@/services/HousingService'
 
+import { HousingDetailView as DetailView } from '@/router'
+
 import AppLoading from '@/components/app/AppLoading.vue'
-import AppHeader from '@/components/app/AppHeader.vue'
+import HousingHeader from '@/components/housings/HousingHeader.vue'
 import HousingForm from '@/components/forms/HousingForm.vue'
 
 const router = useRouter()
@@ -16,15 +18,23 @@ const errors = ref<string[]>([])
 
 const confirm = ref<HTMLDialogElement>()
 
+onBeforeMount(async () => {
+  loading.value = true
+
+  values.value = await service.getById(Number(router.currentRoute.value.params.id))
+
+  loading.value = false
+})
+
 async function onSubmit() {
   loading.value = true
   errors.value = []
 
   try {
-    const response = await service.create(values.value)
+    const response = await service.update(values.value)
 
     router.push({
-      name: 'housing-detail',
+      name: DetailView.name,
       params: { id: response.id },
     })
   } catch (_) {
@@ -39,11 +49,12 @@ async function onSubmit() {
 
 <template>
   <AppLoading :loading="loading">
-    <AppHeader>Declaración de Vivienda</AppHeader>
+    <HousingHeader />
 
     <main class="mt-10">
       <HousingForm
         v-model:values="values"
+        :action="'edit'"
         :errors="errors"
         @submit="confirm?.showModal()"
       />
@@ -61,7 +72,7 @@ async function onSubmit() {
           :actions="false"
           @submit="onSubmit"
         >
-          <p class="mb-3">Estas seguro de crear esta acreditación.</p>
+          <p class="mb-3">Estas seguro de actualizar esta acreditación.</p>
 
           <div class="flex justify-end gap-4">
             <FormKit

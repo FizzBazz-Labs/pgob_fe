@@ -14,7 +14,6 @@ import {
   UserListView,
   ProfileView,
   NationalAccreditationTableView,
-  HousingListView,
 } from '@/router'
 
 const config = useConfigStore()
@@ -35,7 +34,13 @@ function hasTransportationProfile() {
 const accreditations = computed(() => [
   {
     label: 'Declaración de Vivienda',
-    to: HousingListView,
+    to: { name: 'housing-list' },
+    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
+  },
+
+  {
+    label: 'Declaración de Comercio',
+    to: { name: 'commerce-list' },
     canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
   },
 ])

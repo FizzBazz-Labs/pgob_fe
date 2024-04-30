@@ -1,18 +1,17 @@
 <script lang="ts" setup>
 import { FormKitMessages } from '@formkit/vue'
 
-import AddressField from './fields/AddressField.vue'
-import BirthdayField from './fields/BirthdayField.vue'
-import BuildingType from './fields/BuildingType.vue'
-import CountryField from './fields/CountryField.vue'
-import EmailField from './fields/EmailField.vue'
-import FirstNameField from './fields/FirstNameField.vue'
-import IsOwnerField from './fields/IsOwnerField.vue'
-import LastNameField from './fields/LastNameField.vue'
-import PassportIdField from './fields/PassportIdField.vue'
-import PhoneNumber1Field from './fields/PhoneNumber1Field.vue'
-import VehicleTypeField from './fields/VehicleTypeField.vue'
-import CancelBtn from './actions/CancelBtn.vue'
+import FirstNameField from '../forms/fields/FirstNameField.vue'
+import LastNameField from '../forms/fields/LastNameField.vue'
+import PassportIdField from '../forms/fields/PassportIdField.vue'
+import CountryField from '../forms/fields/CountryField.vue'
+import BirthdayField from '../forms/fields/BirthdayField.vue'
+import PhoneNumber1Field from '../forms/fields/PhoneNumber1Field.vue'
+import EmailField from '../forms/fields/EmailField.vue'
+import AddressField from '../forms/fields/AddressField.vue'
+import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
+import CommerceTypeField from '../forms/fields/CommerceTypeField.vue'
+import CancelBtn from '../forms/actions/CancelBtn.vue'
 
 type Props = {
   action?: 'add' | 'edit'
@@ -56,8 +55,22 @@ const values = defineModel('values', {
         <PhoneNumber1Field />
         <EmailField />
         <AddressField />
-        <BuildingType />
-        <IsOwnerField />
+
+        <FormKit
+          type="text"
+          name="adminName"
+          label="Nombre de Administrador"
+          validation="required"
+        />
+
+        <FormKit
+          type="text"
+          name="adminPhoneNumber"
+          label="Número de Administrador"
+          validation="required"
+        />
+
+        <CommerceTypeField />
 
         <FormKit
           type="radio"

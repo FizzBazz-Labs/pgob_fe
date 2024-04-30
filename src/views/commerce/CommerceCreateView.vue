@@ -2,11 +2,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import * as service from '@/services/HousingService'
+import * as service from '@/services/CommerceService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
-import AppHeader from '@/components/app/AppHeader.vue'
-import HousingForm from '@/components/forms/HousingForm.vue'
+import CommerceHeader from '@/components/commerce/CommerceHeader.vue'
+import CommerceForm from '@/components/commerce/CommerceForm.vue'
 
 const router = useRouter()
 
@@ -24,7 +24,7 @@ async function onSubmit() {
     const response = await service.create(values.value)
 
     router.push({
-      name: 'housing-detail',
+      name: 'commerce-detail',
       params: { id: response.id },
     })
   } catch (_) {
@@ -39,10 +39,10 @@ async function onSubmit() {
 
 <template>
   <AppLoading :loading="loading">
-    <AppHeader>Declaración de Vivienda</AppHeader>
+    <CommerceHeader />
 
     <main class="mt-10">
-      <HousingForm
+      <CommerceForm
         v-model:values="values"
         :errors="errors"
         @submit="confirm?.showModal()"

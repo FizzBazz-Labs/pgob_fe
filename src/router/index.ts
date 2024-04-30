@@ -3,6 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
+import { CommerceRoutes } from '@/router/commerce'
+import { HousingRoutes } from '@/router/housing'
+
 export const LoginView = {
   path: '/login',
   name: 'login',
@@ -186,30 +189,6 @@ export const ProfileView = {
   component: () => import('../views/ProfileView.vue'),
 }
 
-export const HousingListView = {
-  path: '/accreditations/housings',
-  name: 'housing-list',
-  component: () => import('../views/housing/HousingListView.vue'),
-}
-
-export const HousingCreateView = {
-  path: '/accreditations/housings/add',
-  name: 'housing-create',
-  component: () => import('../views/housing/HousingCreateView.vue'),
-}
-
-export const HousingDetailView = {
-  path: '/accreditations/housings/:id',
-  name: 'housing-detail',
-  component: () => import('../views/housing/HousingDetailView.vue'),
-}
-
-export const HousingEditView = {
-  path: '/accreditations/housings/:id/edit',
-  name: 'housing-edit',
-  component: () => import('../views/housing/HousingEditView.vue'),
-}
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -243,10 +222,9 @@ const router = createRouter({
     UnavailableSiteView,
     SiteConfigurationEditView,
     ProfileView,
-    HousingListView,
-    HousingCreateView,
-    HousingDetailView,
-    HousingEditView,
+
+    ...CommerceRoutes,
+    ...HousingRoutes,
   ],
 })
 
