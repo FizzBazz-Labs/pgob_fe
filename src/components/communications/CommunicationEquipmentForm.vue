@@ -11,7 +11,8 @@ import * as service from '@/services/CommunicationEquipmentService'
 
 import { toast } from 'vue3-toastify'
 
-import { CommunicationEquipmentDetailView } from '@/router'
+import { CommunicationEquipmentDetailView } from '@/router/communicationEquipments'
+
 import type { Equipment } from '@/entities/Equipment'
 
 type Props = {

@@ -2,7 +2,19 @@ import * as API from '@/services/api'
 
 import type { CommunicationEquipment } from '@/entities/CommunicationEquipment'
 
-const ENDPOINT = '/intercom-equipment-declaration'
+const ENDPOINT = '/intercommunication-equipments'
+
+export async function all({
+  pagination: { page, limit },
+  query: { status, country },
+}: any): Promise<API.PaginatedResponse<CommunicationEquipment>> {
+  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
+  url += status ? `&status=${status}` : ''
+  url += country ? `&country=${country}` : ''
+
+  const response = await API.get(url)
+  return await response.json()
+}
 
 export async function create(body: Record<string, unknown>): Promise<CommunicationEquipment> {
   const response = await API.post(ENDPOINT, body)

@@ -7,6 +7,8 @@ import type { MedicaChannel } from '@/entities/MedicaChannel'
 import type { Immunization } from '@/entities/Immunization'
 import type { MedicalHistory } from '@/entities/MedicalHistory'
 
+import type { PaginatedResponse } from '@/services/api'
+
 import * as allergies from '@/services/AllergyService'
 import * as countries from '@/services/CountryService'
 import * as positions from '@/services/PositionService'
@@ -37,12 +39,12 @@ export const useGeneralStore = defineStore('general', {
 
   actions: {
     async init() {
-      this.allergies = await allergies.getAll()
+      this.allergies = (await allergies.getAll()).results
       this.countries = await countries.getAll()
-      this.positions = await positions.getAll()
-      this.channels = await channels.getAll()
-      this.immunizations = await immunizations.getAll()
-      this.medicalHistories = await medicalHistories.getAll()
+      this.positions = (await positions.getAll()).results
+      this.channels = (await channels.getAll()).results
+      this.immunizations = (await immunizations.getAll()).results
+      this.medicalHistories = (await medicalHistories.getAll()).results
     },
   },
 

@@ -10,6 +10,7 @@ export interface GeneralVehicles {
   assignedTo: string
   vehicles: Vehicle[]
   distinctive?: string
+  fullname: string
   observations?: string
   status: AccreditationStatus
   createdBy: CreatedBy

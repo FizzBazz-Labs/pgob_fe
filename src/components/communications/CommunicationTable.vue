@@ -3,7 +3,10 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { CommunicationEquipmentDetailView, CommunicationEquipmentCreateView } from '@/router'
+import {
+  CommunicationEquipmentCreateView,
+  CommunicationEquipmentDetailView,
+} from '@/router/communicationEquipments'
 
 import { AccreditationStatus } from '@/entities/Accreditation'
 

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 
-import { EyeIcon, IdentificationIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
+import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { GeneralVehicleDetailView, GeneralVehicleCreateView } from '@/router'
+import { GeneralVehicleCreateView, GeneralVehicleDetailView } from '@/router/generalVehicles'
 
 import type { GeneralVehicles } from '@/entities/GeneralVehicles'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -25,14 +25,14 @@ function gotoDetail(item: { id: number }) {
   })
 }
 
-function onEdit(item) {
-  if (!item) return
+// function onEdit(item) {
+//   if (!item) return
 
-  router.push({
-    name: GeneralVehicleDetailView.name,
-    params: { id: item.id },
-  })
-}
+//   router.push({
+//     name: GeneralVehicleDetailView.name,
+//     params: { id: item.id },
+//   })
+// }
 </script>
 
 <template>

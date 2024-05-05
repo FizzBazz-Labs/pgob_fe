@@ -7,7 +7,7 @@ import * as service from '@/services/CommunicationEquipmentService'
 import AppLoading from '@/components/app/AppLoading.vue'
 import CommunicationForm from '@/components/forms/CommunicationForm.vue'
 
-import { CommunicationEquipmentDetailView } from '@/router'
+import { CommunicationEquipmentDetailView } from '@/router/communicationEquipments'
 
 const route = useRoute()
 const router = useRouter()

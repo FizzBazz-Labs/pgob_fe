@@ -3,7 +3,11 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { AircraftDetailView, AircraftEditView, NonCommercialAircraftCreateView } from '@/router'
+import {
+  AircraftDetailView,
+  AircraftEditView,
+  NonCommercialAircraftCreateView,
+} from '@/router/overflightNonCommercialAircrafts'
 
 import type { NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 import { AccreditationStatus } from '@/entities/Accreditation'

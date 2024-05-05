@@ -43,6 +43,22 @@ const accreditations = computed(() => [
     to: { name: 'commerce-list' },
     canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
   },
+
+  {
+    label: 'Declaración de Vehículos Generales',
+    to: { name: 'general-vehicles-list' },
+    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasGeneralVehicle,
+  },
+  {
+    label: 'Declaración de Equipo de Intercomunicación',
+    to: { name: 'communication-equipment-list' },
+    canView: hasAdminProfile() || auth.hasCommunicationEquipment,
+  },
+  {
+    label: 'Declaración de Aeronaves No Comerciales',
+    to: { name: 'non-commercial-aircraft-list' },
+    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
+  },
 ])
 </script>
 
@@ -129,12 +145,6 @@ const accreditations = computed(() => [
       </div>
 
       <ul class="menu w-80 flex-1 p-4">
-        <!-- <li>
-          <RouterLink :to="{ path: HomeView.path, query: { param1: 'value1', param2: 'value2' } }">
-            Lista de acreditaciones
-          </RouterLink>
-        </li> -->
-
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
         </li>
@@ -160,14 +170,6 @@ const accreditations = computed(() => [
                 </RouterLink>
               </li>
 
-              <li v-if="hasAdminProfile() || auth.hasCommunicationEquipment">
-                <RouterLink
-                  :to="{ path: HomeView.path, query: { type: AccreditationType.EQUIPMENTS } }"
-                >
-                  Declaración de Equipo de Intercomunicación
-                </RouterLink>
-              </li>
-
               <li v-if="hasAdminProfile() || auth.hasSecurity">
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.SECURITIES } }"
@@ -190,22 +192,6 @@ const accreditations = computed(() => [
                 </RouterLink>
               </li>
 
-              <li v-if="hasAdminProfile() || hasTransportationProfile() || auth.hasGeneralVehicle">
-                <RouterLink
-                  :to="{ path: HomeView.path, query: { type: AccreditationType.GENERALVEHICLES } }"
-                >
-                  Vehículos Generales
-                </RouterLink>
-              </li>
-
-              <li v-if="hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft">
-                <RouterLink
-                  :to="{ path: HomeView.path, query: { type: AccreditationType.AIRFCRAFTS } }"
-                >
-                  Aeronaves No Comerciales
-                </RouterLink>
-              </li>
-
               <li
                 v-for="(item, i) in accreditations.filter(item => item.canView)"
                 :key="`accreditation-link-${i}`"
@@ -217,64 +203,6 @@ const accreditations = computed(() => [
             </ul>
           </details>
         </li>
-
-        <!-- <li v-if="auth.hasVehicleAccessAirport || auth.hasGeneralVehicle">
-          <details open>
-            <summary>Vehículos</summary>
-
-            <ul>
-              <li v-if="auth.hasVehicleAccessAirport">
-                <RouterLink :to="VehicleAccessCreateView.path">
-                  Acceso de Vehículos a Aeropuerto
-                </RouterLink>
-              </li>
-
-              <li v-if="auth.hasGeneralVehicle">
-                <RouterLink :to="GeneralVehicleCreateView.path"> Vehículos Generales </RouterLink>
-              </li>
-            </ul>
-          </details>
-        </li>
-
-        <li v-if="auth.hasAircraft">
-          <details open>
-            <summary>Aeronaves</summary>
-
-            <ul>
-              <li>
-                <RouterLink :to="NonCommercialAircraftCreateView.path">
-                  Aeronaves No Comerciales
-                </RouterLink>
-              </li>
-            </ul>
-          </details>
-        </li>
-
-        <li v-if="auth.hasCommunicationEquipment">
-          <details open>
-            <summary>Comunicación</summary>
-
-            <ul>
-              <li>
-                <RouterLink :to="CommunicationEquipmentCreateView.path">
-                  Declaración de Equipo de Intercomunicación
-                </RouterLink>
-              </li>
-            </ul>
-          </details>
-        </li>
-
-        <li v-if="auth.hasSecurity">
-          <details open>
-            <summary>Armas</summary>
-
-            <ul>
-              <li>
-                <RouterLink :to="SecurityWeaponCreateView.path"> Acreditación de armas </RouterLink>
-              </li>
-            </ul>
-          </details>
-        </li> -->
       </ul>
 
       <ul>

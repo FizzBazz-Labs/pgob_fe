@@ -5,6 +5,9 @@ import { useAuthStore } from '@/stores/auth'
 
 import { CommerceRoutes } from '@/router/commerce'
 import { HousingRoutes } from '@/router/housing'
+import { GeneralVehiclesRoutes } from '@/router/generalVehicles'
+import { CommunicationEquipmentRoutes } from '@/router/communicationEquipments'
+import { OverflightNonCommercialAircraftsRoutes } from '@/router/overflightNonCommercialAircrafts'
 
 export const LoginView = {
   path: '/login',
@@ -72,54 +75,6 @@ export const VehicleAccessDetailView = {
   path: '/accreditations/vehicle-access/:id',
   name: 'vehicle-access-detail',
   component: () => import('../views/vehicles/VehicleAccessDetailView.vue'),
-}
-
-export const GeneralVehicleCreateView = {
-  path: '/accreditations/general-vehicle',
-  name: 'general-vehicle-create',
-  component: () => import('../views/vehicles/GeneralVehicleCreateView.vue'),
-}
-
-export const GeneralVehicleDetailView = {
-  path: '/accreditations/general-vehicle/:id',
-  name: 'general-vehicles-detail',
-  component: () => import('../views/vehicles/GeneralVehicleDetailView.vue'),
-}
-
-export const NonCommercialAircraftCreateView = {
-  path: '/accreditations/non-commercial-aircraft',
-  name: 'non-commercial-aircraft-create',
-  component: () => import('../views/aircrafts/NonCommercialAircraftCreateView.vue'),
-}
-
-export const AircraftDetailView = {
-  path: '/accreditations/non-commercial-aircraft/:id',
-  name: 'non-commercial-aircraft-detail',
-  component: () => import('../views/aircrafts/AircraftDetailView.vue'),
-}
-
-export const AircraftEditView = {
-  path: '/accreditations/non-commercial-aircraft/:id/edit',
-  name: 'non-commercial-aircraft-edit',
-  component: () => import('../views/aircrafts/AircraftEditView.vue'),
-}
-
-export const CommunicationEquipmentCreateView = {
-  path: '/accreditations/communication-equipment',
-  name: 'communication-equipment-create',
-  component: () => import('../views/communications/CommunicationEquipmentCreateView.vue'),
-}
-
-export const CommunicationEquipmentDetailView = {
-  path: '/accreditations/communication-equipment/:id',
-  name: 'communication-equipment-detail',
-  component: () => import('../views/communications/CommunicationEquipmentDetailView.vue'),
-}
-
-export const CommunicationEquipmentEditView = {
-  path: '/accreditations/communication-equipment/:id/edit',
-  name: 'communication-equipment-edit',
-  component: () => import('../views/communications/CommunicationEquipmentEditView.vue'),
 }
 
 export const SecurityWeaponCreateView = {
@@ -204,14 +159,7 @@ const router = createRouter({
     InternationalAccreditationEditView,
     VehicleAccessCreateView,
     VehicleAccessDetailView,
-    GeneralVehicleCreateView,
-    GeneralVehicleDetailView,
-    NonCommercialAircraftCreateView,
-    AircraftDetailView,
-    AircraftEditView,
-    CommunicationEquipmentCreateView,
-    CommunicationEquipmentDetailView,
-    CommunicationEquipmentEditView,
+
     SecurityWeaponCreateView,
     SecurityDetailView,
     SecurityEditView,
@@ -225,6 +173,9 @@ const router = createRouter({
 
     ...CommerceRoutes,
     ...HousingRoutes,
+    ...GeneralVehiclesRoutes,
+    ...CommunicationEquipmentRoutes,
+    ...OverflightNonCommercialAircraftsRoutes,
   ],
 })
 
