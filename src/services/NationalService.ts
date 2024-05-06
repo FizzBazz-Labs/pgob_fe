@@ -2,8 +2,30 @@ import * as API from '@/services/api'
 
 import type { National } from '@/entities/National'
 import type { FormValues } from '@/entities/Form'
+import { AccreditationStatus } from '@/entities/Accreditation'
 
 const ENDPOINT = '/national-accreditations'
+
+type AllParams = {
+  pagination: {
+    page: number
+    limit: number
+  }
+  query: {
+    downloaded?: boolean
+  }
+}
+
+export async function all({
+  pagination: { page, limit },
+  query: { downloaded },
+}: AllParams): Promise<API.PaginatedResponse<National>> {
+  const ENDPOINT = '/nationals'
+
+  const url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}&status=${AccreditationStatus.APPROVED}&downloaded=${downloaded}`
+  const response = await API.get(url)
+  return await response.json()
+}
 
 const SerializerFields = [
   'bloodType',

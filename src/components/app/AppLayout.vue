@@ -8,13 +8,7 @@ import { useAuthStore } from '@/stores/auth'
 
 import { AccreditationType } from '@/entities/Accreditation'
 
-import {
-  HomeView,
-  LoginView,
-  UserListView,
-  ProfileView,
-  NationalAccreditationTableView,
-} from '@/router'
+import { HomeView, LoginView, UserListView, ProfileView } from '@/router'
 
 const config = useConfigStore()
 const auth = useAuthStore()
@@ -159,6 +153,12 @@ const accreditations = computed(() => [
       <ul class="menu w-80 flex-1 p-4">
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
+        </li>
+
+        <li>
+          <RouterLink :to="{ name: 'accreditation-certificate' }">
+            {{ 'Generar Acreditación' }}
+          </RouterLink>
         </li>
 
         <li>

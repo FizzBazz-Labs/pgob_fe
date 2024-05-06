@@ -7,7 +7,7 @@ type Props = {
   title: string
   columns: UITableColumn[]
   rows: UITableRow[]
-  meta: {
+  meta?: {
     create?: any
   }
 }
@@ -24,13 +24,15 @@ const pagination = defineModel<UITablePagination>('pagination')
           {{ props.title }}
         </h1>
 
-        <RouterLink
-          v-if="props.meta.create"
-          :to="props.meta.create"
-          class="btn btn-success text-white"
-        >
-          {{ 'Añadir' }}
-        </RouterLink>
+        <slot name="action">
+          <RouterLink
+            v-if="props.meta?.create"
+            :to="props.meta.create"
+            class="btn btn-success text-white"
+          >
+            {{ 'Añadir' }}
+          </RouterLink>
+        </slot>
       </div>
     </slot>
 

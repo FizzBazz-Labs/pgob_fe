@@ -11,7 +11,7 @@ export interface National {
   image: string
   firstName: string
   lastName: string
-  country: string
+  country: number
   passportId: string
   position: Position
   subPosition?: SubPosition

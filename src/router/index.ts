@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
+import { AccreditationRoutes } from '@/router/accreditations'
 import { CommerceRoutes } from '@/router/commerce'
 import { HousingRoutes } from '@/router/housing'
 import { GeneralVehiclesRoutes } from '@/router/generalVehicles'
@@ -138,6 +139,7 @@ const router = createRouter({
     SiteConfigurationEditView,
     ProfileView,
 
+    ...AccreditationRoutes,
     ...CommerceRoutes,
     ...HousingRoutes,
     ...GeneralVehiclesRoutes,

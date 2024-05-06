@@ -5,10 +5,11 @@ import type { Allergy } from '@/entities/Allergy'
 import type { Immunization } from '@/entities/Immunization'
 import type { MedicalHistory } from '@/entities/MedicalHistory'
 import { AccreditationStatus } from '@/entities/Accreditation'
+
 export interface International {
   id: number
   status: AccreditationStatus
-  country: Country
+  country: number
   image: string
   firstName: string
   lastName: string

@@ -2,10 +2,35 @@ import * as API from '@/services/api'
 
 import type { International } from '@/entities/International'
 import type { FormValues, MultiStepForm } from '@/entities/Form'
+import { AccreditationStatus } from '@/entities/Accreditation'
 
 import * as securities from '@/services/SecurityService'
 
 const ENDPOINT = '/international-accreditations'
+
+type AllParams = {
+  pagination: {
+    page: number
+    limit: number
+  }
+  query: {
+    country?: number
+    downloaded?: boolean
+  }
+}
+
+export async function all({
+  pagination: { page, limit },
+  query: { country, downloaded },
+}: AllParams): Promise<API.PaginatedResponse<International>> {
+  const ENDPOINT = '/internationals'
+
+  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}&status=${AccreditationStatus.APPROVED}&downloaded=${downloaded}`
+  url += country ? `&country=${country}` : ''
+
+  const response = await API.get(url)
+  return await response.json()
+}
 
 export async function create(values: MultiStepForm): Promise<International> {
   const params = values['multi-step'].accreditation
