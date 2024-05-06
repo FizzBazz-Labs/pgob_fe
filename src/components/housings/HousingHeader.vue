@@ -3,5 +3,5 @@ import AppHeader from '@/components/app/AppHeader.vue'
 </script>
 
 <template>
-  <AppHeader>Declaración de Vivienda</AppHeader>
+  <AppHeader>Acreditación de Residentes</AppHeader>
 </template>

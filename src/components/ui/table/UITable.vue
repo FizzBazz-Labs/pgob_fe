@@ -30,7 +30,7 @@ const pagination = defineModel<UITablePagination>('pagination')
             :to="props.meta.create"
             class="btn btn-success text-white"
           >
-            {{ 'Añadir' }}
+            {{ 'Crear acreditación' }}
           </RouterLink>
         </slot>
       </div>

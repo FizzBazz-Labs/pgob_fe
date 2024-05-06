@@ -27,7 +27,7 @@ const general = useGeneralStore()
   />
 
   <DetailField
-    label="País"
+    label="Nacionalidad"
     :value="general.country(item.country)"
   />
 

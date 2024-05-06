@@ -44,7 +44,7 @@ const accreditations = computed(() => [
   },
 
   {
-    label: 'Vivienda',
+    label: 'Residentes',
     to: { name: 'housing-list' },
     canView: auth.isAdmin || auth.hasHousing,
   },

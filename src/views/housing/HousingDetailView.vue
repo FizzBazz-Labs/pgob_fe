@@ -42,7 +42,7 @@ function gotoEdit() {
       v-if="item"
       class="mx-auto w-2/3"
     >
-      <AppHeader>Declaración de Vivienda</AppHeader>
+      <AppHeader>Acreditación de Residentes</AppHeader>
 
       <div
         v-if="!auth.isUser"

@@ -39,7 +39,7 @@ async function onSubmit() {
 
 <template>
   <AppLoading :loading="loading">
-    <AppHeader>Declaración de Vivienda</AppHeader>
+    <AppHeader>Acreditación de Residentes</AppHeader>
 
     <main class="mt-10">
       <HousingForm
