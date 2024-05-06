@@ -33,31 +33,32 @@ function hasTransportationProfile() {
 
 const accreditations = computed(() => [
   {
-    label: 'Declaración de Vivienda',
-    to: { name: 'housing-list' },
-    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
-  },
-
-  {
-    label: 'Declaración de Comercio',
-    to: { name: 'commerce-list' },
-    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
-  },
-
-  {
-    label: 'Declaración de Vehículos Generales',
+    label: 'Vehículos Generales',
     to: { name: 'general-vehicles-list' },
     canView: hasAdminProfile() || hasTransportationProfile() || auth.hasGeneralVehicle,
   },
   {
-    label: 'Declaración de Equipo de Intercomunicación',
+    label: 'Equipo de Intercomunicación',
     to: { name: 'communication-equipment-list' },
-    canView: hasAdminProfile() || auth.hasCommunicationEquipment,
+    canView: hasAdminProfile() || auth.isTransportationManager || auth.hasCommunicationEquipment,
   },
+
   {
-    label: 'Declaración de Aeronaves No Comerciales',
+    label: 'Aeronaves No Comerciales',
     to: { name: 'non-commercial-aircraft-list' },
-    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
+    canView: hasAdminProfile() || auth.isTransportationManager || auth.hasAircraft,
+  },
+
+  {
+    label: 'Vivienda',
+    to: { name: 'housing-list' },
+    canView: auth.isAdmin || auth.hasHousing,
+  },
+
+  {
+    label: 'Comercio',
+    to: { name: 'commerce-list' },
+    canView: auth.isAdmin || auth.hasCommerce,
   },
   {
     label: 'Declaración de Vehículos de Acceso a Aeropuerto',

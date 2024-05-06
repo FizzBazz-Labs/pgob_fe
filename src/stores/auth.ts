@@ -37,18 +37,46 @@ export const useAuthStore = defineStore('auth', {
     isReviewer: state => state.user.group === Group.Reviewer,
     isUser: state => state.user.group === Group.USER,
     isTransportationManager: state => state.user.group === Group.TRANSPORTATION_MANAGER,
+    isNewsletters: state => state.user.group === Group.NEWSLETTERS,
 
-    hasNational: state => state.user.accreditations.some(a => a.name === Accreditation.NATIONAL),
-    hasInternational: state =>
-      state.user.accreditations.some(a => a.name === Accreditation.INTERNATIONAL),
-    hasVehicleAccessAirport: state =>
-      state.user.accreditations.some(a => a.name === Accreditation.VEHICLE_ACCESS_AIRPORT),
-    hasGeneralVehicle: state =>
-      state.user.accreditations.some(a => a.name === Accreditation.GENERAL_VEHICLE),
-    hasAircraft: state => state.user.accreditations.some(a => a.name === Accreditation.AIRCRAFT),
-    hasCommunicationEquipment: state =>
-      state.user.accreditations.some(a => a.name === Accreditation.COMMUNICATION_EQUIPMENT),
-    hasSecurity: state => state.user.accreditations.some(a => a.name === Accreditation.SECURITY),
+    has: state => (accreditation: Accreditation) =>
+      state.user.accreditations.some(item => item.name === accreditation),
+
+    hasNational(): boolean {
+      return this.has(Accreditation.NATIONAL)
+    },
+
+    hasInternational(): boolean {
+      return this.has(Accreditation.INTERNATIONAL)
+    },
+
+    hasVehicleAccessAirport(): boolean {
+      return this.has(Accreditation.VEHICLE_ACCESS_AIRPORT)
+    },
+
+    hasGeneralVehicle(): boolean {
+      return this.has(Accreditation.GENERAL_VEHICLE)
+    },
+
+    hasAircraft(): boolean {
+      return this.has(Accreditation.AIRCRAFT)
+    },
+
+    hasCommunicationEquipment(): boolean {
+      return this.has(Accreditation.COMMUNICATION_EQUIPMENT)
+    },
+
+    hasSecurity(): boolean {
+      return this.has(Accreditation.SECURITY)
+    },
+
+    hasHousing(): boolean {
+      return this.has(Accreditation.HOUSING)
+    },
+
+    hasCommerce(): boolean {
+      return this.has(Accreditation.COMMERCE)
+    },
   },
 
   actions: {

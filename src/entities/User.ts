@@ -20,6 +20,7 @@ export enum Group {
   Reviewer = 'Reviewer',
   USER = 'User',
   TRANSPORTATION_MANAGER = 'TransportationManager',
+  NEWSLETTERS = 'Newsletters',
 }
 
 export enum Accreditation {
@@ -30,6 +31,8 @@ export enum Accreditation {
   AIRCRAFT = 'Aircraft',
   COMMUNICATION_EQUIPMENT = 'CommunicationEquipment',
   SECURITY = 'Security',
+  HOUSING = 'Housing',
+  COMMERCE = 'Commerce',
 }
 
 export type CreatedBy = {
