@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { SecurityDetailView, SecurityWeaponCreateView } from '@/router'
+import { SecurityDetailView, SecurityWeaponCreateView } from '@/router/security'
 
 import type { SecurityAccreditation } from '@/entities/Security'
 import { AccreditationStatus } from '@/entities/Accreditation'

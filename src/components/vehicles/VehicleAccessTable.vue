@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
-import { VehicleAccessDetailView, VehicleAccessCreateView } from '@/router'
+import { VehicleAccessCreateView, VehicleAccessDetailView } from '@/router/vehicleAccessAiport'
 
 import type { VehicleAccessAirport } from '@/entities/VehicleAccessAirport'
 import { AccreditationStatus } from '@/entities/Accreditation'

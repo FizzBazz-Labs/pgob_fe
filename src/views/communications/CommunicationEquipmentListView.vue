@@ -4,7 +4,6 @@ import { ref, watch, onBeforeMount } from 'vue'
 import { EyeIcon } from '@heroicons/vue/24/outline'
 
 import { useAuthStore } from '@/stores/auth'
-import { useGeneralStore } from '@/stores/general'
 
 import { type CommunicationEquipment } from '@/entities/CommunicationEquipment'
 
@@ -17,12 +16,15 @@ import AccreditationFilter from '@/components/accreditations/AccreditationFilter
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const auth = useAuthStore()
-const general = useGeneralStore()
 
 const loading = ref(true)
 
 const columns = ref([
-  { key: 'country', label: 'País', transform: general.country },
+  {
+    key: 'country',
+    label: 'País',
+    transform: (value: any) => value.name,
+  },
   { key: 'institution', label: 'Institución/Medio' },
   { key: 'equipments', label: 'Equipos' },
   { key: 'createdBy', label: 'Creado por' },
@@ -40,6 +42,8 @@ const pagination = ref({
 
 const filters = ref({})
 
+watch(pagination, onFetch, { deep: true })
+watch(filters, onFetch, { deep: true })
 onBeforeMount(onFetch)
 
 async function onFetch() {
@@ -90,10 +94,7 @@ async function onFetch() {
           class="tooltip"
           data-tip="Detalle"
         >
-          <RouterLink
-            :to="{ name: 'communication-equipment-detail', params: { id: item.id } }"
-            class="btn btn-primary text-white"
-          >
+          <RouterLink :to="{ name: 'communication-equipment-detail', params: { id: item.id } }">
             <EyeIcon class="h-5 w-5" />
           </RouterLink>
         </div>

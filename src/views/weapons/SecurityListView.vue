@@ -6,9 +6,9 @@ import { EyeIcon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 
-import { type GeneralVehicles } from '@/entities/GeneralVehicles'
+import { type SecurityAccreditation } from '@/entities/Security'
 
-import * as service from '@/services/GeneralVehicleService'
+import * as service from '@/services/SecurityService'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
@@ -17,31 +17,25 @@ import AccreditationFilter from '@/components/accreditations/AccreditationFilter
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const auth = useAuthStore()
-
-const AccreditationTypeLabel: any = {
-  OFFICIAL_NEWSLETTER: 'Prensa Oficial',
-  COMMERCIAL_NEWSLETTER: 'Prensa Nacional',
-  INTERNATIONAL_NEWSLETTER: 'Prensa Internacional',
-  DIPLOMATIC_MISSION: 'Misión Diplomática',
-}
+const general = useGeneralStore()
 
 const loading = ref(true)
 
 const columns = ref([
+  { key: 'controlDatetime', label: 'Fecha de control' },
+  { key: 'country', label: 'País', transform: general.country },
+  { key: 'weapons', label: 'Arma', transform: (value: string) => value.length },
+  { key: 'communicationItems', label: 'Equipos', transform: (value: string) => value.length },
   {
-    key: 'accreditationType',
-    label: 'Tipo',
-    transform: (value: string) => AccreditationTypeLabel[value],
+    key: 'createdBy',
+    label: 'Creado por',
+    transform: (value: any) => `${value.firstName} ${value.lastName}`,
   },
-  { key: 'assignedTo', label: 'Asignado a' },
-  { key: 'country', label: 'País' },
-  { key: 'vehicles', label: 'Vehiculos`' },
-  { key: 'fullname', label: 'Creado por' },
   { key: 'status', label: 'Estado', show: () => !auth.isUser },
   { key: 'actions', label: 'Acciones' },
 ])
 
-const items = ref<GeneralVehicles[]>([])
+const items = ref<SecurityAccreditation[]>([])
 
 const pagination = ref({
   page: 0,
@@ -56,7 +50,6 @@ watch(filters, onFetch, { deep: true })
 onBeforeMount(onFetch)
 
 async function onFetch() {
-  console.log(filters.value)
   const response = await service.all({
     pagination: pagination.value,
     query: filters.value,
@@ -70,23 +63,20 @@ async function onFetch() {
 
 <template>
   <AppLoading :loading="loading">
-    <AppHeader> Declaración de vehículos generales </AppHeader>
-
+    <AppHeader> Acreditacion de Armas </AppHeader>
     <UITable
       title="Acreditaciones"
       :columns="columns"
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
-        create: { name: 'general-vehicle-create' },
+        create: {
+          name: 'security-weapon-create',
+        },
       }"
     >
       <template #subheader>
         <AccreditationFilter v-model="filters" />
-      </template>
-
-      <template #vehicles="{ item }">
-        <span> {{ item.vehicles.length }}</span>
       </template>
 
       <template #status="{ item }">
@@ -98,7 +88,7 @@ async function onFetch() {
           class="tooltip"
           data-tip="Detalle"
         >
-          <RouterLink :to="{ name: 'general-vehicles-detail', params: { id: item.id } }">
+          <RouterLink :to="{ name: 'security-detail', params: { id: item.id } }">
             <EyeIcon class="h-5 w-5" />
           </RouterLink>
         </div>

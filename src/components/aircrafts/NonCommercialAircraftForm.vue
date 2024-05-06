@@ -11,7 +11,7 @@ import { useFormSelect } from '@/composables/FormSelect'
 
 import * as service from '@/services/AircraftService'
 
-import { HomeView } from '@/router'
+import { OverflightNonCommercialAircraftListView } from '@/router/aircrafts'
 
 const router = useRouter()
 
@@ -25,11 +25,15 @@ const { countries, flightTypes, positions, subPositions } = useFormSelect({ valu
 async function onSubmit() {
   const response = await service.create(values.value)
 
-  toast('Solicitud de sobrevuelo creada con éxito.', { type: 'success' })
+  if (response.id) {
+    toast('Solicitud de sobrevuelo creada con éxito.', { type: 'success' })
 
-  router.push({
-    name: HomeView.name,
-  })
+    router.push({
+      name: OverflightNonCommercialAircraftListView.name,
+    })
+  } else {
+    toast('Ha ocurrido un error al crear la solicitud de sobrevuelo.', { type: 'error' })
+  }
 }
 </script>
 

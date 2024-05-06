@@ -2,8 +2,20 @@ import * as API from '@/services/api'
 
 import type { VehicleAccessAirport } from '@/entities/VehicleAccessAirport'
 
-const ENDPOINT = '/vehicle-access-airport-accreditations'
+const ENDPOINT = '/airport-vehicle-access'
 const VEHICLE_ENDPOINT = '/vehicles'
+
+export async function all({
+  pagination: { page, limit },
+  query: { status, country },
+}: any): Promise<API.PaginatedResponse<VehicleAccessAirport>> {
+  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
+  url += status ? `&status=${status}` : ''
+  url += country ? `&country=${country}` : ''
+
+  const response = await API.get(url)
+  return await response.json()
+}
 
 export async function create(body: Record<string, unknown>): Promise<VehicleAccessAirport> {
   const vehicleId = await createVehicle(body)

@@ -10,7 +10,7 @@ import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
-import { AircraftEditView } from '@/router'
+import { AircraftEditView } from '@/router/aircrafts'
 
 import { useAuthStore } from '@/stores/auth'
 

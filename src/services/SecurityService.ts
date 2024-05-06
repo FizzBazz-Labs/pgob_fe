@@ -2,7 +2,19 @@ import * as API from '@/services/api'
 
 import type { SecurityAccreditation } from '@/entities/Security'
 
-const ENDPOINT = '/security-weapon-accreditation'
+const ENDPOINT = '/security-weapons'
+
+export async function all({
+  pagination: { page, limit },
+  query: { status, country },
+}: any): Promise<API.PaginatedResponse<SecurityAccreditation>> {
+  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
+  url += status ? `&status=${status}` : ''
+  url += country ? `&country=${country}` : ''
+
+  const response = await API.get(url)
+  return await response.json()
+}
 
 export async function create(params: any): Promise<SecurityAccreditation> {
   const response = await API.post(ENDPOINT, params)

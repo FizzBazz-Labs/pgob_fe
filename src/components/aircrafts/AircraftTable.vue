@@ -7,7 +7,7 @@ import {
   AircraftDetailView,
   AircraftEditView,
   NonCommercialAircraftCreateView,
-} from '@/router/overflightNonCommercialAircrafts'
+} from '@/router/aircrafts'
 
 import type { NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 import { AccreditationStatus } from '@/entities/Accreditation'
@@ -29,7 +29,7 @@ function gotoDetail(item: { id: number }) {
   })
 }
 
-function onEdit(item) {
+function onEdit(item: any) {
   if (!item) return
 
   router.push({
@@ -123,3 +123,4 @@ function onEdit(item) {
     </table>
   </main>
 </template>
+@/router/aircrafts

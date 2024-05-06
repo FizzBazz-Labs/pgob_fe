@@ -11,7 +11,7 @@ import { toast } from 'vue3-toastify'
 
 import * as service from '@/services/GeneralVehicleService'
 
-import { HomeView } from '@/router'
+import { GeneralVehicleListView } from '@/router/generalVehicles'
 import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
 
 const router = useRouter()
@@ -44,11 +44,18 @@ const accreditationTypeChoices = [
 async function onSubmit() {
   const response = await service.create(values.value)
 
-  toast('Acreditación general de vehículos creado con éxito.', { type: 'success' })
+  console.log(response)
 
-  router.push({
-    name: HomeView.name,
-  })
+  if (!response.id) {
+    toast('Ha ocurrido un error al crear la acreditación general de vehículos.', { type: 'error' })
+    return
+  } else {
+    toast('Acreditación general de vehículos creado con éxito.', { type: 'success' })
+
+    router.push({
+      name: GeneralVehicleListView.name,
+    })
+  }
 }
 </script>
 
@@ -102,7 +109,7 @@ async function onSubmit() {
           <span class="divider divider-start flex-1 text-xl font-bold"> Vehículo </span>
         </div>
 
-        <VehicleTypeField />
+        <VehicleTypeField name="type" />
 
         <FormKit
           type="text"

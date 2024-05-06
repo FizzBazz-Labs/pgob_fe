@@ -6,9 +6,9 @@ import { EyeIcon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 
-import { type NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
+import { type VehicleAccessAirport } from '@/entities/VehicleAccessAirport'
 
-import * as service from '@/services/AircraftService'
+import * as service from '@/services/VehicleAccessAirportService'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
@@ -22,12 +22,9 @@ const general = useGeneralStore()
 const loading = ref(true)
 
 const columns = ref([
-  { key: 'country', label: 'País', transform: general.country },
-  { key: 'aircraftType', label: 'Tipo de aeronave' },
-  { key: 'flightType', label: 'Tipo de vuelo' },
-  { key: 'model', label: 'Modelo' },
-  { key: 'registration', label: 'Matrícula' },
-  { key: 'color', label: 'Color' },
+  { key: 'country', label: 'Pais', transform: general.country },
+  { key: 'informationResponsible', label: 'Responsable' },
+  { key: 'vehicles', label: 'Vehiculos', transform: (value: any) => value.length },
   {
     key: 'createdBy',
     label: 'Creado por',
@@ -37,7 +34,7 @@ const columns = ref([
   { key: 'actions', label: 'Acciones' },
 ])
 
-const items = ref<NonCommercialAircraft[]>([])
+const items = ref<VehicleAccessAirport[]>([])
 
 const pagination = ref({
   page: 0,
@@ -47,6 +44,8 @@ const pagination = ref({
 
 const filters = ref({})
 
+watch(pagination, onFetch, { deep: true })
+watch(filters, onFetch, { deep: true })
 onBeforeMount(onFetch)
 
 async function onFetch() {
@@ -63,7 +62,7 @@ async function onFetch() {
 
 <template>
   <AppLoading :loading="loading">
-    <AppHeader> Declaración de Sobrevuelo de Aeronaves no Comerciales </AppHeader>
+    <AppHeader> Acceso de Vehiculos a Aeropuertos </AppHeader>
 
     <UITable
       title="Acreditaciones"
@@ -72,7 +71,7 @@ async function onFetch() {
       v-model:pagination="pagination"
       :meta="{
         create: {
-          name: 'non-commercial-aircraft-create',
+          name: 'vehicle-access-create',
         },
       }"
     >
@@ -89,7 +88,7 @@ async function onFetch() {
           class="tooltip"
           data-tip="Detalle"
         >
-          <RouterLink :to="{ name: 'non-commercial-aircraft-detail', params: { id: item.id } }">
+          <RouterLink :to="{ name: 'vehicle-access-detail', params: { id: item.id } }">
             <EyeIcon class="h-5 w-5 text-blue-500" />
           </RouterLink>
         </div>

@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import * as service from '@/services/AircraftService'
 
-import { HomeView } from '@/router'
+import { OverflightNonCommercialAircraftListView } from '@/router/aircrafts'
 
 const router = useRouter()
 
@@ -24,7 +24,7 @@ async function onSubmit() {
   await service.update(values.value.id, body)
 
   router.push({
-    name: HomeView.name,
+    name: OverflightNonCommercialAircraftListView.name,
   })
 }
 </script>

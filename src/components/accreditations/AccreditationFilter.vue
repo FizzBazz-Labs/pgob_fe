@@ -1,7 +1,13 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
 import { AccreditationStatus } from '@/entities/Accreditation'
 
 import { useGeneralStore } from '@/stores/general'
+
+const route = useRoute()
+const isGeneralVehicleList = computed(() => route.name === 'general-vehicles-list')
 
 type Filters = {
   status?: string
@@ -49,7 +55,7 @@ const general = useGeneralStore()
         <option
           v-for="c in general.countries"
           :key="`country-${c.id}`"
-          :value="c.id"
+          :value="isGeneralVehicleList ? c.name : c.id"
         >
           {{ c.name }}
         </option>

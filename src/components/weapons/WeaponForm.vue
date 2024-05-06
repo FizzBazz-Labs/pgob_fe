@@ -45,9 +45,11 @@ function onRemoveCommunicationItem(index: number) {
 
 async function onSubmit() {
   values.value.weapons = weapons.value
-  values.value.equipments = communicationItems.value
+  values.value.communicationItems = communicationItems.value
 
   const response = await service.create(values.value as SecurityValues)
+
+  // if (response.)
 
   toast('Acreditación de armas creada con éxito.', { type: 'success' })
   setTimeout(() => {

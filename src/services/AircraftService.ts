@@ -2,7 +2,7 @@ import * as API from '@/services/api'
 
 import type { NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 
-const ENDPOINT = '/overflight-non-commercial-aircrafts'
+const ENDPOINT = '/aircrafts'
 
 export async function all({
   pagination: { page, limit },

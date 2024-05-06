@@ -1,7 +1,7 @@
 export const OverflightNonCommercialAircraftListView = {
   path: '/accreditations/non-commercial-aircrafts',
   name: 'non-commercial-aircraft-list',
-  component: () => import('../views/aircrafts/OverflightNonCommercialAircraftListView.vue'),
+  component: () => import('../views/aircrafts/AircraftListView.vue'),
 }
 
 export const NonCommercialAircraftCreateView = {

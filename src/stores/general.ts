@@ -39,12 +39,12 @@ export const useGeneralStore = defineStore('general', {
 
   actions: {
     async init() {
-      this.allergies = (await allergies.getAll()).results
+      this.allergies = await allergies.getAll()
       this.countries = await countries.getAll()
-      this.positions = (await positions.getAll()).results
-      this.channels = (await channels.getAll()).results
-      this.immunizations = (await immunizations.getAll()).results
-      this.medicalHistories = (await medicalHistories.getAll()).results
+      this.positions = await positions.getAll()
+      this.channels = await channels.getAll()
+      this.immunizations = await immunizations.getAll()
+      this.medicalHistories = await medicalHistories.getAll()
     },
   },
 

@@ -7,7 +7,7 @@ import * as service from '@/services/SecurityService'
 import AppLoading from '@/components/app/AppLoading.vue'
 import SecurityForm from '@/components/forms/SecurityForm.vue'
 
-import { SecurityDetailView } from '@/router'
+import { SecurityDetailView } from '@/router/security'
 
 import { formatDateTime } from '@/utils/dates'
 

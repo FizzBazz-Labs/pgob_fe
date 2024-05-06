@@ -59,6 +59,17 @@ const accreditations = computed(() => [
     to: { name: 'non-commercial-aircraft-list' },
     canView: hasAdminProfile() || hasTransportationProfile() || auth.hasAircraft,
   },
+  {
+    label: 'Declaración de Vehículos de Acceso a Aeropuerto',
+    to: { name: 'vehicle-access-list' },
+    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasVehicleAccessAirport,
+  },
+
+  {
+    label: 'Acreditación de Armas',
+    to: { name: 'security-list' },
+    canView: hasAdminProfile() || auth.hasSecurity,
+  },
 ])
 </script>
 
@@ -169,29 +180,9 @@ const accreditations = computed(() => [
                   Acreditación Internacional
                 </RouterLink>
               </li>
-
-              <li v-if="hasAdminProfile() || auth.hasSecurity">
-                <RouterLink
-                  :to="{ path: HomeView.path, query: { type: AccreditationType.SECURITIES } }"
-                >
-                  Acreditación de armas
-                </RouterLink>
-              </li>
             </ul>
 
             <ul>
-              <li
-                v-if="
-                  hasAdminProfile() || hasTransportationProfile() || auth.hasVehicleAccessAirport
-                "
-              >
-                <RouterLink
-                  :to="{ path: HomeView.path, query: { type: AccreditationType.ACCESSVEHICLES } }"
-                >
-                  Acceso de Vehículos a Aeropuerto
-                </RouterLink>
-              </li>
-
               <li
                 v-for="(item, i) in accreditations.filter(item => item.canView)"
                 :key="`accreditation-link-${i}`"
@@ -202,14 +193,6 @@ const accreditations = computed(() => [
               </li>
             </ul>
           </details>
-        </li>
-      </ul>
-
-      <ul>
-        <li>
-          <RouterLink :to="NationalAccreditationTableView.path">
-            Lista de acreditaciones
-          </RouterLink>
         </li>
       </ul>
     </div>

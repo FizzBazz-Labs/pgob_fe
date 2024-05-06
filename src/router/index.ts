@@ -7,7 +7,9 @@ import { CommerceRoutes } from '@/router/commerce'
 import { HousingRoutes } from '@/router/housing'
 import { GeneralVehiclesRoutes } from '@/router/generalVehicles'
 import { CommunicationEquipmentRoutes } from '@/router/communicationEquipments'
-import { OverflightNonCommercialAircraftsRoutes } from '@/router/overflightNonCommercialAircrafts'
+import { OverflightNonCommercialAircraftsRoutes } from '@/router/aircrafts'
+import { VehicleAccessRoutes } from '@/router/vehicleAccessAiport'
+import { SecurityRoutes } from '@/router/security'
 
 export const LoginView = {
   path: '/login',
@@ -63,36 +65,6 @@ export const InternationalAccreditationEditView = {
   path: '/accreditations/internationals/:id/edit',
   name: 'international-accreditation-edit',
   component: () => import('../views/internationals/InternationalEditView.vue'),
-}
-
-export const VehicleAccessCreateView = {
-  path: '/accreditations/vehicle-access',
-  name: 'vehicle-access-create',
-  component: () => import('../views/vehicles/VehicleAccessCreateView.vue'),
-}
-
-export const VehicleAccessDetailView = {
-  path: '/accreditations/vehicle-access/:id',
-  name: 'vehicle-access-detail',
-  component: () => import('../views/vehicles/VehicleAccessDetailView.vue'),
-}
-
-export const SecurityWeaponCreateView = {
-  path: '/accreditations/security-weapons',
-  name: 'security-weapon-create',
-  component: () => import('../views/weapons/WeaponCreateView.vue'),
-}
-
-export const SecurityDetailView = {
-  path: '/accreditations/security-weapons/:id',
-  name: 'security-detail',
-  component: () => import('../views/weapons/SecurityDetailView.vue'),
-}
-
-export const SecurityEditView = {
-  path: '/accreditations/security-weapons/:id/edit',
-  name: 'security-edit',
-  component: () => import('../views/weapons/SecurityEditView.vue'),
 }
 
 export const HomeView = {
@@ -157,12 +129,7 @@ const router = createRouter({
     InternationalAccreditationCreateView,
     InternationalAccreditationDetailView,
     InternationalAccreditationEditView,
-    VehicleAccessCreateView,
-    VehicleAccessDetailView,
 
-    SecurityWeaponCreateView,
-    SecurityDetailView,
-    SecurityEditView,
     UserListView,
     UserCreateView,
     UserDetailView,
@@ -176,6 +143,8 @@ const router = createRouter({
     ...GeneralVehiclesRoutes,
     ...CommunicationEquipmentRoutes,
     ...OverflightNonCommercialAircraftsRoutes,
+    ...VehicleAccessRoutes,
+    ...SecurityRoutes,
   ],
 })
 
