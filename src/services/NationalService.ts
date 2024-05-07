@@ -12,17 +12,17 @@ type AllParams = {
     limit: number
   }
   query: {
-    downloaded?: boolean
+    certificated?: boolean
   }
 }
 
 export async function all({
   pagination: { page, limit },
-  query: { downloaded },
+  query: { certificated },
 }: AllParams): Promise<API.PaginatedResponse<National>> {
   const ENDPOINT = '/nationals'
 
-  const url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}&status=${AccreditationStatus.APPROVED}&downloaded=${downloaded}`
+  const url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}&status=${AccreditationStatus.APPROVED}&certificated=${certificated}`
   const response = await API.get(url)
   return await response.json()
 }

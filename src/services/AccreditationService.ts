@@ -27,3 +27,15 @@ export async function getAll(
   )
   return await response.json()
 }
+
+type CertificateParams = {
+  accreditation: string
+  country?: number
+}
+
+export async function certificate(params: CertificateParams): Promise<void> {
+  let url = `/accreditations/certificate/${params.accreditation}/`
+  url += params.country ? `?country=${params.country}` : ''
+
+  await API.get(url)
+}

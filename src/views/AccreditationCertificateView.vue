@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import { ref, watch, onBeforeMount } from 'vue'
 
+import { toast } from 'vue3-toastify'
+
 import { EyeIcon } from '@heroicons/vue/24/outline'
 
-import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 
+import * as service from '@/services/AccreditationService'
 import * as nationals from '@/services/NationalService'
 import * as internationals from '@/services/InternationalService'
 
@@ -23,9 +25,9 @@ type Item = {
   status: string
 }
 
-const auth = useAuthStore()
 const general = useGeneralStore()
 
+const confirm = ref<HTMLDialogElement>()
 const loading = ref(false)
 
 const columns = ref([
@@ -50,8 +52,8 @@ const pagination = ref({
 })
 
 const filters = ref({
-  accreditation: 'national',
-  downloaded: false,
+  accreditation: 'nationals',
+  certificated: false,
   country: undefined,
 })
 
@@ -66,7 +68,7 @@ async function onFetch() {
   }
 
   const response =
-    filters.value.accreditation === 'national'
+    filters.value.accreditation === 'nationals'
       ? await nationals.all(options)
       : await internationals.all(options)
 
@@ -74,6 +76,25 @@ async function onFetch() {
   pagination.value.count = response.count
 
   loading.value = false
+}
+
+async function onSubmit() {
+  loading.value = true
+
+  try {
+    await service.certificate({
+      accreditation: filters.value.accreditation,
+      country: filters.value.country,
+    })
+
+    toast('Acreditaciones impresas con éxito', { type: 'success' })
+
+    await onFetch()
+  } catch (_) {
+    toast('Ha ocurrido un error', { type: 'error' })
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -89,8 +110,9 @@ async function onFetch() {
     >
       <template #action>
         <button
-          v-if="items.length > 0 && !filters.downloaded"
+          v-if="items.length > 0 && !filters.certificated"
           class="btn btn-success text-white"
+          @click="confirm?.showModal()"
         >
           Imprimir
         </button>
@@ -107,8 +129,8 @@ async function onFetch() {
               v-model="filters.accreditation"
               class="select select-bordered w-full max-w-xs"
             >
-              <option value="national">Nacional</option>
-              <option value="international">Internacional</option>
+              <option value="nationals">Nacional</option>
+              <option value="internationals">Internacional</option>
             </select>
           </label>
 
@@ -118,7 +140,7 @@ async function onFetch() {
             </div>
 
             <select
-              v-model="filters.downloaded"
+              v-model="filters.certificated"
               class="select select-bordered w-full max-w-xs"
             >
               <option :value="false">Pendiente</option>
@@ -127,7 +149,7 @@ async function onFetch() {
           </label>
 
           <label
-            v-if="filters.accreditation === 'international'"
+            v-if="filters.accreditation === 'internationals'"
             class="form-control w-full max-w-xs"
           >
             <div class="label-text">
@@ -158,7 +180,7 @@ async function onFetch() {
           data-tip="Detalle"
         >
           <a
-            :href="`/accreditations/${filters.accreditation}s/${item.id}`"
+            :href="`/accreditations/${filters.accreditation}/${item.id}`"
             class="btn btn-ghost btn-sm"
           >
             <EyeIcon class="h-5 w-5" />
@@ -166,5 +188,38 @@ async function onFetch() {
         </div>
       </template>
     </UITable>
+
+    <dialog
+      ref="confirm"
+      class="modal"
+    >
+      <div class="modal-box pb-0">
+        <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
+
+        <FormKit
+          type="form"
+          :actions="false"
+          @submit="onSubmit"
+        >
+          <p class="mb-3">Estas seguro de imprimir estas acreditaciones</p>
+
+          <div class="flex justify-end gap-4">
+            <FormKit
+              type="submit"
+              label="Aceptar"
+              suffix-icon="submit"
+              outer-class="!max-w-fit"
+            />
+
+            <button
+              class="btn"
+              @click.prevent="confirm?.close()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </FormKit>
+      </div>
+    </dialog>
   </AppLoading>
 </template>
