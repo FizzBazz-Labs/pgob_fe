@@ -78,6 +78,7 @@ onBeforeMount(async () => {
     <main class="mt-10">
       <NationalForm
         v-model:values="values"
+        :action="'edit'"
         :errors="errors"
         @submit="onSubmit"
       />
