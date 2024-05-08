@@ -110,14 +110,20 @@ async function onSubmit() {
     response = await service.update(values.value)
   }
 
-  toast('Acreditación internacional creada con éxito.', {
-    type: 'success',
-  })
+  if (response.id) {
+    toast('Acreditación internacional creada con éxito.', {
+      type: 'success',
+    })
 
-  router.push({
-    name: InternationalAccreditationDetailView.name,
-    params: { id: response.id },
-  })
+    router.push({
+      name: InternationalAccreditationDetailView.name,
+      params: { id: response.id },
+    })
+  } else {
+    toast('Error al crear la acreditación internacional.', {
+      type: 'error',
+    })
+  }
 }
 </script>
 
