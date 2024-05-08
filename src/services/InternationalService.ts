@@ -181,7 +181,7 @@ export async function update(values: any): Promise<International> {
 }
 
 export async function getById(id: number): Promise<International> {
-  const response = await API.get(`${ENDPOINT}/${id}`)
+  const response = await API.get(`internationals/${id}`)
 
   return await response.json()
 }
