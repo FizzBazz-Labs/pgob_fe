@@ -33,7 +33,7 @@ const auth = useAuthStore()
         <slot name="action">
           <div class="flex gap-4">
             <a
-              v-if="props.meta?.export"
+              v-if="props.meta?.export && auth.isReviewer"
               :href="props.meta.export"
               target="_blank"
               class="btn"
