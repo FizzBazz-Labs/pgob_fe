@@ -514,7 +514,7 @@ function onEdit() {
                   :key="i"
                   class="list-inside list-disc"
                 >
-                  {{ record.name }}
+                  {{ general.medicals(record) }}
                 </li>
               </ul>
             </div>

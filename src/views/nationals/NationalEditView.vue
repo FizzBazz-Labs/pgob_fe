@@ -10,7 +10,7 @@ import { useConfigStore } from '@/stores/config'
 import AppLoading from '@/components/app/AppLoading.vue'
 import NationalForm from '@/components/forms/NationalForm.vue'
 
-import { NationalAccreditationDetailView } from '@/router'
+import { NationalAccreditationDetailView } from '@/router/nationals'
 
 import { valuesFromNational } from '@/utils/forms'
 

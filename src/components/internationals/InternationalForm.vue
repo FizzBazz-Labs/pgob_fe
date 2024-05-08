@@ -375,7 +375,7 @@ async function onSubmit() {
               name="allergiesDescription"
               label="Detalle de Alergias"
               v-if="values['multi-step'].accreditation.hasAllergies"
-              :required="values['multi-step'].accreditation.hasAllergies"
+              validation="required"
             />
 
             <FormKit
@@ -462,7 +462,7 @@ async function onSubmit() {
 
             <FormKit
               type="text"
-              name="hotelPhoneNumber"
+              name="hotelPhone"
               label="Número de Teléfono"
               validation="required"
             />

@@ -44,8 +44,6 @@ const accreditationTypeChoices = [
 async function onSubmit() {
   const response = await service.create(values.value)
 
-  console.log(response)
-
   if (!response.id) {
     toast('Ha ocurrido un error al crear la acreditación general de vehículos.', { type: 'error' })
     return

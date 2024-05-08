@@ -6,17 +6,15 @@ import { EyeIcon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 
-import { type International } from '@/entities/International'
+import { type National } from '@/entities/National'
 
-import * as service from '@/services/InternationalService'
+import * as service from '@/services/NationalService'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
 import AccreditationFilter from '@/components/accreditations/AccreditationFilter.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
-
-const API_URL = import.meta.env.VITE_API_URL
 
 const auth = useAuthStore()
 const general = useGeneralStore()
@@ -36,7 +34,7 @@ const columns = ref([
   { key: 'actions', label: 'Acciones' },
 ])
 
-const items = ref<International[]>([])
+const items = ref<National[]>([])
 
 const pagination = ref({
   page: 0,
@@ -65,7 +63,7 @@ async function onFetch() {
 
 <template>
   <AppLoading :loading="loading">
-    <AppHeader> Acreditación Internacional </AppHeader>
+    <AppHeader> Acreditación Nacional </AppHeader>
 
     <UITable
       title="Acreditaciones"
@@ -73,10 +71,8 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
-        export: `${API_URL}/internationals/export/`,
-        importData: service.importData,
         create: {
-          name: 'international-create',
+          name: 'national-create',
         },
       }"
     >
@@ -93,7 +89,7 @@ async function onFetch() {
           class="tooltip"
           data-tip="Detalle"
         >
-          <RouterLink :to="{ name: 'international-detail', params: { id: item.id } }">
+          <RouterLink :to="{ name: 'national-detail', params: { id: item.id } }">
             <EyeIcon class="h-5 w-5 text-blue-500" />
           </RouterLink>
         </div>

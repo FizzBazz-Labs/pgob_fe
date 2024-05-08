@@ -42,7 +42,6 @@ onBeforeMount(async () => {
   loading.value = true
   item.value = await service.getById(Number(route.params.id))
   loading.value = false
-  console.log(item.value)
 })
 
 async function onReview(values: any) {

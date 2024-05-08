@@ -18,19 +18,19 @@ type AllParams = {
     country?: number
     certificated?: boolean
     status?: AccreditationStatus
+    search?: string
   }
 }
 
 export async function all({
   pagination: { page, limit },
-  query: { country, certificated, status },
+  query: { country, certificated, status, search },
 }: AllParams): Promise<API.PaginatedResponse<International>> {
-  console.log(certificated, 'certificate')
   let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
   url += status ? `&status=${status}` : ''
   url += country ? `&country=${country}` : ''
+  url += search ? `&search=${search}` : ''
 
-  // certificate !== undefined ? (url += `&certificated=${certificated}`) : ''
   if (certificated !== undefined) {
     url += `&certificated=${certificated}`
   }
@@ -85,7 +85,10 @@ export async function create(values: MultiStepForm): Promise<International> {
     form.append('surgical', params.surgical as string)
   }
 
-  form.append('doctorName', params.doctorName as string)
+  if (params.doctorName !== undefined) {
+    form.append('doctorName', params.doctorName as string)
+  }
+
   form.append('hotelName', params.hotelName as string)
   form.append('hotelAddress', params.hotelAddress as string)
   form.append('hotelPhone', params.hotelPhone as string)

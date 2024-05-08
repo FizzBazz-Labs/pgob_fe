@@ -9,9 +9,17 @@ import { useGeneralStore } from '@/stores/general'
 const route = useRoute()
 const isGeneralVehicleList = computed(() => route.name === 'general-vehicles-list')
 
+const showNameFilter = computed(() => {
+  if (route.name === 'international-list' || route.name === 'national-list') {
+    return true
+  }
+  return false
+})
+
 type Filters = {
   status?: string
   country?: string
+  search?: string
 }
 
 const filters = defineModel<Filters>()
@@ -22,7 +30,7 @@ const general = useGeneralStore()
 <template>
   <div
     v-if="filters"
-    class="grid grid-cols-5 gap-4"
+    class="grid gap-4 md:grid-cols-5"
   >
     <label class="form-control w-full max-w-xs">
       <div class="label-text">
@@ -61,5 +69,42 @@ const general = useGeneralStore()
         </option>
       </select>
     </label>
+
+    <label
+      class="form-control w-full max-w-xs"
+      v-if="showNameFilter"
+    >
+      <div class="label-text">
+        <span class="label-text">Nombre</span>
+      </div>
+
+      <input
+        v-model="filters.search"
+        type="text"
+        class="input input-bordered w-full max-w-xs"
+      />
+    </label>
+
+    <label class="form-control w-full max-w-xs">
+      <div class="label-text">
+        <span class="label-text">Fecha de Creación</span>
+      </div>
+
+      <input
+        v-model="filters.search"
+        type="date"
+        onkeypress="return false"
+        class="input input-bordered w-full max-w-xs"
+      />
+    </label>
   </div>
+
+  <label class="form-control mt-3 w-full max-w-xs">
+    <button
+      @click="filters = {}"
+      class="btn btn-info w-[55%] max-w-xs text-white"
+    >
+      Remover filtros
+    </button>
+  </label>
 </template>

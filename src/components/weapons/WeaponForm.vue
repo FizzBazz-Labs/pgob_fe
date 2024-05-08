@@ -9,6 +9,8 @@ import { HomeView } from '@/router'
 
 import * as service from '@/services/SecurityService'
 
+import { SecurityListView } from '@/router/security'
+
 import type { FormValues } from '@/entities/Form'
 import type { SecurityValues } from '@/entities/Form'
 
@@ -49,14 +51,16 @@ async function onSubmit() {
 
   const response = await service.create(values.value as SecurityValues)
 
-  // if (response.)
-
-  toast('Acreditación de armas creada con éxito.', { type: 'success' })
-  setTimeout(() => {
-    router.push({
-      name: HomeView.name,
-    })
-  }, 3000)
+  if (response.id) {
+    toast('Acreditación de armas creada con éxito.', { type: 'success' })
+    setTimeout(() => {
+      router.push({
+        name: SecurityListView.name,
+      })
+    }, 3000)
+  } else {
+    toast('Ocurrió un error al crear la acreditación de armas.', { type: 'error' })
+  }
 }
 </script>
 

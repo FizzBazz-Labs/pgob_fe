@@ -27,9 +27,14 @@ function hasTransportationProfile() {
 
 const accreditations = computed(() => [
   {
-    label: 'Internacionales',
+    label: 'Internacional',
     to: { name: 'international-list' },
     canView: hasAdminProfile() || hasTransportationProfile() || auth.hasInternational,
+  },
+  {
+    label: 'Nacional',
+    to: { name: 'national-list' },
+    canView: hasAdminProfile() || auth.hasNational,
   },
 
   {
@@ -169,18 +174,7 @@ const accreditations = computed(() => [
 
         <li>
           <details open>
-            <summary>Visor de Acreditaciones</summary>
-
-            <ul>
-              <li v-if="hasAdminProfile() || auth.hasNational">
-                <RouterLink
-                  :to="{ path: HomeView.path, query: { type: AccreditationType.NATIONAL } }"
-                >
-                  Nacional
-                </RouterLink>
-              </li>
-            </ul>
-
+            <summary>Visor Acreditaciones</summary>
             <ul>
               <li
                 v-for="(item, i) in accreditations.filter(item => item.canView)"

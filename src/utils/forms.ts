@@ -2,6 +2,10 @@ import * as nationals from '@/services/NationalService'
 import * as internationals from '@/services/InternationalService'
 import * as securities from '@/services/SecurityService'
 
+import { useGeneralStore } from '@/stores/general'
+
+const general = useGeneralStore()
+
 import { formatDateTime } from './dates'
 
 export async function valuesFromNational(id: number): Promise<any> {
@@ -57,11 +61,11 @@ export async function valuesFromInternational(id: number): Promise<any> {
         authorizationLetter: item.authorizationLetter ? [item.authorizationLetter] : [],
         hasMedicalStaff: item.doctorName !== '',
         hasAllergies: item.allergies.length > 0,
-        allergies: item.allergies.map(item => item.id),
+        allergies: item.allergies,
         hasImmunization: item.immunizations.length > 0,
-        immunizations: item.immunizations.map(item => item.id),
+        immunizations: item.immunizations,
         hasMedicalHistory: item.medicals.length > 0,
-        medicals: item.medicals.map(item => item.id),
+        medicals: item.medicals,
         flightArrivalDatetime: formatDateTime(item.flightArrivalDatetime),
         flightDepartureDatetime: formatDateTime(item.flightDepartureDatetime),
         flightFrom: item.flightFrom.id,

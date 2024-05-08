@@ -5,7 +5,7 @@ export const InternationalListView = {
 }
 
 export const InternationalAccreditationCreateView = {
-  path: '/accreditations/internationals',
+  path: '/accreditations/internationals/add',
   name: 'international-create',
   component: () => import('../views/internationals/InternationalCreateView.vue'),
 }

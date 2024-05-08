@@ -13,16 +13,28 @@ type AllParams = {
   }
   query: {
     certificated?: boolean
+    status?: AccreditationStatus
+    country?: number
+    search?: string
   }
 }
 
 export async function all({
   pagination: { page, limit },
-  query: { certificated },
+  query: { country, certificated, status, search },
 }: AllParams): Promise<API.PaginatedResponse<National>> {
   const ENDPOINT = '/nationals'
 
-  const url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}&status=${AccreditationStatus.APPROVED}&certificated=${certificated}`
+  console.log('all', search)
+  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
+  url += status ? `&status=${status}` : ''
+  url += country ? `&country=${country}` : ''
+  url += search ? `&search=${search}` : ''
+
+  if (certificated !== undefined) {
+    url += `&certificated=${certificated}`
+  }
+
   const response = await API.get(url)
   return await response.json()
 }
@@ -95,8 +107,6 @@ export async function create(values: any): Promise<National> {
 }
 
 export async function update(values: any): Promise<National> {
-  console.log({ values })
-
   const form = new FormData()
 
   const fields = [
