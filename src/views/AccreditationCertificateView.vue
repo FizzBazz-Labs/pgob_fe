@@ -38,9 +38,9 @@ const columns = ref([
   { key: 'email', label: 'Correo' },
   { key: 'country', label: 'País', transform: general.country },
   {
-    key: 'downloaded',
+    key: 'certificated',
     label: 'Estado',
-    transform: (val: boolean) => (val ? 'Certificado' : 'Pendiente'),
+    transform: (val: boolean) => (val ? 'Impreso' : 'Por impreso'),
   },
   { key: 'actions', label: 'Acciones' },
 ])
@@ -139,15 +139,15 @@ async function onSubmit() {
 
           <label class="form-control w-full max-w-xs">
             <div class="label-text">
-              <span class="label-text">Estado</span>
+              <span class="label-text">Estado de Gafete</span>
             </div>
 
             <select
               v-model="filters.certificated"
               class="select select-bordered w-full max-w-xs"
             >
-              <option :value="false">Pendiente</option>
-              <option :value="true">Certificado</option>
+              <option :value="false">Por Imprimir</option>
+              <option :value="true">Impreso</option>
             </select>
           </label>
 
@@ -163,7 +163,7 @@ async function onSubmit() {
               v-model="filters.country"
               class="select select-bordered w-full max-w-xs"
             >
-              <option :value="undefined">Selecciona una Opción</option>
+              <option :value="undefined">Todos</option>
 
               <option
                 v-for="c in general.countries"
