@@ -103,7 +103,7 @@ async function onSubmit() {
   if (props.action === 'new') {
     response = await service.create({
       ...values.value,
-      country: auth.user.country,
+      // country: auth.user.country,
     })
   } else {
     response = await service.update(values.value)

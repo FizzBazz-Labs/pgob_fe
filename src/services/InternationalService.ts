@@ -51,16 +51,33 @@ export async function create(values: MultiStepForm): Promise<International> {
   form.append('address', params.address as string)
   form.append('phoneNumber', params.phoneNumber as string)
   form.append('passportId', params.passport as string)
-  form.append('medication1', params.medication1 as string)
-  form.append('medication2', params.medication2 as string)
-  form.append('medication3', params.medication3 as string)
-  form.append('medication4', params.medication4 as string)
+
+  if (params.medication1 !== undefined) {
+    form.append('medication1', params.medication1 as string)
+  }
+
+  if (params.medication2 !== undefined) {
+    form.append('medication2', params.medication2 as string)
+  }
+
+  if (params.medication3 !== undefined) {
+    form.append('medication3', params.medication3 as string)
+  }
+
+  if (params.medication4 !== undefined) {
+    form.append('medication4', params.medication4 as string)
+  }
+
   form.append('email', params.email as string)
   form.append('birthday', params.birthday as string)
   form.append('birthplace', params.birthplace as string)
   form.append('bloodType', params.blood as string)
   form.append('diseases', params.diseases as string)
-  form.append('surgical', params.surgical as string)
+
+  if (params.surgical !== undefined) {
+    form.append('surgical', params.surgical as string)
+  }
+
   form.append('doctorName', params.doctorName as string)
   form.append('hotelName', params.hotelName as string)
   form.append('hotelAddress', params.hotelAddress as string)

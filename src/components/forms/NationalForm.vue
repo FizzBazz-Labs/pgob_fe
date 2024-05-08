@@ -20,6 +20,7 @@ import MedicalSection from './sections/MedicalSection.vue'
 import CountryField from './fields/CountryField.vue'
 
 type Props = {
+  action?: 'add' | 'edit'
   errors: string[]
 }
 
@@ -27,7 +28,10 @@ type Emits = {
   (e: 'submit', values: any): void
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  action: 'add',
+})
+
 const emits = defineEmits<Emits>()
 
 const values = defineModel('values', {
@@ -142,7 +146,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
             <FormKit
               v-if="!isSecurity"
               type="submit"
-              :label="'Actualizar'"
+              :label="props.action === 'add' ? 'Crear' : 'Actualizar'"
               suffix-icon="submit"
               outer-class="!max-w-fit"
             />
@@ -155,7 +159,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
               @click="handlers.incrementStep(1)()"
             />
 
-            <CancelBtn />
+            <CancelBtn v-if="props.action === 'edit'" />
           </div>
         </template>
       </FormKit>
