@@ -50,5 +50,6 @@ export const useGeneralStore = defineStore('general', {
 
   getters: {
     country: state => (id: number) => state.countries.find(c => c.id === id)?.name ?? 'N/A',
+    allergy: state => (id: number) => state.allergies.find(c => c.id === id)?.name ?? 'N/A',
   },
 })

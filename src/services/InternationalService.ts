@@ -198,7 +198,7 @@ export async function approve(id: number, params: FormValues): Promise<Internati
 }
 
 export async function reject(id: number): Promise<International> {
-  const response = await API.patch(`${ENDPOINT}/${id}/reject`)
+  const response = await API.patch(`/internationals/${id}/reject`)
 
   return await response.json()
 }

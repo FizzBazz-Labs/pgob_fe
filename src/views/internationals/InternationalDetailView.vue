@@ -455,7 +455,7 @@ function onEdit() {
                   :key="i"
                   class="list-inside list-disc"
                 >
-                  {{ allergy.name }}
+                  {{ general.allergy(allergy) }}
                 </li>
               </ul>
             </div>

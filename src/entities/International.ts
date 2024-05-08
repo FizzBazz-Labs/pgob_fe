@@ -31,7 +31,7 @@ export interface International {
   medication2: string
   medication3: string
   medication4: string
-  allergies: Array<Allergy>
+  allergies: Array<Allergy | any>
   allergiesDescription: string
   immunizations: Array<Immunization>
   medicals: Array<MedicalHistory>
