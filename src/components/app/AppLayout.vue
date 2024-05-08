@@ -161,9 +161,9 @@ const accreditations = computed(() => [
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
         </li>
 
-        <li>
+        <li v-if="auth.isAccreditor">
           <RouterLink :to="{ name: 'accreditation-certificate' }">
-            {{ 'Generar Acreditación' }}
+            {{ 'Imprimir Acreditaciones' }}
           </RouterLink>
         </li>
 
