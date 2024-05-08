@@ -41,7 +41,6 @@ const auth = useAuthStore()
               {{ 'Exportar Información' }}
             </a>
 
-            // TODO: cambiarlo por importar
             <a
               v-if="props.meta?.export && auth.isReviewer"
               :href="props.meta.export"
