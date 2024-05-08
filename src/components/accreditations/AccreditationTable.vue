@@ -3,12 +3,12 @@ import { useRouter, useRoute } from 'vue-router'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
+import { NationalAccreditationCreateView, NationalAccreditationDetailView } from '@/router'
+
 import {
-  NationalAccreditationCreateView,
-  NationalAccreditationDetailView,
   InternationalAccreditationCreateView,
   InternationalAccreditationDetailView,
-} from '@/router'
+} from '@/router/internationals'
 
 import {
   AccreditationStatus,

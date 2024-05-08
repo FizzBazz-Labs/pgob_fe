@@ -27,6 +27,12 @@ function hasTransportationProfile() {
 
 const accreditations = computed(() => [
   {
+    label: 'Acreditaciones Internacionales',
+    to: { name: 'international-list' },
+    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasInternational,
+  },
+
+  {
     label: 'Vehículos Generales',
     to: { name: 'general-vehicles-list' },
     canView: hasAdminProfile() || hasTransportationProfile() || auth.hasGeneralVehicle,

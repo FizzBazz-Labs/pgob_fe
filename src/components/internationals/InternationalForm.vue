@@ -12,7 +12,8 @@ import { useFormSelect } from '@/composables/FormSelect'
 
 import * as service from '@/services/InternationalService'
 
-import { InternationalAccreditationDetailView } from '@/router'
+import { InternationalAccreditationDetailView } from '@/router/internationals'
+
 import { initInternational } from '@/utils/defaults'
 
 import { useAuthStore } from '@/stores/auth'

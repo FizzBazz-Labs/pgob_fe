@@ -9,7 +9,7 @@ import * as service from '@/services/InternationalService'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
-import { InternationalAccreditationEditView } from '@/router'
+import { InternationalAccreditationEditView } from '@/router/internationals'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailHeader from '@/components/accreditations/AccreditationDetailHeader.vue'

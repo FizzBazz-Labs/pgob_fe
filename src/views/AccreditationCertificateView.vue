@@ -11,6 +11,8 @@ import * as service from '@/services/AccreditationService'
 import * as nationals from '@/services/NationalService'
 import * as internationals from '@/services/InternationalService'
 
+import { AccreditationStatus } from '@/entities/Accreditation'
+
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
@@ -55,6 +57,7 @@ const filters = ref({
   accreditation: 'nationals',
   certificated: false,
   country: undefined,
+  status: AccreditationStatus.APPROVED,
 })
 
 watch(pagination, onFetch, { deep: true })

@@ -11,6 +11,7 @@ import { CommunicationEquipmentRoutes } from '@/router/communicationEquipments'
 import { OverflightNonCommercialAircraftsRoutes } from '@/router/aircrafts'
 import { VehicleAccessRoutes } from '@/router/vehicleAccessAiport'
 import { SecurityRoutes } from '@/router/security'
+import { InternationalRoutes } from './internationals'
 
 export const LoginView = {
   path: '/login',
@@ -47,25 +48,6 @@ export const NationalAccreditationEditView = {
   path: '/accreditations/nationals/:id/edit',
   name: 'national-accreditation-edit',
   component: () => import('../views/nationals/NationalEditView.vue'),
-}
-
-export const InternationalAccreditationCreateView = {
-  path: '/accreditations/internationals',
-  name: 'international-accreditation-create',
-  component: () => import('../views/internationals/InternationalCreateView.vue'),
-}
-
-export const InternationalAccreditationDetailView = {
-  path: '/accreditations/internationals/:id',
-  name: 'international-accreditation-detail',
-  meta: { requiresAuth: false },
-  component: () => import('../views/internationals/InternationalDetailView.vue'),
-}
-
-export const InternationalAccreditationEditView = {
-  path: '/accreditations/internationals/:id/edit',
-  name: 'international-accreditation-edit',
-  component: () => import('../views/internationals/InternationalEditView.vue'),
 }
 
 export const HomeView = {
@@ -127,9 +109,6 @@ const router = createRouter({
     NationalAccreditationCreateView,
     NationalAccreditationDetailView,
     NationalAccreditationEditView,
-    InternationalAccreditationCreateView,
-    InternationalAccreditationDetailView,
-    InternationalAccreditationEditView,
 
     UserListView,
     UserCreateView,
@@ -147,6 +126,7 @@ const router = createRouter({
     ...OverflightNonCommercialAircraftsRoutes,
     ...VehicleAccessRoutes,
     ...SecurityRoutes,
+    ...InternationalRoutes,
   ],
 })
 

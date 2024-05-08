@@ -5,8 +5,9 @@ import type { FormValues, MultiStepForm } from '@/entities/Form'
 import { AccreditationStatus } from '@/entities/Accreditation'
 
 import * as securities from '@/services/SecurityService'
+import type { National } from '@/entities/National'
 
-const ENDPOINT = '/international-accreditations'
+const ENDPOINT = '/internationals'
 
 type AllParams = {
   pagination: {
@@ -16,17 +17,23 @@ type AllParams = {
   query: {
     country?: number
     certificated?: boolean
+    status?: AccreditationStatus
   }
 }
 
 export async function all({
   pagination: { page, limit },
-  query: { country, certificated },
+  query: { country, certificated, status },
 }: AllParams): Promise<API.PaginatedResponse<International>> {
-  const ENDPOINT = '/internationals'
-
-  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}&status=${AccreditationStatus.APPROVED}&certificated=${certificated}`
+  console.log(certificated, 'certificate')
+  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
+  url += status ? `&status=${status}` : ''
   url += country ? `&country=${country}` : ''
+
+  // certificate !== undefined ? (url += `&certificated=${certificated}`) : ''
+  if (certificated !== undefined) {
+    url += `&certificated=${certificated}`
+  }
 
   const response = await API.get(url)
   return await response.json()

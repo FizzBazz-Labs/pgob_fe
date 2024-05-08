@@ -8,7 +8,7 @@ import * as securities from '@/services/SecurityService'
 import AppLoading from '@/components/app/AppLoading.vue'
 import InternationalForm from '@/components/forms/InternationalForm.vue'
 
-import { InternationalAccreditationDetailView } from '@/router'
+import { InternationalAccreditationDetailView } from '@/router/internationals'
 
 import { valuesFromInternational } from '@/utils/forms'
 
