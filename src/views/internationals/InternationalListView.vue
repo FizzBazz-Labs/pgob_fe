@@ -72,6 +72,7 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
+        export: `${import.meta.env.VITE_API_URL}/internationals/export`,
         create: {
           name: 'international-create',
         },

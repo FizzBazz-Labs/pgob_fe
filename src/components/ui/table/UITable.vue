@@ -32,13 +32,14 @@ const auth = useAuthStore()
 
         <slot name="action">
           <div class="flex gap-4">
-            <RouterLink
+            <a
               v-if="props.meta?.export"
-              :to="props.meta.export"
-              class="btn btn-success text-white"
+              :href="props.meta.export"
+              target="_blank"
+              class="btn"
             >
-              {{ 'Crear acreditación' }}
-            </RouterLink>
+              {{ 'Exportar Información' }}
+            </a>
 
             <RouterLink
               v-if="props.meta?.create && auth.isUser"
