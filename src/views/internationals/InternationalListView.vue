@@ -16,6 +16,8 @@ import AppHeader from '@/components/app/AppHeader.vue'
 import AccreditationFilter from '@/components/accreditations/AccreditationFilter.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const auth = useAuthStore()
 const general = useGeneralStore()
 
@@ -72,7 +74,7 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
-        export: `${import.meta.env.VITE_API_URL}/internationals/export`,
+        export: `${API_URL}/internationals/export/`,
         create: {
           name: 'international-create',
         },
