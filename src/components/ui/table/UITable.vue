@@ -11,6 +11,7 @@ type Props = {
   columns: UITableColumn[]
   rows: UITableRow[]
   meta?: {
+    export?: any
     create?: any
   }
 }
@@ -30,13 +31,23 @@ const auth = useAuthStore()
         </h1>
 
         <slot name="action">
-          <RouterLink
-            v-if="props.meta?.create && auth.isUser"
-            :to="props.meta.create"
-            class="btn btn-success text-white"
-          >
-            {{ 'Crear acreditación' }}
-          </RouterLink>
+          <div class="flex gap-4">
+            <RouterLink
+              v-if="props.meta?.export"
+              :to="props.meta.export"
+              class="btn btn-success text-white"
+            >
+              {{ 'Crear acreditación' }}
+            </RouterLink>
+
+            <RouterLink
+              v-if="props.meta?.create && auth.isUser"
+              :to="props.meta.create"
+              class="btn btn-success text-white"
+            >
+              {{ 'Crear acreditación' }}
+            </RouterLink>
+          </div>
         </slot>
       </div>
     </slot>

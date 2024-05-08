@@ -479,19 +479,23 @@ function onEdit() {
           </div>
         </div>
 
-        <div class="mb-5 flex flex-row items-center gap-2">
+        <div
+          v-if="item.immunizations.length > 0"
+          class="mb-5 flex flex-row items-center gap-2"
+        >
           <div class="w-4/12">
             <span> <strong> Inmunizaciones recientes </strong> </span>
           </div>
+
           <div class="w-full">
             <div class="">
               <ul>
                 <li
-                  v-for="(inmunization, i) in item.immunizations"
+                  v-for="(immunization, i) in item.immunizations"
                   :key="i"
                   class="list-inside list-disc"
                 >
-                  {{ inmunization.name }}
+                  {{ general.immunization(immunization) }}
                 </li>
               </ul>
             </div>

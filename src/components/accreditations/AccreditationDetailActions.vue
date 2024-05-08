@@ -83,7 +83,7 @@ async function onCertificate() {
         class="btn btn-info text-white"
         @click="confirmReviewDialog?.showModal()"
       >
-        Revisar
+        Aprobar
       </button>
 
       <button
@@ -91,7 +91,7 @@ async function onCertificate() {
         class="btn btn-success text-white"
         @click="emits('approve')"
       >
-        Aprobar
+        Aceptar
       </button>
 
       <button
@@ -107,7 +107,7 @@ async function onCertificate() {
         @click="onCertificate"
         class="btn"
       >
-        {{ props.downloaded ? 'Reimprimir' : 'Imprimir' }} certificado
+        {{ props.downloaded ? 'Reimprimir' : 'Imprimir' }} Gafete
 
         <ArrowDownTrayIcon class="h-5 w-5" />
       </button>
