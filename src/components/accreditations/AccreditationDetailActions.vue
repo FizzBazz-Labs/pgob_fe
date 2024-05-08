@@ -115,7 +115,12 @@ async function onCertificate() {
       <div class="flex-1"></div>
 
       <div
-        v-if="!auth.isReviewer && props.status !== AccreditationStatus.REJECTED"
+        v-if="
+          !auth.isReviewer &&
+          !auth.isAdmin &&
+          !auth.isNewsletters &&
+          props.status !== AccreditationStatus.REJECTED
+        "
         class="tooltip tooltip-bottom"
         data-tip="Editar"
       >
