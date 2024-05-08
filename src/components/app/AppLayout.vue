@@ -169,14 +169,14 @@ const accreditations = computed(() => [
 
         <li>
           <details open>
-            <summary>Acreditaciones</summary>
+            <summary>Visor de Acreditaciones</summary>
 
             <ul>
               <li v-if="hasAdminProfile() || auth.hasNational">
                 <RouterLink
                   :to="{ path: HomeView.path, query: { type: AccreditationType.NATIONAL } }"
                 >
-                  Acreditación Nacional
+                  Nacional
                 </RouterLink>
               </li>
             </ul>
