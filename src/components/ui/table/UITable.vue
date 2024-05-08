@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { useAuthStore } from '@/stores/auth'
+
 import type { UITableColumn, UITableRow, UITablePagination } from '@/components/ui/table/uiTable'
+
 import UITableLimit from '@/components/ui/table/UITableLimit.vue'
 import UITablePage from '@/components/ui/table/UITablePage.vue'
 
@@ -14,6 +17,8 @@ type Props = {
 
 const props = defineProps<Props>()
 const pagination = defineModel<UITablePagination>('pagination')
+
+const auth = useAuthStore()
 </script>
 
 <template>
@@ -26,7 +31,7 @@ const pagination = defineModel<UITablePagination>('pagination')
 
         <slot name="action">
           <RouterLink
-            v-if="props.meta?.create"
+            v-if="props.meta?.create && auth.isUser"
             :to="props.meta.create"
             class="btn btn-success text-white"
           >

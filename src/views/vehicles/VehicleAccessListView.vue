@@ -24,7 +24,6 @@ const loading = ref(true)
 const columns = ref([
   { key: 'country', label: 'Pais', transform: general.country },
   { key: 'informationResponsible', label: 'Responsable' },
-  { key: 'vehicles', label: 'Vehiculos', transform: (value: any) => value.length },
   {
     key: 'createdBy',
     label: 'Creado por',
