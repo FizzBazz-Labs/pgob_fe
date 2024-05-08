@@ -22,6 +22,7 @@ import type { FormValues } from '@/entities/Form'
 import AccreditationDetailComment from '@/components/accreditations/AccreditationDetailComment.vue'
 
 import { useAuthStore } from '@/stores/auth'
+import { useGeneralStore } from '@/stores/general'
 
 const route = useRoute()
 const router = useRouter()
@@ -29,6 +30,7 @@ const router = useRouter()
 const { internationalTypes } = useFormSelect({ values: ref({}) })
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const loading = ref(true)
 const item = ref<International>()
@@ -144,7 +146,7 @@ function onEdit() {
             <input
               type="text"
               class="input input-bordered w-full text-black"
-              :value="item.country.name"
+              :value="general.country(item.country)"
               disabled
             />
           </div>
@@ -328,6 +330,7 @@ function onEdit() {
               type="text"
               class="input input-bordered w-full"
               :value="formatDate(item.birthday)"
+              disabled
             />
           </div>
         </div>
@@ -437,7 +440,10 @@ function onEdit() {
           </div>
         </div>
 
-        <div class="mb-5 flex flex-row items-center gap-2">
+        <div
+          v-if="item.allergies.length > 0"
+          class="mb-5 flex flex-row items-center gap-2"
+        >
           <div class="w-4/12">
             <span> <strong> Tipos de alergia </strong> </span>
           </div>
