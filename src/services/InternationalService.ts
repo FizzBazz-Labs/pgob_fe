@@ -181,18 +181,18 @@ export async function update(values: any): Promise<International> {
 }
 
 export async function getById(id: number): Promise<International> {
-  const response = await API.get(`internationals/${id}`)
+  const response = await API.get(`/internationals/${id}`)
 
   return await response.json()
 }
 
 export async function review(id: number, values: any): Promise<International> {
-  const response = await API.patch(`${ENDPOINT}/${id}/review`, values)
+  const response = await API.patch(`/internationals/${id}/review`, values)
   return await response.json()
 }
 
 export async function approve(id: number, params: FormValues): Promise<International> {
-  const response = await API.patch(`${ENDPOINT}/${id}/approve`, params)
+  const response = await API.patch(`/internationals/${id}/approve`, params)
 
   return await response.json()
 }
