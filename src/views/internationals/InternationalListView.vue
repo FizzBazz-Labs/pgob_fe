@@ -75,6 +75,7 @@ async function onFetch() {
       v-model:pagination="pagination"
       :meta="{
         export: `${API_URL}/internationals/export/`,
+        importData: service.importData,
         create: {
           name: 'international-create',
         },

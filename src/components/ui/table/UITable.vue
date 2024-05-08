@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 import { useAuthStore } from '@/stores/auth'
 
 import type { UITableColumn, UITableRow, UITablePagination } from '@/components/ui/table/uiTable'
@@ -6,20 +9,33 @@ import type { UITableColumn, UITableRow, UITablePagination } from '@/components/
 import UITableLimit from '@/components/ui/table/UITableLimit.vue'
 import UITablePage from '@/components/ui/table/UITablePage.vue'
 
+const router = useRouter()
+
 type Props = {
   title: string
   columns: UITableColumn[]
   rows: UITableRow[]
   meta?: {
     export?: any
+    importData?(values: any): Promise<void>
     create?: any
   }
 }
 
 const props = defineProps<Props>()
+
+const confirm = ref<HTMLDialogElement>()
+
 const pagination = defineModel<UITablePagination>('pagination')
 
 const auth = useAuthStore()
+
+async function onImportData(values: any) {
+  await props.meta?.importData?.(values)
+
+  confirm.value?.close()
+  router.go(0)
+}
 </script>
 
 <template>
@@ -38,17 +54,16 @@ const auth = useAuthStore()
               target="_blank"
               class="btn"
             >
-              {{ 'Exportar Información' }}
+              Exportar
             </a>
 
-            <a
-              v-if="props.meta?.export && auth.isReviewer"
-              :href="props.meta.export"
-              target="_blank"
+            <button
+              v-if="props.meta?.importData && auth.isReviewer"
               class="btn"
+              @click="confirm?.showModal()"
             >
-              {{ 'Importar Información' }}
-            </a>
+              Importar
+            </button>
 
             <RouterLink
               v-if="props.meta?.create && auth.isUser"
@@ -121,4 +136,48 @@ const auth = useAuthStore()
       <p class="mt-4 font-bold">No hay datos para mostrar</p>
     </template>
   </div>
+
+  <dialog
+    ref="confirm"
+    class="modal"
+  >
+    <div class="modal-box pb-0">
+      <h3 class="mb-4 text-lg font-bold">Importar Información</h3>
+
+      <FormKit
+        type="form"
+        :actions="false"
+        @submit="onImportData"
+      >
+        <p class="mb-3">Estas seguro de importar la información.</p>
+
+        <FormKit
+          type="file"
+          name="data"
+          label="Archivo"
+          validation="required"
+          accept=".xlsx"
+          file-item-icon="fileDoc"
+          file-remove-icon="close"
+          no-files-icon="fileDoc"
+        />
+
+        <div class="flex justify-end gap-4">
+          <FormKit
+            type="submit"
+            label="Aceptar"
+            suffix-icon="submit"
+            outer-class="!max-w-fit"
+          />
+
+          <button
+            class="btn"
+            @click.prevent="confirm?.close()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </FormKit>
+    </div>
+  </dialog>
 </template>

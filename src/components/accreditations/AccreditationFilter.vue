@@ -35,9 +35,9 @@ const general = useGeneralStore()
       >
         <option :value="undefined">Todos</option>
         <option :value="AccreditationStatus.PENDING">Pendiente</option>
-        <option :value="AccreditationStatus.APPROVED">Aprobado</option>
+        <option :value="AccreditationStatus.APPROVED">Aceptado</option>
         <option :value="AccreditationStatus.REJECTED">Rechazado</option>
-        <option :value="AccreditationStatus.REVIEWED">Revisado</option>
+        <option :value="AccreditationStatus.REVIEWED">Aprobado</option>
       </select>
     </label>
 

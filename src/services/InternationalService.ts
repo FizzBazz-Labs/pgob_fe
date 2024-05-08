@@ -232,3 +232,15 @@ export async function certificate(id: number): Promise<National> {
 
   return await response.json()
 }
+
+export async function importData(values: any): Promise<void> {
+  const form = new FormData()
+
+  const files = values.data as Array<{ file: File }>
+  const file = files[0].file
+
+  form.append('data', file)
+
+  const response = await API.form(`/internationals/import`, form)
+  return await response.json()
+}
