@@ -163,3 +163,9 @@ export async function reject(id: number): Promise<National> {
 
   return await response.json()
 }
+
+export async function certificate(id: number): Promise<National> {
+  const response = await API.patch(`/nationals/${id}/certificate`)
+
+  return await response.json()
+}

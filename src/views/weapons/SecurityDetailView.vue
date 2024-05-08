@@ -171,7 +171,7 @@ async function onReject() {
         :id="item.id"
         :type="AccreditationItemType.WEAPON"
         :status="item.status"
-        :downloaded="item.downloaded"
+        :downloaded="item.certificated"
         @review="onReview"
         @approve="onApprove"
         @reject="onReject"

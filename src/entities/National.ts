@@ -45,4 +45,5 @@ export interface National {
   medicals: Array<MedicalHistory>
   surgical: string
   doctorName: string
+  certificated: boolean
 }

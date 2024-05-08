@@ -55,4 +55,5 @@ export interface International {
   securityWeaponAccreditation: number
   reviewedComment?: string
   authorizedComment?: string
+  certificated: boolean
 }

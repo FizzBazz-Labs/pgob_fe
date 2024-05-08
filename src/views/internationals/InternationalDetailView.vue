@@ -694,7 +694,7 @@ function onEdit() {
           :id="item.id"
           :status="item.status"
           :type="AccreditationItemType.INTERNATIONAL"
-          :downloaded="item.downloaded"
+          :downloaded="item.certificated"
           @review="onReview"
           @approve="confirmApproveDialog?.showModal()"
           @reject="confirmRejectDialog?.showModal()"

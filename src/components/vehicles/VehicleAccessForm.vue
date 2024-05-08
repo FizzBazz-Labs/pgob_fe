@@ -11,7 +11,6 @@ import { toast } from 'vue3-toastify'
 
 import * as service from '@/services/VehicleAccessAirportService'
 
-import { HomeView } from '@/router'
 import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
 
 const router = useRouter()
@@ -20,18 +19,12 @@ const values = ref<FormValues>({})
 
 const { countries } = useFormSelect({ values })
 
-// const vehicles = ref()
-
 async function onSubmit() {
-  // values.value.vehicles = vehicles.value
-
-  const response = await service.create(values.value)
+  await service.create(values.value)
 
   toast('Acreditación de acceso de vehículos al aeropuerto creado con éxito.', { type: 'success' })
 
-  router.push({
-    name: HomeView.name,
-  })
+  router.push({ name: 'vehicle-access-list' })
 }
 </script>
 
@@ -66,7 +59,7 @@ async function onSubmit() {
           <span class="divider divider-start flex-1 text-xl font-bold">Vehículos</span>
         </div>
 
-        <VehicleTypeField />
+        <VehicleTypeField name="type" />
 
         <FormKit
           type="text"

@@ -1,13 +1,16 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
+import { useRouter } from 'vue-router'
+
 import { ArrowDownTrayIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
 import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
 
 import { useAuthStore } from '@/stores/auth'
 
-import { getCertificate } from '@/utils/accreditations'
+import * as nationals from '@/services/NationalService'
+import * as internationals from '@/services/InternationalService'
 
 type Props = {
   id?: number
@@ -30,6 +33,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<Emits>()
 
+const router = useRouter()
+
 const auth = useAuthStore()
 
 const confirmReviewDialog = ref<HTMLDialogElement>()
@@ -42,13 +47,29 @@ const canReject = computed(() => {
 })
 
 const canCertificate = computed(
-  () => auth.isAccreditor && props.status === AccreditationStatus.APPROVED && !props.downloaded
+  () => auth.isAccreditor && props.status === AccreditationStatus.APPROVED
 )
 
 function onReview(values: any) {
   confirmReviewDialog.value?.close()
 
   emits('review', values)
+}
+
+async function onCertificate() {
+  try {
+    switch (props.type) {
+      case AccreditationItemType.NATIONAL:
+        await nationals.certificate(props.id!)
+        break
+
+      case AccreditationItemType.INTERNATIONAL:
+        await internationals.certificate(props.id!)
+        break
+    }
+  } finally {
+    router.go(0)
+  }
 }
 </script>
 
@@ -81,16 +102,15 @@ function onReview(values: any) {
         Rechazar
       </button>
 
-      <a
+      <button
         v-else-if="canCertificate"
-        :href="getCertificate({ id: props.id, type: props.type })"
-        target="_blank"
+        @click="onCertificate"
         class="btn"
       >
-        Acreditación
+        {{ props.downloaded ? 'Reimprimir' : 'Imprimir' }} certificado
 
         <ArrowDownTrayIcon class="h-5 w-5" />
-      </a>
+      </button>
 
       <div class="flex-1"></div>
 
