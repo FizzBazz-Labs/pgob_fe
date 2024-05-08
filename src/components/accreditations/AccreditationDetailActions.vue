@@ -167,7 +167,7 @@ async function onCertificate() {
           <div class="flex justify-end gap-4">
             <FormKit
               type="submit"
-              label="Aprobar"
+              label="Aceptar"
               suffix-icon="submit"
               outer-class="!max-w-fit"
             />
