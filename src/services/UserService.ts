@@ -14,6 +14,12 @@ export async function list(): Promise<User[]> {
   return await response.json()
 }
 
+export async function all(): Promise<API.PaginatedResponse<User>> {
+  const response = await API.get('/users')
+
+  return await response.json()
+}
+
 export async function retrieve(id: number): Promise<User> {
   const response = await API.get(`/users/${id}`)
 

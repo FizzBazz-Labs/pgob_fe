@@ -12,7 +12,8 @@ import type { User } from '@/entities/User'
 const users = ref<User[]>([])
 
 onBeforeMount(async () => {
-  const response = await service.list()
+  const response = (await service.all()).results
+
   users.value = response
 })
 </script>
