@@ -32,7 +32,9 @@ async function onSubmit() {
         id: route.params.id,
       },
     })
-  } catch (_) {
+  } catch (error) {
+    console.log(error)
+
     errors.value = [
       'Ocurrió un error al intentar guardar los datos. Por favor, intenta nuevamente.',
     ]
