@@ -146,7 +146,7 @@ export async function update(values: any): Promise<National> {
   appendArrayFields('immunizations', values.immunizations)
   appendArrayFields('medicals', values.medicals)
 
-  const response = await API.form(`${ENDPOINT}/${values.id}`, form, 'PATCH')
+  const response = await API.form(`/internationals/${values.id}`, form, 'PATCH')
   return await response.json()
 }
 

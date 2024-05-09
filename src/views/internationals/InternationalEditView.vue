@@ -23,13 +23,18 @@ async function onSubmit() {
   loading.value = true
 
   try {
-    try {
-      await securities.update(values.value.steps.security)
-    } catch (_) {
-      // TODO
+    let accreditation = values.value.steps.accreditation
+
+    if ('security' in values.value.steps) {
+      try {
+        const security = await securities.update(values.value.steps.security)
+        accreditation = { ...accreditation, securityWeaponAccreditation: security.id }
+      } catch (_) {
+        // TODO: add error information to failure security
+      }
     }
 
-    await service.update(values.value.steps.accreditation)
+    await service.update(accreditation)
 
     router.push({
       name: InternationalAccreditationDetailView.name,
