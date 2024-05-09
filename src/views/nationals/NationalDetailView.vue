@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import type { National } from '@/entities/National'
 import { AccreditationItemType, AccreditationStatus } from '@/entities/Accreditation'
 
-import { NationalAccreditationEditView } from '@/router'
+import { NationalAccreditationEditView } from '@/router/nationals'
 
 import * as service from '@/services/NationalService'
 
