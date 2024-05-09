@@ -23,7 +23,12 @@ async function onSubmit() {
   loading.value = true
 
   try {
-    await securities.update(values.value.steps.security)
+    try {
+      await securities.update(values.value.steps.security)
+    } catch (_) {
+      // TODO
+    }
+
     await service.update(values.value.steps.accreditation)
 
     router.push({
@@ -33,8 +38,6 @@ async function onSubmit() {
       },
     })
   } catch (error) {
-    console.log(error)
-
     errors.value = [
       'Ocurrió un error al intentar guardar los datos. Por favor, intenta nuevamente.',
     ]
