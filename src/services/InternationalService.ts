@@ -188,7 +188,7 @@ export async function update(values: any): Promise<International> {
   ]
 
   fields.forEach(field => {
-    if (values[field] !== undefined) {
+    if (values[field] !== undefined || values[field] !== null) {
       form.append(field, values[field])
     }
   })
