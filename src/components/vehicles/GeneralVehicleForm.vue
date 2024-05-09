@@ -100,7 +100,7 @@ async function onSubmit() {
         <FormKit
           type="textarea"
           name="observations"
-          label="Observaciones"
+          label="Observaciones (Motivo por el cual se usara el vehículo)"
         />
 
         <div class="mb-2 flex gap-4">

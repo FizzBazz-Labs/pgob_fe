@@ -201,13 +201,16 @@ const AccreditationTypeLabel: any = {
           </a>
         </div>
 
-        <div class="mb-5">
+        <div
+          class="mb-5"
+          v-if="vehicle.tpv"
+        >
           <a
             :href="vehicle.tpv"
             target="_blank"
             class="btn"
           >
-            Tarjeta de Propiedad Vehicular
+            Registro de Propiedad Vehicular
           </a>
         </div>
       </div>
