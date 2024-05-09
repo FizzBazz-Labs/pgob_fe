@@ -40,7 +40,7 @@ const columns = ref([
   {
     key: 'certificated',
     label: 'Estado',
-    transform: (val: boolean) => (val ? 'Impreso' : 'Por impreso'),
+    transform: (certificated: boolean) => (certificated ? 'Impreso' : 'Por imprimir'),
   },
   { key: 'actions', label: 'Acciones' },
 ])
