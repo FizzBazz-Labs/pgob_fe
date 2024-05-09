@@ -13,6 +13,7 @@ import * as service from '@/services/GeneralVehicleService'
 
 import { GeneralVehicleListView } from '@/router/generalVehicles'
 import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
+import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
 
 const router = useRouter()
 

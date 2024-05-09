@@ -11,6 +11,7 @@ import { useAuthStore } from '@/stores/auth'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
+import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
 
 const route = useRoute()
 
@@ -64,6 +65,8 @@ const AccreditationTypeLabel: any = {
       v-if="item"
       class="mx-auto w-2/3"
     >
+      <SiteHeader />
+
       <h1 class="divider divider-start mt-5 text-xl font-bold">
         Acreditación de Vehículos Generales
       </h1>
@@ -210,7 +213,7 @@ const AccreditationTypeLabel: any = {
             target="_blank"
             class="btn"
           >
-            Registro de Unico Vehicular
+            Registro de Único Vehicular
           </a>
         </div>
       </div>
