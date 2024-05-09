@@ -12,10 +12,12 @@ import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
+import { useGeneralStore } from '@/stores/general'
 
 const route = useRoute()
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const loading = ref(true)
 const item = ref<GeneralVehicles>()

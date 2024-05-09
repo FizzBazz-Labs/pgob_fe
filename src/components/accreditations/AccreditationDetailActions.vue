@@ -91,7 +91,7 @@ async function onCertificate() {
         class="btn btn-success text-white"
         @click="emits('approve')"
       >
-        Aceptar
+        Generar Acreditación
       </button>
 
       <button

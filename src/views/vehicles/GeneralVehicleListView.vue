@@ -35,7 +35,7 @@ const columns = ref([
     transform: (value: string) => AccreditationTypeLabel[value],
   },
   { key: 'assignedTo', label: 'Asignado a' },
-  { key: 'country', label: 'País', transform: general.country },
+  { key: 'country', label: 'País', transform: value => value || 'N/A' },
   { key: 'vehicles', label: 'Vehiculos`' },
   { key: 'fullname', label: 'Creado por' },
   { key: 'status', label: 'Estado', show: () => !auth.isUser },
