@@ -210,7 +210,7 @@ const AccreditationTypeLabel: any = {
             target="_blank"
             class="btn"
           >
-            Registro de Propiedad Vehicular
+            Registro de Unico Vehicular
           </a>
         </div>
       </div>

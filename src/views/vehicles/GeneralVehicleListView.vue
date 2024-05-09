@@ -17,6 +17,7 @@ import AccreditationFilter from '@/components/accreditations/AccreditationFilter
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const AccreditationTypeLabel: any = {
   OFFICIAL_NEWSLETTER: 'Prensa Oficial',
@@ -34,7 +35,7 @@ const columns = ref([
     transform: (value: string) => AccreditationTypeLabel[value],
   },
   { key: 'assignedTo', label: 'Asignado a' },
-  { key: 'country', label: 'País' },
+  { key: 'country', label: 'País', transform: general.country },
   { key: 'vehicles', label: 'Vehiculos`' },
   { key: 'fullname', label: 'Creado por' },
   { key: 'status', label: 'Estado', show: () => !auth.isUser },

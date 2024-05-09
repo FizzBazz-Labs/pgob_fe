@@ -169,7 +169,7 @@ async function onSubmit() {
         <FormKit
           type="file"
           name="tpv"
-          label="Tarjeta de Propiedad Vehicular"
+          label="Registro de Único Vehicular"
           validation="required"
           accept=".png,.jpg,.webp"
           file-item-icon="fileDoc"
