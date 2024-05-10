@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useConfigStore } from '@/stores/config'
@@ -17,6 +17,8 @@ const store = useAuthStore()
 const errors = ref<Array<string>>([])
 const showPassword = ref(false)
 
+const titleSize = computed(() => `${config.loginTitleSize}px`)
+
 async function onLogin(values: Record<string, string>) {
   try {
     await store.login({
@@ -33,11 +35,23 @@ async function onLogin(values: Record<string, string>) {
 
 <template>
   <main
-    class="flex h-screen items-center justify-center bg-gray-200 bg-cover bg-center bg-no-repeat p-4 md:p-0"
+    class="flex h-screen flex-col items-center justify-center bg-gray-200 bg-cover bg-center bg-no-repeat p-4 md:p-0"
     :style="{
       backgroundImage: `url(${config.unavailableBackground})`,
     }"
   >
+    <div
+      class="mb-12"
+      :style="{
+        color: config.loginTitleColor,
+        'font-size': titleSize,
+      }"
+    >
+      <span>
+        {{ config.loginTitle }}
+      </span>
+    </div>
+
     <div class="card w-full bg-base-100 shadow-xl md:w-[25vw]">
       <div class="card-body">
         <div class="mb-5 flex justify-center">
