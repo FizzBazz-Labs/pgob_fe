@@ -16,6 +16,7 @@ import { AccreditationStatus } from '@/entities/Accreditation'
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
+import { useAuthStore } from '@/stores/auth'
 
 type Item = {
   id: number
@@ -28,6 +29,7 @@ type Item = {
 }
 
 const general = useGeneralStore()
+const auth = useAuthStore()
 
 const confirm = ref<HTMLDialogElement>()
 const loading = ref(false)
@@ -191,7 +193,7 @@ async function onSubmit() {
         </div>
 
         <div
-          v-if="item.certificated"
+          v-if="item.certificated && auth.isReviewer"
           class="tooltip"
           data-tip="Imprimir Gafete"
         >
