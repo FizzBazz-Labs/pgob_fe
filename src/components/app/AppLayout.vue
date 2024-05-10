@@ -29,29 +29,29 @@ const accreditations = computed(() => [
   {
     label: 'Internacional',
     to: { name: 'international-list' },
-    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasInternational,
+    canView: auth.isAdmin || auth.hasInternational,
   },
   {
     label: 'Nacional',
     to: { name: 'national-list' },
-    canView: hasAdminProfile() || auth.hasNational,
+    canView: auth.isAdmin || auth.hasNational,
   },
 
   {
     label: 'Vehículos Generales',
     to: { name: 'general-vehicles-list' },
-    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasGeneralVehicle,
+    canView: auth.isAdmin || auth.hasGeneralVehicle,
   },
   {
     label: 'Equipo de Intercomunicación',
     to: { name: 'communication-equipment-list' },
-    canView: hasAdminProfile() || auth.isTransportationManager || auth.hasCommunicationEquipment,
+    canView: auth.isAdmin || auth.hasCommunicationEquipment,
   },
 
   {
     label: 'Aeronaves No Comerciales',
     to: { name: 'non-commercial-aircraft-list' },
-    canView: hasAdminProfile() || auth.isTransportationManager || auth.hasAircraft,
+    canView: auth.isAdmin || auth.hasAircraft,
   },
 
   {
@@ -68,13 +68,13 @@ const accreditations = computed(() => [
   {
     label: 'Declaración de Vehículos de Acceso a Aeropuerto',
     to: { name: 'vehicle-access-list' },
-    canView: hasAdminProfile() || hasTransportationProfile() || auth.hasVehicleAccessAirport,
+    canView: auth.isAdmin || auth.hasVehicleAccessAirport,
   },
 
   {
     label: 'Acreditación de Armas',
     to: { name: 'security-list' },
-    canView: hasAdminProfile() || auth.hasSecurity,
+    canView: auth.isAdmin || auth.hasSecurity,
   },
 ])
 </script>
