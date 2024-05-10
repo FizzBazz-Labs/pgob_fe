@@ -253,6 +253,14 @@ export function useFormSelect(props: Props) {
       value: Group.USER,
       label: 'Usuario',
     },
+    {
+      value: Group.TRANSPORTATION_MANAGER,
+      label: 'Transporte',
+    },
+    {
+      value: Group.NEWSLETTERS,
+      label: 'Prensa',
+    },
   ])
 
   const accreditations = ref([
@@ -283,6 +291,14 @@ export function useFormSelect(props: Props) {
     {
       value: Accreditation.SECURITY,
       label: 'Seguridad y Armas',
+    },
+    {
+      value: Accreditation.HOUSING,
+      label: 'Residentes',
+    },
+    {
+      value: Accreditation.COMMERCE,
+      label: 'Comercios',
     },
   ])
 

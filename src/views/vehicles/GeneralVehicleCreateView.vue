@@ -1,13 +1,10 @@
 <script lang="ts" setup>
+import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
 import GeneralVehicleForm from '@/components/vehicles/GeneralVehicleForm.vue'
 </script>
 
 <template>
-  <header class="flex flex-col text-center text-2xl font-bold">
-    <span>República de Panamá</span>
-    <span>Transmisión de Mando Presidencial 2024</span>
-    <span>Acreditación de General de Vehículos</span>
-  </header>
+  <SiteHeader />
 
   <main class="mt-10">
     <GeneralVehicleForm />

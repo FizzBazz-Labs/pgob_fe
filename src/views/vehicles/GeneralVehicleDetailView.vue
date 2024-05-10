@@ -11,10 +11,13 @@ import { useAuthStore } from '@/stores/auth'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
+import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
+import { useGeneralStore } from '@/stores/general'
 
 const route = useRoute()
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const loading = ref(true)
 const item = ref<GeneralVehicles>()
@@ -64,6 +67,8 @@ const AccreditationTypeLabel: any = {
       v-if="item"
       class="mx-auto w-2/3"
     >
+      <SiteHeader />
+
       <h1 class="divider divider-start mt-5 text-xl font-bold">
         Acreditación de Vehículos Generales
       </h1>
@@ -201,13 +206,16 @@ const AccreditationTypeLabel: any = {
           </a>
         </div>
 
-        <div class="mb-5">
+        <div
+          class="mb-5"
+          v-if="vehicle.tpv"
+        >
           <a
             :href="vehicle.tpv"
             target="_blank"
             class="btn"
           >
-            Tarjeta de Propiedad Vehicular
+            Registro de Único Vehicular
           </a>
         </div>
       </div>

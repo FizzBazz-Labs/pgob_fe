@@ -12,11 +12,12 @@ import * as service from '@/services/GeneralVehicleService'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
-import AppHeader from '@/components/app/AppHeader.vue'
+import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
 import AccreditationFilter from '@/components/accreditations/AccreditationFilter.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const AccreditationTypeLabel: any = {
   OFFICIAL_NEWSLETTER: 'Prensa Oficial',
@@ -34,7 +35,7 @@ const columns = ref([
     transform: (value: string) => AccreditationTypeLabel[value],
   },
   { key: 'assignedTo', label: 'Asignado a' },
-  { key: 'country', label: 'País' },
+  { key: 'country', label: 'País', transform: value => value || 'N/A' },
   { key: 'vehicles', label: 'Vehiculos`' },
   { key: 'fullname', label: 'Creado por' },
   { key: 'status', label: 'Estado', show: () => !auth.isUser },
@@ -69,7 +70,7 @@ async function onFetch() {
 
 <template>
   <AppLoading :loading="loading">
-    <AppHeader> Declaración de vehículos generales </AppHeader>
+    <SiteHeader />
 
     <UITable
       title="Acreditaciones"

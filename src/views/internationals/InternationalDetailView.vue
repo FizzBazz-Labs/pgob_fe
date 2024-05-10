@@ -686,20 +686,6 @@ function onEdit() {
           </div>
         </div>
 
-        <div class="mb-5 flex flex-row items-center gap-2">
-          <div class="w-[33%]">
-            <span> <strong> Tipo de acreditación </strong> </span>
-          </div>
-          <div class="w-full">
-            <input
-              type="text"
-              class="input input-bordered w-full"
-              :value="item.type"
-              disabled
-            />
-          </div>
-        </div>
-
         <AccreditationDetailActions
           :id="item.id"
           :status="item.status"

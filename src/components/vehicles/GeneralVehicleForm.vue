@@ -13,6 +13,7 @@ import * as service from '@/services/GeneralVehicleService'
 
 import { GeneralVehicleListView } from '@/router/generalVehicles'
 import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
+import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
 
 const router = useRouter()
 
@@ -100,7 +101,7 @@ async function onSubmit() {
         <FormKit
           type="textarea"
           name="observations"
-          label="Observaciones"
+          label="Observaciones (Motivo por el cual se usara el vehículo)"
         />
 
         <div class="mb-2 flex gap-4">
@@ -169,7 +170,7 @@ async function onSubmit() {
         <FormKit
           type="file"
           name="tpv"
-          label="Tarjeta de Propiedad Vehicular"
+          label="Registro de Único Vehicular"
           validation="required"
           accept=".png,.jpg,.webp"
           file-item-icon="fileDoc"
