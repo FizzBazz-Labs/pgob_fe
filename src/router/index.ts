@@ -140,6 +140,13 @@ router.beforeEach(async (to, before, next) => {
   const isLogin = to.name === LoginView.name
   const isLogged = Boolean(auth.token)
 
+  if ('permissions' in to.meta) {
+    const hasPermission = auth.user.accreditations.some(item => item.name == to.meta.permissions)
+    if (!hasPermission) {
+      return next(HomeView)
+    }
+  }
+
   if (!isLogin && !isLogged) return next(LoginView)
 
   return next()
