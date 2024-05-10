@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch, onBeforeMount } from 'vue'
 
-import { EyeIcon } from '@heroicons/vue/24/outline'
+import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
@@ -92,6 +92,20 @@ async function onFetch() {
           <RouterLink :to="{ name: 'national-detail', params: { id: item.id } }">
             <EyeIcon class="h-5 w-5 text-blue-500" />
           </RouterLink>
+        </div>
+
+        <div
+          v-if="item.certificated"
+          class="tooltip"
+          data-tip="Imprimir Gafete"
+        >
+          <a
+            :href="item.certification"
+            target="_blank"
+            class="btn btn-ghost btn-sm"
+          >
+            <IdentificationIcon class="h-5 w-5" />
+          </a>
         </div>
       </template>
     </UITable>

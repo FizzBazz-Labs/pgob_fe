@@ -3,7 +3,7 @@ import { ref, watch, onBeforeMount } from 'vue'
 
 import { toast } from 'vue3-toastify'
 
-import { EyeIcon } from '@heroicons/vue/24/outline'
+import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
 import { useGeneralStore } from '@/stores/general'
 
@@ -187,6 +187,20 @@ async function onSubmit() {
             class="btn btn-ghost btn-sm"
           >
             <EyeIcon class="h-5 w-5" />
+          </a>
+        </div>
+
+        <div
+          v-if="item.certificated"
+          class="tooltip"
+          data-tip="Imprimir Gafete"
+        >
+          <a
+            :href="item.certification"
+            target="_blank"
+            class="btn btn-ghost btn-sm"
+          >
+            <IdentificationIcon class="h-5 w-5" />
           </a>
         </div>
       </template>

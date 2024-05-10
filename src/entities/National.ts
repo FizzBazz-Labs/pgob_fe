@@ -46,4 +46,5 @@ export interface National {
   surgical: string
   doctorName: string
   certificated: boolean
+  certification?: string
 }
