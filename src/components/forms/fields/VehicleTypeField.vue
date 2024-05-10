@@ -9,7 +9,7 @@ withDefaults(defineProps<Props>(), {
   name: 'vehicleType',
 })
 
-const vehicleType = ref('Sedan')
+const vehicleType = ref<string>()
 </script>
 
 <template>
@@ -21,6 +21,7 @@ const vehicleType = ref('Sedan')
     validation="required"
     :options="['Sedan', 'SUV', 'Van', 'Pickup', 'Camión', 'Unidad Móvil', 'Otro']"
     select-icon="down"
+    placeholder="Selecciona una opción"
   />
 
   <FormKit

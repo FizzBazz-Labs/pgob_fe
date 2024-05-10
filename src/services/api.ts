@@ -37,7 +37,7 @@ export function form(url: string, body: FormData, method = 'POST') {
   })
 }
 
-export function patch(url: string, body: Record<string, unknown> = {}) {
+export function patch(url: string, body: any = {}) {
   return fetch(`${BASE_URL}${url}/`, {
     method: 'PATCH',
     headers: getHeaders(),

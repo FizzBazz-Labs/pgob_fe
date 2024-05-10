@@ -7,7 +7,6 @@ import { AccreditationStatus } from '@/entities/Accreditation'
 import { useGeneralStore } from '@/stores/general'
 
 const route = useRoute()
-const isGeneralVehicleList = computed(() => route.name === 'general-vehicles-list')
 
 const showNameFilter = computed(() => {
   if (route.name === 'international-list' || route.name === 'national-list') {
@@ -63,7 +62,7 @@ const general = useGeneralStore()
         <option
           v-for="c in general.countries"
           :key="`country-${c.id}`"
-          :value="isGeneralVehicleList ? c.name : c.id"
+          :value="c.id"
         >
           {{ c.name }}
         </option>
