@@ -41,7 +41,7 @@ async function onLogin(values: Record<string, string>) {
     }"
   >
     <div
-      class="mb-9"
+      class="mb-9 text-center"
       :class="config.useBold ? 'font-bold' : ''"
       :style="{
         color: config.loginTitleColor,
