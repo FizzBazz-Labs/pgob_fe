@@ -42,14 +42,21 @@ async function onLogin(values: Record<string, string>) {
   >
     <div
       class="mb-12"
+      :class="config.useBold ? 'font-bold' : ''"
       :style="{
         color: config.loginTitleColor,
         'font-size': titleSize,
       }"
     >
-      <span>
+      <p>
         {{ config.loginTitle }}
-      </span>
+      </p>
+      <p>
+        {{ config.loginTitle2 }}
+      </p>
+      <p>
+        {{ config.loginTitle3 }}
+      </p>
     </div>
 
     <div class="card w-full bg-base-100 shadow-xl md:w-[25vw]">

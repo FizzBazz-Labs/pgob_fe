@@ -5,6 +5,9 @@ export interface SiteConfiguration {
   favicon: string
   loginBackground: string
   loginTitle: string
+  loginTitle2: string
+  loginTitle3: string
+  useBold: boolean
   loginTitleColor: string
   loginTitleSize: string
   unavailableTitle: string
