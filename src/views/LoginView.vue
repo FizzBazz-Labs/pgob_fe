@@ -37,11 +37,11 @@ async function onLogin(values: Record<string, string>) {
   <main
     class="flex h-screen flex-col items-center justify-center bg-gray-200 bg-cover bg-center bg-no-repeat p-4 md:p-0"
     :style="{
-      backgroundImage: `url(${config.unavailableBackground})`,
+      backgroundImage: `url(${config.loginBackground})`,
     }"
   >
     <div
-      class="mb-12"
+      class="mb-9"
       :class="config.useBold ? 'font-bold' : ''"
       :style="{
         color: config.loginTitleColor,
