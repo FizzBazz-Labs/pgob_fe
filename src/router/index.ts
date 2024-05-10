@@ -35,7 +35,7 @@ export const NationalAccreditationTableView = {
 export const HomeView = {
   path: '/',
   name: 'home',
-  redirect: AccreditationListView.path,
+  component: () => import('../views/HomeView.vue'),
 }
 
 export const UserListView = {

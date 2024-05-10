@@ -153,12 +153,10 @@ const accreditations = computed(() => [
       ></label>
 
       <div class="flex w-full items-center justify-center py-5">
-        <RouterLink :to="HomeView.path">
-          <img
-            :src="config.logo"
-            class="h-16"
-          />
-        </RouterLink>
+        <img
+          :src="config.logo"
+          class="h-16"
+        />
       </div>
 
       <ul class="menu w-80 flex-1 p-4">

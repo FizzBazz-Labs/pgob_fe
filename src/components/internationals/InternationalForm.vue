@@ -318,7 +318,6 @@ async function onSubmit() {
               type="textarea"
               name="diseases"
               label="Enfermedades en Tratamiento"
-              validation="required"
             />
 
             <h3 class="my-2 mt-4 text-lg font-semibold">Medicamentos en Uso</h3>
@@ -476,21 +475,18 @@ async function onSubmit() {
                 type="datetime-local"
                 name="flightArrivalDatetime"
                 label="Fecha y Hora"
-                validation="required"
               />
 
               <FormKit
                 type="text"
                 name="flightArrivalNumber"
                 label="No. Vuelo"
-                validation="required"
               />
 
               <FormKit
                 type="select"
                 name="flightFrom"
                 label="Procedencia"
-                validation="required"
                 :options="countries"
                 select-icon="down"
               />
@@ -503,21 +499,18 @@ async function onSubmit() {
                 type="datetime-local"
                 name="flightDepartureDatetime"
                 label="Fecha y Hora"
-                validation="required"
               />
 
               <FormKit
                 type="text"
                 name="flightDepartureNumber"
                 label="No. Vuelo"
-                validation="required"
               />
 
               <FormKit
                 type="select"
                 name="flightTo"
                 label="Destino"
-                validation="required"
                 :options="countries"
                 select-icon="down"
               />
