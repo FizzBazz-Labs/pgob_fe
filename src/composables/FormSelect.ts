@@ -180,7 +180,7 @@ export function useFormSelect(props: Props) {
       label: 'Personal de Apoyo',
     },
     {
-      value: 'OFFICIAL_PRESS',
+      value: 'OFFICIAL_NEWSLETTER',
       label: 'Prensa Oficial',
     },
     {

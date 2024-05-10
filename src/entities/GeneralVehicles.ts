@@ -8,7 +8,7 @@ export interface GeneralVehicle {
   accreditationType: string
   country: number
   assignedTo: string
-  vehicle: Vehicle
+  vehicle: number
   distinctive: string
   observations: string
   status: AccreditationStatus

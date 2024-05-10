@@ -8,8 +8,11 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="mb-5 flex flex-row items-center gap-2">
-    <p class="font-bold">
+  <div
+    v-bind="$attrs"
+    class="mb-5 flex flex-row items-center gap-2"
+  >
+    <p class="min-w-fit font-bold">
       {{ label }}
     </p>
 
