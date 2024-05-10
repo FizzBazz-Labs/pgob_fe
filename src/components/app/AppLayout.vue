@@ -6,9 +6,7 @@ import { computed } from 'vue'
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
-import { AccreditationType } from '@/entities/Accreditation'
-
-import { HomeView, LoginView, UserListView, ProfileView } from '@/router'
+import { LoginView, UserListView, ProfileView } from '@/router'
 
 const config = useConfigStore()
 const auth = useAuthStore()
@@ -99,10 +97,14 @@ const accreditations = computed(() => [
             <div
               tabindex="0"
               role="button"
-              class="avatar btn btn-circle"
+              class="btn"
             >
-              <div class="w-7 rounded-full">
-                <UserCircleIcon />
+              {{ `${auth.user.firstName} ${auth.user.lastName}` }}
+
+              <div class="avatar">
+                <div class="w-7 rounded-full">
+                  <UserCircleIcon />
+                </div>
               </div>
             </div>
 
@@ -114,7 +116,7 @@ const accreditations = computed(() => [
                   :to="ProfileView.path"
                   class="min-w-[150px]"
                 >
-                  {{ `${auth.user.firstName} ${auth.user.lastName}` }}
+                  Perfil
                 </RouterLink>
               </li>
 

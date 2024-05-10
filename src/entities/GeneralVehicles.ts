@@ -3,15 +3,14 @@ import type { Vehicle } from '@/entities/Vehicle'
 import type { CreatedBy } from './User'
 import { AccreditationStatus } from '@/entities/Accreditation'
 
-export interface GeneralVehicles {
+export interface GeneralVehicle {
   id: number
   accreditationType: string
-  country?: string
+  country: number
   assignedTo: string
-  vehicles: Vehicle[]
-  distinctive?: string
-  fullname: string
-  observations?: string
+  vehicle: Vehicle
+  distinctive: string
+  observations: string
   status: AccreditationStatus
   createdBy: CreatedBy
 }

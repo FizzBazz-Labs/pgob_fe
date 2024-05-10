@@ -1,21 +1,10 @@
 import * as API from '@/services/api'
+import { Service } from '@/services/service'
 
-import type { GeneralVehicles } from '@/entities/GeneralVehicles'
+import type { GeneralVehicle as Entity } from '@/entities/GeneralVehicles'
 
 const ENDPOINT = '/general-vehicles'
 const VEHICLE_ENDPOINT = '/vehicles'
-
-export async function all({
-  pagination: { page, limit },
-  query: { status, country },
-}: any): Promise<API.PaginatedResponse<GeneralVehicles>> {
-  let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
-  url += status ? `&status=${status}` : ''
-  url += country ? `&country=${country}` : ''
-
-  const response = await API.get(url)
-  return await response.json()
-}
 
 export async function create(body: Record<string, unknown>) {
   const vehicleId = await createVehicle(body)
@@ -56,22 +45,28 @@ export async function createVehicle(body: Record<string, unknown>) {
   return await response.json()
 }
 
-export async function getById(id: number): Promise<GeneralVehicles> {
+export async function getById(id: number): Promise<Entity> {
   const response = await API.get(`${ENDPOINT}/${id}`)
   return await response.json()
 }
 
-export async function review(id: number, values: any): Promise<GeneralVehicles> {
+export async function review(id: number, values: any): Promise<Entity> {
   const response = await API.patch(`${ENDPOINT}/${id}/review`, values)
   return await response.json()
 }
 
-export async function approve(id: number): Promise<GeneralVehicles> {
+export async function approve(id: number): Promise<Entity> {
   const response = await API.patch(`${ENDPOINT}/${id}/approve`)
   return await response.json()
 }
 
-export async function reject(id: number): Promise<GeneralVehicles> {
+export async function reject(id: number): Promise<Entity> {
   const response = await API.patch(`${ENDPOINT}/${id}/reject`)
   return await response.json()
+}
+
+export class GeneralVehicleService extends Service<Entity> {
+  constructor() {
+    super('/general-vehicles')
+  }
 }

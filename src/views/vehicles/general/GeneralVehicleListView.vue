@@ -6,9 +6,8 @@ import { EyeIcon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 
-import { type GeneralVehicles } from '@/entities/GeneralVehicles'
-
-import * as service from '@/services/GeneralVehicleService'
+import { type GeneralVehicle as Entity } from '@/entities/GeneralVehicles'
+import { GeneralVehicleService as Service } from '@/services/GeneralVehicleService'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
@@ -18,6 +17,8 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const auth = useAuthStore()
 const general = useGeneralStore()
+
+const service = new Service()
 
 const AccreditationTypeLabel: any = {
   OFFICIAL_NEWSLETTER: 'Prensa Oficial',
@@ -35,14 +36,12 @@ const columns = ref([
     transform: (value: string) => AccreditationTypeLabel[value],
   },
   { key: 'assignedTo', label: 'Asignado a' },
-  { key: 'country', label: 'País', transform: value => value || 'N/A' },
-  { key: 'vehicles', label: 'Vehiculos`' },
-  { key: 'fullname', label: 'Creado por' },
+  { key: 'country', label: 'País', transform: general.country },
   { key: 'status', label: 'Estado', show: () => !auth.isUser },
   { key: 'actions', label: 'Acciones' },
 ])
 
-const items = ref<GeneralVehicles[]>([])
+const items = ref<Entity[]>([])
 
 const pagination = ref({
   page: 0,
@@ -59,7 +58,7 @@ onBeforeMount(onFetch)
 async function onFetch() {
   const response = await service.all({
     pagination: pagination.value,
-    query: filters.value,
+    query: { ...filters.value },
   })
 
   items.value = response.results
