@@ -34,7 +34,7 @@ export abstract class Service<E> {
     return await response.json()
   }
 
-  async form<T = any>(data: T, method = 'POST'): Promise<E> {
+  async form<T = any>(data: T): Promise<E> {
     const values = this.serializer?.serialize(data) ?? (data as Record<string, any>)
 
     const body = Object.entries(values).reduce((acc, [key, value]) => {
@@ -42,7 +42,7 @@ export abstract class Service<E> {
       return acc
     }, new FormData())
 
-    const response = await API.form(this.url, body, method)
+    const response = await API.form(this.url, body)
     return await response.json()
   }
 
@@ -51,13 +51,25 @@ export abstract class Service<E> {
     return await response.json()
   }
 
-  async review<T = any>(id: number, data?: T): Promise<E> {
-    const response = await API.patch(`${this.url}/${id}/review`, data)
+  async update<T = any>(id: number, data: T): Promise<E> {
+    const response = await API.patch(`${this.url}/${id}`, data)
     return await response.json()
   }
 
-  async update<T = any>(id: number, data: T): Promise<E> {
-    const response = await API.patch(`${this.url}/${id}`, data)
+  async updateForm<T = any>(id: number, data: T): Promise<E> {
+    const values = this.serializer?.serialize(data) ?? (data as Record<string, any>)
+
+    const body = Object.entries(values).reduce((acc, [key, value]) => {
+      acc.append(key, value)
+      return acc
+    }, new FormData())
+
+    const response = await API.form(`${this.url}/${id}`, body, 'PUT')
+    return await response.json()
+  }
+
+  async review<T = any>(id: number, data?: T): Promise<E> {
+    const response = await API.patch(`${this.url}/${id}/review`, data)
     return await response.json()
   }
 

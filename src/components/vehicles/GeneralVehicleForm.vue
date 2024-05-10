@@ -52,7 +52,7 @@ const showCountries = computed(
         <CountryField v-if="showCountries" />
         <AssignedToField />
         <ObservationsField label="Observaciones (Motivo por el cual se usara el vehículo)" />
-        <VehicleField />
+        <VehicleField :action="action" />
 
         <FormKitMessages />
 
@@ -82,7 +82,9 @@ const showCountries = computed(
         :actions="false"
         @submit="emits('submit', values)"
       >
-        <p class="mb-3">Estas seguro de crear este registro.</p>
+        <p class="mb-3">
+          Estas seguro de {{ action === 'add' ? 'crear' : 'actualizar' }} este registro.
+        </p>
 
         <div class="flex justify-end gap-4">
           <FormKit

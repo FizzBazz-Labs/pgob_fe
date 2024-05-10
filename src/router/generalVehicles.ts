@@ -19,8 +19,16 @@ export const GeneralVehicleDetailView = {
   component: () => import('../views/vehicles/general/GeneralVehicleDetailView.vue'),
 }
 
+export const GeneralVehicleEditView = {
+  path: '/accreditations/general-vehicles/:id/edit',
+  name: 'general-vehicle-edit',
+  meta: { permissions: 'GeneralVehicle' },
+  component: () => import('../views/vehicles/general/GeneralVehicleEditView.vue'),
+}
+
 export const GeneralVehiclesRoutes = [
   GeneralVehicleListView,
   GeneralVehicleCreateView,
   GeneralVehicleDetailView,
+  GeneralVehicleEditView,
 ]

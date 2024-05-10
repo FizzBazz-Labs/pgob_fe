@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import VehicleTypeField from './VehicleTypeField.vue'
+
+defineProps<{ action: 'add' | 'edit' }>()
 </script>
 
 <template>
@@ -70,7 +72,7 @@ import VehicleTypeField from './VehicleTypeField.vue'
       type="file"
       name="driverLicense"
       label="Imagen de licencia"
-      validation="required"
+      :validation="action === 'add' ? 'required' : ''"
       accept=".png,.jpg,.webp"
       file-item-icon="fileDoc"
       file-remove-icon="close"
@@ -81,7 +83,7 @@ import VehicleTypeField from './VehicleTypeField.vue'
       type="file"
       name="tpv"
       label="Registro de Único Vehicular"
-      validation="required"
+      :validation="action === 'add' ? 'required' : ''"
       accept=".png,.jpg,.webp"
       file-item-icon="fileDoc"
       file-remove-icon="close"

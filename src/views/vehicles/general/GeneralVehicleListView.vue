@@ -97,7 +97,7 @@ async function onFetch() {
           class="tooltip"
           data-tip="Detalle"
         >
-          <RouterLink :to="{ name: 'general-vehicles-detail', params: { id: item.id } }">
+          <RouterLink :to="{ name: 'general-vehicle-detail', params: { id: item.id } }">
             <EyeIcon class="h-5 w-5" />
           </RouterLink>
         </div>

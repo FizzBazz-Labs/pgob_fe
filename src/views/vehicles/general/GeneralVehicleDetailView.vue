@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 import { useAuthStore } from '@/stores/auth'
 
@@ -16,6 +16,7 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
 import GeneralVehicleDetail from '@/components/vehicles/general/GeneralVehicleDetail.vue'
 
+const router = useRouter()
 const route = useRoute()
 
 const auth = useAuthStore()
@@ -36,6 +37,13 @@ onBeforeMount(async () => {
 
   loading.value = false
 })
+
+function gotoEdit() {
+  router.push({
+    name: 'general-vehicle-edit',
+    params: { id: route.params.id },
+  })
+}
 
 async function onReview(values: any) {
   if (!item.value) return
@@ -84,6 +92,7 @@ async function onReject() {
 
       <AccreditationDetailActions
         :status="item.status"
+        @edit="gotoEdit"
         @review="onReview"
         @approve="onApprove"
         @reject="onReject"
