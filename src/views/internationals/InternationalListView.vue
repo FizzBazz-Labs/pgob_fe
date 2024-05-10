@@ -99,7 +99,7 @@ async function onFetch() {
         </div>
 
         <div
-          v-if="item.certificated && auth.isReviewer"
+          v-if="item.certificated && auth.isAccreditor"
           class="tooltip"
           data-tip="Imprimir Gafete"
         >
