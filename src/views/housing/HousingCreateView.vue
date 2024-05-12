@@ -2,13 +2,18 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import * as service from '@/services/HousingService'
+import { HousingService, HousingPersonService } from '@/services/HousingService'
+import { VehicleService } from '@/services/VehicleService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
 import HousingForm from '@/components/forms/HousingForm.vue'
 
 const router = useRouter()
+
+const service = new HousingService()
+const persons = new HousingPersonService()
+const vehicles = new VehicleService()
 
 const loading = ref(false)
 const values = ref<any>({})
@@ -21,7 +26,25 @@ async function onSubmit() {
   errors.value = []
 
   try {
-    const response = await service.create(values.value)
+    const vehiclesIds: number[] = []
+
+    for (const item of (values.value.vehicles || []) as Array<any>) {
+      const vehicle = await vehicles.form(item)
+
+      vehiclesIds.push(vehicle.id)
+    }
+
+    const response = await service.create({
+      ...values.value,
+      vehicles: vehiclesIds,
+    })
+
+    for (const item of values.value.persons as Array<any>) {
+      await persons.create({
+        ...item,
+        housing: response.id,
+      })
+    }
 
     router.push({
       name: 'housing-detail',

@@ -2,6 +2,13 @@ import { useAuthStore } from '@/stores/auth'
 
 const BASE_URL = import.meta.env.VITE_API_URL
 
+export interface PaginatedResponse<T> {
+  count: number
+  next: string | null
+  previous: string | null
+  results: Array<T>
+}
+
 function getHeaders(contentType = true) {
   const store = useAuthStore()
 
@@ -45,9 +52,9 @@ export function patch(url: string, body: any = {}) {
   })
 }
 
-export interface PaginatedResponse<T> {
-  count: number
-  next: string | null
-  previous: string | null
-  results: Array<T>
+export function del(url: string) {
+  return fetch(`${BASE_URL}${url}/`, {
+    method: 'DELETE',
+    headers: getHeaders(),
+  })
 }

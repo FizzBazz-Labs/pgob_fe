@@ -1,25 +1,46 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
-import * as service from '@/services/HousingService'
+import { HousingService, HousingPersonService } from '@/services/HousingService'
+import { VehicleService } from '@/services/VehicleService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import HousingHeader from '@/components/housings/HousingHeader.vue'
 import HousingForm from '@/components/forms/HousingForm.vue'
 
+const route = useRoute()
 const router = useRouter()
+
+const service = new HousingService()
+const vehicles = new VehicleService()
+const persons = new HousingPersonService()
 
 const loading = ref(false)
 const values = ref<any>({})
 const errors = ref<string[]>([])
+
+const personIds = ref<number[]>([])
 
 const confirm = ref<HTMLDialogElement>()
 
 onBeforeMount(async () => {
   loading.value = true
 
-  values.value = await service.getById(Number(router.currentRoute.value.params.id))
+  const housing = await service.retrieve(Number(route.params.id))
+  const formVehicles: any[] = []
+
+  for (const id of housing.vehicles) {
+    formVehicles.push(await vehicles.retrieve(id))
+  }
+
+  values.value = {
+    ...housing,
+    hasVehicle: housing.vehicles.length > 0,
+    vehicles: formVehicles,
+  }
+
+  personIds.value = housing.persons.map(i => i.id)
 
   loading.value = false
 })
@@ -29,7 +50,42 @@ async function onSubmit() {
   errors.value = []
 
   try {
-    const response = await service.update(values.value)
+    const vehiclesIds: number[] = []
+
+    for (const item of (values.value.vehicles || []) as Array<any>) {
+      if ('id' in item) {
+        const response = await vehicles.updateForm(item.id, item)
+        vehiclesIds.push(response.id)
+      } else {
+        const response = await vehicles.form(item)
+        vehiclesIds.push(response.id)
+      }
+    }
+
+    const response = await service.update(Number(route.params.id), {
+      ...values.value,
+      vehicles: vehiclesIds,
+    })
+
+    for (const item of (values.value.persons || []) as Array<any>) {
+      if ('id' in item) {
+        await persons.update(item.id, item)
+
+        const index = personIds.value.indexOf(item.id)
+        if (index > -1) {
+          personIds.value.splice(index, 1)
+        }
+      } else {
+        await persons.create({
+          ...item,
+          housing: response.id,
+        })
+      }
+    }
+
+    for (const id of personIds.value) {
+      await persons.destroy(id)
+    }
 
     router.push({
       name: 'housing-detail',

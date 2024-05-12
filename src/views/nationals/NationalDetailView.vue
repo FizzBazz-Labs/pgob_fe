@@ -21,7 +21,6 @@ import { formatDate } from '@/utils/dates'
 import type { FormValues } from '@/entities/Form'
 
 import AccreditationDetailComment from '@/components/accreditations/AccreditationDetailComment.vue'
-import AccreditationApprovedComment from '@/components/accreditations/AccreditationApprovedComment.vue'
 
 import { useAuthStore } from '@/stores/auth'
 

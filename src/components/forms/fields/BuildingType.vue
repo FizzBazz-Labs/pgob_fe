@@ -6,6 +6,7 @@ import ApartmentTowerField from './ApartmentTowerField.vue'
 import ApartmentTowerAdministratorField from './ApartmentTowerAdministratorField.vue'
 import ApartmentNumberField from './ApartmentNumberField.vue'
 import ApartmentFloorField from './ApartmentFloorField.vue'
+import AddressField from './AddressField.vue'
 
 const buildingType = ref<string>()
 </script>
@@ -25,6 +26,7 @@ const buildingType = ref<string>()
   />
 
   <template v-if="buildingType === 'HOUSE'">
+    <AddressField />
     <HouseNumberField />
   </template>
 
@@ -33,5 +35,6 @@ const buildingType = ref<string>()
     <ApartmentTowerAdministratorField />
     <ApartmentNumberField />
     <ApartmentFloorField />
+    <AddressField />
   </template>
 </template>

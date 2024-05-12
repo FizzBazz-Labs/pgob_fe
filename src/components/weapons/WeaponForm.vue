@@ -5,8 +5,6 @@ import { useRouter } from 'vue-router'
 
 import { toast } from 'vue3-toastify'
 
-import { HomeView } from '@/router'
-
 import * as service from '@/services/SecurityService'
 
 import { SecurityListView } from '@/router/security'

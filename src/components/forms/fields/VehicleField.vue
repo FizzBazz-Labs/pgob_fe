@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import VehicleTypeField from './VehicleTypeField.vue'
 
-defineProps<{ action: 'add' | 'edit' }>()
+defineProps<{ index?: number; action: 'add' | 'edit' }>()
 </script>
 
 <template>
   <FormKit
     type="group"
     name="vehicle"
+    :index="index"
   >
     <div class="mb-2 flex gap-4">
       <span class="divider divider-start flex-1 text-xl font-bold"> Vehículo </span>

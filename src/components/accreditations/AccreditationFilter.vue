@@ -6,13 +6,12 @@ import { AccreditationStatus } from '@/entities/Accreditation'
 
 import { useGeneralStore } from '@/stores/general'
 
-const route = useRoute()
+type Props = {
+  countries?: boolean
+}
 
-const showNameFilter = computed(() => {
-  if (route.name === 'international-list' || route.name === 'national-list') {
-    return true
-  }
-  return false
+withDefaults(defineProps<Props>(), {
+  countries: true,
 })
 
 type Filters = {
@@ -23,7 +22,16 @@ type Filters = {
 
 const filters = defineModel<Filters>()
 
+const route = useRoute()
+
 const general = useGeneralStore()
+
+const showNameFilter = computed(() => {
+  if (route.name === 'international-list' || route.name === 'national-list') {
+    return true
+  }
+  return false
+})
 </script>
 
 <template>
@@ -48,7 +56,10 @@ const general = useGeneralStore()
       </select>
     </label>
 
-    <label class="form-control w-full max-w-xs">
+    <label
+      v-if="countries"
+      class="form-control w-full max-w-xs"
+    >
       <div class="label-text">
         <span class="label-text">País</span>
       </div>

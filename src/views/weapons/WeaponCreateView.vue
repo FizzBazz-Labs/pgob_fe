@@ -15,3 +15,4 @@ import SecurityDisclaimer from '@/components/weapons/SecurityDisclaimer.vue'
     <WeaponForm />
   </main>
 </template>
+x

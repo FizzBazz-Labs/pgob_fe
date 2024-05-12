@@ -4,11 +4,10 @@ import { ref, watch, onBeforeMount } from 'vue'
 import { EyeIcon } from '@heroicons/vue/24/outline'
 
 import { useAuthStore } from '@/stores/auth'
-import { useGeneralStore } from '@/stores/general'
 
 import { type Housing } from '@/entities/Housing'
 
-import * as service from '@/services/HousingService'
+import { HousingService } from '@/services/HousingService'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
@@ -17,17 +16,29 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import HousingHeader from '@/components/housings/HousingHeader.vue'
 
 const auth = useAuthStore()
-const general = useGeneralStore()
+
+const service = new HousingService()
 
 const loading = ref(true)
 
 const columns = ref([
-  { key: 'firstName', label: 'Nombre' },
-  { key: 'lastName', label: 'Apellido' },
-  { key: 'phoneNumber', label: 'Teléfono' },
-  { key: 'email', label: 'Correo' },
+  {
+    key: 'buildingType',
+    label: 'Tipo',
+    transform: (value: string) => (value === 'HOUSE' ? 'Casa' : 'Departamento'),
+  },
+  {
+    key: 'persons',
+    label: 'Residentes',
+    transform: value => `${value.length} persona${value.length > 1 ? 's' : ''}`,
+  },
+  {
+    key: 'vehicles',
+    label: 'Vehículos',
+    transform: value => `${value.length} vehículo${value.length > 1 ? 's' : ''}`,
+  },
+  { key: 'address', label: 'Dirección' },
   { key: 'status', label: 'Estado', show: () => !auth.isUser },
-  { key: 'country', label: 'País', transform: general.country },
   { key: 'actions', label: 'Acciones' },
 ])
 
@@ -72,7 +83,10 @@ async function onFetch() {
       }"
     >
       <template #subheader>
-        <AccreditationFilter v-model="filters" />
+        <AccreditationFilter
+          v-model="filters"
+          :countries="false"
+        />
       </template>
 
       <template #status="{ item }">

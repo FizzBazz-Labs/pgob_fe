@@ -68,6 +68,10 @@ export abstract class Service<E> {
     return await response.json()
   }
 
+  async destroy(id: number): Promise<void> {
+    await API.del(`${this.url}/${id}`)
+  }
+
   async review<T = any>(id: number, data?: T): Promise<E> {
     const response = await API.patch(`${this.url}/${id}/review`, data)
     return await response.json()
