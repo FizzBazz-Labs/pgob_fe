@@ -24,18 +24,23 @@ const loading = ref(true)
 const columns = ref([
   {
     key: 'buildingType',
-    label: 'Tipo',
+    label: 'Tipo de Inmueble',
     transform: (value: string) => (value === 'HOUSE' ? 'Casa' : 'Departamento'),
   },
   {
     key: 'persons',
     label: 'Residentes',
-    transform: value => `${value.length} persona${value.length > 1 ? 's' : ''}`,
+    transform: (value: any[]) => `${value[0].firstName} ${value[0].lastName}`,
+  },
+  {
+    key: 'persons',
+    label: 'Residentes',
+    transform: (value: string) => `${value.length} persona${value.length > 1 ? 's' : ''}`,
   },
   {
     key: 'vehicles',
     label: 'Vehículos',
-    transform: value => `${value.length} vehículo${value.length > 1 ? 's' : ''}`,
+    transform: (value: string) => `${value.length} vehículo${value.length > 1 ? 's' : ''}`,
   },
   { key: 'address', label: 'Dirección' },
   { key: 'status', label: 'Estado', show: () => !auth.isUser },
