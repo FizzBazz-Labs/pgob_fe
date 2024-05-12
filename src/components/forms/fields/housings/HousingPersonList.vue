@@ -60,7 +60,7 @@ function init() {
             <LastNameField />
           </div>
 
-          <PassportIdField label="Identificación" />
+          <PassportIdField label="Identificación (Cédula o Pasaporte)" />
           <CountryField />
           <BirthdayField />
           <PhoneNumber1Field />
