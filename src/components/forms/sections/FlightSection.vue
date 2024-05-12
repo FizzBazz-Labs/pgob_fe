@@ -34,14 +34,12 @@ const labels = {
       type="datetime-local"
       name="flightArrivalDatetime"
       label="Fecha y Hora"
-      validation="required"
     />
 
     <FormKit
       type="text"
       name="flightArrivalNumber"
       label="No. Vuelo"
-      validation="required"
     />
 
     <FormKit
@@ -49,7 +47,6 @@ const labels = {
       type="text"
       name="flightArrivalAirport"
       label="Procedencia"
-      validation="required"
     />
 
     <FormKit
@@ -57,7 +54,6 @@ const labels = {
       type="select"
       name="flightFrom"
       label="Procedencia"
-      validation="required"
       :options="countries"
       select-icon="down"
     />
@@ -72,14 +68,12 @@ const labels = {
       type="datetime-local"
       name="flightDepartureDatetime"
       label="Fecha y Hora"
-      validation="required"
     />
 
     <FormKit
       type="text"
       name="flightDepartureNumber"
       label="No. Vuelo"
-      validation="required"
     />
 
     <FormKit
@@ -87,7 +81,6 @@ const labels = {
       type="text"
       name="flightDepartureAirport"
       label="Destino"
-      validation="required"
     />
 
     <FormKit
@@ -95,7 +88,6 @@ const labels = {
       type="select"
       name="flightTo"
       label="Destino"
-      validation="required"
       :options="countries"
       select-icon="down"
     />
