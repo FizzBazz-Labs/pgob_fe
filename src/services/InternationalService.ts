@@ -92,12 +92,30 @@ export async function create(values: MultiStepForm): Promise<International> {
   form.append('hotelName', params.hotelName as string)
   form.append('hotelAddress', params.hotelAddress as string)
   form.append('hotelPhone', params.hotelPhone as string)
-  form.append('flightArrivalDatetime', params.flightArrivalDatetime as string)
-  form.append('flightArrivalNumber', params.flightArrivalNumber as string)
-  form.append('flightDepartureDatetime', params.flightDepartureDatetime as string)
-  form.append('flightDepartureNumber', params.flightDepartureNumber as string)
-  form.append('flightFrom', params.flightFrom as string)
-  form.append('flightTo', params.flightTo as string)
+
+  if (params.flightArrivalDatetime !== undefined) {
+    form.append('flightArrivalDatetime', params.flightArrivalDatetime as string)
+  }
+
+  if (params.flightArrivalNumber !== undefined) {
+    form.append('flightArrivalNumber', params.flightArrivalNumber as string)
+  }
+
+  if (params.flightDepartureDatetime !== undefined) {
+    form.append('flightDepartureDatetime', params.flightDepartureDatetime as string)
+  }
+
+  if (params.flightDepartureNumber !== undefined) {
+    form.append('flightDepartureNumber', params.flightDepartureNumber as string)
+  }
+
+  if (params.flightFrom !== undefined) {
+    form.append('flightFrom', params.flightFrom as string)
+  }
+
+  if (params.flightTo !== undefined) {
+    form.append('flightTo', params.flightTo as string)
+  }
 
   if (params.phoneNumber2 !== undefined) {
     form.append('phoneNumber2', params.phoneNumber2 as string)
