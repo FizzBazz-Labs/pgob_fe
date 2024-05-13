@@ -41,7 +41,7 @@ function init() {
       <div class="collapse collapse-arrow mb-4 bg-base-200">
         <input
           type="radio"
-          name="weapon"
+          name="persons"
           checked
         />
 

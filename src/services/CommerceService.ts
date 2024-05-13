@@ -1,6 +1,20 @@
 import * as API from '@/services/api'
 
-import type { Commerce as Entity } from '@/entities/Commerce'
+import { Service } from './service'
+
+import type { Commerce as Entity, CommerceEmployee } from '@/entities/Commerce'
+
+export class CommerceService extends Service<Entity> {
+  constructor() {
+    super('/commerces')
+  }
+}
+
+export class CommerceEmployeeService extends Service<CommerceEmployee> {
+  constructor() {
+    super('/commerce-employees')
+  }
+}
 
 const ENDPOINT = '/commerces'
 
@@ -27,32 +41,7 @@ export async function all({
   return await response.json()
 }
 
-export async function create(params: any): Promise<Entity> {
-  const response = await API.post(ENDPOINT, params)
-  return await response.json()
-}
-
 export async function getById(id: number): Promise<Entity> {
   const response = await API.get(`${ENDPOINT}/${id}`)
-  return await response.json()
-}
-
-export async function update(values: any): Promise<Entity> {
-  const response = await API.patch(`${ENDPOINT}/${values.id}`, values)
-  return await response.json()
-}
-
-export async function review(id: number, values: any): Promise<Entity> {
-  const response = await API.patch(`${ENDPOINT}/${id}/review`, values)
-  return await response.json()
-}
-
-export async function approve(id: number): Promise<Entity> {
-  const response = await API.patch(`${ENDPOINT}/${id}/approve`)
-  return await response.json()
-}
-
-export async function reject(id: number): Promise<Entity> {
-  const response = await API.patch(`${ENDPOINT}/${id}/reject`)
   return await response.json()
 }

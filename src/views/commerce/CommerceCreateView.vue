@@ -2,13 +2,18 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import * as service from '@/services/CommerceService'
+import { CommerceService, CommerceEmployeeService } from '@/services/CommerceService'
+import { VehicleService } from '@/services/VehicleService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import CommerceHeader from '@/components/commerce/CommerceHeader.vue'
 import CommerceForm from '@/components/commerce/CommerceForm.vue'
 
 const router = useRouter()
+
+const service = new CommerceService()
+const employees = new CommerceEmployeeService()
+const vehicles = new VehicleService()
 
 const loading = ref(false)
 const values = ref<any>({})
@@ -21,7 +26,25 @@ async function onSubmit() {
   errors.value = []
 
   try {
-    const response = await service.create(values.value)
+    const vehiclesIds: number[] = []
+
+    for (const item of (values.value.vehicles || []) as Array<any>) {
+      const vehicle = await vehicles.form(item)
+
+      vehiclesIds.push(vehicle.id)
+    }
+
+    const response = await service.create({
+      ...values.value,
+      vehicles: vehiclesIds,
+    })
+
+    for (const item of values.value.employees as Array<any>) {
+      await employees.create({
+        ...item,
+        commerce: response.id,
+      })
+    }
 
     router.push({
       name: 'commerce-detail',

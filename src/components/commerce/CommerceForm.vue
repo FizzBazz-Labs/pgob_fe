@@ -1,17 +1,12 @@
 <script lang="ts" setup>
 import { FormKitMessages } from '@formkit/vue'
 
-import FirstNameField from '../forms/fields/FirstNameField.vue'
-import LastNameField from '../forms/fields/LastNameField.vue'
-import PassportIdField from '../forms/fields/PassportIdField.vue'
-import CountryField from '../forms/fields/CountryField.vue'
-import BirthdayField from '../forms/fields/BirthdayField.vue'
-import PhoneNumber1Field from '../forms/fields/PhoneNumber1Field.vue'
-import EmailField from '../forms/fields/EmailField.vue'
 import AddressField from '../forms/fields/AddressField.vue'
-import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
 import CommerceTypeField from '../forms/fields/CommerceTypeField.vue'
 import CancelBtn from '../forms/actions/CancelBtn.vue'
+import FormListField from '../forms/fields/FormListField.vue'
+import VehicleField from '../forms/fields/VehicleField.vue'
+import EmployeeField from '../forms/fields/EmployeeField.vue'
 
 type Props = {
   action?: 'add' | 'edit'
@@ -44,17 +39,19 @@ const values = defineModel('values', {
   >
     <div class="flex justify-center">
       <div class="w-1/2">
-        <div class="grid grid-cols-2 gap-4">
-          <FirstNameField />
-          <LastNameField />
-        </div>
+        <FormKit
+          type="text"
+          name="commercialName"
+          label="Nombre Comercial"
+          validation="required"
+        />
 
-        <PassportIdField label="Identificación" />
-        <CountryField />
-        <BirthdayField />
-        <PhoneNumber1Field />
-        <EmailField />
-        <AddressField />
+        <FormKit
+          type="text"
+          name="companyName"
+          label="Razón Social"
+          validation="required"
+        />
 
         <FormKit
           type="text"
@@ -71,6 +68,20 @@ const values = defineModel('values', {
         />
 
         <CommerceTypeField />
+        <AddressField />
+
+        <FormListField
+          name="employees"
+          title="Empleados"
+          header="Empleado"
+          :action="action"
+          #default="{ index, action }"
+        >
+          <EmployeeField
+            :index="index"
+            :action="action"
+          />
+        </FormListField>
 
         <FormKit
           type="radio"
@@ -83,37 +94,19 @@ const values = defineModel('values', {
           decorator-icon="check"
         />
 
-        <template v-if="values.hasVehicle">
-          <VehicleTypeField name="vehicleType" />
-
-          <FormKit
-            type="text"
-            name="vehiclePlate"
-            label="Placas"
-            validation="required"
+        <FormListField
+          v-if="values.hasVehicle"
+          name="vehicles"
+          title="Vehículos"
+          header="Vehículo"
+          :action="action"
+          #default="{ index, action }"
+        >
+          <VehicleField
+            :index="index"
+            :action="action"
           />
-
-          <FormKit
-            type="text"
-            name="vehicleColor"
-            label="Color"
-            validation="required"
-          />
-
-          <FormKit
-            type="text"
-            name="vehicleYear"
-            label="Año"
-            validation="required"
-          />
-
-          <FormKit
-            type="text"
-            name="vehicleModel"
-            label="Modelo"
-            validation="required"
-          />
-        </template>
+        </FormListField>
 
         <FormKitMessages />
 
