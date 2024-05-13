@@ -1,6 +1,20 @@
 import * as API from '@/services/api'
 
-import type { Commerce as Entity } from '@/entities/Commerce'
+import { Service } from './service'
+
+import type { Commerce as Entity, CommerceEmployee } from '@/entities/Commerce'
+
+export class CommerceService extends Service<Entity> {
+  constructor() {
+    super('/commerces')
+  }
+}
+
+export class CommerceEmployeeService extends Service<CommerceEmployee> {
+  constructor() {
+    super('/commerce-employees')
+  }
+}
 
 const ENDPOINT = '/commerces'
 
