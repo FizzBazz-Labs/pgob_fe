@@ -4,8 +4,9 @@ import type { Commerce } from '@/entities/Commerce'
 import { useGeneralStore } from '@/stores/general'
 
 import DetailField from '@/components/DetailField.vue'
+import type { Vehicle } from '@/entities/Vehicle'
 
-defineProps<{ item: Commerce }>()
+defineProps<{ item: Commerce; vehicles: Vehicle[] }>()
 
 const general = useGeneralStore()
 
@@ -21,38 +22,13 @@ const CommerceType: Record<string, string> = {
 
 <template>
   <DetailField
-    label="Nombre"
-    :value="item.firstName"
+    label="Nombre Comercial"
+    :value="item.comercialName"
   />
 
   <DetailField
-    label="Apellido"
-    :value="item.lastName"
-  />
-
-  <DetailField
-    label="Identificación"
-    :value="item.passportId"
-  />
-
-  <DetailField
-    label="País"
-    :value="general.country(item.country)"
-  />
-
-  <DetailField
-    label="Fecha de nacimiento"
-    :value="item.birthday"
-  />
-
-  <DetailField
-    label="Teléfono"
-    :value="item.phoneNumber"
-  />
-
-  <DetailField
-    label="Correo electrónico"
-    :value="item.email"
+    label="Razón Social"
+    :value="item.companyName"
   />
 
   <DetailField
@@ -75,35 +51,89 @@ const CommerceType: Record<string, string> = {
     :value="item.commerceTypeOther || CommerceType[item.commerceType]"
   />
 
-  <DetailField
-    label="Posee vehículo"
-    :value="item.hasVehicle ? 'Sí' : 'No'"
-  />
+  <template v-if="item.employees.length > 0">
+    <h2 class="divider divider-start mt-5 text-xl font-bold">Empleados</h2>
 
-  <template v-if="item.hasVehicle">
-    <DetailField
-      label="Tipo de vehículo"
-      :value="item.vehicleType"
-    />
+    <div
+      v-for="(person, i) in item.employees"
+      :key="i"
+    >
+      <h2 class="divider divider-start mt-5 font-bold">
+        {{ `Empleado ${i + 1}` }}
+      </h2>
 
-    <DetailField
-      label="Placas"
-      :value="item.vehiclePlate"
-    />
+      <DetailField
+        label="Nombre"
+        :value="person.firstName"
+      />
 
-    <DetailField
-      label="Color"
-      :value="item.vehicleColor"
-    />
+      <DetailField
+        label="Apellido"
+        :value="person.lastName"
+      />
 
-    <DetailField
-      label="Año"
-      :value="item.vehicleYear"
-    />
+      <DetailField
+        label="Identificación"
+        :value="person.passportId"
+      />
 
-    <DetailField
-      label="Modelo"
-      :value="item.vehicleModel"
-    />
+      <DetailField
+        label="Nacionalidad"
+        :value="general.country(person.country)"
+      />
+
+      <DetailField
+        label="Fecha de nacimiento"
+        :value="person.birthday"
+      />
+
+      <DetailField
+        label="Teléfono"
+        :value="person.phoneNumber"
+      />
+
+      <DetailField
+        label="Correo electrónico"
+        :value="person.email"
+      />
+
+      <DetailField
+        label="Horario"
+        :value="person.schedule"
+      />
+    </div>
+  </template>
+
+  <template v-if="vehicles.length > 0">
+    <h2 class="divider divider-start mt-5 text-xl font-bold">Vehículos</h2>
+
+    <div
+      v-for="(vehicle, i) in vehicles"
+      :key="i"
+    >
+      <h2 class="divider divider-start mt-5 font-bold">
+        {{ `Vehículo ${i + 1}` }}
+      </h2>
+
+      <DetailField
+        label="Tipo de vehículo"
+        :value="vehicle.type"
+      />
+
+      <DetailField
+        label="Placas"
+        :value="vehicle.plate"
+      />
+
+      <DetailField
+        label="Color"
+        :value="vehicle.color"
+      />
+
+      <DetailField
+        label="Modelo"
+        :value="vehicle.model"
+      />
+    </div>
   </template>
 </template>

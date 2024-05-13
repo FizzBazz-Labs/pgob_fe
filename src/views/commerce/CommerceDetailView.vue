@@ -6,7 +6,8 @@ import type { Commerce as Entity } from '@/entities/Commerce'
 
 import { useAuthStore } from '@/stores/auth'
 
-import * as service from '@/services/CommerceService'
+import { CommerceService } from '@/services/CommerceService'
+import { VehicleService } from '@/services/VehicleService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
@@ -19,12 +20,22 @@ const router = useRouter()
 
 const auth = useAuthStore()
 
+const service = new CommerceService()
+const vehicles = new VehicleService()
+
 const loading = ref(true)
 const item = ref<Entity>()
+const itemVehicles = ref<any[]>([])
 
 onBeforeMount(async () => {
   loading.value = true
-  item.value = await service.getById(Number(route.params.id))
+
+  item.value = await service.retrieve(Number(route.params.id))
+
+  for (const vehicle of item.value.vehicles) {
+    itemVehicles.value.push(await vehicles.retrieve(vehicle))
+  }
+
   loading.value = false
 })
 
@@ -51,7 +62,10 @@ function gotoEdit() {
         <StatusBadge :status="item.status" />
       </div>
 
-      <CommerceDetail :item="item" />
+      <CommerceDetail
+        :item="item"
+        :vehicles="itemVehicles"
+      />
 
       <AccreditationDetailActions
         :status="item.status"
