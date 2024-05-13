@@ -1,25 +1,46 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
-import * as service from '@/services/CommerceService'
+import { CommerceService, CommerceEmployeeService } from '@/services/CommerceService'
+import { VehicleService } from '@/services/VehicleService'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import CommerceHeader from '@/components/commerce/CommerceHeader.vue'
 import CommerceForm from '@/components/commerce/CommerceForm.vue'
 
+const route = useRoute()
 const router = useRouter()
+
+const service = new CommerceService()
+const employees = new CommerceEmployeeService()
+const vehicles = new VehicleService()
 
 const loading = ref(false)
 const values = ref<any>({})
 const errors = ref<string[]>([])
+
+const employeeIds = ref<number[]>([])
 
 const confirm = ref<HTMLDialogElement>()
 
 onBeforeMount(async () => {
   loading.value = true
 
-  values.value = await service.getById(Number(router.currentRoute.value.params.id))
+  const commerce = await service.retrieve(Number(route.params.id))
+  const formVehicles: any[] = []
+
+  for (const id of commerce.vehicles) {
+    formVehicles.push(await vehicles.retrieve(id))
+  }
+
+  values.value = {
+    ...commerce,
+    hasVehicle: commerce.vehicles.length > 0,
+    vehicles: formVehicles,
+  }
+
+  employeeIds.value = commerce.employees.map(i => i.id)
 
   loading.value = false
 })
@@ -29,7 +50,39 @@ async function onSubmit() {
   errors.value = []
 
   try {
-    const response = await service.update(values.value)
+    const vehiclesIds: number[] = []
+
+    for (const item of (values.value.vehicles || []) as Array<any>) {
+      if ('id' in item) {
+        const response = await vehicles.updateForm(item.id, item)
+        vehiclesIds.push(response.id)
+      } else {
+        const response = await vehicles.form(item)
+        vehiclesIds.push(response.id)
+      }
+    }
+
+    const response = await service.update(Number(route.params.id), {
+      ...values.value,
+      vehicles: vehiclesIds,
+    })
+
+    for (const item of (values.value.employees || []) as Array<any>) {
+      if ('id' in item) {
+        await employees.updateForm(item.id, item)
+
+        employeeIds.value = employeeIds.value.filter(i => i !== item.id)
+      } else {
+        await employees.form({
+          ...item,
+          commerce: response.id,
+        })
+      }
+    }
+
+    for (const id of employeeIds.value) {
+      await employees.destroy(id)
+    }
 
     router.push({
       name: 'commerce-detail',
