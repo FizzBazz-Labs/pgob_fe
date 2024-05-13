@@ -37,11 +37,6 @@ const columns = ref([
     label: 'Número de Casa',
   },
   {
-    key: 'buildingType',
-    label: 'Tipo de Inmueble',
-    transform: (value: string) => (value === 'HOUSE' ? 'Casa' : 'Departamento'),
-  },
-  {
     key: 'persons',
     label: 'Residentes',
     transform: (value: string) => `${value.length} persona${value.length > 1 ? 's' : ''}`,
@@ -104,7 +99,7 @@ async function onFetch() {
       </template>
 
       <template #number="{ item }">
-        <span v-if="item.buildType === 'HOUSE'">
+        <span v-if="item.buildingType === 'HOUSE'">
           {{ item.houseNumber || 'N/A' }}
         </span>
 
