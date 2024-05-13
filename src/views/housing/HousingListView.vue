@@ -23,14 +23,23 @@ const loading = ref(true)
 
 const columns = ref([
   {
+    key: 'persons',
+    label: 'Residente',
+    transform: (value: any[]) => `${value[0].firstName} ${value[0].lastName}`,
+  },
+  {
     key: 'buildingType',
     label: 'Tipo de Inmueble',
     transform: (value: string) => (value === 'HOUSE' ? 'Casa' : 'Departamento'),
   },
   {
-    key: 'persons',
-    label: 'Residentes',
-    transform: (value: any[]) => `${value[0].firstName} ${value[0].lastName}`,
+    key: 'number',
+    label: 'Número de Casa',
+  },
+  {
+    key: 'buildingType',
+    label: 'Tipo de Inmueble',
+    transform: (value: string) => (value === 'HOUSE' ? 'Casa' : 'Departamento'),
   },
   {
     key: 'persons',
@@ -92,6 +101,16 @@ async function onFetch() {
           v-model="filters"
           :countries="false"
         />
+      </template>
+
+      <template #number="{ item }">
+        <span v-if="item.buildType === 'HOUSE'">
+          {{ item.houseNumber || 'N/A' }}
+        </span>
+
+        <span v-else>
+          {{ item.apartmentNumber || 'N/A' }}
+        </span>
       </template>
 
       <template #status="{ item }">
