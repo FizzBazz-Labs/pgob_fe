@@ -4,11 +4,10 @@ import { ref, watch, onBeforeMount } from 'vue'
 import { EyeIcon } from '@heroicons/vue/24/outline'
 
 import { useAuthStore } from '@/stores/auth'
-import { useGeneralStore } from '@/stores/general'
 
 import { type Commerce as Entity } from '@/entities/Commerce'
 
-import * as service from '@/services/CommerceService'
+import { CommerceService } from '@/services/CommerceService'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
@@ -17,17 +16,18 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import SiteHeader from '@/components/commerce/CommerceHeader.vue'
 
 const auth = useAuthStore()
-const general = useGeneralStore()
+
+const service = new CommerceService()
 
 const loading = ref(true)
 
 const columns = ref([
-  { key: 'firstName', label: 'Nombre' },
-  { key: 'lastName', label: 'Apellido' },
-  { key: 'phoneNumber', label: 'Teléfono' },
-  { key: 'email', label: 'Correo' },
+  { key: 'commercialName', label: 'Nombre Comercial' },
+  { key: 'companyName', label: 'Razón Social' },
+  { key: 'adminName', label: 'Nombre de Administrador' },
+  { key: 'adminPhoneNumber', label: 'Número de Administrador' },
+  { key: 'commerceType', label: 'Tipo de Comercio' },
   { key: 'status', label: 'Estado', show: () => !auth.isUser },
-  { key: 'country', label: 'País', transform: general.country },
   { key: 'actions', label: 'Acciones' },
 ])
 
@@ -72,7 +72,21 @@ async function onFetch() {
       }"
     >
       <template #subheader>
-        <AccreditationFilter v-model="filters" />
+        <AccreditationFilter
+          v-model="filters"
+          :countries="false"
+        />
+      </template>
+
+      <template #commerceType="{ item }">
+        <span v-if="item.commerceType === 'FACTORY'"> Fábrica </span>
+        <span v-else-if="item.commerceType === 'STORE'"> Tienda </span>
+        <span v-else-if="item.commerceType === 'SUPERMARKET'"> Supermercado </span>
+        <span v-else-if="item.commerceType === 'LOCAL'"> Local </span>
+        <span v-else-if="item.commerceType === 'SQUARE'"> Plaza </span>
+        <span v-else>
+          {{ item.commerceTypeOther }}
+        </span>
       </template>
 
       <template #status="{ item }">
