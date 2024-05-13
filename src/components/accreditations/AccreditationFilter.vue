@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 
 import { AccreditationStatus } from '@/entities/Accreditation'
 
+import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 
 type Props = {
@@ -24,6 +25,7 @@ const filters = defineModel<Filters>()
 
 const route = useRoute()
 
+const auth = useAuthStore()
 const general = useGeneralStore()
 
 const showNameFilter = computed(() => {
@@ -39,7 +41,10 @@ const showNameFilter = computed(() => {
     v-if="filters"
     class="grid gap-4 md:grid-cols-5"
   >
-    <label class="form-control w-full max-w-xs">
+    <label
+      v-if="!auth.isUser"
+      class="form-control w-full max-w-xs"
+    >
       <div class="label-text">
         <span class="label-text">Estado</span>
       </div>
