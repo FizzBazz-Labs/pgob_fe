@@ -12,41 +12,6 @@ const general = useGeneralStore()
 </script>
 
 <template>
-  <!-- <DetailField
-    label="Nombre"
-    :value="item.firstName"
-  />
-
-  <DetailField
-    label="Apellido"
-    :value="item.lastName"
-  />
-
-  <DetailField
-    label="Identificación"
-    :value="item.passportId"
-  />
-
-  <DetailField
-    label="Nacionalidad"
-    :value="general.country(item.country)"
-  />
-
-  <DetailField
-    label="Fecha de nacimiento"
-    :value="item.birthday"
-  />
-
-  <DetailField
-    label="Teléfono"
-    :value="item.phoneNumber"
-  />
-
-  <DetailField
-    label="Correo electrónico"
-    :value="item.email"
-  /> -->
-
   <DetailField
     label="Dirección"
     :value="item.address"
@@ -56,6 +21,35 @@ const general = useGeneralStore()
     label="Tipo de edificio"
     :value="item.buildingType === 'HOUSE' ? 'Casa' : 'Apartamento'"
   />
+
+  <template v-if="item.buildingType === 'HOUSE'">
+    <DetailField
+      label="Número de casa"
+      :value="item.houseNumber"
+    />
+  </template>
+
+  <template v-else>
+    <DetailField
+      label="Edificio"
+      :value="item.apartmentTower"
+    />
+
+    <DetailField
+      label="Número de apartamento"
+      :value="item.apartmentNumber"
+    />
+
+    <DetailField
+      label="Número de piso"
+      :value="item.apartmentFloor"
+    />
+
+    <DetailField
+      label="Administrador del edificio"
+      :value="item.buildingAdminName"
+    />
+  </template>
 
   <DetailField
     label="Es propietario"
