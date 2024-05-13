@@ -22,7 +22,7 @@ export const InternationalAccreditationDetailView = {
 export const InternationalAccreditationEditView = {
   path: '/accreditations/internationals/:id/edit',
   name: 'international-edit',
-  meta: { permissions: 'National' },
+  meta: { permissions: 'International' },
   component: () => import('../views/internationals/InternationalEditView.vue'),
 }
 

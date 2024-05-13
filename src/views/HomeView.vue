@@ -14,7 +14,6 @@ import { CommerceListView } from '@/router/commerce'
 import { OverflightNonCommercialAircraftListView } from '@/router/aircrafts'
 import { VehicleAccessListView } from '@/router/vehicleAccessAiport'
 import { SecurityListView } from '@/router/security'
-import { userInfo } from 'os'
 
 const router = useRouter()
 const auth = useAuthStore()
