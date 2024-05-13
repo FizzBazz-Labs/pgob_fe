@@ -19,6 +19,8 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 const auth = useAuthStore()
 const general = useGeneralStore()
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const loading = ref(true)
 
 const columns = ref([
@@ -71,6 +73,8 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
+        export: `${API_URL}/nationals/export`,
+        importData: service.importData,
         create: {
           name: 'national-create',
         },

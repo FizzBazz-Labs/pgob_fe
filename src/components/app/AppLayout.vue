@@ -27,52 +27,52 @@ const accreditations = computed(() => [
   {
     label: 'Internacional',
     to: { name: 'international-list' },
-    canView: auth.isAdmin || auth.hasInternational,
+    canView: auth.hasInternational,
   },
   {
     label: 'Nacional',
     to: { name: 'national-list' },
-    canView: auth.isAdmin || auth.hasNational,
+    canView: auth.hasNational,
   },
 
   {
     label: 'Vehículos Generales',
     to: { name: 'general-vehicles-list' },
-    canView: auth.isAdmin || auth.hasGeneralVehicle,
+    canView: auth.hasGeneralVehicle,
   },
   {
     label: 'Equipo de Intercomunicación',
     to: { name: 'communication-equipment-list' },
-    canView: auth.isAdmin || auth.hasCommunicationEquipment,
+    canView: auth.hasCommunicationEquipment,
   },
 
   {
     label: 'Aeronaves No Comerciales',
     to: { name: 'non-commercial-aircraft-list' },
-    canView: auth.isAdmin || auth.hasAircraft,
+    canView: auth.hasAircraft,
   },
 
   {
     label: 'Residentes',
     to: { name: 'housing-list' },
-    canView: auth.isAdmin || auth.hasHousing,
+    canView: auth.hasHousing,
   },
 
   {
     label: 'Comercio',
     to: { name: 'commerce-list' },
-    canView: auth.isAdmin || auth.hasCommerce,
+    canView: auth.hasCommerce,
   },
   {
     label: 'Declaración de Vehículos de Acceso a Aeropuerto',
     to: { name: 'vehicle-access-list' },
-    canView: auth.isAdmin || auth.hasVehicleAccessAirport,
+    canView: auth.hasVehicleAccessAirport,
   },
 
   {
     label: 'Acreditación de Armas',
     to: { name: 'security-list' },
-    canView: auth.isAdmin || auth.hasSecurity,
+    canView: auth.hasSecurity,
   },
 ])
 </script>
