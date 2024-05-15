@@ -53,7 +53,7 @@ function gotoEdit() {
       v-if="item"
       class="mx-auto w-2/3"
     >
-      <AppHeader>Acreditación de Residentes</AppHeader>
+      <AppHeader>Registro de residentes alrededor ATLAPA</AppHeader>
 
       <div
         v-if="!auth.isUser"

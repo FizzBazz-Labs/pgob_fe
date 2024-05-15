@@ -7,11 +7,12 @@ const VEHICLE_ENDPOINT = '/vehicles'
 
 export async function all({
   pagination: { page, limit },
-  query: { status, country },
+  query: { status, country, date },
 }: any): Promise<API.PaginatedResponse<VehicleAccessAirport>> {
   let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
   url += status ? `&status=${status}` : ''
   url += country ? `&country=${country}` : ''
+  url += date ? `&date=${date}` : ''
 
   const response = await API.get(url)
   return await response.json()

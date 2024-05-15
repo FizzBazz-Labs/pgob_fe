@@ -62,7 +62,7 @@ async function onSubmit() {
 
 <template>
   <AppLoading :loading="loading">
-    <AppHeader>Acreditación de Residentes</AppHeader>
+    <AppHeader> Registro de residentes alrededor ATLAPA </AppHeader>
 
     <main class="mt-10">
       <HousingForm

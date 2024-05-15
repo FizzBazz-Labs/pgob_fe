@@ -21,7 +21,7 @@ const buildingType = ref<string>()
     validation="required"
     :options="[
       { value: 'HOUSE', label: 'Casa' },
-      { value: 'APARTMENT', label: 'Departamento' },
+      { value: 'APARTMENT', label: 'Edificio' },
     ]"
   />
 

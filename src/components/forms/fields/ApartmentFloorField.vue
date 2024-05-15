@@ -2,7 +2,7 @@
   <FormKit
     type="text"
     name="apartmentFloor"
-    label="Número de apartamento"
+    label="Número de piso"
     validation="required"
   />
 </template>

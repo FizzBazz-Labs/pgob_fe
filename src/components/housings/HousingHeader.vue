@@ -3,5 +3,5 @@ import AppHeader from '@/components/app/AppHeader.vue'
 </script>
 
 <template>
-  <AppHeader>Acreditación de Residentes</AppHeader>
+  <AppHeader> Registro de residentes alrededor ATLAPA </AppHeader>
 </template>
