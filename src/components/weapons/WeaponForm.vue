@@ -20,6 +20,9 @@ const router = useRouter()
 
 const values = ref<FormValues>({})
 
+const created = ref<HTMLDialogElement>()
+const createdId = ref<number>()
+
 const { positions, subPositions, countries } = useFormSelect({ values })
 
 const weapons = ref([initWeapon()])
@@ -50,15 +53,18 @@ async function onSubmit() {
   const response = await service.create(values.value as SecurityValues)
 
   if (response.id) {
-    toast('Acreditación de armas creada con éxito.', { type: 'success' })
-    setTimeout(() => {
-      router.push({
-        name: SecurityListView.name,
-      })
-    }, 3000)
+    createdId.value = response.id
+    created.value?.showModal()
   } else {
     toast('Ocurrió un error al crear la acreditación de armas.', { type: 'error' })
   }
+}
+
+function gotoDetail() {
+  router.push({
+    name: 'security-detail',
+    params: { id: createdId.value },
+  })
 }
 </script>
 
@@ -364,4 +370,31 @@ async function onSubmit() {
       </div>
     </div>
   </FormKit>
+
+  <dialog
+    ref="created"
+    class="modal"
+  >
+    <div class="modal-box">
+      <h3 class="mb-4 text-lg font-bold"></h3>
+
+      <p class="mb-3">Gracias por su registro</p>
+
+      <div class="flex justify-end gap-4">
+        <button
+          class="btn"
+          @click="$router.go(0)"
+        >
+          Nuevo Registro
+        </button>
+
+        <button
+          class="btn btn-success text-white"
+          @click="gotoDetail"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </dialog>
 </template>
