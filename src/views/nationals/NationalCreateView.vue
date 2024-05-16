@@ -25,7 +25,7 @@ const created = ref<HTMLDialogElement>()
 const createdId = ref<number>()
 
 async function onSubmit() {
-  loading.value = true
+  // loading.value = true
   errors.value = []
 
   try {
@@ -44,20 +44,24 @@ async function onSubmit() {
 
     const response = await service.create(accreditation)
 
-    created.value?.showModal()
+    if ('error' in response) {
+      errors.value = ['Esta acreditación ya existe.']
+      confirm.value?.close()
+
+      return
+    }
+
     createdId.value = response.id
 
-    // router.push({
-    //   name: NationalAccreditationDetailView.name,
-    //   params: { id: response.id },
-    // })
+    confirm.value?.close()
+    created.value?.showModal()
   } catch (_) {
     console.error({ _ })
     errors.value = [
       'Ocurrió un error al intentar guardar los datos. Por favor, intenta nuevamente.',
     ]
   } finally {
-    loading.value = false
+    // loading.value = false
   }
 }
 
@@ -72,6 +76,8 @@ function gotoDetail() {
 </script>
 
 <template>
+  {{ createdId }}
+
   <AppLoading :loading="loading">
     <header class="flex flex-col text-center text-2xl font-bold">
       <span>{{ config.name }}</span>
@@ -91,32 +97,26 @@ function gotoDetail() {
       ref="confirm"
       class="modal"
     >
-      <div class="modal-box pb-0">
+      <div class="modal-box">
         <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
 
-        <FormKit
-          type="form"
-          :actions="false"
-          @submit="onSubmit"
-        >
-          <p class="mb-3">Estas seguro de crear esta acreditación.</p>
+        <p class="mb-3">Estas seguro de crear esta acreditación.</p>
 
-          <div class="flex justify-end gap-4">
-            <FormKit
-              type="submit"
-              label="Aprobar"
-              suffix-icon="submit"
-              outer-class="!max-w-fit"
-            />
+        <div class="flex justify-end gap-4">
+          <button
+            class="btn btn-primary text-white"
+            @click.prevent="onSubmit"
+          >
+            Aceptar
+          </button>
 
-            <button
-              class="btn"
-              @click.prevent="confirm?.close()"
-            >
-              Cancelar
-            </button>
-          </div>
-        </FormKit>
+          <button
+            class="btn"
+            @click.prevent="confirm?.close()"
+          >
+            Cancelar
+          </button>
+        </div>
       </div>
     </dialog>
 
@@ -124,24 +124,26 @@ function gotoDetail() {
       ref="created"
       class="modal"
     >
-      <div class="modal-box pb-0">
+      <div class="modal-box">
+        <h3 class="mb-4 text-lg font-bold"></h3>
+
         <p class="mb-3">Gracias por su registro</p>
 
-      <div class="flex justify-end gap-4">
-        <button
-          class="btn"
-          @click="$router.go(0)"
-        >
-          Nuevo Registro
-        </button>
+        <div class="flex justify-end gap-4">
+          <button
+            class="btn"
+            @click="$router.go(0)"
+          >
+            Nuevo Registro
+          </button>
 
-        <button
-          class="btn btn-success"
-          @click="gotoDetail"
-        >
-          Aceptar
-        </button>
-      </div>
+          <button
+            class="btn btn-success text-white"
+            @click="gotoDetail"
+          >
+            Aceptar
+          </button>
+        </div>
       </div>
     </dialog>
   </AppLoading>

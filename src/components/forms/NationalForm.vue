@@ -138,8 +138,8 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
 
           <div class="flex w-1/4 flex-col gap-4">
             <ImageField
-            :image="values.steps.accreditation.image"
-            :validation="props.action === 'add' ? 'required' : ''"
+              :image="values.steps.accreditation.image"
+              :validation="props.action === 'add' ? 'required' : ''"
             />
             <AuthorizationLetterField v-if="showChannels" />
           </div>
