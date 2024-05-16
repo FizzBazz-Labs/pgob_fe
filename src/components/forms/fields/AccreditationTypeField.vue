@@ -16,6 +16,10 @@ const choices = [
     value: 'DIPLOMATIC_MISSION',
     label: 'Misión Diplomática',
   },
+  {
+    value: 'MINREX_OFFICIALS',
+    label: 'Funcionarios MINREX',
+  },
 ]
 </script>
 

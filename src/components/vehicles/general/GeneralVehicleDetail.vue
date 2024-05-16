@@ -15,6 +15,7 @@ const AccreditationTypeLabel: Record<string, any> = {
   COMMERCIAL_NEWSLETTER: 'Prensa Nacional',
   INTERNATIONAL_NEWSLETTER: 'Prensa Internacional',
   DIPLOMATIC_MISSION: 'Misión Diplomática',
+  MINREX_OFFICIALS: 'Funcionarios MINREX'
 }
 </script>
 
