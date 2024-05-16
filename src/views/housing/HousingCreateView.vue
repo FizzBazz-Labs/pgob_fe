@@ -20,9 +20,11 @@ const values = ref<any>({})
 const errors = ref<string[]>([])
 
 const confirm = ref<HTMLDialogElement>()
+const created = ref<HTMLDialogElement>()
+const createdId = ref<number>()
 
 async function onSubmit() {
-  loading.value = true
+  // loading.value = true
   errors.value = []
 
   try {
@@ -46,17 +48,23 @@ async function onSubmit() {
       })
     }
 
-    router.push({
-      name: 'housing-detail',
-      params: { id: response.id },
-    })
+    confirm.value?.close()
+    createdId.value = response.id
+    created.value?.showModal()
   } catch (_) {
     errors.value = [
       'Ocurrió un error al intentar guardar los datos. Por favor, intenta nuevamente.',
     ]
   } finally {
-    loading.value = false
+    // loading.value = false
   }
+}
+
+function gotoDetail() {
+  router.push({
+    name: 'housing-detail',
+    params: { id: createdId.value },
+  })
 }
 </script>
 
@@ -102,6 +110,33 @@ async function onSubmit() {
             </button>
           </div>
         </FormKit>
+      </div>
+    </dialog>
+
+    <dialog
+      ref="created"
+      class="modal"
+    >
+      <div class="modal-box">
+        <h3 class="mb-4 text-lg font-bold"></h3>
+
+        <p class="mb-3">Gracias por su registro</p>
+
+        <div class="flex justify-end gap-4">
+          <button
+            class="btn"
+            @click="$router.go(0)"
+          >
+            Nuevo Registro
+          </button>
+
+          <button
+            class="btn btn-success text-white"
+            @click="gotoDetail"
+          >
+            Aceptar
+          </button>
+        </div>
       </div>
     </dialog>
   </AppLoading>
