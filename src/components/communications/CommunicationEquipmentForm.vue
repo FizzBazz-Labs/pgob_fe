@@ -30,6 +30,9 @@ const values = defineModel('values', {
   default: (): FormValues => ({}),
 })
 
+const created = ref<HTMLDialogElement>()
+const createdId = ref<number>()
+
 const { countries } = useFormSelect({ values })
 
 const equipments = ref([initEquipment()])
@@ -60,24 +63,29 @@ async function onSubmit() {
 
   if (props.action === 'new') {
     response = await service.create(values.value)
+
+    createdId.value = response.id
+    created.value?.showModal()
   } else {
     response = await service.update(values.value)
+    createdId.value = response.id
+
+    gotoDetail()
   }
-
-  toast('Declaración de equipo de intercomunicación creada con éxito.', {
-    type: 'success',
-  })
-
-  router.push({
-    name: CommunicationEquipmentDetailView.name,
-    params: { id: response.id },
-  })
 }
+
 onBeforeMount(() => {
   if (values.value.equipments) {
     equipments.value = values.value.equipments as Equipment[]
   }
 })
+
+function gotoDetail() {
+  router.push({
+    name: CommunicationEquipmentDetailView.name,
+    params: { id: createdId.value },
+  })
+}
 </script>
 
 <template>
@@ -201,4 +209,31 @@ onBeforeMount(() => {
       </div>
     </div>
   </FormKit>
+
+  <dialog
+    ref="created"
+    class="modal"
+  >
+    <div class="modal-box">
+      <h3 class="mb-4 text-lg font-bold"></h3>
+
+      <p class="mb-3">Gracias por su registro</p>
+
+      <div class="flex justify-end gap-4">
+        <button
+          class="btn"
+          @click="$router.go(0)"
+        >
+          Nuevo Registro
+        </button>
+
+        <button
+          class="btn btn-success text-white"
+          @click="gotoDetail"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </dialog>
 </template>
