@@ -80,7 +80,13 @@ const showCountries = computed(
       <FormKit
         type="form"
         :actions="false"
-        @submit="emits('submit', values)"
+        @submit="
+          () => {
+            emits('submit', values)
+
+            confirm?.close()
+          }
+        "
       >
         <p class="mb-3">
           Estas seguro de {{ action === 'add' ? 'crear' : 'actualizar' }} este registro.
