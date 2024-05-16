@@ -125,29 +125,23 @@ function gotoDetail() {
       class="modal"
     >
       <div class="modal-box pb-0">
-        <FormKit
-          type="form"
-          :actions="false"
-          @submit="onSubmit"
+        <p class="mb-3">Gracias por su registro</p>
+
+      <div class="flex justify-end gap-4">
+        <button
+          class="btn"
+          @click="$router.go(0)"
         >
-          <p class="mb-3">Gracias por su registro</p>
+          Nuevo Registro
+        </button>
 
-          <div class="flex justify-end gap-4">
-            <button
-              class="btn"
-              @click="$router.go(0)"
-            >
-              Nuevo Registro
-            </button>
-
-            <button
-              class="btn btn-success"
-              @click="gotoDetail"
-            >
-              Aceptar
-            </button>
-          </div>
-        </FormKit>
+        <button
+          class="btn btn-success"
+          @click="gotoDetail"
+        >
+          Aceptar
+        </button>
+      </div>
       </div>
     </dialog>
   </AppLoading>

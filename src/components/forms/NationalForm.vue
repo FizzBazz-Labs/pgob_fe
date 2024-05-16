@@ -113,6 +113,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
                 validation="required"
                 :options="positions"
                 select-icon="down"
+                placeholder="Seleccione una opción"
               />
 
               <FormKit
@@ -136,7 +137,10 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
           <div class="flex-1"></div>
 
           <div class="flex w-1/4 flex-col gap-4">
-            <ImageField :image="values.steps.accreditation.image" />
+            <ImageField
+            :image="values.steps.accreditation.image"
+            :validation="props.action === 'add' ? 'required' : ''"
+            />
             <AuthorizationLetterField v-if="showChannels" />
           </div>
         </div>

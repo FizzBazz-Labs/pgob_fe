@@ -25,14 +25,6 @@ export function useFormSelect(props: Props) {
       attrs: {},
     }))
 
-    positionList.unshift({
-      value: 0,
-      label: 'Selecciona un cargo',
-      attrs: {
-        disabled: true,
-      },
-    })
-
     return positionList
   })
 
