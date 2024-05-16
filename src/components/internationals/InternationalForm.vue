@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type PropType } from 'vue'
+import { ref, computed, type PropType } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { getNode } from '@formkit/core'
@@ -36,6 +36,16 @@ const values = defineModel('values', {
   type: Object as PropType<MultiStepForm>,
   default: initInternational,
 })
+
+const created = ref<HTMLDialogElement>()
+const createdId = ref<number>()
+
+function gotoDetail() {
+  router.push({
+    name: InternationalAccreditationDetailView.name,
+    params: { id: createdId.value },
+  })
+}
 
 const {
   positions,
@@ -104,21 +114,14 @@ async function onSubmit() {
   if (props.action === 'new') {
     response = await service.create({
       ...values.value,
-      // country: auth.user.country,
     })
   } else {
     response = await service.update(values.value)
   }
 
-  if (response.id) {
-    toast('Acreditación internacional creada con éxito.', {
-      type: 'success',
-    })
-
-    router.push({
-      name: InternationalAccreditationDetailView.name,
-      params: { id: response.id },
-    })
+  if ('id' in response) {
+    createdId.value = response.id
+    created.value?.showModal()
   } else {
     toast('Error al crear la acreditación internacional.', {
       type: 'error',
@@ -783,4 +786,31 @@ async function onSubmit() {
       </FormKit>
     </FormKit>
   </FormKit>
+
+  <dialog
+    ref="created"
+    class="modal"
+  >
+    <div class="modal-box">
+      <h3 class="mb-4 text-lg font-bold"></h3>
+
+      <p class="mb-3">Gracias por su registro</p>
+
+      <div class="flex justify-end gap-4">
+        <button
+          class="btn"
+          @click="$router.go(0)"
+        >
+          Nuevo Registro
+        </button>
+
+        <button
+          class="btn btn-success text-white"
+          @click="gotoDetail"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </dialog>
 </template>
