@@ -21,6 +21,8 @@ const values = ref<any>({})
 const errors = ref<string[]>([])
 
 const confirm = ref<HTMLDialogElement>()
+const created = ref<HTMLDialogElement>()
+const createdId = ref<number>()
 
 async function onSubmit() {
   loading.value = true
@@ -42,10 +44,13 @@ async function onSubmit() {
 
     const response = await service.create(accreditation)
 
-    router.push({
-      name: NationalAccreditationDetailView.name,
-      params: { id: response.id },
-    })
+    created.value?.showModal()
+    createdId.value = response.id
+
+    // router.push({
+    //   name: NationalAccreditationDetailView.name,
+    //   params: { id: response.id },
+    // })
   } catch (_) {
     console.error({ _ })
     errors.value = [
@@ -54,6 +59,15 @@ async function onSubmit() {
   } finally {
     loading.value = false
   }
+}
+
+function gotoDetail() {
+  created.value?.close()
+
+  router.push({
+    name: NationalAccreditationDetailView.name,
+    params: { id: createdId.value },
+  })
 }
 </script>
 
@@ -100,6 +114,37 @@ async function onSubmit() {
               @click.prevent="confirm?.close()"
             >
               Cancelar
+            </button>
+          </div>
+        </FormKit>
+      </div>
+    </dialog>
+
+    <dialog
+      ref="created"
+      class="modal"
+    >
+      <div class="modal-box pb-0">
+        <FormKit
+          type="form"
+          :actions="false"
+          @submit="onSubmit"
+        >
+          <p class="mb-3">Gracias por su registro</p>
+
+          <div class="flex justify-end gap-4">
+            <button
+              class="btn"
+              @click="$router.go(0)"
+            >
+              Nuevo Registro
+            </button>
+
+            <button
+              class="btn btn-success"
+              @click="gotoDetail"
+            >
+              Aceptar
             </button>
           </div>
         </FormKit>
