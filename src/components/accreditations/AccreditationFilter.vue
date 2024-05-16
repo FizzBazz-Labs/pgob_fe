@@ -91,7 +91,7 @@ const showNameFilter = computed(() => {
       v-if="showNameFilter"
     >
       <div class="label-text">
-        <span class="label-text">Nombre</span>
+        <span class="label-text">Nombre o Apellido</span>
       </div>
 
       <input

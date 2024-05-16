@@ -10,7 +10,7 @@ const { countries } = useFormSelect({ values: ref({}) })
   <FormKit
     type="select"
     name="country"
-    label="País"
+    label="País de origen"
     placeholder="Seleccione un país..."
     validation="required"
     :options="countries"
