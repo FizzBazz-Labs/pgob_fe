@@ -19,6 +19,7 @@ type Props = {
     export?: any
     importData?(values: any): Promise<void>
     create?: any
+    createLabel?: string
   }
 }
 
@@ -70,7 +71,7 @@ async function onImportData(values: any) {
               :to="props.meta.create"
               class="btn btn-success text-white"
             >
-              {{ 'Crear acreditación' }}
+              {{ props.meta.createLabel ?? "Crear acreditación"  }}
             </RouterLink>
           </div>
         </slot>
