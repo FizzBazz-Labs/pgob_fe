@@ -7,8 +7,6 @@ import type { FormValues } from '@/entities/Form'
 
 import { useFormSelect } from '@/composables/FormSelect'
 
-import { toast } from 'vue3-toastify'
-
 import * as service from '@/services/VehicleAccessAirportService'
 
 import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
@@ -19,12 +17,18 @@ const values = ref<FormValues>({})
 
 const { countries } = useFormSelect({ values })
 
+const created = ref<HTMLDialogElement>()
+const createdId = ref<number>()
+
 async function onSubmit() {
-  await service.create(values.value)
+  const response = await service.create(values.value)
 
-  toast('Acreditación de acceso de vehículos al aeropuerto creado con éxito.', { type: 'success' })
+  created.value?.showModal()
+  createdId.value = response.id
+}
 
-  router.push({ name: 'vehicle-access-list' })
+function gotoDetail() {
+  router.push({ name: 'vehicle-access-detail', params: { id: createdId.value } })
 }
 </script>
 
@@ -137,4 +141,31 @@ async function onSubmit() {
       </div>
     </div>
   </FormKit>
+
+  <dialog
+    ref="created"
+    class="modal"
+  >
+    <div class="modal-box">
+      <h3 class="mb-4 text-lg font-bold"></h3>
+
+      <p class="mb-3">Gracias por su registro</p>
+
+      <div class="flex justify-end gap-4">
+        <button
+          class="btn"
+          @click="$router.go(0)"
+        >
+          Nuevo Registro
+        </button>
+
+        <button
+          class="btn btn-success text-white"
+          @click="gotoDetail"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </dialog>
 </template>
