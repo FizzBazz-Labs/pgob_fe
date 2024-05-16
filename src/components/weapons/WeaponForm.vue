@@ -101,7 +101,7 @@ async function onSubmit() {
         <FormKit
           type="text"
           name="permitNumber"
-          label="Número de Permiso"
+          label="Número de Permiso del arma"
           validation="required"
         />
 
