@@ -10,7 +10,7 @@ import PhoneNumber1Field from '../PhoneNumber1Field.vue'
 const labels = {
   title: 'Residentes',
   remove: 'Eliminar',
-  add: 'Añadir',
+  add: 'Añadir Residente',
 }
 
 function init() {

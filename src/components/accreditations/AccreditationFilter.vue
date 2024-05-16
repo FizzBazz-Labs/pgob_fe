@@ -19,6 +19,7 @@ type Filters = {
   status?: string
   country?: string
   search?: string
+  date?: string
 }
 
 const filters = defineModel<Filters>()
@@ -106,7 +107,7 @@ const showNameFilter = computed(() => {
       </div>
 
       <input
-        v-model="filters.search"
+        v-model="filters.date"
         type="date"
         onkeypress="return false"
         class="input input-bordered w-full max-w-xs"
