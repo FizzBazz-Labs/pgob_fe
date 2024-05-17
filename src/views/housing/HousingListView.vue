@@ -15,6 +15,8 @@ import AccreditationFilter from '@/components/accreditations/AccreditationFilter
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import HousingHeader from '@/components/housings/HousingHeader.vue'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const auth = useAuthStore()
 
 const service = new HousingService()
@@ -88,8 +90,9 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
+        export: `${API_URL}/housings/export`,
         create: { name: 'housing-create' },
-        createLabel: 'Crear registro'
+        createLabel: 'Crear registro',
       }"
     >
       <template #subheader>
