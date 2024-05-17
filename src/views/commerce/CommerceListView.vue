@@ -15,6 +15,8 @@ import AccreditationFilter from '@/components/accreditations/AccreditationFilter
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import SiteHeader from '@/components/commerce/CommerceHeader.vue'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const auth = useAuthStore()
 
 const service = new CommerceService()
@@ -68,8 +70,9 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
+        export: `${API_URL}/commerces/export`,
         create: { name: 'commerce-create' },
-        createLabel: 'Crear registro'
+        createLabel: 'Crear registro',
       }"
     >
       <template #subheader>
