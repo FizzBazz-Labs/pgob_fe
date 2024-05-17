@@ -44,6 +44,8 @@ export interface International {
   flightArrivalNumber: string
   flightDepartureDatetime: string
   flightDepartureNumber: string
+  flightArrivalAirport: string
+  flightDepartureAirport: string
   flightFrom: Country
   flightTo: Country
   type: string

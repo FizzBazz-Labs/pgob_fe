@@ -23,6 +23,7 @@ import AccreditationDetailComment from '@/components/accreditations/Accreditatio
 
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
+import DetailField from '@/components/DetailField.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -640,6 +641,12 @@ function onEdit() {
               />
             </div>
           </div>
+
+          <DetailField
+            v-if="item.flightArrivalAirport"
+            label="Aeropuerto de Procedencia"
+            :value="item.flightArrivalAirport"
+          />
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -684,6 +691,12 @@ function onEdit() {
               />
             </div>
           </div>
+
+          <DetailField
+            v-if="item.flightDepartureAirport"
+            label="Aeropuerto de Destino"
+            :value="item.flightDepartureAirport"
+          />
         </div>
 
         <AccreditationDetailActions
