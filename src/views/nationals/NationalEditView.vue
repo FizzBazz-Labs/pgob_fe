@@ -78,7 +78,7 @@ onMounted(() => {
     if (auth.isUser) {
       document.addEventListener('keydown', preventClose)
     }
-  }, 100)
+  }, 500)
 })
 
 // functions
@@ -119,14 +119,13 @@ const preventClose = (event: KeyboardEvent) => {
     <dialog
       ref="save"
       class="modal"
-      v-if="auth.isUser"
     >
       <div class="modal-box">
         <h3 class="mb-4 text-lg font-bold">Aviso</h3>
 
         <p class="mb-3">
-          Se puede editar una sola vez este registro, si requiere volver a editar debera enviar un
-          correo solicitando a el siguiente correo TDM2024@mire.gob.pa
+          Se puede editar una sola vez este registro, si requiere volver a editarlo deberá enviar un
+          correo solicitando el cambio a la siguiente dirección TDM2024@mire.gob.pa
         </p>
 
         <div

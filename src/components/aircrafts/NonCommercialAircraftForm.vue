@@ -78,8 +78,8 @@ function gotoDetail() {
           placeholder="Seleccione un tipo de vuelo"
           validation="required"
           :options="[
-            { label: 'Vuelo', value: 'Flight' },
-            { label: 'Sobrevuelo', value: 'Overflight' },
+            { label: 'Vuelo', value: 'FLIGHT' },
+            { label: 'Sobrevuelo', value: 'OVERFLIGHT' },
           ]"
           select-icon="down"
         />
