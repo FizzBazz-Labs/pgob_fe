@@ -10,10 +10,16 @@ import { useFormSelect } from '@/composables/FormSelect'
 import * as service from '@/services/VehicleAccessAirportService'
 
 import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
+import { useAuthStore } from '@/stores/auth'
+import StaticCountryField from '../forms/fields/StaticCountryField.vue'
 
 const router = useRouter()
 
-const values = ref<FormValues>({})
+const auth = useAuthStore()
+
+const values = ref<FormValues>({
+  country: auth.user.country,
+})
 
 const { countries } = useFormSelect({ values })
 
@@ -43,14 +49,7 @@ function gotoDetail() {
   >
     <div class="flex justify-center gap-4">
       <div class="w-1/2">
-        <FormKit
-          type="select"
-          name="country"
-          label="País"
-          validation="required|not:0"
-          :options="countries"
-          select-icon="down"
-        />
+        <StaticCountryField />
 
         <FormKit
           type="text"

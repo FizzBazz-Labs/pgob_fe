@@ -15,10 +15,16 @@ import type { SecurityValues } from '@/entities/Form'
 import { useFormSelect } from '@/composables/FormSelect'
 
 import { initWeapon, initCommunication } from '@/utils/defaults'
+import { useAuthStore } from '@/stores/auth'
+import StaticCountryField from '../forms/fields/StaticCountryField.vue'
 
 const router = useRouter()
 
-const values = ref<FormValues>({})
+const auth = useAuthStore()
+
+const values = ref<FormValues>({
+  country: auth.user.country,
+})
 
 const created = ref<HTMLDialogElement>()
 const createdId = ref<number>()
@@ -79,15 +85,7 @@ function gotoDetail() {
   >
     <div class="flex justify-center gap-4">
       <div class="w-1/2">
-        <FormKit
-          type="select"
-          name="country"
-          label="País"
-          placeholder="Seleccione un país..."
-          validation="required"
-          :options="countries"
-          select-icon="down"
-        />
+        <StaticCountryField />
 
         <FormKit
           type="text"

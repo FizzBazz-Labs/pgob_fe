@@ -9,11 +9,11 @@ import { useFormSelect } from '@/composables/FormSelect'
 
 import * as service from '@/services/CommunicationEquipmentService'
 
-import { toast } from 'vue3-toastify'
-
 import { CommunicationEquipmentDetailView } from '@/router/communicationEquipments'
 
 import type { Equipment } from '@/entities/Equipment'
+import { useAuthStore } from '@/stores/auth'
+import StaticCountryField from '../forms/fields/StaticCountryField.vue'
 
 type Props = {
   action?: 'new' | 'edit'
@@ -25,15 +25,17 @@ const props = withDefaults(defineProps<Props>(), {
 
 const router = useRouter()
 
+const auth = useAuthStore()
+
 const values = defineModel('values', {
   type: Object as PropType<FormValues>,
-  default: (): FormValues => ({}),
+  default: (): FormValues => ({
+    county: auth.user.country,
+  }),
 })
 
 const created = ref<HTMLDialogElement>()
 const createdId = ref<number>()
-
-const { countries } = useFormSelect({ values })
 
 const equipments = ref([initEquipment()])
 
@@ -97,14 +99,7 @@ function gotoDetail() {
   >
     <div class="flex justify-center gap-4">
       <div class="w-1/2">
-        <FormKit
-          type="select"
-          name="country"
-          label="País"
-          validation="required"
-          :options="countries"
-          select-icon="down"
-        />
+        <StaticCountryField />
 
         <FormKit
           type="text"
