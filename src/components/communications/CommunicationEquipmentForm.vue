@@ -25,13 +25,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 const router = useRouter()
 
-const auth = useAuthStore()
-
 const values = defineModel('values', {
   type: Object as PropType<FormValues>,
-  default: (): FormValues => ({
-    county: auth.user.country,
-  }),
+  default: (): FormValues => {
+    const auth = useAuthStore()
+
+    return {
+      county: auth.user.country,
+    }
+  },
 })
 
 const created = ref<HTMLDialogElement>()
