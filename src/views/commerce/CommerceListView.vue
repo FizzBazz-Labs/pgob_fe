@@ -69,6 +69,7 @@ async function onFetch() {
       v-model:pagination="pagination"
       :meta="{
         create: { name: 'commerce-create' },
+        createLabel: 'Crear registro'
       }"
     >
       <template #subheader>
