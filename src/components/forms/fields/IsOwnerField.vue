@@ -28,7 +28,7 @@ const isOwner = ref<boolean>()
     <FormKit
       type="text"
       name="ownerPhoneNumber"
-      label="Número del Propietario"
+      label="Número de contacto del Propietario"
       validation="required"
     />
   </template>

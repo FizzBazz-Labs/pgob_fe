@@ -5,7 +5,7 @@ const props = defineProps<{ status: AccreditationStatus }>()
 
 const StatusLabel = {
   PENDING: 'Pendiente',
-  REVIEWED: 'Aprobado',
+  REVIEWED: 'Verificado',
   APPROVED: 'Aceptado',
   REJECTED: 'Rechazado',
 }

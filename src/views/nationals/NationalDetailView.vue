@@ -340,7 +340,7 @@ function onEdit() {
 
         <div class="mb-5 flex flex-row items-center gap-2">
           <div class="">
-            <span> <strong> Enfermedades </strong> </span>
+            <span> <strong> Enfermedades/Discapacidad </strong> </span>
           </div>
           <div class="w-full">
             <input

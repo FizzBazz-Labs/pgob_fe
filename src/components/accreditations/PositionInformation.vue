@@ -15,7 +15,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <h2 class="divider divider-start mt-10 text-xl font-bold">Cargo en el Evento</h2>
+  <h2 class="divider divider-start mt-10 text-xl font-bold">Cargo en el Evento (Campo Obligatorio)</h2>
 
   <div class="flex flex-col items-start gap-2">
     <span><strong>Posición</strong>: {{ props.position.name }}</span>

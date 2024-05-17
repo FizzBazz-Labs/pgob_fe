@@ -30,7 +30,7 @@ onMounted(() => confirm.value?.showModal())
         Confirmación
       </h3>
 
-      <p class="py-4">Solo se aceptara armas que utilicen munición de 9mm</p>
+      <p class="py-4">Solo se aceptarán armas cortas de 9mm. (Pistolas y Revolveres de hasta el calibre 9mm) <br> <b>Pistola</b> <br> 17 municiones <br> <b>Revolver</b> <br> 30 municiones </p>
 
       <div class="modal-action">
         <form method="dialog">

@@ -45,7 +45,7 @@ const { positions, subPositions, showChannels } = useFormSelect({ values })
 
 const labels = {
   personal: 'Datos Personales',
-  position: 'Cargo en el Evento',
+  position: 'Cargo en el Evento (Campo Obligatorio)',
 }
 
 const isSecurity = computed(() => values.value.steps?.accreditation?.position === 10)

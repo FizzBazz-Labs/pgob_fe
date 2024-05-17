@@ -220,7 +220,7 @@ async function onSubmit() {
               validation="required"
             />
 
-            <h2 class="divider divider-start text-xl font-bold">Cargo en el Evento</h2>
+            <h2 class="divider divider-start text-xl font-bold">Cargo en el Evento (Campo Obligatorio)</h2>
 
             <div
               class="grid gap-4"
