@@ -35,6 +35,7 @@ export interface International {
   allergiesDescription: string
   immunizations: Array<Immunization | any>
   medicals: Array<MedicalHistory | any>
+  timesEdited: number
   surgical: string
   doctorName: string
   hotelName: string

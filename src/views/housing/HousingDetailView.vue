@@ -25,6 +25,7 @@ const vehicles = new VehicleService()
 
 const loading = ref(true)
 const item = ref<Housing>()
+const timesEdited = ref(0)
 const itemVehicles = ref<any[]>([])
 
 onBeforeMount(async () => {
@@ -36,6 +37,7 @@ onBeforeMount(async () => {
     itemVehicles.value.push(await vehicles.retrieve(vehicle))
   }
 
+  timesEdited.value = item.value.timesEdited
   loading.value = false
 })
 
@@ -69,6 +71,7 @@ function gotoEdit() {
 
       <AccreditationDetailActions
         :status="item.status"
+        :times-edited="timesEdited"
         @edit="gotoEdit"
       />
     </main>

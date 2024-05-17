@@ -1,9 +1,13 @@
 <script lang="ts" setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import { HousingService, HousingPersonService } from '@/services/HousingService'
 import { VehicleService } from '@/services/VehicleService'
+
+import { HousingDetailView } from '@/router/housing'
+
+import { useAuthStore } from '@/stores/auth'
 
 import AppLoading from '@/components/app/AppLoading.vue'
 import HousingHeader from '@/components/housings/HousingHeader.vue'
@@ -12,6 +16,8 @@ import HousingForm from '@/components/forms/HousingForm.vue'
 const route = useRoute()
 const router = useRouter()
 
+const auth = useAuthStore()
+
 const service = new HousingService()
 const vehicles = new VehicleService()
 const persons = new HousingPersonService()
@@ -19,6 +25,9 @@ const persons = new HousingPersonService()
 const loading = ref(false)
 const values = ref<any>({})
 const errors = ref<string[]>([])
+
+const save = ref<HTMLDialogElement>()
+const timesEdited = ref(0)
 
 const personIds = ref<number[]>([])
 
@@ -40,9 +49,12 @@ onBeforeMount(async () => {
     vehicles: formVehicles,
   }
 
+  delete values.value.timesEdited
+
   personIds.value = housing.persons.map(i => i.id)
 
   loading.value = false
+  timesEdited.value = housing.timesEdited
 })
 
 async function onSubmit() {
@@ -99,6 +111,30 @@ async function onSubmit() {
     loading.value = false
   }
 }
+
+onMounted(() => {
+  setTimeout(() => {
+    showModal()
+    if (auth.isUser) {
+      document.addEventListener('keydown', preventClose)
+    }
+  }, 500)
+})
+
+// functions
+function showModal() {
+  save.value?.showModal()
+}
+
+function closeModal() {
+  document.removeEventListener('keydown', preventClose)
+  save.value?.close()
+}
+
+const preventClose = (event: KeyboardEvent) => {
+  event.stopPropagation()
+  event.preventDefault()
+}
 </script>
 
 <template>
@@ -144,6 +180,44 @@ async function onSubmit() {
             </button>
           </div>
         </FormKit>
+      </div>
+    </dialog>
+
+    <dialog
+      ref="save"
+      class="modal"
+    >
+      <div class="modal-box">
+        <h3 class="mb-4 text-lg font-bold">Aviso</h3>
+
+        <p class="mb-3">
+          Se puede editar una sola vez este registro, si requiere volver a editarlo deberá enviar un
+          correo solicitando el cambio a la siguiente dirección TDM2024@mire.gob.pa
+        </p>
+
+        <div class="flex justify-end gap-4">
+          <button
+            v-if="timesEdited == 0 && auth.isUser"
+            class="btn btn-success text-white"
+            @click="closeModal"
+          >
+            Continuar
+          </button>
+
+          <button
+            class="btn btn-success text-white"
+            v-else
+          >
+            <RouterLink
+              :to="{
+                name: HousingDetailView.name,
+                params: { id: values.id },
+              }"
+            >
+              Ir al detalle
+            </RouterLink>
+          </button>
+        </div>
       </div>
     </dialog>
   </AppLoading>

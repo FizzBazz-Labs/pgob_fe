@@ -128,16 +128,24 @@ const preventClose = (event: KeyboardEvent) => {
           correo solicitando el cambio a la siguiente dirección TDM2024@mire.gob.pa
         </p>
 
-        <div
-          class="flex justify-end gap-4"
-          v-if="timesEdited == 0 && auth.isUser"
-        >
+        <div class="flex justify-end gap-4">
           <button
+            v-if="timesEdited == 0 && auth.isUser"
             class="btn btn-success text-white"
             @click="closeModal"
           >
             Continuar
           </button>
+
+          <RouterLink
+            v-else
+            :to="{
+              name: NationalAccreditationDetailView.name,
+              params: { id: values.steps.accreditation.id },
+            }"
+          >
+            <button class="btn btn-success text-white">Ir al detalle</button>
+          </RouterLink>
         </div>
       </div>
     </dialog>

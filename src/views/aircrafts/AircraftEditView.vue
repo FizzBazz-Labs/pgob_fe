@@ -19,9 +19,21 @@ onBeforeMount(async () => {
   loading.value = true
 
   item.value = await service.getById(Number(route.params.id))
-
+  item.value.arrivalDate = formatDateTime(new Date(item.value.arrivalDate))
+  item.value.departureDate = formatDateTime(new Date(item.value.departureDate))
   loading.value = false
 })
+
+function formatDateTime(date: Date) {
+  const yyyy = date.getFullYear()
+  const MM = String(date.getMonth() + 1).padStart(2, '0')
+  const dd = String(date.getDate()).padStart(2, '0')
+  const hh = String(date.getHours()).padStart(2, '0')
+  const mm = String(date.getMinutes()).padStart(2, '0')
+  const ss = String(date.getSeconds()).padStart(2, '0')
+
+  return `${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}`
+}
 </script>
 
 <template>

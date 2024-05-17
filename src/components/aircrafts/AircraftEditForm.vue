@@ -60,7 +60,7 @@ async function onSubmit() {
 
     <div class="grid grid-cols-2 gap-4">
       <FormKit
-        type="date"
+        type="datetime-local"
         name="arrivalDate"
         label="Fecha de Entrada"
         validation="required"
@@ -76,7 +76,7 @@ async function onSubmit() {
 
     <div class="grid grid-cols-2 gap-4">
       <FormKit
-        type="date"
+        type="datetime-local"
         name="departureDate"
         label="Fecha de Salida"
         validation="required"

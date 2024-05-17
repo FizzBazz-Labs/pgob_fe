@@ -10,6 +10,7 @@ export interface Commerce {
   commerceType: string
   commerceTypeOther?: string
   vehicles: number[]
+  timesEdited: number
   employees: Array<any>
   status: AccreditationStatus
 }

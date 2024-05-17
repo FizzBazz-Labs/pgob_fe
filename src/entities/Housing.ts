@@ -13,6 +13,7 @@ export interface Housing {
   ownerName: string
   ownerPhoneNumber: string
   vehicles: number[]
+  timesEdited: number
   persons: Array<any>
   status: AccreditationStatus
 }

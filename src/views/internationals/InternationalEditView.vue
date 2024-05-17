@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import * as service from '@/services/InternationalService'
@@ -10,6 +10,8 @@ import InternationalForm from '@/components/forms/InternationalForm.vue'
 
 import { InternationalAccreditationDetailView } from '@/router/internationals'
 
+import { useAuthStore } from '@/stores/auth'
+
 import { valuesFromInternational } from '@/utils/forms'
 
 const route = useRoute()
@@ -18,6 +20,10 @@ const router = useRouter()
 const loading = ref(true)
 const values = ref<any>({})
 const errors = ref<string[]>([])
+const timesEdited = ref(0)
+const save = ref<HTMLDialogElement>()
+
+const auth = useAuthStore()
 
 async function onSubmit() {
   loading.value = true
@@ -55,9 +61,33 @@ onBeforeMount(async () => {
   loading.value = true
 
   values.value = await valuesFromInternational(Number(route.params.id))
-
   loading.value = false
+  timesEdited.value = values.value.steps.accreditation.timesEdited
 })
+
+onMounted(() => {
+  setTimeout(() => {
+    showModal()
+    if (auth.isUser) {
+      document.addEventListener('keydown', preventClose)
+    }
+  }, 500)
+})
+
+// functions
+function showModal() {
+  save.value?.showModal()
+}
+
+function closeModal() {
+  document.removeEventListener('keydown', preventClose)
+  save.value?.close()
+}
+
+const preventClose = (event: KeyboardEvent) => {
+  event.stopPropagation()
+  event.preventDefault()
+}
 </script>
 
 <template>
@@ -75,5 +105,39 @@ onBeforeMount(async () => {
         @submit="onSubmit"
       />
     </main>
+
+    <dialog
+      ref="save"
+      class="modal"
+    >
+      <div class="modal-box">
+        <h3 class="mb-4 text-lg font-bold">Aviso</h3>
+
+        <p class="mb-3">
+          Se puede editar una sola vez este registro, si requiere volver a editarlo deberá enviar un
+          correo solicitando el cambio a la siguiente dirección TDM2024@mire.gob.pa
+        </p>
+
+        <div class="flex justify-end gap-4">
+          <button
+            v-if="timesEdited == 0 && auth.isUser"
+            class="btn btn-success text-white"
+            @click="closeModal"
+          >
+            Continuar
+          </button>
+
+          <RouterLink
+            v-else
+            :to="{
+              name: InternationalAccreditationDetailView.name,
+              params: { id: values.steps.accreditation.id },
+            }"
+          >
+            <button class="btn btn-success text-white">Ir al detalle</button>
+          </RouterLink>
+        </div>
+      </div>
+    </dialog>
   </AppLoading>
 </template>
