@@ -6,7 +6,7 @@ import { computed } from 'vue'
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
-import { LoginView, UserListView, ProfileView } from '@/router'
+import { LoginView, UserListView, ProfileView, DashboardView } from '@/router'
 
 const config = useConfigStore()
 const auth = useAuthStore()
@@ -164,6 +164,10 @@ const accreditations = computed(() => [
       <ul class="menu w-80 flex-1 p-4">
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
+        </li>
+
+        <li v-if="!auth.isUser">
+          <RouterLink :to="DashboardView.path"> Reporte Presidencial </RouterLink>
         </li>
 
         <li v-if="auth.isAccreditor">
