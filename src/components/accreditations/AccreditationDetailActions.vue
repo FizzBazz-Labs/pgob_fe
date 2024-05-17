@@ -39,6 +39,7 @@ const router = useRouter()
 const auth = useAuthStore()
 
 const confirmReviewDialog = ref<HTMLDialogElement>()
+const reprint = ref<HTMLDialogElement>()
 
 const canReject = computed(() => {
   if (auth.isReviewer && props.status === AccreditationStatus.PENDING) return true
@@ -109,7 +110,7 @@ function canEdit() {
 
       <button
         v-else-if="canCertificate"
-        @click="onCertificate"
+        @click="props.downloaded ? reprint?.showModal() : onCertificate()"
         class="btn"
       >
         {{ props.downloaded ? 'Reimprimir' : 'Imprimir' }} Gafete
@@ -181,6 +182,41 @@ function canEdit() {
             <button
               class="btn"
               @click.prevent="confirmReviewDialog?.close()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </FormKit>
+      </div>
+    </dialog>
+
+    <dialog
+      ref="reprint"
+      class="modal"
+    >
+      <div class="modal-box pb-0">
+        <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
+
+        <FormKit
+          type="form"
+          :actions="false"
+          @submit="onCertificate"
+        >
+          <p class="mb-3">
+            Estas seguro de reimprimir este gafete, el anterior será eliminado y no sera valido.
+          </p>
+
+          <div class="flex justify-end gap-4">
+            <FormKit
+              type="submit"
+              label="Aceptar"
+              suffix-icon="submit"
+              outer-class="!max-w-fit"
+            />
+
+            <button
+              class="btn"
+              @click.prevent="reprint?.close()"
             >
               Cancelar
             </button>
