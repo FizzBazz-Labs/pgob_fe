@@ -112,6 +112,7 @@ export async function update(values: any): Promise<National> {
   const form = new FormData()
 
   const fields = [
+    'country',
     'firstName',
     'lastName',
     'institution',
@@ -148,12 +149,13 @@ export async function update(values: any): Promise<National> {
   appendArrayFields('immunizations', values.immunizations)
   appendArrayFields('medicals', values.medicals)
 
-  const response = await API.form(`/internationals/${values.id}`, form, 'PATCH')
+  console.log('perer')
+  const response = await API.form(`/nationals/${values.id}`, form, 'PATCH')
   return await response.json()
 }
 
 export async function getById(id: number): Promise<National> {
-  const response = await API.get(`/national-accreditations/${id}`)
+  const response = await API.get(`/nationals/${id}`)
 
   return await response.json()
 }

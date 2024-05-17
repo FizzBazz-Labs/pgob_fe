@@ -18,6 +18,7 @@ import MediaChannelField from './fields/MediaChannelField.vue'
 import ContactSection from './sections/ContactSection.vue'
 import MedicalSection from './sections/MedicalSection.vue'
 import CountryField from './fields/CountryField.vue'
+import StaticCountryField from './fields/StaticCountryField.vue'
 
 type Props = {
   action?: 'add' | 'edit'
@@ -84,7 +85,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-              <CountryField />
+              <StaticCountryField />
               <PassportIdField />
             </div>
 

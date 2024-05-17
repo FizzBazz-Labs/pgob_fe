@@ -33,6 +33,7 @@ const auth = useAuthStore()
 
 const loading = ref(true)
 const item = ref<National>()
+const timesEdited = ref(0)
 
 const confirmRejectDialog = ref<HTMLDialogElement>()
 const confirmApproveDialog = ref<HTMLDialogElement>()
@@ -41,6 +42,7 @@ onBeforeMount(async () => {
   loading.value = true
   item.value = await service.getById(Number(route.params.id))
   loading.value = false
+  timesEdited.value = item.value.timesEdited
 })
 
 async function onReview(values: any) {
@@ -528,6 +530,7 @@ function onEdit() {
           :status="item.status"
           :type="AccreditationItemType.NATIONAL"
           :downloaded="item.certificated"
+          :times-edited="timesEdited"
           @review="onReview"
           @approve="confirmApproveDialog?.showModal()"
           @reject="confirmRejectDialog?.showModal()"

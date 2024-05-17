@@ -17,6 +17,7 @@ type Props = {
   type?: AccreditationItemType
   status?: AccreditationStatus
   downloaded?: boolean
+  timesEdited?: number
 }
 
 type Emits = {
@@ -71,6 +72,10 @@ async function onCertificate() {
     router.go(0)
   }
 }
+
+function canEdit() {
+  return props.timesEdited && props.timesEdited > 0 && auth.isUser ? false : true
+}
 </script>
 
 <template>
@@ -119,7 +124,8 @@ async function onCertificate() {
           !auth.isReviewer &&
           !auth.isAdmin &&
           !auth.isNewsletters &&
-          props.status !== AccreditationStatus.REJECTED
+          props.status !== AccreditationStatus.REJECTED &&
+          canEdit()
         "
         class="tooltip tooltip-bottom"
         data-tip="Editar"

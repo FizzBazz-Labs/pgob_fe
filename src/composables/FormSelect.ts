@@ -185,6 +185,29 @@ export function useFormSelect(props: Props) {
     },
   ])
 
+  const flightCategories = ref([
+    {
+      value: 'TECHNICIANS',
+      label: 'Técnicos',
+    },
+    {
+      value: 'DIPLOMATS',
+      label: 'Diplomáticos',
+    },
+    {
+      value: 'MILITARIES',
+      label: 'Militares',
+    },
+    {
+      value: 'VOLUNTEERS',
+      label: 'Voluntarios',
+    },
+    {
+      value: 'RESCUERS',
+      label: 'Rescatistas',
+    },
+  ])
+
   function preview(image?: any) {
     if (!image || image[0] == undefined) return placeholder
 
@@ -197,7 +220,7 @@ export function useFormSelect(props: Props) {
     return URL.createObjectURL(img[0].file)
   }
 
-  const flightTypes = ref([
+  const aircraftTypes = ref([
     {
       value: 'EMERGENCY',
       label: 'Emergencia',
@@ -218,10 +241,10 @@ export function useFormSelect(props: Props) {
       value: 'TECHNICAL_SCALE',
       label: 'Escala Técnica (aterrizaje y despegue)',
     },
-    {
-      value: 'OVERFLIGHT',
-      label: 'Sobrevuelo',
-    },
+    // {
+    //   value: 'OVERFLIGHT',
+    //   label: 'Sobrevuelo',
+    // },
     {
       value: 'OTHER',
       label: 'Otro',
@@ -306,8 +329,9 @@ export function useFormSelect(props: Props) {
     medicalHistories,
     nationalTypes,
     internationalTypes,
+    flightCategories,
     preview,
-    flightTypes,
+    aircraftTypes,
     groups,
     accreditations,
   }

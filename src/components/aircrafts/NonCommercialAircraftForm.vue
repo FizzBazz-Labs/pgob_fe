@@ -23,7 +23,9 @@ const values = ref<FormValues>({
 const created = ref<HTMLDialogElement>()
 const createdId = ref<number>()
 
-const { countries, flightTypes, positions, subPositions } = useFormSelect({ values })
+const { countries, aircraftTypes, positions, subPositions, flightCategories } = useFormSelect({
+  values,
+})
 
 async function onSubmit() {
   const response = await service.create(values.value)
@@ -64,6 +66,19 @@ function gotoDetail() {
           select-icon="down"
         />
 
+        <FormKit
+          type="select"
+          name="flightType"
+          label="Tipo de vuelo"
+          placeholder="Seleccione un tipo de vuelo"
+          validation="required"
+          :options="[
+            { label: 'Vuelo', value: 'Flight' },
+            { label: 'Sobrevuelo', value: 'Overflight' },
+          ]"
+          select-icon="down"
+        />
+
         <h2 class="divider divider-start text-xl font-bold">Datos de la Aeronave</h2>
 
         <div class="grid grid-cols-2 gap-4">
@@ -72,7 +87,7 @@ function gotoDetail() {
             name="aircraftType"
             label="Tipo"
             placeholder="Seleccione un tipo de aeronave"
-            :options="flightTypes"
+            :options="aircraftTypes"
             validation="required"
             select-icon="down"
           />
@@ -92,15 +107,6 @@ function gotoDetail() {
             validation="required"
           />
         </div>
-        <!--
-        <FormKit
-          type="radio"
-          name="flightType"
-          label="Tipo de vuelo"
-          validation="required"
-          :options="flightTypes"
-          decorator-icon="circle"
-        /> -->
 
         <div class="grid grid-cols-2 gap-4">
           <FormKit
@@ -188,9 +194,9 @@ function gotoDetail() {
 
         <div class="grid grid-cols-2 gap-4">
           <FormKit
-            type="date"
+            type="datetime-local"
             name="arrivalDate"
-            label="Fecha de Entrada"
+            label="Fecha y hora de entrada"
             validation="required"
           />
 
@@ -204,9 +210,9 @@ function gotoDetail() {
 
         <div class="grid grid-cols-2 gap-4">
           <FormKit
-            type="date"
+            type="datetime-local"
             name="departureDate"
-            label="Fecha de Salida"
+            label="Fecha y hora de salida"
             validation="required"
           />
 
@@ -242,6 +248,14 @@ function gotoDetail() {
           label="Facilidades que la aeronave requiere en tierra"
         />
 
+        <FormKit
+          type="select"
+          name="category"
+          label="Categoria"
+          placeholder="Seleccione una categoria"
+          validation="required"
+          :options="flightCategories"
+        />
         <FormKit
           type="submit"
           label="Enviar"

@@ -36,6 +36,7 @@ export interface National {
   bloodType: string
   diseases: string
   medication1: string
+  timesEdited: number
   medication2: string
   medication3: string
   medication4: string
