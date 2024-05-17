@@ -13,18 +13,20 @@ import * as service from '@/services/AircraftService'
 
 import { OverflightNonCommercialAircraftListView } from '@/router/aircrafts'
 import StaticCountryField from '../forms/fields/StaticCountryField.vue'
+import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
+const auth = useAuthStore()
 
 const values = ref<FormValues>({
-  country: 1,
+  country: auth.user.country,
   position: '',
 })
 
 const created = ref<HTMLDialogElement>()
 const createdId = ref<number>()
 
-const { countries, aircraftTypes, positions, subPositions, flightCategories } = useFormSelect({
+const { aircraftTypes, positions, subPositions, flightCategories } = useFormSelect({
   values,
 })
 
