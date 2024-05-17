@@ -48,4 +48,5 @@ export interface National {
   doctorName: string
   certificated: boolean
   certification?: string
+  uuid: string
 }

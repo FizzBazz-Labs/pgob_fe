@@ -59,4 +59,5 @@ export interface International {
   reviewedComment?: string
   authorizedComment?: string
   certificated: boolean
+  uuid: string
 }

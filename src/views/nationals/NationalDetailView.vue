@@ -23,6 +23,7 @@ import type { FormValues } from '@/entities/Form'
 import AccreditationDetailComment from '@/components/accreditations/AccreditationDetailComment.vue'
 
 import { useAuthStore } from '@/stores/auth'
+import DetailValidation from '@/components/DetailValidation.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -110,7 +111,7 @@ function onEdit() {
 
 <template>
   <AppLoading :loading="loading">
-    <template v-if="item">
+    <template v-if="!auth.isAnonymous && item && !route.query.uuid">
       <main class="mx-auto w-8/12">
         <AccreditationDetailHeader
           :image="item.image"
@@ -538,6 +539,16 @@ function onEdit() {
         />
       </main>
     </template>
+
+    <DetailValidation
+      v-else
+      :id="Number(route.params.id)"
+      :valid="String(route.query.uuid) === item?.uuid"
+      :name="`${item?.firstName} ${item?.lastName}` || 'Sin nombre'"
+      :passportId="item?.passportId || ''"
+      :accreditationType="nationalTypes.find(i => i.value === item?.type)?.label ?? 'Sin tipo'"
+      :position="item?.position?.name || 'Sin cargo'"
+    />
   </AppLoading>
 
   <dialog

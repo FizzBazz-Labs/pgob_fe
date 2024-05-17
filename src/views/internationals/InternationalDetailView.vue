@@ -24,6 +24,7 @@ import AccreditationDetailComment from '@/components/accreditations/Accreditatio
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 import DetailField from '@/components/DetailField.vue'
+import DetailValidation from '@/components/DetailValidation.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -112,7 +113,7 @@ function onEdit() {
 
 <template>
   <AppLoading :loading="loading">
-    <template v-if="item">
+    <template v-if="!auth.isAnonymous && item && !route.query.uuid">
       <main class="mx-auto w-8/12">
         <AccreditationDetailHeader
           :image="item.image"
@@ -714,6 +715,16 @@ function onEdit() {
         />
       </main>
     </template>
+
+    <DetailValidation
+      v-else
+      :id="Number(route.params.id)"
+      :valid="String(route.query.uuid) === item?.uuid"
+      :name="`${item?.firstName} ${item?.lastName}` || 'Sin nombre'"
+      :passportId="item?.passportId || ''"
+      :accreditationType="internationalTypes.find(i => i.value === item?.type)?.label ?? 'Sin tipo'"
+      :position="item?.position?.name || 'Sin cargo'"
+    />
   </AppLoading>
 
   <dialog
