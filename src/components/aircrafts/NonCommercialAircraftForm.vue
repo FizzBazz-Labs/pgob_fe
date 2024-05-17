@@ -12,6 +12,7 @@ import { useFormSelect } from '@/composables/FormSelect'
 import * as service from '@/services/AircraftService'
 
 import { OverflightNonCommercialAircraftListView } from '@/router/aircrafts'
+import StaticCountryField from '../forms/fields/StaticCountryField.vue'
 
 const router = useRouter()
 
@@ -57,14 +58,16 @@ function gotoDetail() {
   >
     <div class="flex justify-center gap-4">
       <div class="w-1/2">
-        <FormKit
+        <!-- <FormKit
           type="select"
           name="country"
           label="País"
           validation="required"
           :options="countries"
           select-icon="down"
-        />
+        /> -->
+
+        <StaticCountryField />
 
         <FormKit
           type="select"
