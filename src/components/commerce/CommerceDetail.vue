@@ -23,7 +23,7 @@ const CommerceType: Record<string, string> = {
 <template>
   <DetailField
     label="Nombre Comercial"
-    :value="item.comercialName"
+    :value="item.commercialName"
   />
 
   <DetailField
