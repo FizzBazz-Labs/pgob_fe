@@ -34,7 +34,10 @@ async function onSubmit() {
 }
 
 function gotoDetail() {
-  router.push({ name: 'vehicle-access-detail', params: { id: createdId.value } })
+  router.push({
+    name: 'vehicle-access-detail',
+    params: { id: createdId.value },
+  })
 }
 </script>
 

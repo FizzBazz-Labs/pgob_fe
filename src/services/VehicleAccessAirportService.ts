@@ -19,13 +19,14 @@ export async function all({
 }
 
 export async function create(body: Record<string, unknown>): Promise<VehicleAccessAirport> {
-  const vehicleId = await createVehicle(body)
+  const vehicle = await createVehicle(body)
 
   const data = {
     informationResponsible: body.informationResponsible,
     country: body.country,
-    vehicles: [vehicleId.vehicleId],
+    vehicles: [vehicle.id],
   }
+
   const response = await API.post(ENDPOINT, data)
   return await response.json()
 }
