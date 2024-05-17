@@ -29,7 +29,13 @@ const labels = {
     {{ labels.arrival }}
   </h3>
 
-  <div class="grid grid-cols-3 gap-4">
+  <div
+    class="grid gap-4"
+    :class="{
+      'grid-cols-3': props.airport,
+      'grid-cols-2': !props.airport,
+    }"
+  >
     <FormKit
       type="datetime-local"
       name="flightArrivalDatetime"
@@ -49,21 +55,34 @@ const labels = {
       label="Procedencia"
     />
 
-    <FormKit
-      v-else
-      type="select"
-      name="flightFrom"
-      label="Procedencia"
-      :options="countries"
-      select-icon="down"
-    />
+    <template v-else>
+      <FormKit
+        type="select"
+        name="flightFrom"
+        label="Procedencia"
+        :options="countries"
+        select-icon="down"
+      />
+
+      <FormKit
+        type="text"
+        name="flightArrivalAirport"
+        label="Aeropuerto de Procedencia"
+      />
+    </template>
   </div>
 
   <h3 class="my-2 mt-4 text-lg font-semibold">
     {{ labels.departure }}
   </h3>
 
-  <div class="grid grid-cols-3 gap-4">
+  <div
+    class="grid gap-4"
+    :class="{
+      'grid-cols-3': props.airport,
+      'grid-cols-2': !props.airport,
+    }"
+  >
     <FormKit
       type="datetime-local"
       name="flightDepartureDatetime"
@@ -83,13 +102,20 @@ const labels = {
       label="Destino"
     />
 
-    <FormKit
-      v-else
-      type="select"
-      name="flightTo"
-      label="Destino"
-      :options="countries"
-      select-icon="down"
-    />
+    <template v-else>
+      <FormKit
+        type="select"
+        name="flightTo"
+        label="Destino"
+        :options="countries"
+        select-icon="down"
+      />
+
+      <FormKit
+        type="text"
+        name="flightDepartureAirport"
+        label="Aeropuerto de Destino"
+      />
+    </template>
   </div>
 </template>

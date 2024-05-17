@@ -220,7 +220,9 @@ async function onSubmit() {
               validation="required"
             />
 
-            <h2 class="divider divider-start text-xl font-bold">Cargo en el Evento (Campo Obligatorio)</h2>
+            <h2 class="divider divider-start text-xl font-bold">
+              Cargo en el Evento (Campo Obligatorio)
+            </h2>
 
             <div
               class="grid gap-4"
@@ -473,7 +475,7 @@ async function onSubmit() {
 
             <h3 class="my-2 mt-4 text-lg font-semibold">Vuelo de Llegada</h3>
 
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 gap-4">
               <FormKit
                 type="datetime-local"
                 name="flightArrivalDatetime"
@@ -493,11 +495,17 @@ async function onSubmit() {
                 :options="countries"
                 select-icon="down"
               />
+
+              <FormKit
+                type="text"
+                name="flightArrivalAirport"
+                label="Aeropuerto de Llegada"
+              />
             </div>
 
             <h3 class="my-2 mt-4 text-lg font-semibold">Vuelo de Salida</h3>
 
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 gap-4">
               <FormKit
                 type="datetime-local"
                 name="flightDepartureDatetime"
@@ -516,6 +524,12 @@ async function onSubmit() {
                 label="Destino"
                 :options="countries"
                 select-icon="down"
+              />
+
+              <FormKit
+                type="text"
+                name="flightDepartureAirport"
+                label="Aeropuerto de Salida"
               />
             </div>
           </div>

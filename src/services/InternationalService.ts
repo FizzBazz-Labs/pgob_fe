@@ -104,6 +104,14 @@ export async function create(values: MultiStepForm): Promise<International> {
     form.append('flightArrivalNumber', params.flightArrivalNumber as string)
   }
 
+  if (params.flightArrivalAirport !== undefined) {
+    form.append('flightArrivalAirport', params.flightArrivalAirport as string)
+  }
+
+  if (params.flightDepartureAirport !== undefined) {
+    form.append('flightDepartureAirport', params.flightDepartureAirport as string)
+  }
+
   if (params.flightDepartureDatetime !== undefined) {
     form.append('flightDepartureDatetime', params.flightDepartureDatetime as string)
   }
@@ -205,6 +213,8 @@ export async function update(values: any): Promise<International> {
     'flightFrom',
     'flightTo',
     'privateInsurance',
+    'flightArrivalAirport',
+    'flightDepartureAirport',
   ]
 
   fields.forEach(field => {
