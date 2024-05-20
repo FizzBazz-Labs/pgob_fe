@@ -113,7 +113,6 @@ async function onReject() {
             <th>Modelo</th>
             <th>Tipo</th>
             <th>No. de Serie</th>
-            <th>Calibre</th>
             <th>Cargadores</th>
             <th>Municiones</th>
           </tr>

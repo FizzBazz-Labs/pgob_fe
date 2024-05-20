@@ -10,12 +10,13 @@ export type SecurityValues = {
     chargers: string
     ammunition: string
   }>
-  equipments: Array<{
+  communicationItems: Array<{
     brand: string
     model: string
     type: string
     serial: string
-    frequency: string
+    value: string
+    // frequency: string
   }>
   [index: string]: string | Array<Record<string, string>> | unknown
 }

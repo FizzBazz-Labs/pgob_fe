@@ -82,7 +82,10 @@ export async function create(values: MultiStepForm): Promise<International> {
   form.append('birthplace', params.birthplace as string)
   form.append('bloodType', params.blood as string)
   form.append('diseases', params.diseases as string)
-  form.append('allergiesDescription', params.allergiesDescription as string)
+
+  if (params.allergiesDescription !== undefined) {
+    form.append('allergiesDescription', params.allergiesDescription as string)
+  }
 
   if (params.surgical !== undefined) {
     form.append('surgical', params.surgical as string)
@@ -178,6 +181,7 @@ export async function create(values: MultiStepForm): Promise<International> {
   }
 
   const response = await API.form(ENDPOINT, form)
+
   return await response.json()
 }
 

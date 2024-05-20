@@ -611,7 +611,7 @@ function onEdit() {
               <input
                 type="text"
                 class="input input-bordered w-full"
-                :value="formatDate(item.flightArrivalDatetime)"
+                :value="item.flightArrivalDatetime ? formatDate(item.flightArrivalDatetime) : ''"
                 disabled
               />
             </div>
@@ -661,7 +661,9 @@ function onEdit() {
               <input
                 type="text"
                 class="input input-bordered w-full"
-                :value="formatDate(item.flightDepartureDatetime)"
+                :value="
+                  item.flightDepartureDatetime ? formatDate(item.flightDepartureDatetime) : ''
+                "
                 disabled
               />
             </div>

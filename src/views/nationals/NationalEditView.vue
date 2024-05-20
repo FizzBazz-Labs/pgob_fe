@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onBeforeMount, onMounted } from 'vue'
+import { ref, onBeforeMount, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import * as service from '@/services/NationalService'
@@ -72,13 +72,8 @@ onBeforeMount(async () => {
   timesEdited.value = values.value.steps.accreditation.timesEdited
 })
 
-onMounted(() => {
-  setTimeout(() => {
-    showModal()
-    if (auth.isUser) {
-      document.addEventListener('keydown', preventClose)
-    }
-  }, 500)
+watch(save, () => {
+  showModal()
 })
 
 // functions

@@ -21,7 +21,7 @@ export function initEquipment() {
     model: '',
     type: '',
     serial: '',
-    frequency: '',
+    value: '',
   }
 }
 
@@ -113,7 +113,7 @@ export function initInternational(item?: International): MultiStepForm {
           controlDatetime: '',
           observations: '',
           weapons: [initWeapon() as any],
-          equipments: [initEquipment()],
+          communicationItems: [initEquipment()],
         },
       },
     }
@@ -134,7 +134,7 @@ export function initInternational(item?: International): MultiStepForm {
         controlDatetime: '',
         observations: '',
         weapons: [initWeapon() as any],
-        equipments: [initEquipment()],
+        communicationItems: [initEquipment()],
       },
     },
   }

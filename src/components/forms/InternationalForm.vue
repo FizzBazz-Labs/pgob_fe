@@ -152,7 +152,9 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
         <template #stepActions="{ handlers }">
           <div class="flex gap-4">
             <FormKit
-              v-if="!isSecurity || auth.isTransportationManager"
+              v-if="
+                !isSecurity || !auth.isTransportationManager || !auth.isReviewer || !auth.isAdmin
+              "
               type="submit"
               :label="'Actualizar'"
               suffix-icon="submit"
@@ -172,7 +174,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
         </template>
       </FormKit>
 
-      <SecurityStep v-if="isSecurity && auth.isTransportationManager" />
+      <SecurityStep v-if="isSecurity && (auth.isUser || auth.isAccreditor)" />
     </FormKit>
   </FormKit>
 </template>
