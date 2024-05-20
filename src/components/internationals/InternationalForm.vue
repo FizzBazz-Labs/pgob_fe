@@ -80,6 +80,16 @@ function initWeapon() {
   }
 }
 
+function initEquipment() {
+  return {
+    brand: '',
+    model: '',
+    type: '',
+    serial: '',
+    value: '',
+  }
+}
+
 function onAddWeapon() {
   const weapons = values.value['multi-step'].security.weapons
 
@@ -95,23 +105,24 @@ function onRemoveVehicle(index: number) {
 }
 
 function onAddEquipment() {
-  const weapons = values.value['multi-step'].security.weapons
+  const communicationItems = values.value['multi-step'].security.communicationItems
 
-  if (!weapons) {
-    values.value['multi-step'].security.weapons = []
+  if (!communicationItems) {
+    values.value['multi-step'].security.communicationItems = []
   }
 
-  values.value['multi-step'].security.weapons.push(initWeapon())
+  values.value['multi-step'].security.communicationItems.push(initEquipment())
 }
 
 function onRemoveEquipment(index: number) {
-  values.value['multi-step'].security.weapons.splice(index, 1)
+  values.value['multi-step'].security.communicationItems.splice(index, 1)
 }
 
 async function onSubmit() {
   let response = { id: 0 }
 
   if (props.action === 'new') {
+    console.log('values', values.value)
     response = await service.create({
       ...values.value,
     })
@@ -674,14 +685,14 @@ async function onSubmit() {
                 <FormKit
                   type="number"
                   v-model="weapon.chargers"
-                  label="Calibre"
+                  label="Cant. de Cargadores"
                   validation="required"
                 />
 
                 <FormKit
                   type="number"
                   v-model="weapon.ammunition"
-                  label="Calibre"
+                  label="Municiones"
                   validation="required"
                 />
 
@@ -712,7 +723,7 @@ async function onSubmit() {
             </div>
 
             <div
-              v-for="(equipment, i) in values['multi-step'].security.equipments"
+              v-for="(equipment, i) in values['multi-step'].security.communicationItems"
               :key="i"
               class="collapse collapse-arrow mb-4 bg-base-200"
             >
@@ -755,8 +766,8 @@ async function onSubmit() {
 
                 <FormKit
                   type="text"
-                  v-model="equipment.frequency"
-                  label="Calibre"
+                  v-model="equipment.value"
+                  label="Valor"
                   validation="required"
                 />
 
