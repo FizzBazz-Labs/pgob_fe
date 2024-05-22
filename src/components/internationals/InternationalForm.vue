@@ -573,7 +573,7 @@ async function onSubmit() {
               <FormKit
                 type="file"
                 name="letter"
-                label="Carta de Autorización"
+                label="Carta de Conformación de la Delegación"
                 validation="required"
                 accept=".pdf"
                 file-item-icon="fileDoc"

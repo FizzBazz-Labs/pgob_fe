@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 import type { VehicleAccessAirport } from '@/entities/VehicleAccessAirport'
 
@@ -12,6 +12,7 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 import { useAuthStore } from '@/stores/auth'
 
+const router = useRouter()
 const route = useRoute()
 
 const auth = useAuthStore()
@@ -49,6 +50,13 @@ async function onReject() {
   if (!item.value) return
 
   item.value = await service.reject(item.value.id)
+}
+
+function gotoEdit() {
+  router.push({
+    name: 'vehicle-access-edit',
+    params: { id: route.params.id },
+  })
 }
 </script>
 
@@ -252,6 +260,7 @@ async function onReject() {
         @review="onReview"
         @approve="onApprove"
         @reject="onReject"
+        @edit="gotoEdit"
       />
     </main>
   </AppLoading>

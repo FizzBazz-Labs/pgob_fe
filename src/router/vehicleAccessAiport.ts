@@ -19,8 +19,16 @@ export const VehicleAccessDetailView = {
   component: () => import('../views/vehicles/VehicleAccessDetailView.vue'),
 }
 
+export const VehicleAccessEditView = {
+  path: '/accreditations/vehicle-access/:id/edit',
+  name: 'vehicle-access-edit',
+  meta: { permissions: 'VehicleAccessAirport' },
+  component: () => import('../views/vehicles/access/VehicleAccessEditView.vue'),
+}
+
 export const VehicleAccessRoutes = [
   VehicleAccessListView,
   VehicleAccessCreateView,
   VehicleAccessDetailView,
+  VehicleAccessEditView,
 ]

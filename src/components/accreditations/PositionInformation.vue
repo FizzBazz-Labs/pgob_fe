@@ -15,7 +15,9 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <h2 class="divider divider-start mt-10 text-xl font-bold">Cargo en el Evento (Campo Obligatorio)</h2>
+  <h2 class="divider divider-start mt-10 text-xl font-bold">
+    Cargo en el Evento (Campo Obligatorio)
+  </h2>
 
   <div class="flex flex-col items-start gap-2">
     <span><strong>Posición</strong>: {{ props.position.name }}</span>
@@ -38,7 +40,8 @@ const props = defineProps<Props>()
         target="_blank"
         class="btn btn-ghost"
       >
-        Carta de Autorización
+        Carta de Conformación de la Delegación
+
         <ArrowDownTrayIcon class="h-5 w-5" />
       </a>
     </div>

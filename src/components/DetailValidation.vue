@@ -31,12 +31,12 @@ defineProps<Props>()
       <p>Cargo: {{ position }}</p>
     </div>
 
-    <div v-else>
+    <!-- <div v-else>
       <div class="flex justify-center">
         <XCircleIcon class="size-32 text-red-500" />
       </div>
 
       <h2 class="text-3xl font-bold">Acreditación Invalida</h2>
-    </div>
+    </div> -->
   </div>
 </template>

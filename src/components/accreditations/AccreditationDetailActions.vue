@@ -80,7 +80,7 @@ function canEdit() {
 </script>
 
 <template>
-  <template v-if="!auth.isAnonymous">
+  <div v-if="!auth.isAnonymous">
     <h2 class="divider divider-start mt-5 text-xl font-bold">Acciones</h2>
 
     <div class="flex items-start gap-1">
@@ -224,7 +224,5 @@ function canEdit() {
         </FormKit>
       </div>
     </dialog>
-  </template>
-
-  <div v-else></div>
+  </div>
 </template>

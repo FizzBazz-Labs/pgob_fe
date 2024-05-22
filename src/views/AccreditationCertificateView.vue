@@ -192,6 +192,8 @@ async function onSubmit() {
           </a>
         </div>
 
+        <!-- Gafete generado exitosamente y enviado a impresión. -->
+
         <div
           v-if="item.certificated && auth.isAccreditor"
           class="tooltip"

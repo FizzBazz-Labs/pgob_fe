@@ -1,6 +1,7 @@
 import * as API from '@/services/api'
 
 import type { VehicleAccessAirport } from '@/entities/VehicleAccessAirport'
+import { Service } from './service'
 
 const ENDPOINT = '/airport-vehicle-access'
 const VEHICLE_ENDPOINT = '/vehicles'
@@ -73,4 +74,10 @@ export async function approve(id: number): Promise<VehicleAccessAirport> {
 export async function reject(id: number): Promise<VehicleAccessAirport> {
   const response = await API.patch(`${ENDPOINT}/${id}/reject`)
   return await response.json()
+}
+
+export class VehicleAccessService extends Service<VehicleAccessAirport> {
+  constructor() {
+    super('/airport-vehicle-access')
+  }
 }
