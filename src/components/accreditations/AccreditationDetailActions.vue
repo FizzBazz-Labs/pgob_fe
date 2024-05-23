@@ -116,8 +116,13 @@ function canReject() {
 
   switch (routeName) {
     case 'national-detail':
-    case 'international-detail':
-      return auth.isReviewer
+    case 'international-detail': {
+      const isReviewerAndNotPending =
+        auth.isReviewer && props.status === AccreditationStatus.PENDING
+      const hasHigherPrivileges = auth.isAdmin || auth.isAccreditor
+
+      return isReviewerAndNotPending || hasHigherPrivileges
+    }
 
     case 'general-vehicle-detail':
     case 'vehicle-access-detail':
