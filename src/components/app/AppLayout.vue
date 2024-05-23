@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { UserCircleIcon } from '@heroicons/vue/24/outline'
+import { UserCircleIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
@@ -10,18 +10,6 @@ import { LoginView, UserListView, ProfileView, DashboardView } from '@/router'
 
 const config = useConfigStore()
 const auth = useAuthStore()
-
-function hasAdminProfile() {
-  if (!auth.isTransportationManager && !auth.isUser) {
-    return true
-  }
-}
-
-function hasTransportationProfile() {
-  if (auth.isTransportationManager) {
-    return true
-  }
-}
 
 const accreditations = computed(() => [
   {
@@ -75,6 +63,93 @@ const accreditations = computed(() => [
     canView: auth.hasSecurity,
   },
 ])
+
+const helpDialog = ref<HTMLDialogElement>()
+const helpInformation = ref({ title: '', url: '' })
+const helpItems = ref([
+  {
+    title: 'Nacional',
+    show: () => auth.hasNational,
+    items: [
+      {
+        title: 'Crear',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Editar',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Verificar/Rechazar',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Importar/Exportar',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Aprobar',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Generación Masiva',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Impresión Individual',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+    ],
+  },
+  {
+    title: 'Internacional',
+    show: () => auth.hasInternational,
+    items: [
+      {
+        title: 'Crear',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => auth.isUser,
+      },
+      {
+        title: 'Editar',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Verificar/Rechazar',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Importar/Exportar',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Aprobar',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Generación Masiva',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+      {
+        title: 'Impresión Individual',
+        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        show: () => true,
+      },
+    ],
+  },
+])
 </script>
 
 <template>
@@ -119,6 +194,53 @@ const accreditations = computed(() => [
                   Perfil
                 </RouterLink>
               </li>
+
+              <li>
+                <details>
+                  <summary>
+                    <!-- @click="dialog?.showModal()" -->
+                    <SparklesIcon class="size-4" />
+                    Ayuda
+                  </summary>
+
+                  <ul>
+                    <li
+                      v-for="(parent, i) in helpItems.filter(item => item.show())"
+                      :key="`parent-${i}`"
+                    >
+                      <details>
+                        <summary>
+                          {{ parent.title }}
+                        </summary>
+
+                        <ul>
+                          <li
+                            v-for="(child, j) in parent.items.filter(item => item.show())"
+                            :key="`child-${i}-${j}`"
+                          >
+                            <button
+                              @click="
+                                () => {
+                                  helpInformation = {
+                                    title: `${parent.title} | ${child.title}`,
+                                    url: child.url,
+                                  }
+
+                                  helpDialog?.showModal()
+                                }
+                              "
+                            >
+                              {{ child.title }}
+                            </button>
+                          </li>
+                        </ul>
+                      </details>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+
+              <div class="divider my-0"></div>
 
               <li>
                 <RouterLink
@@ -194,4 +316,35 @@ const accreditations = computed(() => [
       </ul>
     </div>
   </div>
+
+  <dialog
+    ref="helpDialog"
+    class="modal"
+  >
+    <div class="modal-box min-w-fit">
+      <h3 class="mb-4 text-lg font-bold">
+        {{ helpInformation.title }}
+      </h3>
+
+      <iframe
+        width="560"
+        height="315"
+        :src="helpInformation.url"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+
+      <div class="modal-action justify-end">
+        <button
+          class="btn btn-success text-white"
+          @click="helpDialog?.close()"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </dialog>
 </template>
