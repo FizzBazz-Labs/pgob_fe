@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 import { ArrowDownTrayIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
@@ -35,18 +35,12 @@ const props = withDefaults(defineProps<Props>(), {
 const emits = defineEmits<Emits>()
 
 const router = useRouter()
+const route = useRoute()
 
 const auth = useAuthStore()
 
 const confirmReviewDialog = ref<HTMLDialogElement>()
 const reprint = ref<HTMLDialogElement>()
-
-const canReject = computed(() => {
-  if (auth.isReviewer && props.status === AccreditationStatus.PENDING) return true
-  if (auth.isAccreditor && props.status === AccreditationStatus.REVIEWED) return true
-
-  return false
-})
 
 const canCertificate = computed(
   () => auth.isAccreditor && props.status === AccreditationStatus.APPROVED
@@ -77,6 +71,69 @@ async function onCertificate() {
 function canEdit() {
   return props.timesEdited && props.timesEdited > 0 && auth.isUser ? false : true
 }
+
+function canReview() {
+  const routeName = route.name?.toString()
+
+  switch (routeName) {
+    case 'national-detail':
+    case 'international-detail':
+      return auth.isReviewer && props.status === AccreditationStatus.PENDING
+
+    default:
+      return false
+  }
+}
+
+function canApprove() {
+  const routeName = route.name?.toString()
+
+  switch (routeName) {
+    case 'national-detail':
+    case 'international-detail':
+      return auth.isAccreditor && props.status === AccreditationStatus.REVIEWED
+
+    case 'general-vehicle-detail':
+    case 'vehicle-access-detail':
+    case 'non-commercial-aircraft-detail':
+      return auth.isTransportationManager && props.status === AccreditationStatus.PENDING
+
+    case 'communication-equipment-detail':
+      return auth.isNewsletters && props.status === AccreditationStatus.PENDING
+
+    case 'security-detail':
+      return auth.isReviewer && props.status === AccreditationStatus.PENDING
+
+    default:
+      return false
+  }
+}
+
+function canReject() {
+  const routeName = route.name?.toString()
+
+  if (props.status === AccreditationStatus.APPROVED) return false
+
+  switch (routeName) {
+    case 'national-detail':
+    case 'international-detail':
+      return auth.isReviewer
+
+    case 'general-vehicle-detail':
+    case 'vehicle-access-detail':
+    case 'non-commercial-aircraft-detail':
+      return auth.isTransportationManager
+
+    case 'communication-equipment-detail':
+      return auth.isNewsletters
+
+    case 'security-detail':
+      return auth.isReviewer
+
+    default:
+      return false
+  }
+}
 </script>
 
 <template>
@@ -85,7 +142,7 @@ function canEdit() {
 
     <div class="flex items-start gap-1">
       <button
-        v-if="auth.isReviewer && props.status === AccreditationStatus.PENDING"
+        v-if="canReview()"
         class="btn btn-info text-white"
         @click="confirmReviewDialog?.showModal()"
       >
@@ -93,7 +150,7 @@ function canEdit() {
       </button>
 
       <button
-        v-if="auth.isAccreditor && props.status === AccreditationStatus.REVIEWED"
+        v-if="canApprove()"
         class="btn btn-success text-white"
         @click="emits('approve')"
       >
@@ -101,7 +158,7 @@ function canEdit() {
       </button>
 
       <button
-        v-if="canReject"
+        v-if="canReject()"
         class="btn ml-3"
         @click="emits('reject')"
       >
