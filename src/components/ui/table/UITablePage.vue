@@ -11,10 +11,8 @@ const props = defineProps<Props>()
 const model = defineModel<number>()
 
 const toShowPages = computed(() => {
-  if (!model.value) return []
-
   let pages = props.pages
-  let current = model.value
+  let current = model.value ?? 0
 
   if (pages > 5) {
     if (current <= 2) {
@@ -32,7 +30,7 @@ const toShowPages = computed(() => {
 
 <template>
   <div
-    v-if="model"
+    v-if="model != undefined"
     class="join"
   >
     <button

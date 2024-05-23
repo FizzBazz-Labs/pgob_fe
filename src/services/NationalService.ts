@@ -26,7 +26,6 @@ export async function all({
 }: AllParams): Promise<API.PaginatedResponse<National>> {
   const ENDPOINT = '/nationals'
 
-  console.log('all', search)
   let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
   url += status ? `&status=${status}` : ''
   url += country ? `&country=${country}` : ''
@@ -149,7 +148,6 @@ export async function update(values: any): Promise<National> {
   appendArrayFields('immunizations', values.immunizations)
   appendArrayFields('medicals', values.medicals)
 
-  console.log('perer')
   const response = await API.form(`/nationals/${values.id}`, form, 'PATCH')
   return await response.json()
 }

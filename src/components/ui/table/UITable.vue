@@ -71,7 +71,7 @@ async function onImportData(values: any) {
               :to="props.meta.create"
               class="btn btn-success text-white"
             >
-              {{ props.meta.createLabel ?? "Crear acreditación"  }}
+              {{ props.meta.createLabel ?? 'Crear acreditación' }}
             </RouterLink>
           </div>
         </slot>

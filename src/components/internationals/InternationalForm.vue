@@ -122,7 +122,6 @@ async function onSubmit() {
   let response = { id: 0 }
 
   if (props.action === 'new') {
-    console.log('values', values.value)
     response = await service.create({
       ...values.value,
     })

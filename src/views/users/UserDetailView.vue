@@ -12,7 +12,6 @@ const item = ref<User>()
 
 onBeforeMount(async () => {
   item.value = await service.retrieve(Number(route.params.id))
-  console.log(item.value)
 })
 </script>
 

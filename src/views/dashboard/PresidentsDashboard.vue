@@ -34,8 +34,6 @@ onMounted(() => {
   dashboard.on('error', function () {
     dashboard.off('error')
   })
-
-  console.log(getAccessToken())
 })
 
 async function getAccessToken() {
