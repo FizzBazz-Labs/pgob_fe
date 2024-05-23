@@ -41,6 +41,7 @@ const auth = useAuthStore()
 
 const confirmReviewDialog = ref<HTMLDialogElement>()
 const reprint = ref<HTMLDialogElement>()
+const print = ref<HTMLDialogElement>()
 
 const canCertificate = computed(
   () => auth.isAccreditor && props.status === AccreditationStatus.APPROVED
@@ -53,19 +54,17 @@ function onReview(values: any) {
 }
 
 async function onCertificate() {
-  try {
-    switch (props.type) {
-      case AccreditationItemType.NATIONAL:
-        await nationals.certificate(props.id!)
-        break
+  switch (props.type) {
+    case AccreditationItemType.NATIONAL:
+      await nationals.certificate(props.id!)
+      break
 
-      case AccreditationItemType.INTERNATIONAL:
-        await internationals.certificate(props.id!)
-        break
-    }
-  } finally {
-    router.go(0)
+    case AccreditationItemType.INTERNATIONAL:
+      await internationals.certificate(props.id!)
+      break
   }
+
+  print.value?.showModal()
 }
 
 function canEdit() {
@@ -284,6 +283,26 @@ function canReject() {
             </button>
           </div>
         </FormKit>
+      </div>
+    </dialog>
+
+    <dialog
+      ref="print"
+      class="modal"
+    >
+      <div class="modal-box">
+        <h3 class="mb-4 text-lg font-bold">Estado</h3>
+
+        <p class="mb-3">Gafete generado con éxito</p>
+
+        <div class="modal-action justify-end">
+          <button
+            class="btn btn-success"
+            @click="$router.go(0)"
+          >
+            Aceptar
+          </button>
+        </div>
       </div>
     </dialog>
   </div>
