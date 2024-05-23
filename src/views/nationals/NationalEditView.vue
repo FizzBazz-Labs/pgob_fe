@@ -73,7 +73,9 @@ onBeforeMount(async () => {
 })
 
 watch(save, () => {
-  showModal()
+  if (auth.isUser) {
+    showModal()
+  }
 })
 
 // functions

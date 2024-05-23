@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch, onBeforeMount } from 'vue'
 
-import { EyeIcon } from '@heroicons/vue/24/outline'
+import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
@@ -9,6 +9,8 @@ import { useGeneralStore } from '@/stores/general'
 import { type NonCommercialAircraft } from '@/entities/NonCommercialAircraft'
 
 import * as service from '@/services/AircraftService'
+
+import { AccreditationStatus } from '@/entities/Accreditation'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
@@ -18,6 +20,8 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const auth = useAuthStore()
 const general = useGeneralStore()
+
+const API_URL = import.meta.env.VITE_API_URL
 
 const loading = ref(true)
 
@@ -94,6 +98,23 @@ async function onFetch() {
           <RouterLink :to="{ name: 'non-commercial-aircraft-detail', params: { id: item.id } }">
             <EyeIcon class="h-5 w-5 text-blue-500" />
           </RouterLink>
+        </div>
+
+        <div
+          v-if="
+            item.status == AccreditationStatus.APPROVED &&
+            (auth.isTransportationManager || auth.isAdmin)
+          "
+          class="tooltip"
+          data-tip="Imprimir Certificado"
+        >
+          <a
+            :href="`${API_URL}/aircrafts/${item.id}/certificate/`"
+            target="_blank"
+            class="btn btn-ghost btn-sm"
+          >
+            <IdentificationIcon class="h-5 w-5" />
+          </a>
         </div>
       </template>
     </UITable>
