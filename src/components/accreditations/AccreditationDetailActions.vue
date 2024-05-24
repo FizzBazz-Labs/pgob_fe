@@ -158,7 +158,13 @@ function canReject() {
         class="btn btn-success text-white"
         @click="emits('approve')"
       >
-        Generar Acreditación
+        {{
+          route.name === 'general-vehicle-detail' ||
+          route.name === 'vehicle-access-detail' ||
+          route.name === 'non-commercial-aircraft-detail'
+            ? 'Generar Acreditación'
+            : 'Generar Marbete'
+        }}
       </button>
 
       <button

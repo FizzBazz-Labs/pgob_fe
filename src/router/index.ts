@@ -82,7 +82,7 @@ export const ProfileView = {
 }
 
 export const Accreditation404View = {
-  path: '/accreditations/:id',
+  path: '/404',
   name: 'accreditation-404',
   component: () => import('../views/Accreditation404View.vue'),
   meta: { requiresAuth: false },

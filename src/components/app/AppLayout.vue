@@ -167,7 +167,55 @@ const helpItems = ref([
       <div class="navbar sticky top-0 z-10 w-full bg-white shadow-md">
         <div class="flex-1"></div>
 
-        <div class="flex-none">
+        <div class="flex gap-2">
+          <div class="dropdown dropdown-end">
+            <div
+              tabindex="0"
+              role="button"
+              class="btn"
+            >
+              Ayuda
+              <SparklesIcon class="size-4" />
+            </div>
+
+            <ul
+              class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            >
+              <li
+                v-for="(parent, i) in helpItems.filter(item => item.show())"
+                :key="`parent-${i}`"
+              >
+                <details>
+                  <summary>
+                    {{ parent.title }}
+                  </summary>
+
+                  <ul>
+                    <li
+                      v-for="(child, j) in parent.items.filter(item => item.show())"
+                      :key="`child-${i}-${j}`"
+                    >
+                      <button
+                        @click="
+                          () => {
+                            helpInformation = {
+                              title: `${parent.title} | ${child.title}`,
+                              url: child.url,
+                            }
+
+                            helpDialog?.showModal()
+                          }
+                        "
+                      >
+                        {{ child.title }}
+                      </button>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </div>
+
           <div class="dropdown dropdown-end">
             <div
               tabindex="0"
@@ -198,7 +246,6 @@ const helpItems = ref([
               <li>
                 <details>
                   <summary>
-                    <!-- @click="dialog?.showModal()" -->
                     <SparklesIcon class="size-4" />
                     Ayuda
                   </summary>

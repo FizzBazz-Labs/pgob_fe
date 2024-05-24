@@ -726,6 +726,7 @@ function onEdit() {
       :passportId="item?.passportId || ''"
       :accreditationType="internationalTypes.find(i => i.value === item?.type)?.label ?? 'Sin tipo'"
       :position="item?.position?.name || 'Sin cargo'"
+      :image="item?.image"
     />
   </AppLoading>
 
