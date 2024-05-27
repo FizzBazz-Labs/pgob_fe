@@ -243,50 +243,6 @@ const helpItems = ref([
                 </RouterLink>
               </li>
 
-              <li>
-                <details>
-                  <summary>
-                    <SparklesIcon class="size-4" />
-                    Ayuda
-                  </summary>
-
-                  <ul>
-                    <li
-                      v-for="(parent, i) in helpItems.filter(item => item.show())"
-                      :key="`parent-${i}`"
-                    >
-                      <details>
-                        <summary>
-                          {{ parent.title }}
-                        </summary>
-
-                        <ul>
-                          <li
-                            v-for="(child, j) in parent.items.filter(item => item.show())"
-                            :key="`child-${i}-${j}`"
-                          >
-                            <button
-                              @click="
-                                () => {
-                                  helpInformation = {
-                                    title: `${parent.title} | ${child.title}`,
-                                    url: child.url,
-                                  }
-
-                                  helpDialog?.showModal()
-                                }
-                              "
-                            >
-                              {{ child.title }}
-                            </button>
-                          </li>
-                        </ul>
-                      </details>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-
               <div class="divider my-0"></div>
 
               <li>
