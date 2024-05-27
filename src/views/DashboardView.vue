@@ -19,7 +19,7 @@ onBeforeMount(async () => {
     tokenType: pbi.models.TokenType.Embed,
     accessToken: token.value,
     embedUrl: embedUrl.value,
-    id: '2a3fa927-5ba8-4e81-ac4a-af0ef302e319',
+    id: '116de701-d119-4ab8-962a-a07a906f45ac',
     pageView: 'fitToWidth',
     permissions: permissions,
   }
