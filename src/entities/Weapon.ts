@@ -5,8 +5,8 @@ export interface Weapon {
   model: string
   type: string
   serial: string
-  chargers: number
-  ammunition: number
+  chargers: string
+  ammunition: string
   createdAt: string
   updatedAt: string
 }

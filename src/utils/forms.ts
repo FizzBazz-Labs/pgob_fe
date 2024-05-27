@@ -2,10 +2,6 @@ import * as nationals from '@/services/NationalService'
 import * as internationals from '@/services/InternationalService'
 import * as securities from '@/services/SecurityService'
 
-import { useGeneralStore } from '@/stores/general'
-
-const general = useGeneralStore()
-
 import { formatDateTime } from './dates'
 
 export async function valuesFromNational(id: number): Promise<any> {

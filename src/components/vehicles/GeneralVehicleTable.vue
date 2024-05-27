@@ -5,7 +5,7 @@ import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
 import { GeneralVehicleCreateView, GeneralVehicleDetailView } from '@/router/generalVehicles'
 
-import type { GeneralVehicles } from '@/entities/GeneralVehicles'
+import type { GeneralVehicle } from '@/entities/GeneralVehicles'
 import { AccreditationStatus } from '@/entities/Accreditation'
 
 import { useAuthStore } from '@/stores/auth'
@@ -16,7 +16,7 @@ const router = useRouter()
 
 const auth = useAuthStore()
 
-const props = defineProps<{ items: Array<GeneralVehicles> }>()
+const props = defineProps<{ items: Array<GeneralVehicle> }>()
 
 function gotoDetail(item: { id: number }) {
   router.push({

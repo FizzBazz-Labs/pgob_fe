@@ -15,7 +15,7 @@ const auth = useAuthStore()
 
 const props = defineProps<{ items: Array<User> }>()
 
-function onEdit(item) {
+function onEdit(item: any) {
   if (!item) return
 
   // router.push({
@@ -59,7 +59,7 @@ function gotoDetail(item: User) {
         <td>{{ item.lastName }}</td>
         <td>{{ item.email }}</td>
         <td>{{ item.country }}</td>
-        <td>{{ item.groups || 'Sin grupo' }}</td>
+        <td>{{ item.group || 'Sin grupo' }}</td>
         <td>
           <div
             class="tooltip"

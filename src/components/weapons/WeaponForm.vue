@@ -7,8 +7,6 @@ import { toast } from 'vue3-toastify'
 
 import * as service from '@/services/SecurityService'
 
-import { SecurityListView } from '@/router/security'
-
 import type { FormValues } from '@/entities/Form'
 import type { SecurityValues } from '@/entities/Form'
 
@@ -29,7 +27,7 @@ const values = ref<FormValues>({
 const created = ref<HTMLDialogElement>()
 const createdId = ref<number>()
 
-const { positions, subPositions, countries } = useFormSelect({ values })
+const { positions, subPositions } = useFormSelect({ values })
 
 const weapons = ref([initWeapon()])
 const communicationItems = ref([initCommunication()])

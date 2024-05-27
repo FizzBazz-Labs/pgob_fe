@@ -10,8 +10,8 @@ export function initWeapon(): WeaponValue {
     model: '',
     type: '',
     serial: '',
-    chargers: 0,
-    ammunition: 0,
+    chargers: '0',
+    ammunition: '0',
   }
 }
 
@@ -52,6 +52,7 @@ export function initNational(item?: National): MultiStepForm {
           observations: '',
           weapons: [initWeapon() as any],
           equipments: [initEquipment()],
+          communicationItems: [],
         },
       },
     }
@@ -66,6 +67,7 @@ export function initNational(item?: National): MultiStepForm {
         observations: '',
         weapons: [initWeapon() as any],
         equipments: [initEquipment()],
+        communicationItems: [],
       },
     },
   }

@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { ref, onBeforeMount, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -184,4 +184,10 @@ function getPages(items) {
       </div>
     </main>
   </AppLoading>
+</template> -->
+
+<template>
+  <div>
+    <h1>Accreditation List</h1>
+  </div>
 </template>

@@ -9,7 +9,7 @@ import { AccreditationStatus } from '@/entities/Accreditation'
 export interface International {
   id: number
   status: AccreditationStatus
-  country: number
+  country: number | any
   image: string
   firstName: string
   lastName: string

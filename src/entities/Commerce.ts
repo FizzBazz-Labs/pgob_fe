@@ -2,7 +2,7 @@ import type { AccreditationStatus } from './Accreditation'
 
 export interface Commerce {
   id: number
-  comercialName: string
+  commercialName: string
   companyName: string
   address: string
   adminName: string

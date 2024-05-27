@@ -1,4 +1,4 @@
-export const AccreditationTypeLabel = {
+export const AccreditationTypeLabel: Record<string, any> = {
   national: 'Nacional',
   international: 'Internacional',
 }

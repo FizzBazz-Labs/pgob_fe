@@ -1,5 +1,3 @@
-import type { Vehicle } from '@/entities/Vehicle'
-
 import type { CreatedBy } from './User'
 import { AccreditationStatus } from '@/entities/Accreditation'
 
@@ -9,6 +7,7 @@ export interface GeneralVehicle {
   country: number
   assignedTo: string
   vehicle: number
+  vehicles: any
   distinctive: string
   observations: string
   status: AccreditationStatus
