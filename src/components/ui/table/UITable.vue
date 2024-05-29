@@ -67,7 +67,7 @@ async function onImportData(values: any) {
             </button>
 
             <RouterLink
-              v-if="props.meta?.create && auth.isUser"
+              v-if="props.meta?.create && auth.isUser || auth.isAdmin"
               :to="props.meta.create"
               class="btn btn-success text-white"
             >

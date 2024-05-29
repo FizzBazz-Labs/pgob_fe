@@ -25,9 +25,9 @@ const columns = ref([
   { key: 'username', label: 'Usuario' },
   { key: 'firstName', label: 'Nombre' },
   { key: 'lastName', label: 'Apellido' },
-  { key: 'Email', label: 'email' },
+  { key: 'Email', label: 'Email' },
   { key: 'country', label: 'País', transform: general.country },
-  { key: 'group', label: 'group', transform: general.country },
+  { key: 'group', label: 'Grupo', transform: general.country },
   { key: 'actions', label: 'Acciones' },
 ])
 
@@ -63,12 +63,13 @@ async function onFetch() {
     <AppHeader> Usuarios </AppHeader>
 
     <UITable
-      title="Acreditaciones"
+      title="Usuarios"
       :columns="columns"
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
         create: { name: 'user-create' },
+        createLabel: 'Crear usuario'
       }"
     >
       <template #actions="{ item }">
