@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+import { changePassword } from '@/services/UserService'
+
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 
@@ -10,7 +12,13 @@ const auth = useAuthStore()
 const passwordChange = ref<HTMLDialogElement>()
 
 async function onPasswordChange(values: any) {
+  await changePassword({
+    newPassword: values.password,
+    passwordConfirm: values.password_confirm,
+  })
+
   passwordChange.value?.close()
+  alert('Contraseña cambiada con éxito')
 }
 </script>
 

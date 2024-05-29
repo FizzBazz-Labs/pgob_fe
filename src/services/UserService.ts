@@ -32,3 +32,13 @@ export async function retrieve(id: number): Promise<User> {
 
   return await response.json()
 }
+
+type ChangePasswordParams = {
+  newPassword: string
+  passwordConfirm: string
+}
+
+export async function changePassword(params: ChangePasswordParams): Promise<any> {
+  const response = await API.patch('profile/change-password/', params)
+  return await response.json()
+}
