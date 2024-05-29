@@ -39,6 +39,6 @@ type ChangePasswordParams = {
 }
 
 export async function changePassword(params: ChangePasswordParams): Promise<any> {
-  const response = await API.patch('profile/change-password/', params)
+  const response = await API.patch('/profile/change-password', params)
   return await response.json()
 }
