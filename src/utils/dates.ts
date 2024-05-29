@@ -1,13 +1,27 @@
 export function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('es-PA', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  const months = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ]
+
+  const splitDate = date.split('-')
+
+  return `${splitDate[2]} de ${months[Number(splitDate[1]) - 1]} del ${splitDate[0]}`
 }
 
 export function formatDateTime(value: string) {
   const date = new Date(value)
+  console.log(String(date.getDate()).padStart(2, '0'))
 
   const yyyy = date.getFullYear()
   const MM = String(date.getMonth() + 1).padStart(2, '0')
