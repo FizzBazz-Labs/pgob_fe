@@ -73,37 +73,37 @@ const helpItems = ref([
     items: [
       {
         title: 'Crear',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Editar',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Verificar/Rechazar',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Importar/Exportar',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Aprobar',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Generación Masiva',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Impresión Individual',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
     ],
@@ -114,37 +114,37 @@ const helpItems = ref([
     items: [
       {
         title: 'Crear',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => auth.isUser,
       },
       {
         title: 'Editar',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Verificar/Rechazar',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Importar/Exportar',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Aprobar',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Generación Masiva',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
       {
         title: 'Impresión Individual',
-        url: 'https://www.youtube.com/embed/hsXeFqj5p7Q?si=C8grEIIDLqFhifox',
+        url: '',
         show: () => true,
       },
     ],
