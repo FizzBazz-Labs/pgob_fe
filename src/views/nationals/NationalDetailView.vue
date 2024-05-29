@@ -23,6 +23,8 @@ import type { FormValues } from '@/entities/Form'
 import AccreditationDetailComment from '@/components/accreditations/AccreditationDetailComment.vue'
 
 import { useAuthStore } from '@/stores/auth'
+import { useGeneralStore } from '@/stores/general'
+
 import DetailValidation from '@/components/DetailValidation.vue'
 
 const route = useRoute()
@@ -31,6 +33,7 @@ const router = useRouter()
 const { nationalTypes } = useFormSelect({ values: ref({}) })
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const loading = ref(true)
 const item = ref<National>()
@@ -164,7 +167,7 @@ function onEdit() {
             <input
               type="text"
               class="input input-bordered w-full text-black"
-              :value="item.country"
+              :value="general.country(item.country)"
               disabled
             />
           </div>
