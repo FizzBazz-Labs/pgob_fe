@@ -1,36 +1,99 @@
 <script lang="ts" setup>
-import { UserCreateView } from '@/router'
+import { ref, watch, onBeforeMount } from 'vue'
 
-import UserTable from '@/components/users/UserTable.vue'
+import { EyeIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { ref, onBeforeMount } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useGeneralStore } from '@/stores/general'
 
-import * as service from '@/services/UserService'
+import { UserService } from '@/services/UserService'
 
 import type { User } from '@/entities/User'
 
-const users = ref<User[]>([])
+import UITable from '@/components/ui/table/UITable.vue'
+import AppLoading from '@/components/app/AppLoading.vue'
+import AppHeader from '@/components/app/AppHeader.vue'
 
-onBeforeMount(async () => {
-  const response = (await service.all()).results
+const service = new UserService()
 
-  users.value = response
+const auth = useAuthStore()
+const general = useGeneralStore()
+
+const loading = ref(true)
+
+const columns = ref([
+  { key: 'username', label: 'Usuario' },
+  { key: 'firstName', label: 'Nombre' },
+  { key: 'lastName', label: 'Apellido' },
+  { key: 'Email', label: 'email' },
+  { key: 'country', label: 'País', transform: general.country },
+  { key: 'group', label: 'group', transform: general.country },
+  { key: 'actions', label: 'Acciones' },
+])
+
+const items = ref<User[]>([])
+
+const pagination = ref({
+  page: 0,
+  limit: 10,
+  count: 0,
 })
+
+const filters = ref({})
+
+watch(pagination, onFetch, { deep: true })
+watch(filters, onFetch, { deep: true })
+onBeforeMount(onFetch)
+
+async function onFetch() {
+  const response = await service.all({
+    pagination: pagination.value,
+    query: filters.value,
+  })
+
+  items.value = response.results
+  pagination.value.count = response.count
+
+  loading.value = false
+}
 </script>
 
 <template>
-  <main>
-    <div class="flex gap-5">
-      <h1 class="divider divider-start flex-1 text-xl font-bold">Usuarios</h1>
+  <AppLoading :loading="loading">
+    <AppHeader> Usuarios </AppHeader>
 
-      <RouterLink
-        :to="UserCreateView.path"
-        class="btn btn-success text-white"
-      >
-        Añadir Usuario
-      </RouterLink>
-    </div>
+    <UITable
+      title="Acreditaciones"
+      :columns="columns"
+      :rows="items"
+      v-model:pagination="pagination"
+      :meta="{
+        create: { name: 'user-create' },
+      }"
+    >
+      <template #actions="{ item }">
+        <div
+          class="tooltip"
+          data-tip="Detalle"
+        >
+          <RouterLink :to="{ name: 'user-detail', params: { id: item.id } }">
+            <EyeIcon class="h-5 w-5 text-blue-500" />
+          </RouterLink>
+        </div>
 
-    <UserTable :items="users" />
-  </main>
+        <div
+          v-if="auth.isAdmin"
+          class="tooltip tooltip-bottom"
+          data-tip="Editar"
+        >
+          <button
+            class="btn btn-ghost"
+            @click="() => {}"
+          >
+            <PencilSquareIcon class="h-5 w-5" />
+          </button>
+        </div>
+      </template>
+    </UITable>
+  </AppLoading>
 </template>

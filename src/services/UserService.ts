@@ -1,6 +1,13 @@
 import * as API from '@/services/api'
 
 import type { User } from '@/entities/User'
+import { Service } from './service'
+
+export class UserService extends Service<User> {
+  constructor() {
+    super('/users')
+  }
+}
 
 export async function create(params: Record<string, unknown>): Promise<User> {
   const response = await API.post('/register', params)
