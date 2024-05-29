@@ -68,10 +68,10 @@ async function onImportData(values: any) {
 
             <RouterLink
               v-if="props.meta?.create && auth.isUser || auth.isAdmin"
-              :to="props.meta.create"
+              :to="props.meta?.create"
               class="btn btn-success text-white"
             >
-              {{ props.meta.createLabel ?? 'Crear acreditación' }}
+              {{ props.meta?.createLabel ?? 'Crear acreditación' }}
             </RouterLink>
           </div>
         </slot>
