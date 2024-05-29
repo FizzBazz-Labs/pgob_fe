@@ -292,7 +292,7 @@ const helpItems = ref([
         </li>
 
         <li v-if="!auth.isUser">
-          <RouterLink :to="DashboardView.path"> Dashboard general </RouterLink>
+          <RouterLink :to="DashboardView.path"> Tablero General </RouterLink>
         </li>
 
         <li v-if="auth.isAccreditor">
