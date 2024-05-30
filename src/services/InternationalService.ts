@@ -193,6 +193,7 @@ export async function update(values: any): Promise<International> {
     'firstName',
     'lastName',
     'institution',
+    'image',
     'address',
     'passportId',
     'phoneNumber',
@@ -224,6 +225,11 @@ export async function update(values: any): Promise<International> {
   fields.forEach(field => {
     if (values[field] !== undefined && values[field] !== null) {
       form.append(field, values[field])
+
+      if (field == 'image') {
+        const image = values.image as Array<{ file: File }>
+        if (image.length > 0) form.append('image', image[0].file)
+      }
     }
   })
 

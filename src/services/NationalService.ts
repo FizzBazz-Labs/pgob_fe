@@ -117,6 +117,7 @@ export async function update(values: any): Promise<National> {
     'institution',
     'country',
     'address',
+    'image',
     'passportId',
     'privateInsurance',
     'phoneNumber',
@@ -135,6 +136,11 @@ export async function update(values: any): Promise<National> {
   fields.forEach(field => {
     if (values[field] !== undefined && values[field] !== null) {
       form.append(field, values[field])
+
+      if (field == 'image') {
+        const image = values.image as Array<{ file: File }>
+        if (image.length > 0) form.append('image', image[0].file)
+      }
     }
   })
 
