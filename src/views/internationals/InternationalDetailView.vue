@@ -209,7 +209,7 @@ function onEdit() {
             target="_blank"
             class="btn"
           >
-            Imagen de Pasaporte
+            Imagen Cédula/Pasaporte
           </a>
         </div>
 
