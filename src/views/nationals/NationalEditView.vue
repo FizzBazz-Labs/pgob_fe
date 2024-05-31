@@ -109,8 +109,6 @@ const preventClose = (event: KeyboardEvent) => {
         :errors="errors"
         @submit="onSubmit"
       />
-
-      <!-- <button></button> -->
     </main>
 
     <dialog
