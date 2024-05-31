@@ -68,6 +68,8 @@ watch(filters, onFetch, { deep: true })
 onBeforeMount(onFetch)
 
 async function onFetch() {
+  loading.value = true
+
   const response = await service.all({
     pagination: pagination.value,
     query: filters.value,
