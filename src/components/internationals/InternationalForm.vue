@@ -558,7 +558,7 @@ async function onSubmit() {
                 type="file"
                 name="image"
                 label="Foto Personal"
-                validation="required"
+                validation="required|pixelSize"
                 accept=".png,.jpg,.webp"
                 file-item-icon="fileDoc"
                 file-remove-icon="close"

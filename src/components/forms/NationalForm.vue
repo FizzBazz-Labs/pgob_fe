@@ -148,7 +148,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
               <FormKit
                 type="file"
                 name="passportIdImage"
-                label="Imagen de Pasaporte"
+                label="Imagen Cédula/Pasaporte"
                 accept=".png,.jpg,.webp"
                 file-item-icon="fileDoc"
                 file-remove-icon="close"
