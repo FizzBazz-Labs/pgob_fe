@@ -25,6 +25,7 @@ const AccreditationTypeLabel: any = {
   COMMERCIAL_NEWSLETTER: 'Prensa Nacional',
   INTERNATIONAL_NEWSLETTER: 'Prensa Internacional',
   DIPLOMATIC_MISSION: 'Misión Diplomática',
+  MINREX_OFFICIALS: 'Funcionarios MINREX',
 }
 
 const loading = ref(true)
