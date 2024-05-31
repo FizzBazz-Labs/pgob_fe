@@ -192,6 +192,17 @@ async function onSubmit() {
               validation="required"
             />
 
+            <FormKit
+              type="file"
+              name="passportIdImage"
+              label="Imagen de Pasaporte"
+              validation="required"
+              accept=".png,.jpg,.webp,.pdf"
+              file-item-icon="fileDoc"
+              file-remove-icon="close"
+              no-files-icon="fileDoc"
+            />
+
             <div class="grid grid-cols-4 gap-4">
               <FormKit
                 type="text"
