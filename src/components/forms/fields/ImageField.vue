@@ -20,14 +20,11 @@ const { preview } = useFormSelect({ values: ref({}) })
       type="file"
       name="image"
       label="Foto Personal"
-      :validation="`${props.validation !== '' ? '|' : ''}pixelSize`"
+      :validation="props.validation"
       accept=".png,.jpg,.webp"
       file-item-icon="fileDoc"
       file-remove-icon="close"
       no-files-icon="fileDoc"
-      :validation-messages="{
-        pixelSize: 'La imagen debe tener un tamaño de 800x600px',
-      }"
     />
 
     <div class="card mb-4">
