@@ -13,6 +13,7 @@ export interface National {
   lastName: string
   country: number
   passportId: string
+  passportIdImage?: string
   position: Position
   subPosition?: SubPosition
   mediaChannel?: MedicaChannel
