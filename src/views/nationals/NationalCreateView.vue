@@ -105,6 +105,7 @@ function gotoDetail() {
         <div class="flex justify-end gap-4">
           <button
             class="btn btn-primary text-white"
+            :class="{ 'btn-disabled': loading }"
             :disabled="loading"
             @click.prevent="onSubmit"
           >
