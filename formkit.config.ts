@@ -5,7 +5,7 @@ import { applicationIcons } from '@formkit/icons'
 
 import { rootClasses } from './formkit.theme'
 
-import { pixelSize } from '@/validators/ImageSize'
+import { pixelSize } from './src/validators/ImageSize'
 
 export default defaultConfig({
   locales: { es },

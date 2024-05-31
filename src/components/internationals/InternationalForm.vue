@@ -563,6 +563,9 @@ async function onSubmit() {
                 file-item-icon="fileDoc"
                 file-remove-icon="close"
                 no-files-icon="fileDoc"
+                :validation-messages="{
+                  pixelSize: 'La imagen debe tener un tamaño de 800x600px',
+                }"
               />
 
               <div class="card mb-4">

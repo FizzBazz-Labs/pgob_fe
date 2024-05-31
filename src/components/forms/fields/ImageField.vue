@@ -20,7 +20,7 @@ const { preview } = useFormSelect({ values: ref({}) })
       type="file"
       name="image"
       label="Foto Personal"
-      :validation="`${props.validation ? '|' : ''}pixelSize`"
+      :validation="`${props.validation !== '' ? '|' : ''}pixelSize`"
       accept=".png,.jpg,.webp"
       file-item-icon="fileDoc"
       file-remove-icon="close"
