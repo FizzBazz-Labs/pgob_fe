@@ -90,16 +90,6 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
 
               <PassportIdField label="Pasaporte" />
 
-              <FormKit
-                type="file"
-                name="passportIdImage"
-                label="Imagen de Pasaporte"
-                accept=".png,.jpg,.webp,.pdf"
-                file-item-icon="fileDoc"
-                file-remove-icon="close"
-                no-files-icon="fileDoc"
-              />
-
               <div class="grid grid-cols-2 gap-4">
                 <BirthplaceField />
                 <BirthdayField />
@@ -155,7 +145,20 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
             class="flex w-1/4 flex-col gap-4"
           >
             <ImageField :image="values.steps.accreditation.image" />
-            <AuthorizationLetterField v-if="showChannels" />
+
+            <template v-if="showChannels">
+              <AuthorizationLetterField />
+
+              <FormKit
+                type="file"
+                name="passportIdImage"
+                label="Imagen de Pasaporte"
+                accept=".png,.jpg,.webp,.pdf"
+                file-item-icon="fileDoc"
+                file-remove-icon="close"
+                no-files-icon="fileDoc"
+              />
+            </template>
           </div>
         </div>
 
