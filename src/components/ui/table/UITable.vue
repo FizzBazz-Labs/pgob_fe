@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useAuthStore } from '@/stores/auth'
@@ -30,6 +30,14 @@ const confirm = ref<HTMLDialogElement>()
 const pagination = defineModel<UITablePagination>('pagination')
 
 const auth = useAuthStore()
+
+watch(
+  () => pagination.value?.limit,
+  () => {
+    if (pagination.value) pagination.value.page = 0
+  },
+  { deep: true }
+)
 
 async function onImportData(values: any) {
   await props.meta?.importData?.(values)
@@ -67,7 +75,7 @@ async function onImportData(values: any) {
             </button>
 
             <RouterLink
-              v-if="props.meta?.create && auth.isUser || auth.isAdmin"
+              v-if="(props.meta?.create && auth.isUser) || auth.isAdmin"
               :to="props.meta?.create"
               class="btn btn-success text-white"
             >
