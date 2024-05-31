@@ -103,6 +103,14 @@ export async function create(values: any): Promise<National> {
     }
   }
 
+  if (values.passportIdImage !== undefined) {
+    const letter = values.passportIdImage as Array<{ file: File }>
+
+    if (letter.length > 0) {
+      form.append('passportIdImage', letter[0].file)
+    }
+  }
+
   const response = await API.form(`/national-accreditations`, form)
   return await response.json()
 }

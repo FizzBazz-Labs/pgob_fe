@@ -8,5 +8,8 @@
     file-item-icon="fileDoc"
     file-remove-icon="close"
     no-files-icon="fileDoc"
+    :outer-class="{
+      grow: false,
+    }"
   />
 </template>

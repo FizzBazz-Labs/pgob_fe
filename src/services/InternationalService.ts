@@ -172,9 +172,12 @@ export async function create(values: MultiStepForm): Promise<International> {
     form.append('image', image[0].file)
   }
 
-  const passportIdImage = params.passportIdImage as Array<{ file: File }>
-  if (passportIdImage.length > 0) {
-    form.append('passportIdImage', passportIdImage[0].file)
+  if (params.passportIdImage !== undefined) {
+    const letter = params.passportIdImage as Array<{ file: File }>
+
+    if (letter.length > 0) {
+      form.append('passportIdImage', letter[0].file)
+    }
   }
 
   if (params.letter !== undefined) {
