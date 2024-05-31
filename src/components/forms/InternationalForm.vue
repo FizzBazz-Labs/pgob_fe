@@ -90,6 +90,16 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
 
               <PassportIdField label="Pasaporte" />
 
+              <FormKit
+                type="file"
+                name="passportIdImage"
+                label="Imagen de Pasaporte"
+                accept=".png,.jpg,.webp,.pdf"
+                file-item-icon="fileDoc"
+                file-remove-icon="close"
+                no-files-icon="fileDoc"
+              />
+
               <div class="grid grid-cols-2 gap-4">
                 <BirthplaceField />
                 <BirthdayField />

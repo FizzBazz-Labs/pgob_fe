@@ -14,6 +14,7 @@ export interface International {
   firstName: string
   lastName: string
   passportId: string
+  passportIdImage?: string
   position: Position
   subPosition?: SubPosition
   mediaChannel?: MedicaChannel

@@ -200,6 +200,19 @@ function onEdit() {
           </div>
         </div>
 
+        <div
+          v-if="item.passportIdImage"
+          class="mb-4"
+        >
+          <a
+            :href="item.passportIdImage"
+            target="_blank"
+            class="btn"
+          >
+            Imagen de Pasaporte
+          </a>
+        </div>
+
         <div class="mb-5 flex flex-row items-center gap-2">
           <div class="">
             <span> <strong> Cargo en el evento: </strong> </span>
