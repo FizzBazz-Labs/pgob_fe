@@ -18,7 +18,7 @@ const props = defineProps<Props>()
 <template>
   <header class="flex gap-4">
     <div class="avatar">
-      <div class="h-60 rounded-xl">
+      <div class="h-60 w-36 rounded-xl">
         <img :src="props.image" />
       </div>
     </div>
