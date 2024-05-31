@@ -47,8 +47,10 @@ const toShowPages = computed(() => {
       class="btn join-item"
       :class="{
         'border-info bg-info hover:border-info hover:bg-info hover:opacity-70': i === model,
+        'btn-disabled': i === -1,
       }"
       @click="model = i"
+      :disabled="i === -1"
     >
       <span :class="{ 'text-white': i === model }">
         {{ i !== -1 ? i + 1 : '...' }}
