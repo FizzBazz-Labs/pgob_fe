@@ -17,7 +17,6 @@ import SecurityStep from './steps/SecurityStep.vue'
 import MediaChannelField from './fields/MediaChannelField.vue'
 import ContactSection from './sections/ContactSection.vue'
 import MedicalSection from './sections/MedicalSection.vue'
-import CountryField from './fields/CountryField.vue'
 import StaticCountryField from './fields/StaticCountryField.vue'
 
 type Props = {
@@ -142,7 +141,21 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
               :image="values.steps.accreditation.image"
               :validation="props.action === 'add' ? 'required' : ''"
             />
-            <AuthorizationLetterField v-if="showChannels" />
+
+            <template v-if="showChannels">
+              <AuthorizationLetterField />
+
+              <FormKit
+                type="file"
+                name="passportIdImage"
+                label="Imagen de Pasaporte"
+                accept=".png,.jpg,.webp,.pdf"
+                file-item-icon="fileDoc"
+                file-remove-icon="close"
+                no-files-icon="fileDoc"
+                :validation="props.action === 'add' ? 'required' : ''"
+              />
+            </template>
           </div>
         </div>
 
