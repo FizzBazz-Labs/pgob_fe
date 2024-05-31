@@ -5,8 +5,6 @@ import { useRouter } from 'vue-router'
 
 import type { FormValues } from '@/entities/Form'
 
-import { useFormSelect } from '@/composables/FormSelect'
-
 import * as service from '@/services/VehicleAccessAirportService'
 
 import VehicleTypeField from '../forms/fields/VehicleTypeField.vue'
@@ -21,16 +19,20 @@ const values = ref<FormValues>({
   country: auth.user.country,
 })
 
-const { countries } = useFormSelect({ values })
-
 const created = ref<HTMLDialogElement>()
 const createdId = ref<number>()
 
+const loading = ref(false)
+
 async function onSubmit() {
+  loading.value = true
+
   const response = await service.create(values.value)
 
   created.value?.showModal()
   createdId.value = response.id
+
+  loading.value = false
 }
 
 function gotoDetail() {
@@ -139,6 +141,7 @@ function gotoDetail() {
           type="submit"
           label="Enviar"
           suffix-icon="submit"
+          :disabled="loading"
         />
       </div>
     </div>

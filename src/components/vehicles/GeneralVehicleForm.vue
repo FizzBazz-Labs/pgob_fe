@@ -45,6 +45,7 @@ const showCountries = computed(
     :errors="props.errors"
     :actions="false"
     @submit="confirm?.showModal()"
+    #default="{ disabled }"
   >
     <div class="flex justify-center gap-4">
       <div class="md:w-1/2">
@@ -62,6 +63,7 @@ const showCountries = computed(
             :label="props.action === 'add' ? 'Crear' : 'Actualizar'"
             suffix-icon="submit"
             outer-class="!max-w-fit"
+            :disabled="Boolean(disabled)"
           />
 
           <CancelBtn v-if="props.action === 'edit'" />

@@ -118,7 +118,11 @@ function onRemoveEquipment(index: number) {
   values.value['multi-step'].security.communicationItems.splice(index, 1)
 }
 
+const loading = ref(false)
+
 async function onSubmit() {
+  loading.value = true
+
   let response = { id: 0 }
 
   if (props.action === 'new') {
@@ -137,6 +141,8 @@ async function onSubmit() {
       type: 'error',
     })
   }
+
+  loading.value = false
 }
 </script>
 
@@ -585,7 +591,7 @@ async function onSubmit() {
                 name="passportIdImage"
                 label="Imagen Cédula/Pasaporte"
                 validation="required"
-                accept=".png,.jpg,.webp,.pdf"
+                accept=".png,.jpg,.webp"
                 file-item-icon="fileDoc"
                 file-remove-icon="close"
                 no-files-icon="fileDoc"
@@ -602,6 +608,7 @@ async function onSubmit() {
               label="Crear"
               suffix-icon="submit"
               outer-class="!max-w-fit"
+              :disabled="loading"
             />
 
             <FormKit
@@ -815,6 +822,7 @@ async function onSubmit() {
               label="Crear"
               suffix-icon="submit"
               outer-class="!max-w-fit"
+              :disabled="loading"
             />
           </div>
         </template>

@@ -50,7 +50,11 @@ function onRemoveCommunicationItem(index: number) {
   communicationItems.value.splice(index, 1)
 }
 
+const loading = ref(false)
+
 async function onSubmit() {
+  loading.value = true
+
   values.value.weapons = weapons.value
   values.value.communicationItems = communicationItems.value
 
@@ -62,6 +66,8 @@ async function onSubmit() {
   } else {
     toast('Ocurrió un error al crear la acreditación de armas.', { type: 'error' })
   }
+
+  loading.value = false
 }
 
 function gotoDetail() {
@@ -362,6 +368,7 @@ function gotoDetail() {
           type="submit"
           label="Enviar"
           suffix-icon="submit"
+          :disabled="loading"
         />
       </div>
     </div>

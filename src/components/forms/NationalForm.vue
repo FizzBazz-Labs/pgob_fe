@@ -149,7 +149,7 @@ const isSecurity = computed(() => values.value.steps?.accreditation?.position ==
                 type="file"
                 name="passportIdImage"
                 label="Imagen de Pasaporte"
-                accept=".png,.jpg,.webp,.pdf"
+                accept=".png,.jpg,.webp"
                 file-item-icon="fileDoc"
                 file-remove-icon="close"
                 no-files-icon="fileDoc"

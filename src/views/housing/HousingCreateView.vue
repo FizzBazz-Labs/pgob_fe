@@ -100,6 +100,7 @@ function gotoDetail() {
               label="Aceptar"
               suffix-icon="submit"
               outer-class="!max-w-fit"
+              :disabled="loading"
             />
 
             <button

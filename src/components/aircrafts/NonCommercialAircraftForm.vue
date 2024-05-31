@@ -30,7 +30,11 @@ const { aircraftTypes, positions, subPositions, flightCategories } = useFormSele
   values,
 })
 
+const loading = ref(false)
+
 async function onSubmit() {
+  loading.value = true
+
   const response = await service.create(values.value)
 
   if (response.id) {
@@ -39,6 +43,8 @@ async function onSubmit() {
   } else {
     toast('Ha ocurrido un error al crear la solicitud de sobrevuelo.', { type: 'error' })
   }
+
+  loading.value = false
 }
 
 function gotoDetail() {
@@ -261,10 +267,12 @@ function gotoDetail() {
           validation="required"
           :options="flightCategories"
         />
+
         <FormKit
           type="submit"
           label="Enviar"
           suffix-icon="submit"
+          :disabled="loading"
         />
       </div>
     </div>

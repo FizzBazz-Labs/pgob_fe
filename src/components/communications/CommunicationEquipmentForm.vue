@@ -5,8 +5,6 @@ import { useRouter } from 'vue-router'
 
 import type { FormValues } from '@/entities/Form'
 
-import { useFormSelect } from '@/composables/FormSelect'
-
 import * as service from '@/services/CommunicationEquipmentService'
 
 import { CommunicationEquipmentDetailView } from '@/router/communicationEquipments'
@@ -60,7 +58,11 @@ function onRemoveVehicle(index: number) {
   equipments.value.splice(index, 1)
 }
 
+const loading = ref(false)
+
 async function onSubmit() {
+  loading.value = true
+
   values.value.equipments = equipments.value
 
   let response = { id: 0 }
@@ -76,6 +78,8 @@ async function onSubmit() {
 
     gotoDetail()
   }
+
+  loading.value = false
 }
 
 onBeforeMount(() => {
@@ -193,6 +197,7 @@ function gotoDetail() {
             :label="props.action === 'new' ? 'Crear' : 'Actualizar'"
             suffix-icon="submit"
             outer-class="!max-w-fit"
+            :disabled="loading"
           />
 
           <button
