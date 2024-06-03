@@ -60,7 +60,9 @@ export const DashboardView = {
   path: '/dashboard',
   name: 'dashboard',
   component: () => import('../views/DashboardView.vue'),
+  props: route => ({ reportId: route.query.reportId })
 }
+
 
 export const UnavailableSiteView = {
   path: '/unavailable',

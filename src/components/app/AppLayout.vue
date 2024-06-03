@@ -64,6 +64,39 @@ const accreditations = computed(() => [
   },
 ])
 
+const reports = computed(() => [
+  {
+    label: 'Tablero General',
+    to: { name: 'dashboard' },
+    reportId: '62815264-90b5-42d5-a58c-d2f8e9c8dab4',
+    canView: !auth.isUser,
+  },
+  {
+    label: 'Presidentes',
+    to: { name: 'dashboard' },
+    reportId: '9e0162af-ec43-4457-8d9d-f992a0c9d78c',
+    canView: auth.hasInternational,
+  },
+  {
+    label: 'Cancilleres',
+    to: { name: 'dashboard' },
+    reportId: '116de701-d119-4ab8-962a-a07a906f45ac',
+    canView: auth.hasInternational,
+  },
+  {
+    label: 'Delegación orden llegada',
+    to: { name: 'dashboard' },
+    reportId: '116de701-d119-4ab8-962a-a07a906f45ac',
+    canView: auth.hasInternational,
+  },
+  {
+    label: 'Delegación orden salida',
+    to: { name: 'dashboard' },
+    reportId: '116de701-d119-4ab8-962a-a07a906f45ac',
+    canView: auth.hasInternational,
+  },
+])
+
 const helpDialog = ref<HTMLDialogElement>()
 const helpInformation = ref({ title: '', url: '' })
 const helpItems = ref([
@@ -290,9 +323,20 @@ const helpItems = ref([
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
         </li>
-
-        <li v-if="!auth.isUser">
-          <RouterLink :to="DashboardView.path"> Tablero General </RouterLink>
+        <li  v-if="!auth.isUser">
+          <details open>
+            <summary>Reportes</summary>
+            <ul>
+              <li
+                v-for="(item, i) in reports.filter(item => item.canView)"
+                :key="`reports-link-${i}`"
+              >
+                <RouterLink :to="{name: item.to.name,  query: { reportId: item.reportId }  }">
+                  {{ item.label }}
+                </RouterLink>
+              </li>
+            </ul>
+          </details>
         </li>
 
         <li v-if="auth.isAccreditor">
