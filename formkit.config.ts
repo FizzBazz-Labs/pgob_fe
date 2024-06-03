@@ -5,8 +5,6 @@ import { applicationIcons } from '@formkit/icons'
 
 import { rootClasses } from './formkit.theme'
 
-import { pixelSize } from '@/validators/ImageSize'
-
 export default defaultConfig({
   locales: { es },
   locale: 'es',
@@ -14,8 +12,5 @@ export default defaultConfig({
   plugins: [createAutoAnimatePlugin(), createMultiStepPlugin()],
   icons: {
     ...applicationIcons,
-  },
-  rules: {
-    pixelSize,
   },
 })
