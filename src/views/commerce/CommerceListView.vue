@@ -73,6 +73,7 @@ async function onFetch() {
       v-model:pagination="pagination"
       :meta="{
         export: `${API_URL}/commerces/export`,
+        importData: service.importData,
         create: { name: 'commerce-create' },
         createLabel: 'Crear registro',
       }"
