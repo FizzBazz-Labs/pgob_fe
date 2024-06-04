@@ -5,13 +5,15 @@ import { ref, computed, onMounted } from 'vue'
 
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
+import { useGeneralStore } from '@/stores/general'
 
 import { getReports, type PowerBiReport } from '@/services/PowerBiService'
 
-import { LoginView, UserListView, ProfileView, DashboardView } from '@/router'
+import { LoginView, UserListView, ProfileView } from '@/router'
 
 const config = useConfigStore()
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const accreditations = computed(() => [
   {
@@ -70,90 +72,6 @@ const reports = ref<PowerBiReport[]>([])
 
 const helpDialog = ref<HTMLDialogElement>()
 const helpInformation = ref({ title: '', url: '' })
-const helpItems = ref([
-  {
-    title: 'Nacional',
-    show: () => auth.hasNational,
-    items: [
-      {
-        title: 'Crear',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Editar',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Verificar/Rechazar',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Importar/Exportar',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Aprobar',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Generación Masiva',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Impresión Individual',
-        url: '',
-        show: () => true,
-      },
-    ],
-  },
-  {
-    title: 'Internacional',
-    show: () => auth.hasInternational,
-    items: [
-      {
-        title: 'Crear',
-        url: '',
-        show: () => auth.isUser,
-      },
-      {
-        title: 'Editar',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Verificar/Rechazar',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Importar/Exportar',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Aprobar',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Generación Masiva',
-        url: '',
-        show: () => true,
-      },
-      {
-        title: 'Impresión Individual',
-        url: '',
-        show: () => true,
-      },
-    ],
-  },
-])
 
 onMounted(() => {
   getPowerBiReportList()
@@ -202,7 +120,7 @@ async function getPowerBiReportList() {
               class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
             >
               <li
-                v-for="(parent, i) in helpItems.filter(item => item.show())"
+                v-for="(parent, i) in general.help"
                 :key="`parent-${i}`"
               >
                 <details>
@@ -212,7 +130,7 @@ async function getPowerBiReportList() {
 
                   <ul>
                     <li
-                      v-for="(child, j) in parent.items.filter(item => item.show())"
+                      v-for="(child, j) in parent.items"
                       :key="`child-${i}-${j}`"
                     >
                       <button
@@ -318,7 +236,12 @@ async function getPowerBiReportList() {
                 v-for="(item, i) in reports.filter(item => item.canView)"
                 :key="`reports-link-${i}`"
               >
-                <RouterLink :to="{ name: item.to.name, query: { reportId: item.reportId } }">
+                <RouterLink
+                  :to="{
+                    name: String(item.to.name),
+                    query: { reportId: item.reportId },
+                  }"
+                >
                   {{ item.label }}
                 </RouterLink>
               </li>
