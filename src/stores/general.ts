@@ -47,7 +47,9 @@ export const useGeneralStore = defineStore('general', {
       this.channels = await channels.getAll()
       this.immunizations = await immunizations.getAll()
       this.medicalHistories = await medicalHistories.getAll()
+    },
 
+    async fetchHelp() {
       const help = new HelpService()
       this.help = await help.list()
     },
