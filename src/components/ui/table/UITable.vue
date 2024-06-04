@@ -35,8 +35,7 @@ watch(
   () => pagination.value?.limit,
   () => {
     if (pagination.value) pagination.value.page = 0
-  },
-  { deep: true }
+  }
 )
 
 async function onImportData(values: any) {

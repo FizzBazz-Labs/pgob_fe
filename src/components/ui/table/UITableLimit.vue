@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const model = defineModel<number>()
+console.log(model.value)
 </script>
 
 <template>

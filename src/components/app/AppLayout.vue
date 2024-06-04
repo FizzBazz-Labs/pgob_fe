@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { UserCircleIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
+
+import { getReports, type PowerBiReport } from '@/services/PowerBiService'
 
 import { LoginView, UserListView, ProfileView, DashboardView } from '@/router'
 
@@ -64,38 +66,7 @@ const accreditations = computed(() => [
   },
 ])
 
-const reports = computed(() => [
-  {
-    label: 'Tablero General',
-    to: { name: 'dashboard' },
-    reportId: '62815264-90b5-42d5-a58c-d2f8e9c8dab4',
-    canView: !auth.isUser,
-  },
-  {
-    label: 'Presidentes',
-    to: { name: 'dashboard' },
-    reportId: '9e0162af-ec43-4457-8d9d-f992a0c9d78c',
-    canView: auth.hasInternational,
-  },
-  {
-    label: 'Cancilleres',
-    to: { name: 'dashboard' },
-    reportId: '116de701-d119-4ab8-962a-a07a906f45ac',
-    canView: auth.hasInternational,
-  },
-  {
-    label: 'Delegación orden llegada',
-    to: { name: 'dashboard' },
-    reportId: '116de701-d119-4ab8-962a-a07a906f45ac',
-    canView: auth.hasInternational,
-  },
-  {
-    label: 'Delegación orden salida',
-    to: { name: 'dashboard' },
-    reportId: '116de701-d119-4ab8-962a-a07a906f45ac',
-    canView: auth.hasInternational,
-  },
-])
+const reports = ref<PowerBiReport[]>([])
 
 const helpDialog = ref<HTMLDialogElement>()
 const helpInformation = ref({ title: '', url: '' })
@@ -183,6 +154,22 @@ const helpItems = ref([
     ],
   },
 ])
+
+onMounted(() => {
+  getPowerBiReportList()
+})
+
+// functions
+async function getPowerBiReportList() {
+  const response = await getReports()
+
+  reports.value = response.map(i => ({
+    label: i.name,
+    to: { name: 'dashboard' },
+    reportId: i.reportId,
+    canView: true,
+  }))
+}
 </script>
 
 <template>
@@ -323,7 +310,7 @@ const helpItems = ref([
         <li v-if="auth.isAdmin">
           <RouterLink :to="UserListView.path">Usuarios</RouterLink>
         </li>
-        <li  v-if="!auth.isUser">
+        <li v-if="!auth.isUser">
           <details open>
             <summary>Reportes</summary>
             <ul>
@@ -331,7 +318,7 @@ const helpItems = ref([
                 v-for="(item, i) in reports.filter(item => item.canView)"
                 :key="`reports-link-${i}`"
               >
-                <RouterLink :to="{name: item.to.name,  query: { reportId: item.reportId }  }">
+                <RouterLink :to="{ name: item.to.name, query: { reportId: item.reportId } }">
                   {{ item.label }}
                 </RouterLink>
               </li>
