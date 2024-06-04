@@ -42,7 +42,7 @@ const pagination = ref({
 
 const filters = ref({})
 
-watch(pagination, onFetch, { deep: true })
+watch(() => pagination.value.page, onFetch)
 watch(filters, onFetch, { deep: true })
 onBeforeMount(onFetch)
 

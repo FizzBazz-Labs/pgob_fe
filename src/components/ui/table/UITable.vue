@@ -27,16 +27,18 @@ const props = defineProps<Props>()
 
 const confirm = ref<HTMLDialogElement>()
 
-const pagination = defineModel<UITablePagination>('pagination')
-
-const auth = useAuthStore()
+const pagination = defineModel<UITablePagination>('pagination', {
+  required: true,
+})
 
 watch(
-  () => pagination.value?.limit,
+  () => pagination.value.limit,
   () => {
-    if (pagination.value) pagination.value.page = 0
+    pagination.value.page = 0
   }
 )
+
+const auth = useAuthStore()
 
 async function onImportData(values: any) {
   await props.meta?.importData?.(values)
