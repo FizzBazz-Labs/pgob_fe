@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
+import { useGeneralStore } from '@/stores/general'
 
 import { AccreditationRoutes } from '@/router/accreditations'
 import { CommerceRoutes } from '@/router/commerce'
@@ -157,6 +158,9 @@ router.beforeEach(async (to, before, next) => {
   }
 
   if (!isLogin && !isLogged) return next(LoginView)
+
+  const general = useGeneralStore()
+  await general.fetchHelp()
 
   return next()
 })

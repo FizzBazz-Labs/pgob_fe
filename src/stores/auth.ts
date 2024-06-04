@@ -6,8 +6,6 @@ import { Group, Accreditation, type User } from '@/entities/User'
 
 import * as service from '@/services/AuthService'
 
-import { useGeneralStore } from '@/stores/general'
-
 type AuthState = {
   token: string
   user: User
@@ -83,8 +81,6 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async login(params: service.LoginParams) {
-      const general = useGeneralStore()
-
       const response = await service.login(params)
 
       if (response.status !== 200) throw new Error('Invalid credentials')
@@ -93,7 +89,6 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem('refresh', response.data!.refresh)
 
       await this.profile()
-      await general.fetchHelp()
     },
 
     logout() {
