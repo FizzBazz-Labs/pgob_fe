@@ -95,6 +95,7 @@ async function onFetch() {
         export: `${API_URL}/housings/export`,
         create: { name: 'housing-create' },
         createLabel: 'Crear registro',
+        importData: service.importData,
       }"
     >
       <template #subheader>
