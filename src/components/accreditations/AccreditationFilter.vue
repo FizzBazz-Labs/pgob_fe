@@ -63,7 +63,7 @@ const showNameFilter = computed(() => {
     </label>
 
     <label
-      v-if="countries"
+      v-if="countries && !auth.isUser"
       class="form-control w-full max-w-xs"
     >
       <div class="label-text">

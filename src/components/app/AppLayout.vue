@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { UserCircleIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeMount } from 'vue'
 
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
@@ -70,7 +70,7 @@ const accreditations = computed(() => [
 
 const reports = ref<PowerBiReport[]>([])
 
-onMounted(() => {
+onBeforeMount(() => {
   getPowerBiReportList()
 })
 
@@ -222,7 +222,7 @@ async function getPowerBiReportList() {
             <summary>Reportes</summary>
             <ul>
               <li
-                v-for="(item, i) in reports.filter(item => item.canView)"
+                v-for="(item, i) in reports"
                 :key="`reports-link-${i}`"
               >
                 <RouterLink
