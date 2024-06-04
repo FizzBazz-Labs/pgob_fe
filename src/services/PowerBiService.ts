@@ -10,7 +10,6 @@ export interface PowerBiReport {
   label: string
   to: Record<string, unknown>
   reportId: string
-  canView: boolean
 }
 
 export async function getReports(): Promise<PowerBi[]> {

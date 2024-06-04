@@ -167,7 +167,6 @@ async function getPowerBiReportList() {
     label: i.name,
     to: { name: 'dashboard' },
     reportId: i.reportId,
-    canView: true,
   }))
 }
 </script>
