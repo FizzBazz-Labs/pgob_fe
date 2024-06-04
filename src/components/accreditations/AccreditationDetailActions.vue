@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 import { ArrowDownTrayIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
@@ -34,7 +34,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<Emits>()
 
-const router = useRouter()
 const route = useRoute()
 
 const auth = useAuthStore()
@@ -79,6 +78,10 @@ function canReview() {
     case 'international-detail':
       return auth.isReviewer && props.status === AccreditationStatus.PENDING
 
+    case 'housing-detail':
+    case 'commerce-detail':
+      return auth.isReviewer && props.status === AccreditationStatus.PENDING
+
     default:
       return false
   }
@@ -102,6 +105,10 @@ function canApprove() {
 
     case 'security-detail':
       return auth.isReviewer && props.status === AccreditationStatus.PENDING
+
+    case 'housing-detail':
+    case 'commerce-detail':
+      return auth.isAccreditor && props.status === AccreditationStatus.REVIEWED
 
     default:
       return false
@@ -133,6 +140,10 @@ function canReject() {
 
     case 'security-detail':
       return auth.isReviewer
+
+    case 'housing-detail':
+    case 'commerce-detail':
+      return auth.isReviewer || auth.isAdmin
 
     default:
       return false
