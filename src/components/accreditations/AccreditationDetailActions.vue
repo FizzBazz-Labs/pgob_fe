@@ -79,6 +79,10 @@ function canReview() {
     case 'international-detail':
       return auth.isReviewer && props.status === AccreditationStatus.PENDING
 
+    case 'housing-detail':
+    case 'commerce-detail':
+      return auth.isReviewer && props.status === AccreditationStatus.PENDING
+
     default:
       return false
   }
@@ -102,6 +106,10 @@ function canApprove() {
 
     case 'security-detail':
       return auth.isReviewer && props.status === AccreditationStatus.PENDING
+
+    case 'housing-detail':
+    case 'commerce-detail':
+      return auth.isAccreditor && props.status === AccreditationStatus.REVIEWED
 
     default:
       return false
@@ -133,6 +141,10 @@ function canReject() {
 
     case 'security-detail':
       return auth.isReviewer
+
+    case 'housing-detail':
+    case 'commerce-detail':
+      return auth.isReviewer || auth.isAdmin
 
     default:
       return false
