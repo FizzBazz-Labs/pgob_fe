@@ -6,7 +6,7 @@ import { computed } from 'vue'
 const auth = useAuthStore()
 const general = useGeneralStore()
 
-const props = defineProps<{ value?: number }>()
+const props = defineProps<{ value?: number; isFilter?: boolean }>()
 
 const country = computed(
   () => general.countries.find(i => i.id === (props.value ?? auth.user.country))?.name
@@ -15,7 +15,7 @@ const country = computed(
 
 <template>
   <label class="form-control mb-5 w-full">
-    <div class="label">
+    <div :class="isFilter ? 'label-text' : 'label'">
       <span class="label-text font-bold">País</span>
     </div>
 

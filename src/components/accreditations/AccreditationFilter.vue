@@ -4,6 +4,8 @@ import { useRoute } from 'vue-router'
 
 import { AccreditationStatus } from '@/entities/Accreditation'
 
+import StaticCountryField from '../forms/fields/StaticCountryField.vue'
+
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
 
@@ -84,6 +86,12 @@ const showNameFilter = computed(() => {
           {{ c.name }}
         </option>
       </select>
+    </label>
+
+    <label v-else>
+      <div class="form-control w-full max-w-xs">
+        <StaticCountryField :is-filter="true" />
+      </div>
     </label>
 
     <label
