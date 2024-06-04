@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 import { ArrowDownTrayIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
@@ -34,7 +34,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<Emits>()
 
-const router = useRouter()
 const route = useRoute()
 
 const auth = useAuthStore()

@@ -93,7 +93,7 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem('refresh', response.data!.refresh)
 
       await this.profile()
-      await general.init()
+      await general.fetchHelp()
     },
 
     logout() {
