@@ -11,6 +11,9 @@ import { useAuthStore } from '@/stores/auth'
 
 import * as nationals from '@/services/NationalService'
 import * as internationals from '@/services/InternationalService'
+import { GeneralVehicleService } from '@/services/GeneralVehicleService'
+
+const generalVehicles = new GeneralVehicleService()
 
 type Props = {
   id?: number
@@ -60,6 +63,10 @@ async function onCertificate() {
 
     case AccreditationItemType.INTERNATIONAL:
       await internationals.certificate(props.id!)
+      break
+
+    case AccreditationItemType.GENERAL_VEHICLE:
+      await generalVehicles.certificate(props.id!)
       break
   }
 

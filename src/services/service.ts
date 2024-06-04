@@ -86,4 +86,9 @@ export abstract class Service<E> {
     const response = await API.patch(`${this.url}/${id}/reject`, data)
     return await response.json()
   }
+
+  async certificate(id: number): Promise<E> {
+    const response = await API.patch(`${this.url}/${id}/certificate`)
+    return await response.json()
+  }
 }

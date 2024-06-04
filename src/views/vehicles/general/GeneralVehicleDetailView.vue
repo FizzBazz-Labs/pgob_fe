@@ -15,6 +15,7 @@ import AccreditationDetailActions from '@/components/accreditations/Accreditatio
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
 import GeneralVehicleDetail from '@/components/vehicles/general/GeneralVehicleDetail.vue'
+import { AccreditationItemType } from '@/entities/Accreditation'
 
 const router = useRouter()
 const route = useRoute()
@@ -91,6 +92,8 @@ async function onReject() {
       />
 
       <AccreditationDetailActions
+        :id="item.id"
+        :type="AccreditationItemType.GENERAL_VEHICLE"
         :status="item.status"
         @edit="gotoEdit"
         @review="onReview"

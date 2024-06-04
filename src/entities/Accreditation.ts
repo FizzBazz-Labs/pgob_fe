@@ -11,6 +11,7 @@ export enum AccreditationItemType {
   NATIONAL = 'national',
   INTERNATIONAL = 'international',
   WEAPON = 'weapon',
+  GENERAL_VEHICLE = 'general_vehicle',
 }
 
 export interface Accreditation {
