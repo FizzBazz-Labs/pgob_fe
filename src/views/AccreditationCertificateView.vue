@@ -1,22 +1,28 @@
 <script lang="ts" setup>
-import { ref, watch, onBeforeMount } from 'vue'
+import { ref, watch, onBeforeMount, computed } from 'vue'
 
 import { toast } from 'vue3-toastify'
 
 import { EyeIcon, IdentificationIcon } from '@heroicons/vue/24/outline'
 
 import { useGeneralStore } from '@/stores/general'
+import { useAuthStore } from '@/stores/auth'
 
 import * as service from '@/services/AccreditationService'
 import * as nationals from '@/services/NationalService'
 import * as internationals from '@/services/InternationalService'
+import { GeneralVehicleService } from '@/services/GeneralVehicleService'
+import { VehicleService } from '@/services/VehicleService'
 
 import { AccreditationStatus } from '@/entities/Accreditation'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
-import { useAuthStore } from '@/stores/auth'
+import CertificateFilters from '@/components/CertificateFilters.vue'
+
+const generalVehicles = new GeneralVehicleService()
+const vehicles = new VehicleService()
 
 type Item = {
   id: number
@@ -34,18 +40,49 @@ const auth = useAuthStore()
 const confirm = ref<HTMLDialogElement>()
 const loading = ref(false)
 
-const columns = ref([
-  { key: 'firstName', label: 'Nombre' },
-  { key: 'lastName', label: 'Apellido' },
-  { key: 'email', label: 'Correo' },
-  { key: 'country', label: 'País', transform: general.country },
-  {
-    key: 'certificated',
-    label: 'Estado',
-    transform: (certificated: boolean) => (certificated ? 'Impreso' : 'Por imprimir'),
-  },
-  { key: 'actions', label: 'Acciones' },
-])
+// const columns = ref([
+//   { key: 'firstName', label: 'Nombre' },
+//   { key: 'lastName', label: 'Apellido' },
+//   { key: 'email', label: 'Correo' },
+//   { key: 'country', label: 'País', transform: general.country },
+//   {
+//     key: 'certificated',
+//     label: 'Estado',
+//     transform: (certificated: boolean) => (certificated ? 'Impreso' : 'Por imprimir'),
+//   },
+//   { key: 'actions', label: 'Acciones' },
+// ])
+
+const columns = computed(() => {
+  const base = [
+    { key: 'country', label: 'País', transform: general.country },
+    {
+      key: 'certificated',
+      label: 'Estado',
+      transform: (certificated: boolean) => (certificated ? 'Impreso' : 'Por imprimir'),
+    },
+    { key: 'actions', label: 'Acciones' },
+  ]
+
+  if (filters.value.accreditation === 'general-vehicles') {
+    return [
+      { key: 'plate', label: 'Placa' },
+      { key: 'brand', label: 'Marca' },
+      { key: 'model', label: 'Modelo' },
+      { key: 'type', label: 'Tipo' },
+
+      ...base,
+    ]
+  }
+
+  return [
+    { key: 'firstName', label: 'Nombre' },
+    { key: 'lastName', label: 'Apellido' },
+    { key: 'email', label: 'Correo' },
+
+    ...base,
+  ]
+})
 
 const items = ref<Item[]>([])
 
@@ -72,10 +109,23 @@ async function onFetch() {
     query: { ...filters.value },
   }
 
-  const response =
-    filters.value.accreditation === 'nationals'
-      ? await nationals.all(options)
-      : await internationals.all(options)
+  let response: any = { results: [], count: 0 }
+  if (filters.value.accreditation === 'nationals') {
+    response = await nationals.all(options)
+  } else if (filters.value.accreditation === 'internationals') {
+    response = await internationals.all(options)
+  } else {
+    response = await generalVehicles.all(options)
+
+    for (const item of response.results) {
+      const vehicle = await vehicles.retrieve(item.vehicle)
+
+      item.plate = vehicle.plate
+      item.brand = vehicle.brand
+      item.model = vehicle.model
+      item.type = vehicle.type
+    }
+  }
 
   items.value = response.results
   pagination.value.count = response.count
@@ -124,59 +174,11 @@ async function onSubmit() {
       </template>
 
       <template #subheader>
-        <div class="grid grid-cols-5 gap-4">
-          <label class="form-control w-full max-w-xs">
-            <div class="label-text">
-              <span class="label-text">Acreditación</span>
-            </div>
-
-            <select
-              v-model="filters.accreditation"
-              class="select select-bordered w-full max-w-xs"
-            >
-              <option value="nationals">Nacional</option>
-              <option value="internationals">Internacional</option>
-            </select>
-          </label>
-
-          <label class="form-control w-full max-w-xs">
-            <div class="label-text">
-              <span class="label-text">Estado de Gafete</span>
-            </div>
-
-            <select
-              v-model="filters.certificated"
-              class="select select-bordered w-full max-w-xs"
-            >
-              <option :value="false">Por Imprimir</option>
-              <option :value="true">Impreso</option>
-            </select>
-          </label>
-
-          <label
-            v-if="filters.accreditation === 'internationals'"
-            class="form-control w-full max-w-xs"
-          >
-            <div class="label-text">
-              <span class="label-text">País</span>
-            </div>
-
-            <select
-              v-model="filters.country"
-              class="select select-bordered w-full max-w-xs"
-            >
-              <option :value="undefined">Todos</option>
-
-              <option
-                v-for="c in general.countries"
-                :key="`country-${c.id}`"
-                :value="c.id"
-              >
-                {{ c.name }}
-              </option>
-            </select>
-          </label>
-        </div>
+        <CertificateFilters
+          v-model:accreditation="filters.accreditation"
+          v-model:certificated="filters.certificated"
+          v-model:country="filters.country"
+        />
       </template>
 
       <template #actions="{ item }">
@@ -191,8 +193,6 @@ async function onSubmit() {
             <EyeIcon class="h-5 w-5" />
           </a>
         </div>
-
-        <!-- Gafete generado exitosamente y enviado a impresión. -->
 
         <div
           v-if="item.certificated && auth.isAccreditor"
