@@ -70,9 +70,6 @@ const accreditations = computed(() => [
 
 const reports = ref<PowerBiReport[]>([])
 
-const helpDialog = ref<HTMLDialogElement>()
-const helpInformation = ref({ title: '', url: '' })
-
 onMounted(() => {
   getPowerBiReportList()
 })
@@ -117,6 +114,7 @@ async function getPowerBiReportList() {
             </div>
 
             <ul
+              v-if="general.help.length > 0"
               class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
             >
               <li
@@ -133,20 +131,12 @@ async function getPowerBiReportList() {
                       v-for="(child, j) in parent.items"
                       :key="`child-${i}-${j}`"
                     >
-                      <button
-                        @click="
-                          () => {
-                            helpInformation = {
-                              title: `${parent.title} | ${child.title}`,
-                              url: child.url,
-                            }
-
-                            helpDialog?.showModal()
-                          }
-                        "
+                      <a
+                        :href="child.url"
+                        target="_blank"
                       >
                         {{ child.title }}
-                      </button>
+                      </a>
                     </li>
                   </ul>
                 </details>
@@ -273,35 +263,4 @@ async function getPowerBiReportList() {
       </ul>
     </div>
   </div>
-
-  <dialog
-    ref="helpDialog"
-    class="modal"
-  >
-    <div class="modal-box min-w-fit">
-      <h3 class="mb-4 text-lg font-bold">
-        {{ helpInformation.title }}
-      </h3>
-
-      <iframe
-        width="560"
-        height="315"
-        :src="helpInformation.url"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-      ></iframe>
-
-      <div class="modal-action justify-end">
-        <button
-          class="btn btn-success text-white"
-          @click="helpDialog?.close()"
-        >
-          Cerrar
-        </button>
-      </div>
-    </div>
-  </dialog>
 </template>
