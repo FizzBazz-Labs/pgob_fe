@@ -31,12 +31,11 @@ const route = useRoute()
 const auth = useAuthStore()
 const general = useGeneralStore()
 
-const showNameFilter = computed(() => {
-  if (route.name === 'international-list' || route.name === 'national-list') {
-    return true
-  }
-  return false
-})
+const showNameFilter = computed(() =>
+  ['national-list', 'international-list', 'housing-list', 'commerce-list'].includes(
+    String(route.name)
+  )
+)
 </script>
 
 <template>
