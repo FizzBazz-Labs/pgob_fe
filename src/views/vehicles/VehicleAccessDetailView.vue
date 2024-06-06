@@ -10,6 +10,8 @@ import AppLoading from '@/components/app/AppLoading.vue'
 import AccreditationDetailActions from '@/components/accreditations/AccreditationDetailActions.vue'
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
+import { AccreditationItemType } from '@/entities/Accreditation'
+
 import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
@@ -24,6 +26,7 @@ onBeforeMount(async () => {
   loading.value = true
 
   item.value = await service.getById(Number(route.params.id))
+  console.log(item.value)
 
   loading.value = false
 })
@@ -257,6 +260,9 @@ function gotoEdit() {
 
       <AccreditationDetailActions
         :status="item.status"
+        :type="AccreditationItemType.AIRPORT_VEHICLE_ACCESS"
+        :id="item.id"
+        :downloaded="item.certificated"
         @review="onReview"
         @approve="onApprove"
         @reject="onReject"

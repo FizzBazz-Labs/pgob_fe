@@ -95,6 +95,7 @@ async function onReject() {
         :id="item.id"
         :type="AccreditationItemType.GENERAL_VEHICLE"
         :status="item.status"
+        :downloaded="item.certificated"
         @edit="gotoEdit"
         @review="onReview"
         @approve="onApprove"

@@ -12,4 +12,5 @@ export interface GeneralVehicle {
   observations: string
   status: AccreditationStatus
   createdBy: CreatedBy
+  certificated: boolean
 }

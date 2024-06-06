@@ -10,4 +10,5 @@ export interface VehicleAccessAirport {
   informationResponsible: string
   vehicles: Vehicle[]
   createdBy: CreatedBy
+  certificated: boolean
 }

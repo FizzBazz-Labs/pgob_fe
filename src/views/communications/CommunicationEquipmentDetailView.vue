@@ -12,6 +12,8 @@ import AccreditationDetailActions from '@/components/accreditations/Accreditatio
 
 import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
+import { AccreditationItemType } from '@/entities/Accreditation'
+
 import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
@@ -127,6 +129,8 @@ async function onReject() {
       <AccreditationDetailActions
         :id="item.id"
         :status="item.status"
+        :type="AccreditationItemType.INTERCOMMUNICATION_EQUIPMENT"
+        :downloaded="item.certificated"
         @review="onReview"
         @approve="onApprove"
         @reject="onReject"

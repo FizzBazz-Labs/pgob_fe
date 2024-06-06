@@ -10,4 +10,5 @@ export interface CommunicationEquipment {
   country: Country
   equipments: Equipment[]
   createdBy?: CreatedBy
+  certificated: boolean
 }

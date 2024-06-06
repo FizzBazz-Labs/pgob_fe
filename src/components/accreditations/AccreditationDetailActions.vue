@@ -12,8 +12,14 @@ import { useAuthStore } from '@/stores/auth'
 import * as nationals from '@/services/NationalService'
 import * as internationals from '@/services/InternationalService'
 import { GeneralVehicleService } from '@/services/GeneralVehicleService'
+import { VehicleAccessService } from '@/services/VehicleAccessAirportService'
+import { IntercommunicationEquipmentService } from '@/services/CommunicationEquipmentService'
+import { SecurityWeaponsService } from '@/services/SecurityService'
 
 const generalVehicles = new GeneralVehicleService()
+const airportVehicleAccess = new VehicleAccessService()
+const communicationEquipment = new IntercommunicationEquipmentService()
+const securityWeapons = new SecurityWeaponsService()
 
 type Props = {
   id?: number
@@ -68,6 +74,15 @@ async function onCertificate() {
     case AccreditationItemType.GENERAL_VEHICLE:
       await generalVehicles.certificate(props.id!)
       break
+    case AccreditationItemType.AIRPORT_VEHICLE_ACCESS:
+      await airportVehicleAccess.certificate(props.id!)
+      break
+    case AccreditationItemType.INTERCOMMUNICATION_EQUIPMENT:
+      await communicationEquipment.certificate(props.id!)
+      break
+    case AccreditationItemType.WEAPON:
+      await securityWeapons.certificate(props.id!)
+      break
   }
 
   print.value?.showModal()
@@ -88,6 +103,12 @@ function canReview() {
     case 'housing-detail':
     case 'commerce-detail':
       return auth.isReviewer && props.status === AccreditationStatus.PENDING
+
+    // case 'communication-equipment-detail':
+    //   return auth.isNewsletters && props.status === AccreditationStatus.PENDING
+
+    // case 'security-detail':
+    //   return auth.isReviewer && props.status === AccreditationStatus.PENDING
 
     default:
       return false

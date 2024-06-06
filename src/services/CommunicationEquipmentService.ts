@@ -2,6 +2,8 @@ import * as API from '@/services/api'
 
 import type { CommunicationEquipment } from '@/entities/CommunicationEquipment'
 
+import { Service } from './service'
+
 const ENDPOINT = '/intercommunication-equipments'
 
 export async function all({
@@ -46,4 +48,10 @@ export async function approve(id: number): Promise<CommunicationEquipment> {
 export async function reject(id: number): Promise<CommunicationEquipment> {
   const response = await API.patch(`${ENDPOINT}/${id}/reject`)
   return await response.json()
+}
+
+export class IntercommunicationEquipmentService extends Service<CommunicationEquipment> {
+  constructor() {
+    super('/intercommunication-equipments')
+  }
 }

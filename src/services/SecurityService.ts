@@ -2,6 +2,8 @@ import * as API from '@/services/api'
 
 import type { SecurityAccreditation } from '@/entities/Security'
 
+import { Service } from './service'
+
 const ENDPOINT = '/security-weapons'
 
 export async function all({
@@ -45,4 +47,10 @@ export async function approve(id: number): Promise<SecurityAccreditation> {
 export async function reject(id: number): Promise<SecurityAccreditation> {
   const response = await API.patch(`${ENDPOINT}/${id}/reject`)
   return await response.json()
+}
+
+export class SecurityWeaponsService extends Service<SecurityAccreditation> {
+  constructor() {
+    super('/security-weapons')
+  }
 }
