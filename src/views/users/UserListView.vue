@@ -4,11 +4,12 @@ import { ref, watch, onBeforeMount } from 'vue'
 import { EyeIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
 import { useAuthStore } from '@/stores/auth'
-import { useGeneralStore } from '@/stores/general'
 
 import { UserService } from '@/services/UserService'
 
 import type { User } from '@/entities/User'
+
+import { GroupLabel } from '@/utils/labels'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
@@ -17,7 +18,6 @@ import AppHeader from '@/components/app/AppHeader.vue'
 const service = new UserService()
 
 const auth = useAuthStore()
-const general = useGeneralStore()
 
 const loading = ref(true)
 
@@ -25,9 +25,9 @@ const columns = ref([
   { key: 'username', label: 'Usuario' },
   { key: 'firstName', label: 'Nombre' },
   { key: 'lastName', label: 'Apellido' },
-  { key: 'Email', label: 'Email' },
-  { key: 'country', label: 'País', transform: general.country },
-  { key: 'group', label: 'Grupo', transform: general.country },
+  { key: 'email', label: 'Email' },
+  { key: 'country', label: 'País' },
+  { key: 'group', label: 'Grupo', transform: (value: string) => GroupLabel[value] ?? 'N/A' },
   { key: 'actions', label: 'Acciones' },
 ])
 
