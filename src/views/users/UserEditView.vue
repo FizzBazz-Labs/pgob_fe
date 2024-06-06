@@ -48,10 +48,6 @@ async function onSubmit() {
 </script>
 
 <template>
-  <pre>
-    {{ values }}
-  </pre>
-
   <AppLoading :loading="loading">
     <AppHeader> Usuarios </AppHeader>
 
