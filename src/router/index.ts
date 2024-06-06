@@ -14,6 +14,7 @@ import { VehicleAccessRoutes } from '@/router/vehicleAccessAiport'
 import { SecurityRoutes } from '@/router/security'
 import { InternationalRoutes } from './internationals'
 import { NationalRoutes } from './nationals'
+import { UserRoutes } from './users'
 
 export const LoginView = {
   path: '/login',
@@ -37,24 +38,6 @@ export const HomeView = {
   path: '/',
   name: 'home',
   component: () => import('../views/HomeView.vue'),
-}
-
-export const UserListView = {
-  path: '/users',
-  name: 'user-list',
-  component: () => import('../views/users/UserListView.vue'),
-}
-
-export const UserCreateView = {
-  path: '/users/add',
-  name: 'user-create',
-  component: () => import('../views/users/UserCreateView.vue'),
-}
-
-export const UserDetailView = {
-  path: '/users/:id',
-  name: 'user-detail',
-  component: () => import('../views/users/UserDetailView.vue'),
 }
 
 export const DashboardView = {
@@ -98,15 +81,12 @@ const router = createRouter({
     NationalAccreditationTableView,
 
     Accreditation404View,
-
-    UserListView,
-    UserCreateView,
-    UserDetailView,
     DashboardView,
     UnavailableSiteView,
     SiteConfigurationEditView,
     ProfileView,
 
+    ...UserRoutes,
     ...AccreditationRoutes,
     ...CommerceRoutes,
     ...HousingRoutes,

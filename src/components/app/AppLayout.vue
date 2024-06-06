@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { UserCircleIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
-import { ref, computed, onMounted, onBeforeMount } from 'vue'
+import { ref, computed, onBeforeMount } from 'vue'
 
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
@@ -9,7 +9,7 @@ import { useGeneralStore } from '@/stores/general'
 
 import { getReports, type PowerBiReport } from '@/services/PowerBiService'
 
-import { LoginView, UserListView, ProfileView } from '@/router'
+import { LoginView, ProfileView } from '@/router'
 
 const config = useConfigStore()
 const auth = useAuthStore()
@@ -215,7 +215,7 @@ async function getPowerBiReportList() {
 
       <ul class="menu w-80 flex-1 p-4">
         <li v-if="auth.isAdmin">
-          <RouterLink :to="UserListView.path">Usuarios</RouterLink>
+          <RouterLink :to="{ name: 'user-list' }">Usuarios</RouterLink>
         </li>
         <li v-if="!auth.isUser">
           <details open>

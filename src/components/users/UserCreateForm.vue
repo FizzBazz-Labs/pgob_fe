@@ -11,8 +11,6 @@ import { toast } from 'vue3-toastify'
 
 import * as service from '@/services/UserService'
 
-import { UserListView } from '@/router'
-
 const router = useRouter()
 
 const values = ref<FormValues>({ country: 1 })
@@ -25,7 +23,7 @@ async function onSubmit() {
   toast('Usuario creado con éxito', { type: 'success' })
 
   router.push({
-    name: UserListView.name,
+    name: 'users-list',
   })
 }
 </script>

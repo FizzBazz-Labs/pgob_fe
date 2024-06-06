@@ -4,12 +4,15 @@ import { ref, watch, onBeforeMount } from 'vue'
 import { EyeIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
 import { useAuthStore } from '@/stores/auth'
+import { useGeneralStore } from '@/stores/general'
 
 import { UserService } from '@/services/UserService'
 
 import type { User } from '@/entities/User'
 
 import { GroupLabel } from '@/utils/labels'
+
+import { UserEditView } from '@/router/users'
 
 import UITable from '@/components/ui/table/UITable.vue'
 import AppLoading from '@/components/app/AppLoading.vue'
@@ -18,6 +21,7 @@ import AppHeader from '@/components/app/AppHeader.vue'
 const service = new UserService()
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const loading = ref(true)
 
@@ -26,7 +30,7 @@ const columns = ref([
   { key: 'firstName', label: 'Nombre' },
   { key: 'lastName', label: 'Apellido' },
   { key: 'email', label: 'Email' },
-  { key: 'country', label: 'País' },
+  { key: 'country', label: 'País', transform: general.country },
   { key: 'group', label: 'Grupo', transform: (value: string) => GroupLabel[value] ?? 'N/A' },
   { key: 'actions', label: 'Acciones' },
 ])
@@ -75,26 +79,31 @@ async function onFetch() {
       }"
     >
       <template #actions="{ item }">
-        <div
-          class="tooltip"
-          data-tip="Detalle"
-        >
-          <RouterLink :to="{ name: 'user-detail', params: { id: item.id } }">
-            <EyeIcon class="h-5 w-5 text-blue-500" />
-          </RouterLink>
-        </div>
-
-        <div
-          v-if="auth.isAdmin"
-          class="tooltip tooltip-bottom"
-          data-tip="Editar"
-        >
-          <button
-            class="btn btn-ghost"
-            @click="() => {}"
+        <div class="flex gap-1">
+          <div
+            class="tooltip"
+            data-tip="Detalle"
           >
-            <PencilSquareIcon class="h-5 w-5" />
-          </button>
+            <RouterLink
+              :to="{ name: 'user-detail', params: { id: item.id } }"
+              class="btn btn-ghost btn-sm"
+            >
+              <EyeIcon class="h-5 w-5" />
+            </RouterLink>
+          </div>
+
+          <div
+            v-if="auth.isAdmin"
+            class="tooltip tooltip-bottom"
+            data-tip="Editar"
+          >
+            <RouterLink
+              :to="{ name: UserEditView.name, params: { id: item.id } }"
+              class="btn btn-ghost btn-sm"
+            >
+              <PencilSquareIcon class="h-5 w-5" />
+            </RouterLink>
+          </div>
         </div>
       </template>
     </UITable>
