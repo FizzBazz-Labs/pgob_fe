@@ -1,12 +1,17 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+
+import { useRoute } from 'vue-router'
 
 import * as service from '@/services/UserService'
 
 import type { User } from '@/entities/User'
+
+import { useGeneralStore } from '@/stores/general'
+
 const route = useRoute()
-const router = useRouter()
+
+const general = useGeneralStore()
 
 const item = ref<User>()
 
@@ -101,7 +106,7 @@ onBeforeMount(async () => {
             <input
               type="text"
               class="input input-bordered w-full text-black"
-              :value="item?.country"
+              :value="general.country(item?.country ?? -1)"
               disabled
             />
           </div>

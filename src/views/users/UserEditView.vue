@@ -7,6 +7,7 @@ import { UserService } from '@/services/UserService'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
 import UserForm from '@/components/users/UserForm.vue'
+import router from '@/router'
 
 const route = useRoute()
 
@@ -31,11 +32,18 @@ onBeforeMount(async () => {
 async function onSubmit() {
   loading.value = true
 
-  const response = await service.update(Number(route.params.id), values.value)
+  try {
+    await service.update(Number(route.params.id), values.value)
 
-  console.log(response)
-
-  loading.value = false
+    router.push({
+      name: 'users-detail',
+      params: { id: route.params.id },
+    })
+  } catch (_) {
+    errors.value = ['Error al actualizar el usuario']
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
