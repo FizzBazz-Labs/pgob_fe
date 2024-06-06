@@ -8,6 +8,7 @@ import * as service from '@/services/UserService'
 import type { User } from '@/entities/User'
 
 import { useGeneralStore } from '@/stores/general'
+import { GroupLabel } from '@/utils/labels'
 
 const route = useRoute()
 
@@ -134,7 +135,7 @@ onBeforeMount(async () => {
           <input
             type="text"
             class="input input-bordered w-full text-black"
-            :value="item?.group"
+            :value="GroupLabel[item?.group ?? ''] ?? 'N/A'"
             disabled
           />
         </div>
