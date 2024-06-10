@@ -181,13 +181,11 @@ function canReject() {
 function canApproveLabel() {
   switch (route.name) {
     case 'general-vehicle-detail':
-    case 'vehicle-access-detail':
-    case 'non-commercial-aircraft-detail':
-      return 'Generar Acreditación'
+      return 'Generar Marbete'
 
     case 'national-detail':
     case 'international-detail':
-      return 'Generar Marbete'
+      return 'Generar Acreditación'
 
     default:
       return 'Generar Formulario'
