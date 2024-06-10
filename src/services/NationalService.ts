@@ -4,8 +4,6 @@ import type { National } from '@/entities/National'
 import type { FormValues } from '@/entities/Form'
 import { AccreditationStatus } from '@/entities/Accreditation'
 
-const ENDPOINT = '/national-accreditations'
-
 type AllParams = {
   pagination: {
     page: number
