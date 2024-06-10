@@ -33,13 +33,15 @@ async function onSubmit() {
   loading.value = true
 
   try {
-    await service.update(Number(route.params.id), values.value)
+    const response = await service.update(Number(route.params.id), values.value)
 
     router.push({
-      name: 'users-detail',
-      params: { id: route.params.id },
+      name: 'user-detail',
+      params: { id: response.id },
     })
-  } catch (_) {
+  } catch (error) {
+    console.error(error)
+
     errors.value = ['Error al actualizar el usuario']
   } finally {
     loading.value = false
