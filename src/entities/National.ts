@@ -41,7 +41,7 @@ export interface National {
   medication2: string
   medication3: string
   medication4: string
-  allergies: Array<Allergy>
+  allergies: Array<number>
   allergiesDescription: string
   immunizations: Array<Immunization>
   medicals: Array<MedicalHistory>
