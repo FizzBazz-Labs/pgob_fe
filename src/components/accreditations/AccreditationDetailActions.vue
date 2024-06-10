@@ -177,6 +177,22 @@ function canReject() {
       return false
   }
 }
+
+function canApproveLabel() {
+  switch (route.name) {
+    case 'general-vehicle-detail':
+    case 'vehicle-access-detail':
+    case 'non-commercial-aircraft-detail':
+      return 'Generar Acreditación'
+
+    case 'national-detail':
+    case 'international-detail':
+      return 'Generar Marbete'
+
+    default:
+      return 'Generar Formulario'
+  }
+}
 </script>
 
 <template>
@@ -197,13 +213,7 @@ function canReject() {
         class="btn btn-success text-white"
         @click="emits('approve')"
       >
-        {{
-          route.name === 'general-vehicle-detail' ||
-          route.name === 'vehicle-access-detail' ||
-          route.name === 'non-commercial-aircraft-detail'
-            ? 'Generar Acreditación'
-            : 'Generar Marbete'
-        }}
+        {{ canApproveLabel() }}
       </button>
 
       <button
