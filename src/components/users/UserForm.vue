@@ -51,13 +51,6 @@ const { groups, accreditations } = useFormSelect({ values })
       <div class="w-1/2">
         <HiddenIdField />
 
-        <FormKit
-          type="text"
-          name="username"
-          label="Usuario"
-          validation="required"
-        />
-
         <div class="grid grid-cols-2 gap-4">
           <FirstNameField />
           <LastNameField />
