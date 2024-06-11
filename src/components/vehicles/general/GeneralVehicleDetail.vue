@@ -15,7 +15,7 @@ const AccreditationTypeLabel: Record<string, any> = {
   COMMERCIAL_NEWSLETTER: 'Prensa Nacional',
   INTERNATIONAL_NEWSLETTER: 'Prensa Internacional',
   DIPLOMATIC_MISSION: 'Misión Diplomática',
-  MINREX_OFFICIALS: 'Funcionarios MINREX'
+  MINREX_OFFICIALS: 'Funcionarios MINREX',
 }
 </script>
 
@@ -61,8 +61,13 @@ const AccreditationTypeLabel: Record<string, any> = {
   <h1 class="divider divider-start mt-10 text-xl font-bold">Datos de Conductor</h1>
 
   <DetailField
-    label="Teléfono"
+    label="Nombre"
     :value="vehicle.driverName"
+  />
+
+  <DetailField
+    label="Teléfono"
+    :value="vehicle.phone"
   />
 
   <DetailField
