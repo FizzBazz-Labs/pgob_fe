@@ -19,7 +19,7 @@ export async function valuesFromNational(id: number): Promise<any> {
         authorizationLetter: item.authorizationLetter ? [item.authorizationLetter] : [],
         hasMedicalStaff: item.doctorName !== '',
         hasAllergies: item.allergies.length > 0,
-        allergies: item.allergies.map(item => item.id),
+        allergies: item.allergies,
         hasImmunization: item.immunizations.length > 0,
         immunizations: item.immunizations.map(item => item.id),
         hasMedicalHistory: item.medicals.length > 0,

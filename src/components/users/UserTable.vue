@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 import { EyeIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
-import { UserDetailView } from '@/router'
+import { UserDetailView } from '@/router/users'
 
 import { useAuthStore } from '@/stores/auth'
 
