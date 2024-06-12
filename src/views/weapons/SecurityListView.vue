@@ -19,6 +19,10 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 const auth = useAuthStore()
 const general = useGeneralStore()
 
+const API_URL = import.meta.env.VITE_API_URL
+
+const ss = new service.SecurityWeaponsService()
+
 const loading = ref(true)
 
 const columns = ref([
@@ -70,9 +74,9 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
-        create: {
-          name: 'security-weapon-create',
-        },
+        create: { name: 'security-weapon-create' },
+        export: `${API_URL}/security-weapons/export`,
+        importData: ss.importData.bind(ss),
       }"
     >
       <template #subheader>
