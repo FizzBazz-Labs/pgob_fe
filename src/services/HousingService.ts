@@ -17,8 +17,6 @@ export class HousingService extends Service<Housing> {
 
     form.append('data', file)
 
-    console.log(this.url)
-
     const response = await API.form(`/housings/import`, form)
     return await response.json()
   }

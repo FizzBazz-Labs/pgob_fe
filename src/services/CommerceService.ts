@@ -16,8 +16,6 @@ export class CommerceService extends Service<Entity> {
 
     form.append('data', file)
 
-    console.log(this.url)
-
     const response = await API.form(`/commerces/import`, form)
     return await response.json()
   }
