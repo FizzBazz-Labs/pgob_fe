@@ -18,6 +18,8 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 const auth = useAuthStore()
 const general = useGeneralStore()
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const service = new Service()
 
 const AccreditationTypeLabel: any = {
@@ -82,6 +84,8 @@ async function onFetch() {
       v-model:pagination="pagination"
       :meta="{
         create: { name: 'general-vehicle-create' },
+        export: `${API_URL}/general-vehicles/export`,
+        importData: service.importData.bind(service),
       }"
     >
       <template #subheader>

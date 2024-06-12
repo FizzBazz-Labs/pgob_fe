@@ -11,7 +11,7 @@ type AllParams = {
 
 export abstract class Service<E> {
   constructor(
-    protected url: string,
+    private url: string,
     private serializer?: Serializer
   ) {}
 
@@ -89,6 +89,20 @@ export abstract class Service<E> {
 
   async certificate(id: number): Promise<E> {
     const response = await API.patch(`${this.url}/${id}/certificate`)
+    return await response.json()
+  }
+
+  async importData(values: any): Promise<void> {
+    console.log(this)
+
+    const form = new FormData()
+
+    const files = values.data as Array<{ file: File }>
+    const file = files[0].file
+
+    form.append('data', file)
+
+    const response = await API.form(`${this.url}/import`, form)
     return await response.json()
   }
 }
