@@ -65,11 +65,16 @@ export const ProfileView = {
   component: () => import('../views/ProfileView.vue'),
 }
 
-export const Accreditation404View = {
+export const NotFoundView = {
   path: '/404',
   name: 'accreditation-404',
   component: () => import('../views/Accreditation404View.vue'),
   meta: { requiresAuth: false },
+}
+
+export const Accreditation404View = {
+  path: '/accreditations/404',
+  redirect: { name: 'accreditation-404' },
 }
 
 const router = createRouter({
@@ -80,6 +85,7 @@ const router = createRouter({
     AccreditationListView,
     NationalAccreditationTableView,
 
+    NotFoundView,
     Accreditation404View,
     DashboardView,
     UnavailableSiteView,
