@@ -70,7 +70,7 @@ const statusOptions = [
     value: AccreditationStatus.PENDING,
   },
   {
-    label: 'Aprobado',
+    label: 'Verificado',
     value: AccreditationStatus.APPROVED,
   },
   {
