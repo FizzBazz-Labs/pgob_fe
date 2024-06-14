@@ -21,10 +21,11 @@ const loading = ref(true)
 const isLogin = computed(() => route.name === LoginView.name)
 const isUnavailable = computed(() => route.name === UnavailableSiteView.name)
 const isNotFound = computed(() => route.name === NotFoundView.name)
-const hasUUID = computed(() => route.params.uuid)
+const hasUUID = computed(() => route.query.uuid)
 
 const canUseLayout = computed(() => {
   const values = [isLogin.value, isUnavailable.value, isNotFound.value, hasUUID.value]
+
   return !values.some(Boolean)
 })
 
