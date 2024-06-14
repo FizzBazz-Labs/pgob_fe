@@ -51,7 +51,7 @@ onBeforeMount(async () => {
 
   item.value = await service.retrieve(Number(route.params.id))
   vehicle.value = await vehicles.retrieve(item.value.vehicle)
-  console.log(item.value)
+
   loading.value = false
 })
 
@@ -129,6 +129,7 @@ async function onReject() {
       "
       :assignedTo="item?.assignedTo || 'N/A'"
       :valid="String(route.query.uuid) === item?.uuid"
+      :vehicle="vehicle"
     />
   </AppLoading>
 </template>

@@ -2,6 +2,8 @@
 import { useConfigStore } from '@/stores/config'
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline'
 
+import type { Vehicle } from '@/entities/Vehicle'
+
 const config = useConfigStore()
 
 type Props = {
@@ -9,6 +11,7 @@ type Props = {
   accreditationType: string
   accreditationTypeVehicle: string
   assignedTo: string
+  vehicle?: Vehicle
 }
 
 defineProps<Props>()
@@ -46,6 +49,18 @@ defineProps<Props>()
           <p class="mt-4">Tipo de acreditación: {{ accreditationType }}</p>
           <p>Acreditación de vehiculo tipo: {{ accreditationTypeVehicle }}</p>
           <p>Asignado a: {{ assignedTo }}</p>
+          <!-- <hr /> -->
+          <p class="mt-2 text-center">Datos del vehiculo</p>
+
+          <div v-if="vehicle">
+            <p>Placa: {{ vehicle.plate }}</p>
+            <p>Marca: {{ vehicle.brand }}</p>
+            <p>Modelo: {{ vehicle.model }}</p>
+            <p>Color: {{ vehicle.color }}</p>
+            <p>Tipo: {{ vehicle.type }}</p>
+            <p>Nombre del conductor: {{ vehicle.driverName }}</p>
+            <p>No. Identificación: {{ vehicle.driverId }}</p>
+          </div>
         </div>
       </div>
 
