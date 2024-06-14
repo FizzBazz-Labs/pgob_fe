@@ -59,7 +59,7 @@ const showNameFilter = computed(() =>
         <option :value="AccreditationStatus.PENDING">Pendiente</option>
         <option :value="AccreditationStatus.APPROVED">Aceptado</option>
         <option :value="AccreditationStatus.REJECTED">Rechazado</option>
-        <option :value="AccreditationStatus.REVIEWED">Aprobado</option>
+        <option :value="AccreditationStatus.REVIEWED">Verificado</option>
       </select>
     </label>
 
