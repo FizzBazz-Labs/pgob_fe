@@ -89,7 +89,7 @@ defineProps<Props>()
         <XCircleIcon class="size-32 text-red-500" />
       </div>
 
-      <p class="text-xl">Usted está escaneando un QR en gafete invalido.</p>
+      <p class="text-xl">Usted está escaneando un QR en un gafete invalido.</p>
       <p class="text-xl">Contactar a un agente de la FTC para más información.</p>
 
       <div class="flex w-full justify-center">
