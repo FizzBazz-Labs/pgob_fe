@@ -16,6 +16,12 @@ const AccreditationTypeLabel: Record<string, any> = {
   INTERNATIONAL_NEWSLETTER: 'Prensa Internacional',
   DIPLOMATIC_MISSION: 'Misión Diplomática',
   MINREX_OFFICIALS: 'Funcionarios MINREX',
+  VEHICLES: 'Vehículos',
+}
+
+const AccreditationTypeVehicleLabel: Record<string, any> = {
+  INSTITUTIONAL_SUPPORT: 'Apoyo Institucional',
+  OTHER: 'Otro',
 }
 </script>
 
@@ -23,6 +29,13 @@ const AccreditationTypeLabel: Record<string, any> = {
   <DetailField
     label="Acreditación Para"
     :value="AccreditationTypeLabel[item.accreditationType] ?? 'N/A'"
+    class="mt-5"
+  />
+
+  <DetailField
+    v-if="item.accreditationType === 'VEHICLES'"
+    label="Acreditación Para Vehículos"
+    :value="AccreditationTypeVehicleLabel[item.accreditationTypeVehicle] ?? 'N/A'"
     class="mt-5"
   />
 

@@ -28,6 +28,7 @@ const AccreditationTypeLabel: any = {
   INTERNATIONAL_NEWSLETTER: 'Prensa Internacional',
   DIPLOMATIC_MISSION: 'Misión Diplomática',
   MINREX_OFFICIALS: 'Funcionarios MINREX',
+  VEHICLES: 'Vehículos',
 }
 
 const loading = ref(true)
@@ -36,7 +37,7 @@ const columns = ref([
   {
     key: 'accreditationType',
     label: 'Tipo',
-    transform: (value: string) => AccreditationTypeLabel[value],
+    transform: (value: string) => AccreditationTypeLabel[value] ?? 'N/A',
   },
   { key: 'assignedTo', label: 'Asignado a' },
   { key: 'country', label: 'País', transform: general.country },
