@@ -90,7 +90,7 @@ defineProps<Props>()
       </div>
       <h2 class="text-center text-3xl font-bold">Acreditación Invalida</h2>
 
-      <p class="text-xl">Contactar a un agente de la FTC para más información.</p>
+      <p class="text-xl">Contactar a un oficial de acreditaciones para más información.</p>
 
       <div class="flex w-full justify-center">
         <div class="divider w-1/3"></div>
