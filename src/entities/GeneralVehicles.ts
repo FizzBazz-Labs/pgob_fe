@@ -14,4 +14,5 @@ export interface GeneralVehicle {
   status: AccreditationStatus
   createdBy: CreatedBy
   certificated: boolean
+  uuid: string
 }
