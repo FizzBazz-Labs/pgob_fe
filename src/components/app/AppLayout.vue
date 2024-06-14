@@ -71,7 +71,7 @@ const accreditations = computed(() => [
 const reports = ref<PowerBiReport[]>([])
 
 onBeforeMount(() => {
-  getPowerBiReportList()
+  if (!auth.isAnonymous) getPowerBiReportList()
 })
 
 // functions

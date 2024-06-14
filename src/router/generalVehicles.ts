@@ -15,7 +15,7 @@ export const GeneralVehicleCreateView = {
 export const GeneralVehicleDetailView = {
   path: '/accreditations/general-vehicles/:id',
   name: 'general-vehicle-detail',
-  meta: { permissions: 'GeneralVehicle' },
+  meta: { requiresAuth: false, permissions: 'GeneralVehicle' },
   component: () => import('../views/vehicles/general/GeneralVehicleDetailView.vue'),
 }
 

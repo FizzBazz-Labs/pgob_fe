@@ -17,6 +17,8 @@ import SiteHeader from '@/components/vehicles/GeneralVehicleHeader.vue'
 import GeneralVehicleDetail from '@/components/vehicles/general/GeneralVehicleDetail.vue'
 import { AccreditationItemType } from '@/entities/Accreditation'
 
+import GeneralVehicleDetailValidation from '@/components/vehicles/general/GeneralVehicleDetailValidation.vue'
+
 const router = useRouter()
 const route = useRoute()
 
@@ -30,12 +32,26 @@ const loading = ref(true)
 const item = ref<GeneralVehicle>()
 const vehicle = ref<Vehicle>()
 
+const AccreditationTypeLabel: Record<string, any> = {
+  OFFICIAL_NEWSLETTER: 'Prensa Oficial',
+  COMMERCIAL_NEWSLETTER: 'Prensa Nacional',
+  INTERNATIONAL_NEWSLETTER: 'Prensa Internacional',
+  DIPLOMATIC_MISSION: 'Misión Diplomática',
+  MINREX_OFFICIALS: 'Funcionarios MINREX',
+  VEHICLES: 'Vehículos',
+}
+
+const AccreditationTypeVehicleLabel: Record<string, any> = {
+  INSTITUTIONAL_SUPPORT: 'Apoyo Institucional',
+  OTHER: 'Otro',
+}
+
 onBeforeMount(async () => {
   loading.value = true
 
   item.value = await service.retrieve(Number(route.params.id))
   vehicle.value = await vehicles.retrieve(item.value.vehicle)
-
+  console.log(item.value)
   loading.value = false
 })
 
@@ -73,34 +89,46 @@ async function onReject() {
 
 <template>
   <AppLoading :loading="loading">
-    <main
-      v-if="item && vehicle"
-      class="mx-auto w-2/3"
-    >
-      <SiteHeader />
-
-      <div
-        v-if="!auth.isUser"
-        class="flex flex-col gap-4"
+    <template v-if="!auth.isAnonymous && item && !route.query.uuid">
+      <main
+        v-if="item && vehicle"
+        class="mx-auto w-2/3"
       >
-        <StatusBadge :status="item.status" />
-      </div>
+        <SiteHeader />
 
-      <GeneralVehicleDetail
-        :item="item"
-        :vehicle="vehicle"
-      />
+        <div
+          v-if="!auth.isUser"
+          class="flex flex-col gap-4"
+        >
+          <StatusBadge :status="item.status" />
+        </div>
 
-      <AccreditationDetailActions
-        :id="item.id"
-        :type="AccreditationItemType.GENERAL_VEHICLE"
-        :status="item.status"
-        :downloaded="item.certificated"
-        @edit="gotoEdit"
-        @review="onReview"
-        @approve="onApprove"
-        @reject="onReject"
-      />
-    </main>
+        <GeneralVehicleDetail
+          :item="item"
+          :vehicle="vehicle"
+        />
+
+        <AccreditationDetailActions
+          :id="item.id"
+          :type="AccreditationItemType.GENERAL_VEHICLE"
+          :status="item.status"
+          :downloaded="item.certificated"
+          @edit="gotoEdit"
+          @review="onReview"
+          @approve="onApprove"
+          @reject="onReject"
+        />
+      </main>
+    </template>
+
+    <GeneralVehicleDetailValidation
+      v-else
+      :accreditationType="AccreditationTypeLabel[item?.accreditationType || '']"
+      :accreditationTypeVehicle="
+        AccreditationTypeVehicleLabel[item?.accreditationTypeVehicle || '']
+      "
+      :assignedTo="item?.assignedTo || 'N/A'"
+      :valid="String(route.query.uuid) === item?.uuid"
+    />
   </AppLoading>
 </template>
