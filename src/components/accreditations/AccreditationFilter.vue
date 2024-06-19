@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 
 import { AccreditationStatus } from '@/entities/Accreditation'
 
-import * as service from '@/services/UserService'
+import { UserService } from '@/services/UserService'
 import type { User } from '@/entities/User'
 
 import StaticCountryField from '../forms/fields/StaticCountryField.vue'
@@ -30,8 +30,15 @@ type Filters = {
 
 const options = ref<User[]>([])
 
+const service = new UserService()
+
 onBeforeMount(async () => {
-  options.value = (await service.all()).results
+  options.value = (
+    await service.all({
+      pagination: { page: 0, limit: 1000 },
+      query: {},
+    })
+  ).results
 })
 
 const filters = defineModel<Filters>()
