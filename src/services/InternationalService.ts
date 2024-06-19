@@ -20,18 +20,20 @@ type AllParams = {
     status?: AccreditationStatus
     search?: string
     date?: string
+    creator?: number
   }
 }
 
 export async function all({
   pagination: { page, limit },
-  query: { country, certificated, status, search, date },
+  query: { country, certificated, status, search, date, creator },
 }: AllParams): Promise<API.PaginatedResponse<International>> {
   let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
   url += status ? `&status=${status}` : ''
   url += country ? `&country=${country}` : ''
   url += search ? `&search=${search}` : ''
   url += date ? `&date=${date}` : ''
+  url += creator ? `&creator=${creator}` : ''
 
   if (certificated !== undefined) {
     url += `&certificated=${certificated}`
