@@ -176,8 +176,8 @@ export function useFormSelect(props: Props) {
       label: 'Personal de Apoyo',
     },
     {
-      value: 'OFFICIAL_NEWSLETTER',
-      label: 'Prensa Oficial',
+      value: 'OFFICIAL_INTERNATIONAL_NEWSLETTER',
+      label: 'Prensa Oficial Internacional',
     },
     {
       value: 'CREW',

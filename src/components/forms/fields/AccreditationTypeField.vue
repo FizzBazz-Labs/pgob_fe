@@ -26,6 +26,10 @@ const choices = [
     value: 'VEHICLES',
     label: 'Vehículos',
   },
+  {
+    value: 'OFFICIAL_INTERNATIONAL_NEWSLETTER',
+    label: 'Prensa Oficial Internacional',
+  },
 ]
 
 const vehicleChoices = ref([
