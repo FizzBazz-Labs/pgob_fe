@@ -8,12 +8,13 @@ const ENDPOINT = '/intercommunication-equipments'
 
 export async function all({
   pagination: { page, limit },
-  query: { status, country, date },
+  query: { status, country, date, creator },
 }: any): Promise<API.PaginatedResponse<CommunicationEquipment>> {
   let url = `${ENDPOINT}/?offset=${page * limit}&limit=${limit}`
   url += status ? `&status=${status}` : ''
   url += country ? `&country=${country}` : ''
   url += date ? `&date=${date}` : ''
+  url += creator ? `&creator=${creator}` : ''
 
   const response = await API.get(url)
   return await response.json()

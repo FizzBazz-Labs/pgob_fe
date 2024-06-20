@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { AccreditationStatus } from '@/entities/Accreditation'
+
+import { UserService } from '@/services/UserService'
+import type { User } from '@/entities/User'
 
 import StaticCountryField from '../forms/fields/StaticCountryField.vue'
 
@@ -22,7 +25,21 @@ type Filters = {
   country?: string
   search?: string
   date?: string
+  creator?: string
 }
+
+const options = ref<User[]>([])
+
+const service = new UserService()
+
+onBeforeMount(async () => {
+  options.value = (
+    await service.all({
+      pagination: { page: 0, limit: 1000 },
+      query: {},
+    })
+  ).results
+})
 
 const filters = defineModel<Filters>()
 
@@ -106,6 +123,29 @@ const showNameFilter = computed(() =>
         type="text"
         class="input input-bordered w-full max-w-xs"
       />
+    </label>
+
+    <label
+      v-if="!auth.isUser"
+      class="form-control w-full max-w-xs"
+    >
+      <div class="label-text">
+        <span class="label-text"> Filtro por creador </span>
+      </div>
+
+      <select
+        v-model="filters.creator"
+        class="select select-bordered w-full max-w-xs"
+      >
+        <option :value="undefined">Todos</option>
+        <option
+          :value="item.id"
+          v-for="(item, index) in options"
+          :key="index"
+        >
+          {{ item.firstName.toUpperCase() }} {{ item.lastName.toUpperCase() }}
+        </option>
+      </select>
     </label>
 
     <label class="form-control w-full max-w-xs">
