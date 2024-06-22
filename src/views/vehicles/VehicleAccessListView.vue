@@ -19,7 +19,11 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 const auth = useAuthStore()
 const general = useGeneralStore()
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const loading = ref(true)
+
+const vehicleAccessService = new service.VehicleAccessService()
 
 const columns = ref([
   { key: 'country', label: 'Pais', transform: general.country },
@@ -71,9 +75,9 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
-        create: {
-          name: 'vehicle-access-create',
-        },
+        create: { name: 'vehicle-access-create' },
+        export: `${API_URL}/airport-vehicle-access/export`,
+        importData: vehicleAccessService.importData.bind(vehicleAccessService),
       }"
     >
       <template #subheader>
