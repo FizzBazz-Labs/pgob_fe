@@ -17,7 +17,11 @@ import StatusBadge from '@/components/accreditations/StatusBadge.vue'
 
 const auth = useAuthStore()
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const loading = ref(true)
+
+const communicationService = new service.IntercommunicationEquipmentService()
 
 const columns = ref([
   {
@@ -68,9 +72,9 @@ async function onFetch() {
       :rows="items"
       v-model:pagination="pagination"
       :meta="{
-        create: {
-          name: 'communication-equipment-create',
-        },
+        create: { name: 'communication-equipment-create' },
+        export: `${API_URL}/intercommunication-equipments/export`,
+        importData: communicationService.importData.bind(communicationService),
       }"
     >
       <template #subheader>
