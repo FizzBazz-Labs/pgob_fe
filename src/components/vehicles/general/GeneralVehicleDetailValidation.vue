@@ -60,6 +60,26 @@ defineProps<Props>()
             <p>Tipo: {{ vehicle.type }}</p>
             <p>Nombre del conductor: {{ vehicle.driverName }}</p>
             <p>No. Identificación: {{ vehicle.driverId }}</p>
+            <p class="mt-2">
+              <a
+                v-if="vehicle.driverLicense"
+                :href="vehicle.driverLicense"
+                target="_blank"
+                class="btn"
+              >
+                Licencia de Conductor
+              </a>
+            </p>
+            <p class="mt-2">
+              <a
+                v-if="vehicle.tpv"
+                :href="vehicle.tpv"
+                target="_blank"
+                class="btn"
+              >
+                Registro de Único Vehicular
+              </a>
+            </p>
           </div>
         </div>
       </div>
