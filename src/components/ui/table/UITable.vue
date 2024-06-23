@@ -34,6 +34,7 @@ const pagination = defineModel<UITablePagination>('pagination', {
 watch(
   () => pagination.value.limit,
   () => {
+    pagination.value.page = -1
     pagination.value.page = 0
   }
 )

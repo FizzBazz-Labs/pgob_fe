@@ -129,7 +129,9 @@ function canApprove() {
       return auth.isTransportationManager && props.status === AccreditationStatus.PENDING
 
     case 'communication-equipment-detail':
-      return auth.isNewsletters && props.status === AccreditationStatus.PENDING
+      return (
+        (auth.isNewsletters || auth.isAccreditor) && props.status === AccreditationStatus.PENDING
+      )
 
     case 'security-detail':
       return auth.isReviewer && props.status === AccreditationStatus.PENDING
