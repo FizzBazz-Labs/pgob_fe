@@ -46,11 +46,13 @@ const pagination = ref({
 
 const filters = ref<Record<string, any>>({})
 
-watch(() => pagination.value.page, onFetch)
+watch(() => pagination.value.page, onFetch, { deep: true })
 watch(filters, onFetch, { deep: true })
 onBeforeMount(onFetch)
 
 async function onFetch() {
+  console.log('OnFetch')
+
   loading.value = Boolean(filters.value.search) === false
 
   const response = await service.all({

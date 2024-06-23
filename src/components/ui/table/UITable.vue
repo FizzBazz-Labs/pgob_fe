@@ -33,10 +33,7 @@ const pagination = defineModel<UITablePagination>('pagination', {
 
 watch(
   () => pagination.value.limit,
-  () => {
-    pagination.value.page = -1
-    pagination.value.page = 0
-  }
+  () => (pagination.value = { ...pagination.value, page: 0 })
 )
 
 const auth = useAuthStore()

@@ -46,7 +46,7 @@ const pagination = ref({
 
 const filters = ref<Record<string, any>>({})
 
-watch(() => pagination.value.page, onFetch)
+watch(() => pagination.value.page, onFetch, { deep: true })
 watch(filters, onFetch, { deep: true })
 onBeforeMount(onFetch)
 
