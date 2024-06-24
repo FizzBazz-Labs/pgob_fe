@@ -183,7 +183,7 @@ function canReject() {
 function canApproveLabel() {
   switch (route.name) {
     case 'general-vehicle-detail':
-      return 'Generar Marbete'
+      return 'Aprobar'
 
     case 'national-detail':
     case 'international-detail':
@@ -191,6 +191,18 @@ function canApproveLabel() {
 
     default:
       return 'Generar Formulario'
+  }
+}
+
+function printLabel() {
+  const prefix = props.downloaded ? 'Reimprimir' : 'Imprimir'
+
+  switch (route.name) {
+    case 'general-vehicle-detail':
+      return `${prefix} Marbete`
+
+    default:
+      return `${prefix} Gafete`
   }
 }
 </script>
@@ -229,7 +241,7 @@ function canApproveLabel() {
         @click="props.downloaded ? reprint?.showModal() : onCertificate()"
         class="btn"
       >
-        {{ props.downloaded ? 'Reimprimir' : 'Imprimir' }} Gafete
+        printLabel()
 
         <ArrowDownTrayIcon class="h-5 w-5" />
       </button>
