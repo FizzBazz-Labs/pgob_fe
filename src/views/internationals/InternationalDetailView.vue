@@ -660,7 +660,7 @@ function onEdit() {
 
           <DetailField
             v-if="item.flightArrivalAirport"
-            label="Aeropuerto de Procedencia"
+            label="Aeropuerto de llegada"
             :value="item.flightArrivalAirport"
           />
         </div>
@@ -712,7 +712,7 @@ function onEdit() {
 
           <DetailField
             v-if="item.flightDepartureAirport"
-            label="Aeropuerto de Destino"
+            label="Aeropuerto de salida"
             :value="item.flightDepartureAirport"
           />
         </div>

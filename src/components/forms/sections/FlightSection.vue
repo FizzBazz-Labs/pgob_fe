@@ -67,7 +67,7 @@ const labels = {
       <FormKit
         type="text"
         name="flightArrivalAirport"
-        label="Aeropuerto de Procedencia"
+        label="Aeropuerto de llegada"
       />
     </template>
   </div>
@@ -114,7 +114,7 @@ const labels = {
       <FormKit
         type="text"
         name="flightDepartureAirport"
-        label="Aeropuerto de Destino"
+        label="Aeropuerto de salida"
       />
     </template>
   </div>

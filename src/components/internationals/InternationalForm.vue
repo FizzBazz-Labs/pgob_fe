@@ -515,7 +515,7 @@ async function onSubmit() {
               <FormKit
                 type="text"
                 name="flightArrivalAirport"
-                label="Aeropuerto de Llegada"
+                label="Aeropuerto de llegada"
               />
             </div>
 
@@ -545,7 +545,7 @@ async function onSubmit() {
               <FormKit
                 type="text"
                 name="flightDepartureAirport"
-                label="Aeropuerto de Salida"
+                label="Aeropuerto de salida"
               />
             </div>
           </div>
