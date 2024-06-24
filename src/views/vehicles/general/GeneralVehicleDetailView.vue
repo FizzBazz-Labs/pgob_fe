@@ -81,7 +81,14 @@ async function onReview(values: any) {
 async function onApprove(values: any) {
   if (!item.value) return
 
-  item.value = await service.approve(item.value.id, values)
+  loading.value = true
+  confirmApproveDialog.value?.close()
+
+  try {
+    item.value = await service.approve(item.value.id, values)
+  } finally {
+    loading.value = false
+  }
 }
 
 async function onReject() {
