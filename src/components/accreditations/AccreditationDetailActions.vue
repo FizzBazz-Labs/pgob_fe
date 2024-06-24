@@ -201,8 +201,12 @@ function printLabel() {
     case 'general-vehicle-detail':
       return `${prefix} Marbete`
 
-    default:
+    case 'national-detail':
+    case 'international-detail':
       return `${prefix} Gafete`
+
+    default:
+      return prefix
   }
 }
 </script>
