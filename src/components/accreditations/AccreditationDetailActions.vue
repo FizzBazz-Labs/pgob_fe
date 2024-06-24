@@ -241,7 +241,7 @@ function printLabel() {
         @click="props.downloaded ? reprint?.showModal() : onCertificate()"
         class="btn"
       >
-        printLabel()
+        {{ printLabel() }}
 
         <ArrowDownTrayIcon class="h-5 w-5" />
       </button>
