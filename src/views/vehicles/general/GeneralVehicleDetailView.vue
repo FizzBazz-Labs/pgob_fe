@@ -18,11 +18,13 @@ import GeneralVehicleDetail from '@/components/vehicles/general/GeneralVehicleDe
 import { AccreditationItemType } from '@/entities/Accreditation'
 
 import GeneralVehicleDetailValidation from '@/components/vehicles/general/GeneralVehicleDetailValidation.vue'
+import { useGeneralStore } from '@/stores/general'
 
 const router = useRouter()
 const route = useRoute()
 
 const auth = useAuthStore()
+const general = useGeneralStore()
 
 const service = new GeneralVehicleService()
 const vehicles = new VehicleService()
@@ -31,6 +33,8 @@ const loading = ref(true)
 
 const item = ref<GeneralVehicle>()
 const vehicle = ref<Vehicle>()
+
+const confirmApproveDialog = ref<HTMLDialogElement>()
 
 const AccreditationTypeLabel: Record<string, any> = {
   OFFICIAL_NEWSLETTER: 'Prensa Oficial',
@@ -74,10 +78,10 @@ async function onReview(values: any) {
   }
 }
 
-async function onApprove() {
+async function onApprove(values: any) {
   if (!item.value) return
 
-  item.value = await service.approve(item.value.id)
+  item.value = await service.approve(item.value.id, values)
 }
 
 async function onReject() {
@@ -115,7 +119,7 @@ async function onReject() {
           :downloaded="item.certificated"
           @edit="gotoEdit"
           @review="onReview"
-          @approve="onApprove"
+          @approve="confirmApproveDialog?.showModal()"
           @reject="onReject"
         />
       </main>
@@ -132,4 +136,49 @@ async function onReject() {
       :vehicle="vehicle"
     />
   </AppLoading>
+
+  <dialog
+    ref="confirmApproveDialog"
+    class="modal"
+  >
+    <div class="modal-box pb-0">
+      <h3 class="mb-4 text-lg font-bold">Confirmación</h3>
+
+      <FormKit
+        type="form"
+        :actions="false"
+        @submit="onApprove"
+      >
+        <FormKit
+          type="select"
+          name="certification"
+          label="Tipo de Certificado"
+          validation="required"
+          :options="
+            general.credentials.map(item => ({
+              label: item.name,
+              value: item.id,
+            }))
+          "
+          select-icon="down"
+        />
+
+        <div class="flex justify-end gap-4">
+          <FormKit
+            type="submit"
+            label="Aprobar"
+            suffix-icon="submit"
+            outer-class="!max-w-fit"
+          />
+
+          <button
+            class="btn"
+            @click.prevent="confirmApproveDialog?.close()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </FormKit>
+    </div>
+  </dialog>
 </template>

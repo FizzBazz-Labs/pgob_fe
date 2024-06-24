@@ -11,7 +11,7 @@ type AllParams = {
 
 export abstract class Service<E> {
   constructor(
-    private url: string,
+    protected url: string,
     private serializer?: Serializer
   ) {}
 
