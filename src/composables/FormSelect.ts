@@ -156,6 +156,10 @@ export function useFormSelect(props: Props) {
       value: 'TRANSPORT',
       label: 'Transporte',
     },
+    {
+      value: 'BILATERAL_TECHNICAL',
+      label: 'Técnico Bilateral',
+    },
   ])
 
   const internationalTypes = ref([
