@@ -152,6 +152,10 @@ export function useFormSelect(props: Props) {
       value: 'OFFICIAL_NEWSLETTER',
       label: 'Prensa Oficial',
     },
+    {
+      value: 'TRANSPORT',
+      label: 'Transporte',
+    },
   ])
 
   const internationalTypes = ref([
