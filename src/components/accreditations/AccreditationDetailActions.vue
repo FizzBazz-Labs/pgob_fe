@@ -104,6 +104,9 @@ function canReview() {
     case 'commerce-detail':
       return auth.isReviewer && props.status === AccreditationStatus.PENDING
 
+    case 'general-vehicle-detail':
+      return (auth.isTransportationManager  || auth.isReviewer) && props.status === AccreditationStatus.PENDING
+
     // case 'communication-equipment-detail':
     //   return auth.isNewsletters && props.status === AccreditationStatus.PENDING
 
@@ -126,7 +129,7 @@ function canApprove() {
     case 'general-vehicle-detail':
     case 'vehicle-access-detail':
     case 'non-commercial-aircraft-detail':
-      return auth.isTransportationManager && props.status === AccreditationStatus.PENDING
+      return (auth.isTransportationManager  || auth.isAccreditor) && props.status === AccreditationStatus.REVIEWED
 
     case 'communication-equipment-detail':
       return (
