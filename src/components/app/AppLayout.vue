@@ -3,6 +3,8 @@ import { UserCircleIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 
 import { ref, computed, onBeforeMount } from 'vue'
 
+import { useRouter } from 'vue-router'
+
 import { useConfigStore } from '@/stores/config'
 import { useAuthStore } from '@/stores/auth'
 import { useGeneralStore } from '@/stores/general'
@@ -10,6 +12,8 @@ import { useGeneralStore } from '@/stores/general'
 import { getReports, type PowerBiReport } from '@/services/PowerBiService'
 
 import { LoginView, ProfileView } from '@/router'
+
+const router = useRouter()
 
 const config = useConfigStore()
 const auth = useAuthStore()
@@ -184,7 +188,12 @@ async function getPowerBiReportList() {
                   v-else
                   :to="LoginView.path"
                   class="text-error"
-                  @click="auth.logout"
+                  @click="
+                    () => {
+                      auth.logout()
+                      router.replace({ name: 'login' })
+                    }
+                  "
                 >
                   Cerrar Sesión
                 </RouterLink>
