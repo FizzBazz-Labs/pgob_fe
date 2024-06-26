@@ -86,7 +86,7 @@ function init() {
             label="Valor Aproximado"
             validation="required"
             number="float"
-            step="0.01"
+            step="1"
           />
 
           <div class="flex justify-end">

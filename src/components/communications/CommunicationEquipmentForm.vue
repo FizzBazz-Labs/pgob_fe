@@ -163,10 +163,12 @@ function gotoDetail() {
             />
 
             <FormKit
-              type="text"
-              v-model="item.value"
+              type="number"
+              v-model="item.value as any"
               label="Valor Aproximado"
               validation="required"
+              number="float"
+              step="0.10"
             />
 
             <div class="flex justify-end">
