@@ -168,7 +168,7 @@ function gotoDetail() {
               label="Valor Aproximado"
               validation="required"
               number="float"
-              step="0.10"
+              step="0.01"
             />
 
             <div class="flex justify-end">
