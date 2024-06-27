@@ -12,6 +12,8 @@ type Props = {
   accreditationType: string
   position: string
   image?: string
+  institution: string
+  country: string
 }
 
 defineProps<Props>()
@@ -55,7 +57,9 @@ defineProps<Props>()
           <p class="mt-4">Nombre: {{ name }}</p>
           <p>Cédula: {{ passportId }}</p>
           <p>Tipo: {{ accreditationType }}</p>
+          <p>País: {{ country  }}</p>
           <p>Cargo: {{ position }}</p>
+          <p>Institución: {{ institution }}</p>
         </div>
       </div>
 
