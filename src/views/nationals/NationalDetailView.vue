@@ -566,7 +566,7 @@ function onEdit() {
       :position="item?.position?.name || 'Sin cargo'"
       :image="item?.image",
       :institution="item?.institution || 'Sin intitución'"
-      :country="general.country(item?.country || 0)"
+      :country="general.country(item?.country) || general.country(163)"
     />
   </AppLoading>
 
