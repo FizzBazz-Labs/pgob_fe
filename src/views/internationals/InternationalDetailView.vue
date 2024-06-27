@@ -740,7 +740,7 @@ function onEdit() {
       :accreditationType="internationalTypes.find(i => i.value === item?.type)?.label ?? 'Sin tipo'"
       :position="item?.position?.name || 'Sin cargo'"
       :institution="item?.institution || 'Sin institución'"
-      :country="general.country(item.country)"
+      :country="general.country(item?.country)"
       :image="item?.image"
     />
   </AppLoading>
