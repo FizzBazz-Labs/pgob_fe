@@ -564,9 +564,9 @@ function onEdit() {
       :passportId="item?.passportId || ''"
       :accreditationType="nationalTypes.find(i => i.value === item?.type)?.label ?? 'Sin tipo'"
       :position="item?.position?.name || 'Sin cargo'"
-      :image="item?.image",
+      :image="item?.image"
       :institution="item?.institution || 'Sin intitución'"
-      :country="general.country(typeof item?.country === 'undefined' ? 163 : item?.country )"
+      :country="general.country(typeof item?.country === 'undefined' ? 163 : item?.country)"
     />
   </AppLoading>
 
