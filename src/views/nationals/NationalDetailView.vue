@@ -565,8 +565,8 @@ function onEdit() {
       :accreditationType="nationalTypes.find(i => i.value === item?.type)?.label ?? 'Sin tipo'"
       :position="item?.position?.name || 'Sin cargo'"
       :image="item?.image",
-      :institution="item?.intitution || 'Sin intitución'"
-      :country="general.country(item?.country)"
+      :institution="item?.institution || 'Sin intitución'"
+      :country="general.country(item?.country || 0)"
     />
   </AppLoading>
 
